@@ -1,0 +1,62 @@
+@import url("https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@400;500;600;700&family=Caveat+Brush&family=Indie+Flower&family=Patrick+Hand&family=Schoolbell&family=Shadows+Into+Light&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans), sans-serif;
+  background:
+    radial-gradient(circle at top, rgba(37, 99, 235, 0.08), transparent 30%),
+    #f8fafc;
+}
+
+.font-hand {
+  font-family: var(--font-hand), cursive;
+}
+
+.paper-frame {
+  position: relative;
+  overflow: hidden;
+}
+
+.paper-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 10% 12%, rgba(255, 255, 255, 0.75), transparent 15%),
+    linear-gradient(180deg, transparent, rgba(15, 23, 42, 0.05));
+  mix-blend-mode: screen;
+}
+
+.control-card {
+  @apply rounded-3xl border border-slate-200 bg-white/95 p-5 shadow-card;
+}
+
+.input-label {
+  @apply mb-2 block text-sm font-semibold text-slate-700;
+}
+
+.input-field {
+  @apply w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-brand-blue focus:ring-4 focus:ring-blue-100;
+}
+
+.range-field {
+  @apply h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-200 accent-brand-blue;
+}
+
+.page-preview {
+  background-image:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.04), transparent 20%),
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.95), transparent 25%);
+}
