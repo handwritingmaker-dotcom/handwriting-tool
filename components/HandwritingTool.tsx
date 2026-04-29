@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   defaultSettings,
   ExportFormat,
+  HandwritingStyle,
   handwritingStyles,
   renderHandwriting,
   RenderSettings,
@@ -146,13 +147,15 @@ type RenderedPage = {
 };
 
 export function HandwritingTool() {
-  const [text, setText] = useState(starterText);
+  const [text, setText] = useState("");
   const [settings, setSettings] = useState<RenderSettings>(defaultSettings);
   const [pages, setPages] = useState<RenderedPage[]>([]);
   const [fileName, setFileName] = useState("handwriting-pages");
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
+  const [scope, setScope] = useState<"current" | "all">("current");
   const [isRendering, setIsRendering] = useState(true);
   const renderRequestId = useRef(0);
+  const stylePreviewCache = useRef(new Map<string, HTMLCanvasElement>());
 
   useEffect(() => {
     const requestId = renderRequestId.current + 1;
@@ -285,37 +288,7 @@ export function HandwritingTool() {
         <label className="input-label" htmlFor="handwriting-text">
           Paste your assignment, notes, or article
         </label>
-        <textarea
-          id="handwriting-text"
-          value={text}
-          onChange={(event) => setText(event.target.value)}
-          className="input-field min-h-[320px] resize-y leading-7"
-          placeholder="Type or paste long content here..."
-        />
-
-        <div className="mt-3 flex flex-wrap items-center justify-between gap-3 text-sm text-slate-500">
-          <p>
-            {wordCount} words detected. Preview updates after you pause typing.
-          </p>
-          <div className="flex flex-wrap gap-2">
-            <button
-              type="button"
-              onClick={clearText}
-              className="rounded-full border border-slate-200 bg-white px-4 py-2 font-semibold text-slate-700 transition hover:bg-slate-50"
-            >
-              Clear Text
-            </button>
-            <button
-              type="button"
-              onClick={resetText}
-              className="rounded-full border border-blue-100 bg-blue-50 px-4 py-2 font-semibold text-brand-blue transition hover:bg-blue-100"
-            >
-              Reset Sample
-            </button>
-          </div>
-        </div>
-
-        <div className="mt-6">
+        <div className="mb-4">
           <p className="input-label">Quick presets</p>
           <div className="flex flex-wrap gap-2">
             {settingPresets.map((preset) => (
@@ -336,24 +309,68 @@ export function HandwritingTool() {
             ))}
           </div>
         </div>
+        <textarea
+          id="handwriting-text"
+          value={text}
+          onChange={(event) => setText(event.target.value)}
+          className="input-field min-h-[320px] resize-y leading-7"
+          placeholder="Paste your essay, notes, or assignment here..."
+        />
+        {text.length === 0 && (
+          <div className="mt-3 rounded-2xl border border-dashed border-slate-200 bg-slate-50 px-4 py-4">
+            <div className="flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={resetText}
+                className="rounded-full border border-blue-100 bg-blue-50 px-4 py-2 text-sm font-semibold text-brand-blue transition hover:bg-blue-100"
+              >
+                Try sample text →
+              </button>
+              <p className="text-sm text-slate-500">or paste your own content above</p>
+            </div>
+          </div>
+        )}
+
+        <div className="mt-3 flex flex-wrap items-center justify-between gap-3 text-sm text-slate-500">
+          <p>
+            {wordCount} words detected. Preview updates after you pause typing.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={clearText}
+              className="rounded-full border border-slate-200 bg-white px-4 py-2 font-semibold text-slate-700 transition hover:bg-slate-50"
+            >
+              Clear Text
+            </button>
+            {text.length > 0 && (
+              <button
+                type="button"
+                onClick={resetText}
+                className="rounded-full border border-blue-100 bg-blue-50 px-4 py-2 font-semibold text-brand-blue transition hover:bg-blue-100"
+              >
+                Try sample text →
+              </button>
+            )}
+          </div>
+        </div>
 
         <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          <div>
-            <label className="input-label" htmlFor="styleId">
+          <div className="md:col-span-2 xl:col-span-3">
+            <p className="input-label" id="styleId">
               Handwriting Style
-            </label>
-            <select
-              id="styleId"
-              className="input-field"
-              value={settings.styleId}
-              onChange={(event) => updateSetting("styleId", event.target.value)}
-            >
+            </p>
+            <div className="flex flex-wrap gap-2" aria-labelledby="styleId">
               {handwritingStyles.map((style) => (
-                <option key={style.id} value={style.id}>
-                  {style.label}
-                </option>
+                <StylePreviewCard
+                  key={style.id}
+                  style={style}
+                  selected={settings.styleId === style.id}
+                  previewCache={stylePreviewCache}
+                  onClick={() => updateSetting("styleId", style.id)}
+                />
               ))}
-            </select>
+            </div>
           </div>
 
           <div>
@@ -571,84 +588,60 @@ export function HandwritingTool() {
         </div>
 
         <div className="mt-5 rounded-3xl border border-slate-200 bg-white p-4">
-          <div className="flex flex-wrap items-start justify-between gap-3">
-            <div>
-              <p className="text-sm font-semibold text-slate-950">Export selected page</p>
-              <p className="mt-1 text-sm text-slate-500">
-                Use this for one clean page. Choose the page above, then download PNG, JPG, or PDF.
-              </p>
-            </div>
-            <p className="inline-flex items-center gap-2 text-sm text-slate-500">
-              {isRendering && (
-                <span className="h-4 w-4 animate-spin rounded-full border-2 border-blue-200 border-t-brand-blue" />
-              )}
-              {isRendering ? "Rendering..." : "Preview is ready."}
-            </p>
+          <div className="flex flex-wrap gap-2">
+            {(["current", "all"] as const).map((item) => (
+              <button
+                key={item}
+                type="button"
+                onClick={() => setScope(item)}
+                className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                  scope === item
+                    ? "bg-blue-50 text-brand-blue ring-1 ring-blue-100"
+                    : "border border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+                }`}
+              >
+                {item === "current" ? "Current page" : "All pages"}
+              </button>
+            ))}
           </div>
 
-          <div className="mt-4 flex flex-wrap items-center gap-3">
+          <div className="mt-4">
             <button
               type="button"
-              onClick={() => downloadCurrentImage("png")}
+              onClick={() => downloadPdf(scope)}
               disabled={!canDownload}
-              className="rounded-full bg-brand-blue px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              Download PNG
-            </button>
-            <button
-              type="button"
-              onClick={() => downloadCurrentImage("jpg")}
-              disabled={!canDownload}
-              className="rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              Download JPG
-            </button>
-            <button
-              type="button"
-              onClick={() => downloadPdf("current")}
-              disabled={!canDownload}
-              className="rounded-full border border-emerald-100 bg-emerald-50 px-5 py-3 text-sm font-semibold text-brand-green transition hover:bg-emerald-100 disabled:cursor-not-allowed disabled:opacity-50"
+              className="w-full rounded-full bg-brand-blue px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
             >
               Download PDF
             </button>
           </div>
 
-          <div className="mt-5 border-t border-slate-200 pt-4">
-            <p className="text-sm font-semibold text-slate-950">Export all pages</p>
-            <p className="mt-1 text-sm text-slate-500">
-              Use this when your text creates multiple pages and you want every page at once.
-            </p>
-            <div className="mt-4 flex flex-wrap items-center gap-3">
+          <details className="mt-4 border-t border-slate-200 pt-4">
+            <summary className="cursor-pointer list-none text-sm font-semibold text-slate-950">More formats</summary>
+            <div className="mt-3 flex flex-wrap items-center gap-3">
               <button
                 type="button"
-                onClick={() => downloadImages("png")}
+                onClick={() => (scope === "current" ? downloadCurrentImage("png") : downloadImages("png"))}
                 disabled={!canDownload}
-                className="rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
+                className="rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                Download All PNG
+                Download PNG
               </button>
               <button
                 type="button"
-                onClick={() => downloadImages("jpg")}
+                onClick={() => (scope === "current" ? downloadCurrentImage("jpg") : downloadImages("jpg"))}
                 disabled={!canDownload}
-                className="rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+                className="rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                Download All JPG
-              </button>
-              <button
-                type="button"
-                onClick={() => downloadPdf("all")}
-                disabled={!canDownload}
-                className="rounded-full bg-brand-blue px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                Download All PDF
+                Download JPG
               </button>
             </div>
-          </div>
+          </details>
         </div>
       </div>
 
-      <div className="control-card page-preview">
+      <div className="control-card page-preview relative overflow-hidden">
+        {isRendering && <div className="absolute left-0 top-0 h-[3px] w-full animate-pulse bg-brand-blue" />}
         <div className="mb-5 flex items-center justify-between">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-green">Preview</p>
@@ -660,11 +653,6 @@ export function HandwritingTool() {
         </div>
 
         <div className="max-h-[980px] space-y-6 overflow-auto pr-1">
-          {isRendering && (
-            <div className="rounded-3xl border border-blue-100 bg-blue-50 px-5 py-4 text-sm font-semibold text-brand-blue">
-              Rendering sharper handwritten pages...
-            </div>
-          )}
           {pages.map((page, index) => (
             <div
               key={`${page.pngUrl}-${index}`}
@@ -681,6 +669,95 @@ export function HandwritingTool() {
         </div>
       </div>
     </section>
+  );
+}
+
+function StylePreviewCard({
+  style,
+  selected,
+  previewCache,
+  onClick,
+}: {
+  style: HandwritingStyle;
+  selected: boolean;
+  previewCache: { current: Map<string, HTMLCanvasElement> };
+  onClick: () => void;
+}) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const drawPreview = (preview: HTMLCanvasElement) => {
+      const canvas = canvasRef.current;
+      const ctx = canvas?.getContext("2d");
+
+      if (!canvas || !ctx) return;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(preview, 0, 0);
+    };
+
+    const cachedPreview = previewCache.current.get(style.id);
+    if (cachedPreview) {
+      drawPreview(cachedPreview);
+      return;
+    }
+
+    void renderHandwriting("Hello World Sample", {
+      ...defaultSettings,
+      styleId: style.id,
+      pageType: "blank",
+      fontSize: 38,
+      leftMargin: 90,
+      rightMargin: 90,
+      topMargin: 80,
+      bottomMargin: 80,
+      assignmentMode: false,
+      pdfQuality: "low",
+      showMarginLine: false,
+      pageTilt: 0,
+    })
+      .then((result) => {
+        if (!isMounted) return;
+
+        const source = result.pages[0];
+        const preview = document.createElement("canvas");
+        const ctx = preview.getContext("2d");
+
+        preview.width = 130;
+        preview.height = 32;
+
+        if (!source || !ctx) return;
+
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, preview.width, preview.height);
+        ctx.drawImage(source, 58, 54, 620, 150, 0, 0, preview.width, preview.height);
+        previewCache.current.set(style.id, preview);
+        drawPreview(preview);
+      })
+      .catch((error) => {
+        console.error("Failed to render handwriting style preview", error);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [previewCache, style.id]);
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`h-[72px] w-[140px] rounded-lg p-1.5 text-left transition ${
+        selected
+          ? "border-2 border-brand-blue bg-blue-50"
+          : "border border-slate-200 bg-white hover:bg-slate-50"
+      }`}
+    >
+      <span className="block truncate text-xs font-semibold text-slate-950">{style.label}</span>
+      <canvas ref={canvasRef} width={130} height={32} className="mt-1 h-8 w-[130px] rounded-lg bg-white" />
+    </button>
   );
 }
 
