@@ -38,7 +38,13 @@ export const metadata: Metadata = {
   },
 };
 
-const navLinks = [
+const headerLinks = [
+  { href: "/blog", label: "Blog" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
+];
+
+const footerLinks = [
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
@@ -76,7 +82,7 @@ export default function RootLayout({
                 <Link href="/#seo-guide" className="transition hover:text-brand-blue">
                   Guide
                 </Link>
-                {navLinks.map((link) => (
+                {headerLinks.map((link) => (
                   <Link key={link.href} href={link.href} className="transition hover:text-brand-blue">
                     {link.label}
                   </Link>
@@ -87,9 +93,9 @@ export default function RootLayout({
           {children}
           <footer className="border-t border-slate-200 bg-white">
             <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-10 text-sm text-slate-600 sm:px-6 lg:px-8 md:flex-row md:items-center md:justify-between">
-              <p>Built for students who want handwritten assignments that feel natural, fast, and export-ready.</p>
+              <p>HandwritingTool helps users convert text into realistic handwritten pages quickly and easily.</p>
               <div className="flex flex-wrap items-center gap-4">
-                {navLinks.map((link) => (
+                {footerLinks.map((link) => (
                   <Link key={link.href} href={link.href} className="transition hover:text-brand-blue">
                     {link.label}
                   </Link>
