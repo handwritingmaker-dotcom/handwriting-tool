@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { DM_Sans, Kalam } from "next/font/google";
 import "./globals.css";
@@ -19,6 +20,11 @@ export const metadata: Metadata = {
   description:
     "Convert text to handwriting online for free. Generate realistic handwritten pages and download as PDF, PNG, or JPG. No signup required.",
   metadataBase: new URL("https://handwritingtool.com"),
+  icons: {
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
   alternates: {
     canonical: "/",
   },
@@ -63,14 +69,15 @@ export default function RootLayout({
         <div className="min-h-screen">
           <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/85 backdrop-blur">
             <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-              <Link href="/" className="flex items-center gap-3 text-lg font-semibold text-slate-950">
-                <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-blue text-xl text-white shadow-paper">
-                  <PenIcon className="h-5 w-5" />
-                </span>
-                <span>
-                  Handwriting
-                  <span className="font-hand ml-1 text-brand-blue">Lab</span>
-                </span>
+              <Link href="/" className="flex items-center" aria-label="HandwritingTool home">
+                <Image
+                  src="/handwriting-tool-logo.png"
+                  alt="HandwritingTool"
+                  width={180}
+                  height={70}
+                  priority
+                  className="h-16 w-auto"
+                />
               </Link>
               <nav className="hidden items-center gap-6 text-sm font-medium text-slate-600 md:flex">
                 <Link href="/#tool" className="transition hover:text-brand-blue">
@@ -106,23 +113,5 @@ export default function RootLayout({
         </div>
       </body>
     </html>
-  );
-}
-
-function PenIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      aria-hidden="true"
-      className={className}
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2.4"
-      viewBox="0 0 24 24"
-    >
-      <path d="M12 20h9" />
-      <path d="m16.5 3.5 4 4L7 21l-4 1 1-4Z" />
-    </svg>
   );
 }
