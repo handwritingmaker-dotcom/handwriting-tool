@@ -18,7 +18,24 @@ export const metadata: Metadata = {
   title: "Free Text to Handwriting Converter Online | Handwriting Generator PDF Tool",
   description:
     "Convert text to handwriting online for free. Generate realistic handwritten pages and download as PDF, PNG, or JPG. No signup required.",
-  metadataBase: new URL("https://yourdomain.com"),
+  metadataBase: new URL("https://handwritingtool.com"),
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Free Text to Handwriting Converter Online | Handwriting Generator PDF Tool",
+    description:
+      "Convert text to handwriting online for free. Generate realistic handwritten pages and download as PDF, PNG, or JPG. No signup required.",
+    url: "/",
+    siteName: "Handwriting Tool",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Free Text to Handwriting Converter Online | Handwriting Generator PDF Tool",
+    description:
+      "Convert text to handwriting online for free. Generate realistic handwritten pages and download as PDF, PNG, or JPG. No signup required.",
+  },
 };
 
 const navLinks = [
