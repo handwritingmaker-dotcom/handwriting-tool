@@ -2,6 +2,22 @@ export const metadata = {
   title: "Terms and Conditions | HandwritingTool",
   description:
     "Read the terms and conditions for using HandwritingTool, including service use, user responsibility, intellectual property, and liability.",
+  alternates: {
+    canonical: "/terms",
+  },
+  openGraph: {
+    title: "Terms and Conditions | HandwritingTool",
+    description:
+      "Read the terms and conditions for using HandwritingTool, including service use, user responsibility, intellectual property, and liability.",
+    url: "/terms",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Terms and Conditions | HandwritingTool",
+    description:
+      "Read the terms and conditions for using HandwritingTool, including service use, user responsibility, intellectual property, and liability.",
+  },
 };
 
 const sections = [

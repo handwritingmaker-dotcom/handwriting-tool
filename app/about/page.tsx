@@ -2,6 +2,22 @@ export const metadata = {
   title: "About Us | HandwritingTool",
   description:
     "Learn about HandwritingTool, a simple and reliable platform for converting text into realistic handwritten assignments, notes, and documents.",
+  alternates: {
+    canonical: "/about",
+  },
+  openGraph: {
+    title: "About Us | HandwritingTool",
+    description:
+      "Learn about HandwritingTool, a simple and reliable platform for converting text into realistic handwritten assignments, notes, and documents.",
+    url: "/about",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "About Us | HandwritingTool",
+    description:
+      "Learn about HandwritingTool, a simple and reliable platform for converting text into realistic handwritten assignments, notes, and documents.",
+  },
 };
 
 const reasons = [

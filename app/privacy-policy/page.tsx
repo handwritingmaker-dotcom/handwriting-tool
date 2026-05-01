@@ -2,6 +2,22 @@ export const metadata = {
   title: "Privacy Policy | HandwritingTool",
   description:
     "Read how HandwritingTool respects user privacy, handles limited usage information, cookies, analytics, and third-party services.",
+  alternates: {
+    canonical: "/privacy-policy",
+  },
+  openGraph: {
+    title: "Privacy Policy | HandwritingTool",
+    description:
+      "Read how HandwritingTool respects user privacy, handles limited usage information, cookies, analytics, and third-party services.",
+    url: "/privacy-policy",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Privacy Policy | HandwritingTool",
+    description:
+      "Read how HandwritingTool respects user privacy, handles limited usage information, cookies, analytics, and third-party services.",
+  },
 };
 
 const collectedInfo = ["Browser type and version", "Device information", "Pages visited and usage behavior"];

@@ -141,7 +141,6 @@ const settingPresets: Array<{
 
 type RenderedPage = {
   pngUrl: string;
-  jpgUrl: string;
   width: number;
   height: number;
 };
@@ -172,7 +171,6 @@ export function HandwritingTool() {
         setPages(
           result.pages.map((page) => ({
             pngUrl: page.toDataURL("image/png"),
-            jpgUrl: page.toDataURL("image/jpeg", 0.95),
             width: result.pageWidth,
             height: result.pageHeight,
           })),
@@ -203,28 +201,28 @@ export function HandwritingTool() {
     }));
   };
 
-  const downloadImage = (page: RenderedPage, pageIndex: number, format: Extract<ExportFormat, "png" | "jpg">) => {
+  const downloadImage = async (page: RenderedPage, pageIndex: number, format: Extract<ExportFormat, "png" | "jpg">) => {
     const link = document.createElement("a");
     link.download = `${safeBaseName}-page-${pageIndex + 1}.${format}`;
-    link.href = format === "png" ? page.pngUrl : page.jpgUrl;
+    link.href = format === "png" ? page.pngUrl : await convertPngToJpg(page);
     link.click();
   };
 
-  const downloadImages = (format: Extract<ExportFormat, "png" | "jpg">) => {
+  const downloadImages = async (format: Extract<ExportFormat, "png" | "jpg">) => {
     if (!canDownload) return;
 
-    pages.forEach((page, index) => {
-      downloadImage(page, index, format);
-    });
+    for (let index = 0; index < pages.length; index += 1) {
+      await downloadImage(pages[index], index, format);
+    }
   };
 
-  const downloadCurrentImage = (format: Extract<ExportFormat, "png" | "jpg">) => {
+  const downloadCurrentImage = async (format: Extract<ExportFormat, "png" | "jpg">) => {
     if (!canDownload) return;
 
     const page = pages[selectedPageIndex];
     if (!page) return;
 
-    downloadImage(page, selectedPageIndex, format);
+    await downloadImage(page, selectedPageIndex, format);
   };
 
   const downloadPdf = (scope: "all" | "current") => {
@@ -618,7 +616,9 @@ export function HandwritingTool() {
             <div className="mt-3 flex flex-wrap items-center gap-3">
               <button
                 type="button"
-                onClick={() => (scope === "current" ? downloadCurrentImage("png") : downloadImages("png"))}
+                onClick={() => {
+                  void (scope === "current" ? downloadCurrentImage("png") : downloadImages("png"));
+                }}
                 disabled={!canDownload}
                 className="rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
               >
@@ -626,7 +626,9 @@ export function HandwritingTool() {
               </button>
               <button
                 type="button"
-                onClick={() => (scope === "current" ? downloadCurrentImage("jpg") : downloadImages("jpg"))}
+                onClick={() => {
+                  void (scope === "current" ? downloadCurrentImage("jpg") : downloadImages("jpg"));
+                }}
                 disabled={!canDownload}
                 className="rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
               >
@@ -906,4 +908,29 @@ function sanitizeFileName(value: string) {
     .replace(/\s+/g, "-")
     .replace(/-+/g, "-")
     .replace(/^-|-$/g, "");
+}
+
+function convertPngToJpg(page: RenderedPage) {
+  return new Promise<string>((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+
+      canvas.width = page.width;
+      canvas.height = page.height;
+
+      if (!ctx) {
+        reject(new Error("Canvas context could not be created."));
+        return;
+      }
+
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+      resolve(canvas.toDataURL("image/jpeg", 0.95));
+    };
+    image.onerror = () => reject(new Error("Could not prepare JPG download."));
+    image.src = page.pngUrl;
+  });
 }

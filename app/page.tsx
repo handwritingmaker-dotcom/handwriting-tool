@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { HandwritingTool } from "@/components/HandwritingTool";
 
+const siteUrl = "https://handwritingtool.com";
+
 const features = [
   {
     title: "Human Letter Flow",
@@ -53,9 +55,42 @@ const faqs = [
   },
 ];
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+};
+
+const softwareSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "HandwritingTool",
+  applicationCategory: "ProductivityApplication",
+  operatingSystem: "Web",
+  url: siteUrl,
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+  },
+  description:
+    "Free online text to handwriting converter for creating handwritten pages and exporting them as PDF, PNG, or JPG.",
+};
+
 export default function HomePage() {
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([softwareSchema, faqSchema]) }}
+      />
       <section className="bg-hero-grid bg-grid">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[1.05fr,0.95fr] lg:px-8 lg:py-14">
           <div className="max-w-2xl">

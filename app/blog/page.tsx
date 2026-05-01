@@ -4,6 +4,20 @@ import { getAllPosts } from "@/lib/blog";
 export const metadata = {
   title: "Blog | Handwriting Lab",
   description: "Helpful articles about handwriting converters, productivity, assignments, and developer workflows.",
+  alternates: {
+    canonical: "/blog",
+  },
+  openGraph: {
+    title: "Blog | Handwriting Lab",
+    description: "Helpful articles about handwriting converters, productivity, assignments, and developer workflows.",
+    url: "/blog",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Blog | Handwriting Lab",
+    description: "Helpful articles about handwriting converters, productivity, assignments, and developer workflows.",
+  },
 };
 
 export default function BlogPage() {

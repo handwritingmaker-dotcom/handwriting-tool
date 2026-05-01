@@ -2,6 +2,22 @@ export const metadata = {
   title: "Contact Us | HandwritingTool",
   description:
     "Contact HandwritingTool for technical issues, feature suggestions, business inquiries, collaboration requests, and general feedback.",
+  alternates: {
+    canonical: "/contact",
+  },
+  openGraph: {
+    title: "Contact Us | HandwritingTool",
+    description:
+      "Contact HandwritingTool for technical issues, feature suggestions, business inquiries, collaboration requests, and general feedback.",
+    url: "/contact",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Contact Us | HandwritingTool",
+    description:
+      "Contact HandwritingTool for technical issues, feature suggestions, business inquiries, collaboration requests, and general feedback.",
+  },
 };
 
 const contactTopics = [
