@@ -2,32 +2,33 @@ import type { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/blog";
 
 const siteUrl = "https://handwritingtool.com";
+const fallbackLastModified = new Date("2026-05-01");
 
 const staticRoutes = [
-  { path: "", changeFrequency: "weekly", priority: 1 },
-  { path: "/about", changeFrequency: "monthly", priority: 0.6 },
-  { path: "/blog", changeFrequency: "weekly", priority: 0.8 },
-  { path: "/contact", changeFrequency: "monthly", priority: 0.6 },
-  { path: "/privacy-policy", changeFrequency: "yearly", priority: 0.4 },
-  { path: "/terms", changeFrequency: "yearly", priority: 0.4 },
+  { path: "", changeFrequency: "weekly", priority: 1, lastModified: "2026-05-01" },
+  { path: "/about", changeFrequency: "monthly", priority: 0.6, lastModified: "2026-04-30" },
+  { path: "/blog", changeFrequency: "weekly", priority: 0.8, lastModified: "2026-05-01" },
+  { path: "/contact", changeFrequency: "monthly", priority: 0.6, lastModified: "2026-04-30" },
+  { path: "/privacy-policy", changeFrequency: "yearly", priority: 0.4, lastModified: "2026-04-30" },
+  { path: "/terms", changeFrequency: "yearly", priority: 0.4, lastModified: "2026-04-30" },
 ] satisfies Array<{
   path: string;
   changeFrequency: NonNullable<MetadataRoute.Sitemap[number]["changeFrequency"]>;
   priority: number;
+  lastModified: string;
 }>;
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
   const staticPages = staticRoutes.map((route) => ({
     url: `${siteUrl}${route.path}`,
-    lastModified: now,
+    lastModified: new Date(route.lastModified),
     changeFrequency: route.changeFrequency,
     priority: route.priority,
   }));
 
   const blogPages = getAllPosts().map((post) => ({
     url: `${siteUrl}/blog/${post.slug}`,
-    lastModified: post.date ? new Date(post.date) : now,
+    lastModified: post.date ? new Date(post.date) : fallbackLastModified,
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));
