@@ -44,6 +44,8 @@ export interface RenderResult {
   pageHeight: number;
 }
 
+const fontReadyTimeoutMs = 2000;
+
 const pageDimensions: Record<PageSize, { width: number; height: number }> = {
   a4: { width: 1240, height: 1754 },
   letter: { width: 1275, height: 1650 },
@@ -425,8 +427,14 @@ function drawLine(
 }
 
 export async function renderHandwriting(text: string, settings: RenderSettings): Promise<RenderResult> {
-  const fontReady = "fonts" in document ? document.fonts.ready : Promise.resolve();
-  await fontReady;
+  if ("fonts" in document) {
+    await Promise.race([
+      document.fonts.ready,
+      new Promise((resolve) => {
+        window.setTimeout(resolve, fontReadyTimeoutMs);
+      }),
+    ]);
+  }
 
   const sanitized = text.trim() || "Write your notes here...";
   const style = chooseStyle(settings.styleId);

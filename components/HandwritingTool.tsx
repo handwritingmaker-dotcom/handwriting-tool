@@ -160,9 +160,9 @@ export function HandwritingTool() {
   useEffect(() => {
     const requestId = renderRequestId.current + 1;
     renderRequestId.current = requestId;
-    setIsRendering(true);
 
     const timeoutId = window.setTimeout(() => {
+      setIsRendering(true);
       void renderHandwriting(text, settings)
         .then((result) => {
           if (renderRequestId.current !== requestId) {
@@ -191,13 +191,10 @@ export function HandwritingTool() {
     return () => window.clearTimeout(timeoutId);
   }, [settings, text]);
 
-  useEffect(() => {
-    setCurrentPageIndex((current) => Math.min(current, Math.max(pages.length - 1, 0)));
-  }, [pages.length]);
-
   const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
   const canDownload = pages.length > 0 && !isRendering;
   const safeBaseName = sanitizeFileName(fileName) || "handwriting-pages";
+  const selectedPageIndex = Math.min(currentPageIndex, Math.max(pages.length - 1, 0));
 
   const updateSetting = <Key extends keyof RenderSettings>(key: Key, value: RenderSettings[Key]) => {
     setSettings((current) => ({
@@ -224,16 +221,16 @@ export function HandwritingTool() {
   const downloadCurrentImage = (format: Extract<ExportFormat, "png" | "jpg">) => {
     if (!canDownload) return;
 
-    const page = pages[currentPageIndex];
+    const page = pages[selectedPageIndex];
     if (!page) return;
 
-    downloadImage(page, currentPageIndex, format);
+    downloadImage(page, selectedPageIndex, format);
   };
 
   const downloadPdf = (scope: "all" | "current") => {
     if (!canDownload) return;
 
-    const targetPages = scope === "all" ? pages : pages.slice(currentPageIndex, currentPageIndex + 1);
+    const targetPages = scope === "all" ? pages : pages.slice(selectedPageIndex, selectedPageIndex + 1);
     const firstPage = targetPages[0];
 
     if (!firstPage) return;
@@ -261,7 +258,7 @@ export function HandwritingTool() {
       );
     });
 
-    pdf.save(`${safeBaseName}${scope === "current" ? `-page-${currentPageIndex + 1}` : ""}.pdf`);
+    pdf.save(`${safeBaseName}${scope === "current" ? `-page-${selectedPageIndex + 1}` : ""}.pdf`);
   };
 
   const clearText = () => {
@@ -574,7 +571,7 @@ export function HandwritingTool() {
             <select
               id="currentPage"
               className="input-field min-w-40"
-              value={currentPageIndex}
+              value={selectedPageIndex}
               onChange={(event) => setCurrentPageIndex(Number(event.target.value))}
               disabled={!pages.length}
             >
