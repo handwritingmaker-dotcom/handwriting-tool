@@ -321,6 +321,26 @@ export default function HomePage() {
                 Read practical articles about text to handwriting conversion, assignment formatting, productivity tools,
                 and exporting clean PDF pages for school or personal study.
               </p>
+              <div className="mt-6 flex flex-wrap gap-3 text-sm font-semibold">
+                <Link
+                  href="/blog/handwritten-text-generator"
+                  className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
+                >
+                  Handwritten Text Generator
+                </Link>
+                <Link
+                  href="/blog/how-to-make-handwriting-look-realistic-online"
+                  className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
+                >
+                  Realistic Handwriting Guide
+                </Link>
+                <Link
+                  href="/blog/handwriting-generator-for-assignments"
+                  className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
+                >
+                  Assignment Guide
+                </Link>
+              </div>
             </div>
             <Link
               href="/blog"
