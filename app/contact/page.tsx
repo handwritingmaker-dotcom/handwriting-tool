@@ -81,7 +81,7 @@ export default function ContactPage() {
             <input type="hidden" name="_subject" value="New message from HandwritingTool contact page" />
             <input type="hidden" name="_template" value="table" />
             <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_next" value="https://handwritingtool.com/contact" />
+            <input type="hidden" name="_next" value="https://www.handwritingtool.com/contact" />
 
             <div>
               <label className="input-label" htmlFor="name">

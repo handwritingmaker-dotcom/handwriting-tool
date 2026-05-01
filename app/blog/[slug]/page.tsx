@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
 
-const siteUrl = "https://handwritingtool.com";
+const siteUrl = "https://www.handwritingtool.com";
 
 type BlogPostPageProps = {
   params: Promise<{

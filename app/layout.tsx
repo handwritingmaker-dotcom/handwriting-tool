@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   title: "Free Text to Handwriting Converter Online | Handwriting Generator PDF Tool",
   description:
     "Convert text to handwriting online for free. Generate realistic handwritten pages and download as PDF, PNG, or JPG. No signup required.",
-  metadataBase: new URL("https://handwritingtool.com"),
+  metadataBase: new URL("https://www.handwritingtool.com"),
   icons: {
     icon: "/favicon.png",
     shortcut: "/favicon.png",

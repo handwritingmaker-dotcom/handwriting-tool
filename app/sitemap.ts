@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/blog";
 
-const siteUrl = "https://handwritingtool.com";
+const siteUrl = "https://www.handwritingtool.com";
 const fallbackLastModified = new Date("2026-05-01");
 
 const staticRoutes = [

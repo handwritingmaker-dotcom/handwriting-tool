@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { HandwritingTool } from "@/components/HandwritingTool";
 
-const siteUrl = "https://handwritingtool.com";
+const siteUrl = "https://www.handwritingtool.com";
 
 const features = [
   {
