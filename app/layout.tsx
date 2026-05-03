@@ -16,9 +16,9 @@ const kalam = Kalam({
 });
 
 export const metadata: Metadata = {
-  title: "Free Text to Handwriting Converter Online | Handwriting Generator PDF Tool",
+  title: "Text to Handwriting Converter Free Online",
   description:
-    "Convert text to handwriting online for free. Generate realistic handwritten pages and download as PDF, PNG, or JPG. No signup required.",
+    "Convert text to handwriting online for free. Create realistic handwritten pages and download as PDF, PNG, or JPG. No signup required.",
   metadataBase: new URL("https://www.handwritingtool.com"),
   icons: {
     icon: "/favicon.png",
@@ -29,20 +29,36 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Free Text to Handwriting Converter Online | Handwriting Generator PDF Tool",
+    title: "Text to Handwriting Converter Free Online",
     description:
-      "Convert text to handwriting online for free. Generate realistic handwritten pages and download as PDF, PNG, or JPG. No signup required.",
+      "Convert text to handwriting online for free. Create realistic handwritten pages and download as PDF, PNG, or JPG. No signup required.",
     url: "/",
     siteName: "Handwriting Tool",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "Free Text to Handwriting Converter Online | Handwriting Generator PDF Tool",
+    title: "Text to Handwriting Converter Free Online",
     description:
-      "Convert text to handwriting online for free. Generate realistic handwritten pages and download as PDF, PNG, or JPG. No signup required.",
+      "Convert text to handwriting online for free. Create realistic handwritten pages and download as PDF, PNG, or JPG. No signup required.",
   },
 };
+
+const siteSchema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "HandwritingTool",
+    url: "https://www.handwritingtool.com",
+    logo: "https://www.handwritingtool.com/handwriting-tool-logo.png",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "HandwritingTool",
+    url: "https://www.handwritingtool.com",
+  },
+];
 
 const headerLinks = [
   { href: "/blog", label: "Blog" },
@@ -66,6 +82,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${dmSans.variable} ${kalam.variable} bg-brand-paper text-brand-ink antialiased`}>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteSchema) }} />
         <div className="min-h-screen">
           <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/85 backdrop-blur">
             <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
