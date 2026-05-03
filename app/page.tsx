@@ -323,22 +323,34 @@ export default function HomePage() {
               </p>
               <div className="mt-6 flex flex-wrap gap-3 text-sm font-semibold">
                 <Link
-                  href="/blog/handwritten-text-generator"
+                  href="/blog/text-to-handwriting-pdf-generator"
                   className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
                 >
-                  Handwritten Text Generator
+                  PDF Generator Guide
                 </Link>
                 <Link
-                  href="/blog/how-to-make-handwriting-look-realistic-online"
+                  href="/blog/free-handwriting-generator-online-without-sign-up"
                   className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
                 >
-                  Realistic Handwriting Guide
+                  Free No-Signup Tool
                 </Link>
                 <Link
-                  href="/blog/handwriting-generator-for-assignments"
+                  href="/blog/best-handwriting-generator-for-students-2026"
                   className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
                 >
-                  Assignment Guide
+                  Student Guide
+                </Link>
+                <Link
+                  href="/blog/handwritten-notes-generator"
+                  className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
+                >
+                  Notes Generator
+                </Link>
+                <Link
+                  href="/blog/how-to-make-handwritten-assignment-pdf-on-mobile"
+                  className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
+                >
+                  Mobile PDF Guide
                 </Link>
               </div>
             </div>
