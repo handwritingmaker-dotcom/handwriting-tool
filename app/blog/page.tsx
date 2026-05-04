@@ -27,14 +27,14 @@ const popularGuides = [
     text: "Start here for the complete beginner workflow.",
   },
   {
-    href: "/blog/text-to-handwriting-pdf-generator",
-    title: "Text to Handwriting PDF Generator",
-    text: "Best guide for printable PDF downloads.",
+    href: "/blog/pdf-to-handwriting-converter",
+    title: "PDF to Handwriting Converter",
+    text: "Turn PDF text into handwritten pages.",
   },
   {
-    href: "/blog/handwriting-generator-for-assignments",
-    title: "Handwriting Generator for Assignments",
-    text: "A practical guide for student assignment pages.",
+    href: "/blog/make-handwritten-assignment-online",
+    title: "Make Handwritten Assignment Online",
+    text: "Fast workflow for student assignments.",
   },
   {
     href: "/blog/how-to-make-handwriting-look-realistic-online",

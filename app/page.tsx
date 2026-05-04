@@ -323,10 +323,10 @@ export default function HomePage() {
               </p>
               <div className="mt-6 flex flex-wrap gap-3 text-sm font-semibold">
                 <Link
-                  href="/blog/text-to-handwriting-pdf-generator"
+                  href="/blog/pdf-to-handwriting-converter"
                   className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
                 >
-                  PDF Generator Guide
+                  PDF to Handwriting
                 </Link>
                 <Link
                   href="/blog/free-handwriting-generator-online-without-sign-up"
@@ -347,10 +347,10 @@ export default function HomePage() {
                   Notes Generator
                 </Link>
                 <Link
-                  href="/blog/how-to-make-handwritten-assignment-pdf-on-mobile"
+                  href="/blog/make-handwritten-assignment-online"
                   className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
                 >
-                  Mobile PDF Guide
+                  Assignment Maker
                 </Link>
               </div>
             </div>
