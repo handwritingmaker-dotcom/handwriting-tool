@@ -8,6 +8,7 @@ export type BlogPost = {
   slug: string;
   title: string;
   date: string;
+  updated: string;
   description: string;
   content: string;
 };
@@ -15,6 +16,7 @@ export type BlogPost = {
 type Frontmatter = {
   title?: string;
   date?: string;
+  updated?: string;
   description?: string;
 };
 
@@ -30,6 +32,7 @@ function normalizeFrontmatter(data: Frontmatter, slug: string) {
   return {
     title: data.title ?? slug,
     date: data.date ?? "",
+    updated: data.updated ?? data.date ?? "",
     description: data.description ?? "",
   };
 }
