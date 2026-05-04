@@ -28,7 +28,7 @@ const contactTopics = [
   "General feedback",
 ];
 
-const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "contact@handwritingtool.com";
+const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "handwritingmaker@gmail.com";
 const formAction = `https://formsubmit.co/${contactEmail}`;
 
 export default function ContactPage() {
