@@ -28,8 +28,8 @@ const contactTopics = [
   "General feedback",
 ];
 
-const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL;
-const formAction = contactEmail ? `https://formsubmit.co/${contactEmail}` : undefined;
+const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "contact@handwritingtool.com";
+const formAction = `https://formsubmit.co/${contactEmail}`;
 
 export default function ContactPage() {
   return (
@@ -75,6 +75,13 @@ export default function ContactPage() {
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">Send us a message</h2>
           <p className="mt-4 text-base leading-7 text-slate-600">
             Use the form below and your message will be sent to the HandwritingTool support inbox.
+          </p>
+          <p className="mt-3 text-base leading-7 text-slate-600">
+            You can also email us directly at{" "}
+            <a className="font-semibold text-brand-blue" href={`mailto:${contactEmail}`}>
+              {contactEmail}
+            </a>
+            .
           </p>
 
           <form action={formAction} method="POST" className="mt-8 grid gap-4">
@@ -132,17 +139,10 @@ export default function ContactPage() {
 
             <button
               type="submit"
-              disabled={!formAction}
-              className="w-fit rounded-full bg-brand-blue px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
+              className="w-fit rounded-full bg-brand-blue px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
             >
               Send Message
             </button>
-
-            {!formAction && (
-              <p className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm font-medium text-amber-800">
-                Contact email is not configured yet. Add NEXT_PUBLIC_CONTACT_EMAIL in Vercel to enable this form.
-              </p>
-            )}
           </form>
         </section>
       </div>

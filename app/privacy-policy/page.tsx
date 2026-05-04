@@ -68,15 +68,31 @@ export default function PrivacyPolicyPage() {
             We may use cookies to store basic user preferences and improve functionality. Cookies help us provide a
             smoother and more personalized experience.
           </p>
+          <p>
+            Third-party services, including advertising and analytics partners, may also use cookies or similar
+            technologies to measure performance, prevent abuse, and show relevant ads.
+          </p>
           <p>You can disable cookies through your browser settings if you prefer.</p>
         </section>
 
         <section className="mt-10 space-y-4 text-lg leading-8 text-slate-600">
           <h2 className="text-2xl font-semibold text-slate-950">Third-Party Services</h2>
-          <p>We may use trusted third-party services such as Google Analytics for traffic analysis and Google AdSense for displaying ads.</p>
+          <p>
+            We may use trusted third-party services such as Google Analytics for traffic analysis and Google AdSense for
+            displaying ads. Google and its partners may use cookies to serve ads based on a user's visits to this and
+            other websites.
+          </p>
           <p>
             These services may use cookies or similar technologies to collect data in accordance with their own privacy
             policies.
+          </p>
+        </section>
+
+        <section className="mt-10 space-y-4 text-lg leading-8 text-slate-600">
+          <h2 className="text-2xl font-semibold text-slate-950">User-Generated Text</h2>
+          <p>
+            Text entered into the handwriting converter is processed for generating handwritten-style output. We do not
+            ask users to enter sensitive personal information into the tool.
           </p>
         </section>
 

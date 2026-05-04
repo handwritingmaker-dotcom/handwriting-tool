@@ -8,9 +8,9 @@ const staticRoutes = [
   { path: "", changeFrequency: "weekly", priority: 1, lastModified: "2026-05-04" },
   { path: "/about", changeFrequency: "monthly", priority: 0.6, lastModified: "2026-04-30" },
   { path: "/blog", changeFrequency: "weekly", priority: 0.8, lastModified: "2026-05-04" },
-  { path: "/contact", changeFrequency: "monthly", priority: 0.6, lastModified: "2026-04-30" },
-  { path: "/privacy-policy", changeFrequency: "yearly", priority: 0.4, lastModified: "2026-04-30" },
-  { path: "/terms", changeFrequency: "yearly", priority: 0.4, lastModified: "2026-04-30" },
+  { path: "/contact", changeFrequency: "monthly", priority: 0.6, lastModified: "2026-05-04" },
+  { path: "/privacy-policy", changeFrequency: "yearly", priority: 0.4, lastModified: "2026-05-04" },
+  { path: "/terms", changeFrequency: "yearly", priority: 0.4, lastModified: "2026-05-04" },
 ] satisfies Array<{
   path: string;
   changeFrequency: NonNullable<MetadataRoute.Sitemap[number]["changeFrequency"]>;
