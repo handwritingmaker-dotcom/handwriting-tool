@@ -341,10 +341,10 @@ export default function HomePage() {
                   Student Guide
                 </Link>
                 <Link
-                  href="/blog/handwritten-notes-generator"
+                  href="/blog/text-to-handwriting-converter-for-notes"
                   className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
                 >
-                  Notes Generator
+                  Printable Notes
                 </Link>
                 <Link
                   href="/blog/make-handwritten-assignment-online"

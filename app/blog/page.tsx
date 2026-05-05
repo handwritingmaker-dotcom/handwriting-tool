@@ -37,9 +37,9 @@ const popularGuides = [
     text: "Fast workflow for student assignments.",
   },
   {
-    href: "/blog/how-to-make-handwriting-look-realistic-online",
-    title: "Make Handwriting Look Realistic",
-    text: "Improve fonts, spacing, margins, and paper settings.",
+    href: "/blog/text-to-handwriting-converter-for-notes",
+    title: "Printable Handwritten Notes",
+    text: "Create study pages from typed notes.",
   },
 ];
 
