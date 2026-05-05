@@ -230,7 +230,7 @@ export default function HomePage() {
               alt="HandwritingTool text input and real-time handwritten page preview"
               width={1350}
               height={638}
-              className="aspect-[16/10] rounded-2xl object-cover object-top"
+              className="h-auto w-full rounded-2xl"
             />
             <figcaption className="mt-4 px-2 text-sm leading-6 text-slate-600">
               Paste typed content on one side and review the handwritten page output on the other before exporting.
