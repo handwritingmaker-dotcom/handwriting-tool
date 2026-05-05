@@ -208,39 +208,32 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mb-10 max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">Output Preview</p>
-          <h2 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">
-            See how the text to handwriting converter looks before you export
-          </h2>
-          <p className="mt-4 text-lg leading-8 text-slate-600">
-            HandwritingTool is built around real page output, not only font styling. You can preview notebook-style
-            handwriting, tune spacing, and download the final page as PDF, PNG, or JPG.
-          </p>
-        </div>
-        <div className="grid gap-5 lg:grid-cols-2">
+        <div className="grid items-center gap-8 lg:grid-cols-[0.85fr,1.15fr]">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">Output Preview</p>
+            <h2 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">
+              See how the text to handwriting converter looks before you export
+            </h2>
+            <p className="mt-4 text-lg leading-8 text-slate-600">
+              HandwritingTool is built around real page output, not only font styling. You can preview notebook-style
+              handwriting, tune spacing, and download the final page as PDF, PNG, or JPG.
+            </p>
+            <div className="mt-6 grid gap-3 text-sm font-semibold text-slate-700 sm:grid-cols-2 lg:grid-cols-1">
+              <div className="rounded-2xl border border-blue-100 bg-blue-50 px-4 py-3">Typed text and handwritten preview side by side</div>
+              <div className="rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3">Real-time page preview before download</div>
+              <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3">PDF, PNG, and JPG export after checking layout</div>
+            </div>
+          </div>
           <figure className="rounded-3xl border border-slate-200 bg-white p-4 shadow-card">
             <Image
-              src="/blog/text-to-handwriting-tool-home.png"
-              alt="HandwritingTool homepage showing the online text to handwriting converter"
-              width={1440}
-              height={1100}
+              src="/blog/text-to-handwriting-output-preview.png"
+              alt="HandwritingTool text input and real-time handwritten page preview"
+              width={1350}
+              height={638}
               className="aspect-[16/10] rounded-2xl object-cover object-top"
             />
             <figcaption className="mt-4 px-2 text-sm leading-6 text-slate-600">
-              Start with typed text, select a handwriting style, and preview realistic handwritten pages instantly.
-            </figcaption>
-          </figure>
-          <figure className="rounded-3xl border border-slate-200 bg-white p-4 shadow-card">
-            <Image
-              src="/blog/text-to-handwriting-tool-editor.png"
-              alt="HandwritingTool editor with handwriting settings, paper controls, and PDF export"
-              width={1440}
-              height={2200}
-              className="aspect-[16/10] rounded-2xl object-cover object-top"
-            />
-            <figcaption className="mt-4 px-2 text-sm leading-6 text-slate-600">
-              Fine-tune paper type, margins, ink color, line spacing, and export quality from one browser-based tool.
+              Paste typed content on one side and review the handwritten page output on the other before exporting.
             </figcaption>
           </figure>
         </div>
