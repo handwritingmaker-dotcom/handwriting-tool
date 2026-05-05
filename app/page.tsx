@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { HandwritingTool } from "@/components/HandwritingTool";
 
 const siteUrl = "https://www.handwritingtool.com";
@@ -36,6 +37,31 @@ const features = [
   },
 ];
 
+const useCases = [
+  {
+    title: "Study Notes",
+    text: "Turn typed revision points, definitions, and class notes into printable handwritten pages.",
+    href: "/blog/text-to-handwriting-converter-for-notes",
+  },
+  {
+    title: "Assignment Pages",
+    text: "Create clean assignment-style pages when digital handwritten output is allowed by your instructions.",
+    href: "/blog/make-handwritten-assignment-online",
+  },
+  {
+    title: "PDF Export",
+    text: "Download multi-page handwritten output as a PDF for printing, saving, or sharing.",
+    href: "/blog/text-to-handwriting-pdf-generator",
+  },
+];
+
+const comparisonRows = [
+  ["No signup", "Start in the browser without creating an account.", "Many tools add login or account friction."],
+  ["PDF, PNG, JPG", "Export complete pages as PDF or image formats.", "Some converters only download PNG images."],
+  ["Real page controls", "Adjust paper, spacing, margins, ink, and handwriting variation.", "Basic tools often only change the font."],
+  ["Privacy friendly", "Text is processed in your browser and is not stored by HandwritingTool.", "Upload-based workflows may require sending files."],
+];
+
 const faqs = [
   {
     question: "Is this text to handwriting converter free?",
@@ -51,7 +77,18 @@ const faqs = [
   },
   {
     question: "Can I use this for handwritten assignments?",
-    answer: "Yes, this tool is commonly used for assignments, notes, and academic work.",
+    answer:
+      "Yes, when digital handwritten-style output is allowed. Always follow your teacher, school, or institution rules.",
+  },
+  {
+    question: "Can I use this as a word to handwriting converter online free?",
+    answer:
+      "Yes. You can copy text from Word or another document, paste it into HandwritingTool, and download handwritten pages.",
+  },
+  {
+    question: "What makes this handwriting converter realistic?",
+    answer:
+      "Readable handwriting styles, natural spacing, paper backgrounds, margins, ink color, and small variation settings help the output look more natural.",
   },
 ];
 
@@ -170,6 +207,45 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mb-10 max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">Output Preview</p>
+          <h2 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">
+            See how the text to handwriting converter looks before you export
+          </h2>
+          <p className="mt-4 text-lg leading-8 text-slate-600">
+            HandwritingTool is built around real page output, not only font styling. You can preview notebook-style
+            handwriting, tune spacing, and download the final page as PDF, PNG, or JPG.
+          </p>
+        </div>
+        <div className="grid gap-5 lg:grid-cols-2">
+          <figure className="rounded-3xl border border-slate-200 bg-white p-4 shadow-card">
+            <Image
+              src="/blog/text-to-handwriting-tool-home.png"
+              alt="HandwritingTool homepage showing the online text to handwriting converter"
+              width={1440}
+              height={1100}
+              className="aspect-[16/10] rounded-2xl object-cover object-top"
+            />
+            <figcaption className="mt-4 px-2 text-sm leading-6 text-slate-600">
+              Start with typed text, select a handwriting style, and preview realistic handwritten pages instantly.
+            </figcaption>
+          </figure>
+          <figure className="rounded-3xl border border-slate-200 bg-white p-4 shadow-card">
+            <Image
+              src="/blog/text-to-handwriting-tool-editor.png"
+              alt="HandwritingTool editor with handwriting settings, paper controls, and PDF export"
+              width={1440}
+              height={2200}
+              className="aspect-[16/10] rounded-2xl object-cover object-top"
+            />
+            <figcaption className="mt-4 px-2 text-sm leading-6 text-slate-600">
+              Fine-tune paper type, margins, ink color, line spacing, and export quality from one browser-based tool.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
       <section id="features" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="mb-10 max-w-2xl">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-green">Handwriting Quality</p>
@@ -185,6 +261,65 @@ export default function HomePage() {
               </div>
               <h3 className="text-lg font-semibold text-slate-950">{feature.title}</h3>
               <p className="mt-3 text-base leading-7 text-slate-600">{feature.text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mb-10 max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-green">Use Cases</p>
+          <h2 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">
+            One handwriting converter for notes, documents, and printable pages
+          </h2>
+          <p className="mt-4 text-lg leading-8 text-slate-600">
+            Whether you search for an online text to handwriting converter, a handwriting converter for notes, or a word
+            to handwriting converter online free, the workflow is the same: paste text, customize the page, preview, and
+            export.
+          </p>
+        </div>
+        <div className="grid gap-5 md:grid-cols-3">
+          {useCases.map((item) => (
+            <Link
+              key={item.title}
+              href={item.href}
+              className="group rounded-3xl border border-slate-200 bg-white p-6 shadow-card transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-paper"
+            >
+              <h3 className="text-xl font-semibold tracking-tight text-slate-950 transition group-hover:text-brand-blue">
+                {item.title}
+              </h3>
+              <p className="mt-3 text-base leading-7 text-slate-600">{item.text}</p>
+              <p className="mt-5 text-sm font-semibold text-brand-blue">Read guide -&gt;</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mb-10 max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">Why Choose Us</p>
+          <h2 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">
+            Why HandwritingTool is different from a basic handwriting font generator
+          </h2>
+          <p className="mt-4 text-lg leading-8 text-slate-600">
+            A basic handwriting generator changes text style. HandwritingTool focuses on the complete page: paper,
+            margins, spacing, handwriting variation, and export formats.
+          </p>
+        </div>
+        <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-card">
+          <div className="grid bg-slate-950 px-5 py-4 text-sm font-semibold text-white md:grid-cols-[0.8fr,1fr,1fr]">
+            <div>Feature</div>
+            <div>HandwritingTool</div>
+            <div>Basic converters</div>
+          </div>
+          {comparisonRows.map(([feature, ours, basic]) => (
+            <div
+              key={feature}
+              className="grid gap-3 border-t border-slate-200 px-5 py-4 text-sm leading-6 text-slate-600 md:grid-cols-[0.8fr,1fr,1fr]"
+            >
+              <div className="font-semibold text-slate-950">{feature}</div>
+              <div>{ours}</div>
+              <div>{basic}</div>
             </div>
           ))}
         </div>
@@ -231,6 +366,20 @@ export default function HomePage() {
             <p className="text-lg leading-8">
               This handwriting tool online is designed to be fast, reliable, and user-friendly, making it perfect for
               everyday use.
+            </p>
+
+            <h2 className="pt-3 text-2xl font-semibold text-slate-950">Word to Handwriting Converter Online Free</h2>
+            <p className="text-lg leading-8">
+              If your content is written in Microsoft Word, Google Docs, Notepad, or another editor, you can copy the
+              text and paste it into HandwritingTool. The tool works as a word to handwriting converter online free
+              because you can turn document text into handwritten pages without uploading a file or creating an account.
+            </p>
+
+            <h2 className="pt-3 text-2xl font-semibold text-slate-950">Online Text to Handwriting Converter</h2>
+            <p className="text-lg leading-8">
+              An online text to handwriting converter should be quick, readable, and flexible. HandwritingTool lets you
+              choose paper type, handwriting style, ink color, margins, line spacing, and export format directly in your
+              browser.
             </p>
 
             <h2 className="pt-3 text-2xl font-semibold text-slate-950">Key Features of HandwritingTool</h2>
