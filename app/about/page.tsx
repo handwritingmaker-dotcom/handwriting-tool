@@ -1,14 +1,14 @@
 export const metadata = {
   title: "About Us | HandwritingTool",
   description:
-    "Learn about HandwritingTool, a simple and reliable platform for converting text into realistic handwritten assignments, notes, and documents.",
+    "Learn about HandwritingTool, a simple platform for converting text into readable handwritten-style notes, drafts, worksheets, and permitted page formats.",
   alternates: {
     canonical: "/about",
   },
   openGraph: {
     title: "About Us | HandwritingTool",
     description:
-      "Learn about HandwritingTool, a simple and reliable platform for converting text into realistic handwritten assignments, notes, and documents.",
+      "Learn about HandwritingTool, a simple platform for converting text into readable handwritten-style notes, drafts, worksheets, and permitted page formats.",
     url: "/about",
     type: "website",
   },
@@ -16,7 +16,7 @@ export const metadata = {
     card: "summary",
     title: "About Us | HandwritingTool",
     description:
-      "Learn about HandwritingTool, a simple and reliable platform for converting text into realistic handwritten assignments, notes, and documents.",
+      "Learn about HandwritingTool, a simple platform for converting text into readable handwritten-style notes, drafts, worksheets, and permitted page formats.",
   },
 };
 
@@ -29,7 +29,7 @@ const reasons = [
 
 const capabilities = [
   "Convert plain text into natural-looking handwriting",
-  "Generate handwritten assignments quickly",
+  "Generate study notes, drafts, worksheets, and permitted page formats",
   "Save your output as image or PDF",
   "Use different writing styles for better customization",
 ];
@@ -52,25 +52,26 @@ export default function AboutPage() {
 
         <div className="mt-8 space-y-5 text-lg leading-8 text-slate-600">
           <p>
-            HandwritingTool is built with a clear purpose: to make writing easier, faster, and smarter for students,
-            professionals, and everyday users who still need handwritten content in a digital world.
+            HandwritingTool is built with a clear purpose: to make handwritten-style page creation easier for students,
+            teachers, professionals, and everyday users who need readable notes, drafts, worksheets, or printable pages.
           </p>
           <p>
-            In many situations, handwritten assignments, notes, and documents are still required. But writing everything
-            manually can be time-consuming, tiring, and sometimes impractical. That is where HandwritingTool comes in.
+            In many situations, people still need handwritten-style notes, examples, worksheets, and documents. Creating
+            clean pages manually can be time-consuming, tiring, and sometimes impractical. That is where HandwritingTool
+            comes in.
           </p>
           <p>
-            We provide a simple and efficient way to convert your text into realistic handwritten content within seconds,
-            without compromising on quality or readability.
+            We provide a simple and efficient way to convert your text into handwritten-style content within seconds,
+            while keeping quality, readability, and responsible use in focus.
           </p>
         </div>
 
         <section className="mt-12">
           <h2 className="text-2xl font-semibold text-slate-950">Why We Created HandwritingTool</h2>
           <p className="mt-4 text-lg leading-8 text-slate-600">
-            We noticed that many students struggle with writing long assignments by hand, especially when deadlines are
-            tight. At the same time, many existing tools online were complicated, low-quality, or filled with unnecessary
-            limitations.
+            We noticed that many users needed a cleaner way to prepare notebook-style pages, study notes, printable
+            examples, and accepted digital formats. At the same time, many existing tools online were complicated,
+            low-quality, or filled with unnecessary limitations.
           </p>
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             {reasons.map((reason) => (
@@ -96,7 +97,8 @@ export default function AboutPage() {
           <h2 className="text-2xl font-semibold text-slate-950">Our Goal</h2>
           <p className="mt-4 text-lg leading-8 text-slate-600">
             Our goal is not just to provide a tool, but to build a reliable platform that people can trust for everyday
-            academic and writing needs. We continuously improve the tool based on user feedback and real-world usage.
+            study, productivity, and writing needs. We continuously improve the tool based on user feedback and
+            real-world usage.
           </p>
         </section>
 

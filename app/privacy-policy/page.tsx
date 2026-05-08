@@ -79,7 +79,7 @@ export default function PrivacyPolicyPage() {
           <h2 className="text-2xl font-semibold text-slate-950">Third-Party Services</h2>
           <p>
             We may use trusted third-party services such as Google Analytics for traffic analysis and Google AdSense for
-            displaying ads. Google and its partners may use cookies to serve ads based on a user's visits to this and
+            displaying ads. Google and its partners may use cookies to serve ads based on a user&apos;s visits to this and
             other websites.
           </p>
           <p>

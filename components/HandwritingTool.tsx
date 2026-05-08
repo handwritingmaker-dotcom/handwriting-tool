@@ -53,7 +53,7 @@ const settingPresets: Array<{
   settings: Partial<RenderSettings>;
 }> = [
   {
-    label: "Assignment",
+    label: "Worksheet",
     icon: "doc",
     className: "bg-brand-blue text-white shadow-paper hover:bg-blue-700",
     settings: {
@@ -281,7 +281,7 @@ export function HandwritingTool() {
         </div>
 
         <label className="input-label" htmlFor="handwriting-text">
-          Paste your assignment, notes, or article
+          Paste your notes, worksheet text, draft, or article
         </label>
         <div className="mb-4">
           <p className="input-label">Quick presets</p>
@@ -309,7 +309,7 @@ export function HandwritingTool() {
           value={text}
           onChange={(event) => setText(event.target.value)}
           className="input-field min-h-[320px] resize-y leading-7"
-          placeholder="Paste your essay, notes, or assignment here..."
+          placeholder="Paste your notes, draft, worksheet, or article here..."
         />
         {text.length === 0 && (
           <div className="mt-3 rounded-2xl border border-dashed border-slate-200 bg-slate-50 px-4 py-4">
@@ -536,7 +536,7 @@ export function HandwritingTool() {
               onChange={(event) => updateSetting("assignmentMode", event.target.checked)}
               className="h-4 w-4 rounded border-slate-300 text-brand-blue focus:ring-brand-blue"
             />
-            Assignment Mode
+            Page Layout Mode
           </label>
           <label className="inline-flex items-center gap-3 rounded-full border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700">
             <input

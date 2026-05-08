@@ -16,9 +16,9 @@ const kalam = Kalam({
 });
 
 export const metadata: Metadata = {
-  title: "Text to Handwriting Converter Free Online",
+  title: "Handwriting Tool - Text to Handwriting Converter Free Online",
   description:
-    "Convert text to handwriting online for free. Create realistic handwritten pages and download as PDF, PNG, or JPG. No signup required.",
+    "Convert text to handwriting online for free. Create handwritten-style notes, drafts, worksheets, and permitted page formats as PDF, PNG, or JPG.",
   metadataBase: new URL("https://www.handwritingtool.com"),
   icons: {
     icon: "/favicon.png",
@@ -29,18 +29,18 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Text to Handwriting Converter Free Online",
+    title: "Handwriting Tool - Text to Handwriting Converter Free Online",
     description:
-      "Convert text to handwriting online for free. Create realistic handwritten pages and download as PDF, PNG, or JPG. No signup required.",
+      "Convert text to handwriting online for free. Create handwritten-style notes, drafts, worksheets, and permitted page formats as PDF, PNG, or JPG.",
     url: "/",
     siteName: "Handwriting Tool",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "Text to Handwriting Converter Free Online",
+    title: "Handwriting Tool - Text to Handwriting Converter Free Online",
     description:
-      "Convert text to handwriting online for free. Create realistic handwritten pages and download as PDF, PNG, or JPG. No signup required.",
+      "Convert text to handwriting online for free. Create handwritten-style notes, drafts, worksheets, and permitted page formats as PDF, PNG, or JPG.",
   },
 };
 
@@ -70,6 +70,7 @@ const footerLinks = [
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
+  { href: "/responsible-use", label: "Responsible Use" },
   { href: "/privacy-policy", label: "Privacy" },
   { href: "/terms", label: "Terms" },
 ];
@@ -117,7 +118,7 @@ export default function RootLayout({
           {children}
           <footer className="border-t border-slate-200 bg-white">
             <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-10 text-sm text-slate-600 sm:px-6 lg:px-8 md:flex-row md:items-center md:justify-between">
-              <p>HandwritingTool helps users convert text into realistic handwritten pages quickly and easily.</p>
+              <p>HandwritingTool helps users create readable handwritten-style notes, drafts, and printable pages.</p>
               <div className="flex flex-wrap items-center gap-4">
                 {footerLinks.map((link) => (
                   <Link key={link.href} href={link.href} className="transition hover:text-brand-blue">

@@ -3,20 +3,20 @@ import { getAllPosts } from "@/lib/blog";
 
 export const metadata = {
   title: "Blog | HandwritingTool",
-  description: "Helpful articles about handwriting converters, assignments, handwritten notes, PDFs, and study workflows.",
+  description: "Helpful articles about handwriting converters, handwritten notes, PDFs, responsible use, and study workflows.",
   alternates: {
     canonical: "/blog",
   },
   openGraph: {
     title: "Blog | HandwritingTool",
-    description: "Helpful articles about handwriting converters, assignments, handwritten notes, PDFs, and study workflows.",
+    description: "Helpful articles about handwriting converters, handwritten notes, PDFs, responsible use, and study workflows.",
     url: "/blog",
     type: "website",
   },
   twitter: {
     card: "summary",
     title: "Blog | HandwritingTool",
-    description: "Helpful articles about handwriting converters, assignments, handwritten notes, PDFs, and study workflows.",
+    description: "Helpful articles about handwriting converters, handwritten notes, PDFs, responsible use, and study workflows.",
   },
 };
 
@@ -33,8 +33,8 @@ const popularGuides = [
   },
   {
     href: "/blog/make-handwritten-assignment-online",
-    title: "Make Handwritten Assignment Online",
-    text: "Fast workflow for student assignments.",
+    title: "Create Handwritten-Style Pages",
+    text: "Responsible workflow for permitted page formats.",
   },
   {
     href: "/blog/text-to-handwriting-converter-for-notes",
@@ -51,7 +51,7 @@ export default function BlogPage() {
       <div className="mb-10 max-w-3xl">
         <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">Blog</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
-          Guides for better notes, assignments, and productive work
+          Guides for better notes, readable pages, and productive work
         </h1>
         <p className="mt-5 text-lg leading-8 text-slate-600">
           Practical articles for students, creators, and developers who want cleaner workflows and faster results.

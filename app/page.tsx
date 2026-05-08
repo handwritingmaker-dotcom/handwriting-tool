@@ -12,7 +12,7 @@ const features = [
   },
   {
     title: "Style Packs",
-    text: "Pick from student, notes, exam, lab, and clean notebook styles built for real assignment pages.",
+    text: "Pick from notes, worksheet, lab, and clean notebook styles built for readable handwritten-style pages.",
     icon: "spark",
   },
   {
@@ -31,8 +31,8 @@ const features = [
     icon: "phone",
   },
   {
-    title: "Assignment Mode",
-    text: "Turn paragraphs into neat school-style pages with automatic indentation and balanced margins.",
+    title: "Page Layout Mode",
+    text: "Turn paragraphs into neat notebook-style pages with automatic indentation and balanced margins.",
     icon: "check",
   },
 ];
@@ -44,8 +44,8 @@ const useCases = [
     href: "/blog/text-to-handwriting-converter-for-notes",
   },
   {
-    title: "Assignment Pages",
-    text: "Create clean assignment-style pages when digital handwritten output is allowed by your instructions.",
+    title: "Worksheet Pages",
+    text: "Create clean worksheet-style pages when digital handwritten output is allowed by your instructions.",
     href: "/blog/make-handwritten-assignment-online",
   },
   {
@@ -78,7 +78,7 @@ const faqs = [
   {
     question: "Can I use this for handwritten assignments?",
     answer:
-      "Yes, when digital handwritten-style output is allowed. Always follow your teacher, school, or institution rules.",
+      "Yes, only when digital handwritten-style output is allowed. Always follow your teacher, school, institution, or workplace rules.",
   },
   {
     question: "Can I use this as a word to handwriting converter online free?",
@@ -118,7 +118,7 @@ const softwareSchema = {
     priceCurrency: "USD",
   },
   description:
-    "Free online text to handwriting converter for creating handwritten pages and exporting them as PDF, PNG, or JPG.",
+    "Free online text to handwriting converter for creating notes, drafts, worksheets, and permitted handwritten-style pages as PDF, PNG, or JPG.",
 };
 
 export default function HomePage() {
@@ -139,8 +139,8 @@ export default function HomePage() {
               <span className="font-hand ml-3 text-brand-blue">Free and Easy</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">
-              Convert your text into realistic handwriting instantly. Create handwritten assignments, notes, and
-              documents in seconds without writing manually.
+              Convert your text into realistic handwriting instantly. Create handwritten-style notes, worksheets,
+              drafts, and printable pages in seconds.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -173,11 +173,11 @@ export default function HomePage() {
                   <ul className="mt-5 space-y-4 text-sm leading-7 text-slate-600">
                     <li>Every letter looks slightly different, just like real human handwriting.</li>
                     <li>Natural spacing and alignment make pages feel written by hand, not generated.</li>
-                    <li>Notebook lines, margins, and paper styles create a true assignment look.</li>
+                    <li>Notebook lines, margins, and paper styles create a familiar page layout.</li>
                     <li>No repeating patterns - your pages look natural and unique every time.</li>
                   </ul>
                   <div className="mt-6 rounded-3xl bg-slate-950 px-5 py-4 text-sm text-white">
-                    Perfect for assignments, homework, notes, and printable study pages.
+                    Perfect for notes, worksheets, drafts, and printable study pages.
                   </div>
                 </div>
               </div>
@@ -325,11 +325,11 @@ export default function HomePage() {
             <h2 className="text-3xl font-semibold text-slate-950">Text to Handwriting Converter Online</h2>
             <p className="text-lg leading-8">
               Convert your text into realistic handwriting instantly with HandwritingTool. Create handwritten
-              assignments, notes, and documents in seconds without writing manually.
+              notes, worksheets, drafts, and documents in seconds.
             </p>
             <p className="text-lg leading-8">
               HandwritingTool is a fast, simple, and powerful text to handwriting converter designed for students,
-              teachers, and anyone who needs handwritten content quickly.
+              teachers, creators, and anyone who needs handwritten-style pages for legitimate use.
             </p>
             <p className="rounded-2xl border border-blue-100 bg-blue-50 px-5 py-4 text-base font-semibold text-brand-blue">
               No signup. No hassle. Just type, convert, and download.
@@ -342,11 +342,11 @@ export default function HomePage() {
               handwriting automatically.
             </p>
             <p className="text-lg leading-8">
-              HandwritingTool works as a handwriting generator that allows you to create handwritten notes, assignments,
-              and documents with ease.
+              HandwritingTool works as a handwriting generator that allows you to create handwritten-style notes,
+              worksheets, drafts, and documents with ease.
             </p>
             <ul className="list-disc space-y-2 pl-6 text-lg leading-8">
-              <li>Students creating handwritten assignments</li>
+              <li>Students creating study notes and permitted handwritten-style pages</li>
               <li>Users converting digital text into handwritten notes</li>
               <li>Anyone looking for a quick handwriting solution</li>
             </ul>
@@ -404,14 +404,14 @@ export default function HomePage() {
               HandwritingTool is designed for real-world use cases:
             </p>
             <ul className="list-disc space-y-2 pl-6 text-lg leading-8">
-              <li>Creating handwritten assignments online</li>
+              <li>Creating handwritten-style worksheets and accepted page formats online</li>
               <li>Generating handwritten notes for study</li>
               <li>Converting typed text into handwritten format</li>
               <li>Preparing documents in handwriting style</li>
             </ul>
             <p className="text-lg leading-8">
-              Whether you need a handwriting generator for assignments or a simple note-making tool, this platform is
-              built to save your time.
+              Whether you need a handwriting generator for notes, worksheets, drafts, or accepted digital formats, this
+              platform is built to make page creation easier.
             </p>
 
             <h2 className="pt-3 text-2xl font-semibold text-slate-950">Why Choose HandwritingTool?</h2>
@@ -439,6 +439,30 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+        <div className="rounded-[32px] border border-emerald-100 bg-emerald-50 p-8 shadow-sm lg:p-10">
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-green">Responsible Use</p>
+          <div className="mt-4 grid gap-6 lg:grid-cols-[1fr,auto] lg:items-end">
+            <div>
+              <h2 className="text-3xl font-semibold tracking-tight text-slate-950">
+                Use handwritten-style pages only where they are allowed
+              </h2>
+              <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-700">
+                HandwritingTool is for notes, drafts, worksheets, examples, printable study material, and permitted
+                digital formats. If original handwriting is required, follow that instruction and use the tool for
+                planning or practice instead.
+              </p>
+            </div>
+            <Link
+              href="/responsible-use"
+              className="w-fit rounded-full bg-slate-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+            >
+              Responsible Use
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
         <div className="mb-8 max-w-2xl">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">FAQ</p>
           <h2 className="mt-3 text-3xl font-semibold text-slate-950">Frequently Asked Questions</h2>
@@ -458,10 +482,10 @@ export default function HomePage() {
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-emerald-300">Learning Center</p>
           <div className="mt-4 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
-              <h2 className="text-3xl font-semibold">Guides for handwritten assignments, notes, and faster study workflows</h2>
+              <h2 className="text-3xl font-semibold">Guides for handwritten-style notes, worksheets, and study workflows</h2>
               <p className="mt-4 text-lg leading-8 text-slate-300">
-                Read practical articles about text to handwriting conversion, assignment formatting, productivity tools,
-                and exporting clean PDF pages for school or personal study.
+                Read practical articles about text to handwriting conversion, responsible formatting, productivity
+                tools, and exporting clean PDF pages for school or personal study.
               </p>
               <div className="mt-6 flex flex-wrap gap-3 text-sm font-semibold">
                 <Link
