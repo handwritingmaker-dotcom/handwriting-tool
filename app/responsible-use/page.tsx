@@ -1,3 +1,5 @@
+import { defaultSocialImage } from "@/lib/seo";
+
 export const metadata = {
   title: "Responsible Use | HandwritingTool",
   description:
@@ -11,12 +13,14 @@ export const metadata = {
       "Learn how to use HandwritingTool responsibly for notes, drafts, worksheets, examples, and permitted handwritten-style page formats.",
     url: "/responsible-use",
     type: "website",
+    images: [defaultSocialImage],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Responsible Use | HandwritingTool",
     description:
       "Learn how to use HandwritingTool responsibly for notes, drafts, worksheets, examples, and permitted handwritten-style page formats.",
+    images: [defaultSocialImage.url],
   },
 };
 

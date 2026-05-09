@@ -1,3 +1,5 @@
+import { defaultSocialImage } from "@/lib/seo";
+
 export const metadata = {
   title: "Contact Us | HandwritingTool",
   description:
@@ -11,12 +13,14 @@ export const metadata = {
       "Contact HandwritingTool for technical issues, feature suggestions, business inquiries, collaboration requests, and general feedback.",
     url: "/contact",
     type: "website",
+    images: [defaultSocialImage],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Contact Us | HandwritingTool",
     description:
       "Contact HandwritingTool for technical issues, feature suggestions, business inquiries, collaboration requests, and general feedback.",
+    images: [defaultSocialImage.url],
   },
 };
 

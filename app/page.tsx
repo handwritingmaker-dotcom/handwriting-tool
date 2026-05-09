@@ -76,7 +76,7 @@ const faqs = [
     answer: "No, all processing happens in your browser and nothing is stored.",
   },
   {
-    question: "Can I use this for handwritten assignments?",
+    question: "Can I use this for permitted handwritten-style pages?",
     answer:
       "Yes, only when digital handwritten-style output is allowed. Always follow your teacher, school, institution, or workplace rules.",
   },
@@ -134,11 +134,11 @@ export default function HomePage() {
             <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/80 px-4 py-2 text-sm font-semibold text-brand-blue shadow-sm">
               No login required - Works instantly in your browser
             </div>
-            <h1 className="mt-6 text-5xl font-semibold tracking-tight text-slate-950 sm:text-6xl">
+            <h1 className="mt-6 max-w-full text-4xl font-semibold leading-tight tracking-tight text-slate-950 sm:text-6xl">
               Text to Handwriting Converter Online
-              <span className="font-hand ml-3 text-brand-blue">Free and Easy</span>
+              <span className="font-hand mt-1 block text-brand-blue sm:ml-3 sm:inline">Free and Easy</span>
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">
+            <p className="mt-6 max-w-[21rem] text-lg leading-8 text-slate-600 sm:max-w-xl">
               Convert your text into realistic handwriting instantly. Create handwritten-style notes, worksheets,
               drafts, and printable pages in seconds.
             </p>
@@ -239,7 +239,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="features" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <section id="features" className="mx-auto max-w-7xl scroll-mt-36 px-4 py-16 sm:px-6 md:scroll-mt-28 lg:px-8">
         <div className="mb-10 max-w-2xl">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-green">Handwriting Quality</p>
           <h2 className="mt-3 text-4xl font-semibold text-slate-950">
@@ -318,7 +318,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="seo-guide" className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
+      <section id="seo-guide" className="mx-auto max-w-7xl scroll-mt-36 px-4 pb-20 sm:px-6 md:scroll-mt-28 lg:px-8">
         <div className="rounded-[32px] border border-slate-200 bg-white p-8 shadow-card lg:p-12">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">Text to Handwriting Guide</p>
           <article className="mt-6 space-y-5 text-slate-600">
@@ -516,7 +516,7 @@ export default function HomePage() {
                   href="/blog/make-handwritten-assignment-online"
                   className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
                 >
-                  Assignment Maker
+                  Permitted Page Formats
                 </Link>
               </div>
             </div>

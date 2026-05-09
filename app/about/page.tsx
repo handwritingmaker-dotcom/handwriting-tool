@@ -1,3 +1,5 @@
+import { defaultSocialImage } from "@/lib/seo";
+
 export const metadata = {
   title: "About Us | HandwritingTool",
   description:
@@ -11,12 +13,14 @@ export const metadata = {
       "Learn about HandwritingTool, a simple platform for converting text into readable handwritten-style notes, drafts, worksheets, and permitted page formats.",
     url: "/about",
     type: "website",
+    images: [defaultSocialImage],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "About Us | HandwritingTool",
     description:
       "Learn about HandwritingTool, a simple platform for converting text into readable handwritten-style notes, drafts, worksheets, and permitted page formats.",
+    images: [defaultSocialImage.url],
   },
 };
 

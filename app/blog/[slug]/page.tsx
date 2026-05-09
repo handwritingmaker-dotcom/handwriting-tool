@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
+import { outputSocialImage } from "@/lib/seo";
 
 const siteUrl = "https://www.handwritingtool.com";
 
@@ -42,11 +44,14 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       url: `/blog/${post.slug}`,
       type: "article",
       publishedTime: post.date,
+      modifiedTime: post.updated,
+      images: [outputSocialImage],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title,
       description: post.description,
+      images: [outputSocialImage.url],
     },
   };
 }
@@ -66,6 +71,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     description: post.description,
     datePublished: post.date,
     dateModified: post.updated,
+    image: `${siteUrl}${outputSocialImage.url}`,
     mainEntityOfPage: `${siteUrl}/blog/${post.slug}`,
     author: {
       "@type": "Person",
@@ -123,10 +129,41 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             Practical guidance from the team behind HandwritingTool, focused on helping students and everyday users
             create clear handwritten-style pages faster.
           </p>
+          <p className="mt-2 text-sm leading-6 text-slate-600">
+            Updated {formatDate(post.updated || post.date)}. Use the tool only for notes, drafts, worksheets, examples,
+            and formats allowed by your instructions.
+          </p>
         </div>
         <div className="prose prose-slate mt-6 max-w-none prose-headings:tracking-tight prose-headings:text-slate-950 prose-a:text-brand-blue prose-strong:text-slate-950 prose-li:marker:text-brand-blue">
           <MDXRemote source={post.content} />
         </div>
+        <section className="mt-10 rounded-3xl border border-emerald-100 bg-emerald-50 p-6">
+          <h2 className="text-2xl font-semibold text-slate-950">Use the Converter Responsibly</h2>
+          <p className="mt-3 text-base leading-7 text-slate-700">
+            HandwritingTool is best for readable notes, drafts, worksheets, examples, printable study material, and
+            permitted handwritten-style page formats. If original handwriting is required, follow that rule.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <Link
+              href="/#tool"
+              className="rounded-full bg-brand-blue px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700"
+            >
+              Try Converter
+            </Link>
+            <Link
+              href="/responsible-use"
+              className="rounded-full border border-emerald-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-emerald-100"
+            >
+              Responsible Use
+            </Link>
+            <Link
+              href="/blog/how-to-convert-text-to-handwriting"
+              className="rounded-full border border-emerald-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-emerald-100"
+            >
+              Beginner Guide
+            </Link>
+          </div>
+        </section>
       </article>
     </main>
   );

@@ -1,3 +1,5 @@
+import { defaultSocialImage } from "@/lib/seo";
+
 export const metadata = {
   title: "Terms and Conditions | HandwritingTool",
   description:
@@ -11,12 +13,14 @@ export const metadata = {
       "Read the terms and conditions for using HandwritingTool, including service use, user responsibility, intellectual property, and liability.",
     url: "/terms",
     type: "website",
+    images: [defaultSocialImage],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Terms and Conditions | HandwritingTool",
     description:
       "Read the terms and conditions for using HandwritingTool, including service use, user responsibility, intellectual property, and liability.",
+    images: [defaultSocialImage.url],
   },
 };
 

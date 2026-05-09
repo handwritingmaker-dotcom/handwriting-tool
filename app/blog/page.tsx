@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getAllPosts } from "@/lib/blog";
+import { editorSocialImage } from "@/lib/seo";
 
 export const metadata = {
   title: "Blog | HandwritingTool",
@@ -12,11 +13,13 @@ export const metadata = {
     description: "Helpful articles about handwriting converters, handwritten notes, PDFs, responsible use, and study workflows.",
     url: "/blog",
     type: "website",
+    images: [editorSocialImage],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Blog | HandwritingTool",
     description: "Helpful articles about handwriting converters, handwritten notes, PDFs, responsible use, and study workflows.",
+    images: [editorSocialImage.url],
   },
 };
 
@@ -33,7 +36,7 @@ const popularGuides = [
   },
   {
     href: "/blog/make-handwritten-assignment-online",
-    title: "Create Handwritten-Style Pages",
+    title: "Permitted Handwritten-Style Pages",
     text: "Responsible workflow for permitted page formats.",
   },
   {

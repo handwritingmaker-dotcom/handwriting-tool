@@ -1,3 +1,5 @@
+import { defaultSocialImage } from "@/lib/seo";
+
 export const metadata = {
   title: "Privacy Policy | HandwritingTool",
   description:
@@ -11,12 +13,14 @@ export const metadata = {
       "Read how HandwritingTool respects user privacy, handles limited usage information, cookies, analytics, and third-party services.",
     url: "/privacy-policy",
     type: "website",
+    images: [defaultSocialImage],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Privacy Policy | HandwritingTool",
     description:
       "Read how HandwritingTool respects user privacy, handles limited usage information, cookies, analytics, and third-party services.",
+    images: [defaultSocialImage.url],
   },
 };
 

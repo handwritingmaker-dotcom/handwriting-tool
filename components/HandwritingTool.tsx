@@ -268,7 +268,7 @@ export function HandwritingTool() {
   };
 
   return (
-    <section id="tool" className="grid gap-6 lg:grid-cols-[1.08fr,0.92fr]">
+    <section id="tool" className="grid scroll-mt-36 gap-6 md:scroll-mt-28 lg:grid-cols-[1.08fr,0.92fr]">
       <div className="control-card">
         <div className="mb-5 flex items-center justify-between gap-4">
           <div>

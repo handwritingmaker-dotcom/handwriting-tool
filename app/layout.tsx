@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { DM_Sans, Kalam } from "next/font/google";
+import { defaultSocialImage } from "@/lib/seo";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -35,12 +36,14 @@ export const metadata: Metadata = {
     url: "/",
     siteName: "Handwriting Tool",
     type: "website",
+    images: [defaultSocialImage],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Handwriting Tool - Text to Handwriting Converter Free Online",
     description:
       "Convert text to handwriting online for free. Create handwritten-style notes, drafts, worksheets, and permitted page formats as PDF, PNG, or JPG.",
+    images: [defaultSocialImage.url],
   },
 };
 
@@ -82,33 +85,37 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${dmSans.variable} ${kalam.variable} bg-brand-paper text-brand-ink antialiased`}>
+      <body className={`${dmSans.variable} ${kalam.variable} overflow-x-hidden bg-brand-paper text-brand-ink antialiased`}>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteSchema) }} />
         <div className="min-h-screen">
-          <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/85 backdrop-blur">
-            <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-              <Link href="/" className="flex items-center" aria-label="HandwritingTool home">
+          <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/90 backdrop-blur">
+            <div className="mx-auto flex max-w-7xl min-w-0 flex-col gap-3 px-4 py-3 sm:px-6 md:flex-row md:items-center md:justify-between md:py-4 lg:px-8">
+              <Link href="/" className="flex w-fit items-center" aria-label="HandwritingTool home">
                 <Image
                   src="/handwriting-tool-logo.png"
                   alt="HandwritingTool"
                   width={180}
                   height={70}
                   priority
-                  className="h-16 w-auto"
+                  className="h-14 w-auto md:h-16"
                 />
               </Link>
-              <nav className="hidden items-center gap-6 text-sm font-medium text-slate-600 md:flex">
-                <Link href="/#tool" className="transition hover:text-brand-blue">
+              <nav className="flex w-full min-w-0 max-w-full items-center gap-2 overflow-x-auto pb-1 text-sm font-semibold text-slate-600 md:w-auto md:gap-6 md:overflow-visible md:pb-0 md:font-medium">
+                <Link href="/#tool" className="whitespace-nowrap rounded-full px-3 py-2 transition hover:bg-blue-50 hover:text-brand-blue md:px-0 md:py-0 md:hover:bg-transparent">
                   Converter
                 </Link>
-                <Link href="/#features" className="transition hover:text-brand-blue">
+                <Link href="/#features" className="whitespace-nowrap rounded-full px-3 py-2 transition hover:bg-blue-50 hover:text-brand-blue md:px-0 md:py-0 md:hover:bg-transparent">
                   Features
                 </Link>
-                <Link href="/#seo-guide" className="transition hover:text-brand-blue">
+                <Link href="/#seo-guide" className="whitespace-nowrap rounded-full px-3 py-2 transition hover:bg-blue-50 hover:text-brand-blue md:px-0 md:py-0 md:hover:bg-transparent">
                   Guide
                 </Link>
                 {headerLinks.map((link) => (
-                  <Link key={link.href} href={link.href} className="transition hover:text-brand-blue">
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="whitespace-nowrap rounded-full px-3 py-2 transition hover:bg-blue-50 hover:text-brand-blue md:px-0 md:py-0 md:hover:bg-transparent"
+                  >
                     {link.label}
                   </Link>
                 ))}
