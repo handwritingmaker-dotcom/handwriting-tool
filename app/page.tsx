@@ -489,6 +489,12 @@ export default function HomePage() {
               </p>
               <div className="mt-6 flex flex-wrap gap-3 text-sm font-semibold">
                 <Link
+                  href="/blog/word-to-handwriting-converter-online-free"
+                  className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
+                >
+                  Word to Handwriting
+                </Link>
+                <Link
                   href="/blog/pdf-to-handwriting-converter"
                   className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
                 >

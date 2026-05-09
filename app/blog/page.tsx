@@ -25,6 +25,11 @@ export const metadata = {
 
 const popularGuides = [
   {
+    href: "/blog/word-to-handwriting-converter-online-free",
+    title: "Word to Handwriting Converter",
+    text: "Turn document text into handwritten-style pages.",
+  },
+  {
     href: "/blog/how-to-convert-text-to-handwriting",
     title: "How to Convert Text to Handwriting",
     text: "Start here for the complete beginner workflow.",
