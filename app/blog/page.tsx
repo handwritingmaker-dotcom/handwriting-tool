@@ -25,6 +25,11 @@ export const metadata = {
 
 const popularGuides = [
   {
+    href: "/blog/create-handwritten-pages-online-free",
+    title: "Create Handwritten Pages",
+    text: "Make complete handwritten-style pages online.",
+  },
+  {
     href: "/blog/word-to-handwriting-converter-online-free",
     title: "Word to Handwriting Converter",
     text: "Turn document text into handwritten-style pages.",

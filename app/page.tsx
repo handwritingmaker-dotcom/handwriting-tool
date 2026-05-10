@@ -39,6 +39,11 @@ const features = [
 
 const useCases = [
   {
+    title: "Handwritten Pages",
+    text: "Create complete handwritten-style pages online from typed text with paper, spacing, and export controls.",
+    href: "/blog/create-handwritten-pages-online-free",
+  },
+  {
     title: "Study Notes",
     text: "Turn typed revision points, definitions, and class notes into printable handwritten pages.",
     href: "/blog/text-to-handwriting-converter-for-notes",
@@ -271,7 +276,7 @@ export default function HomePage() {
             export.
           </p>
         </div>
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {useCases.map((item) => (
             <Link
               key={item.title}
@@ -366,6 +371,13 @@ export default function HomePage() {
               If your content is written in Microsoft Word, Google Docs, Notepad, or another editor, you can copy the
               text and paste it into HandwritingTool. The tool works as a word to handwriting converter online free
               because you can turn document text into handwritten pages without uploading a file or creating an account.
+            </p>
+
+            <h2 className="pt-3 text-2xl font-semibold text-slate-950">Create Handwritten Pages Online</h2>
+            <p className="text-lg leading-8">
+              If you need complete page output, read our guide on how to create handwritten pages online. It explains
+              paper styles, margins, spacing, preview checks, and PDF or image downloads for clean handwritten-style
+              pages.
             </p>
 
             <h2 className="pt-3 text-2xl font-semibold text-slate-950">Online Text to Handwriting Converter</h2>
@@ -488,6 +500,12 @@ export default function HomePage() {
                 tools, and exporting clean PDF pages for school or personal study.
               </p>
               <div className="mt-6 flex flex-wrap gap-3 text-sm font-semibold">
+                <Link
+                  href="/blog/create-handwritten-pages-online-free"
+                  className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
+                >
+                  Handwritten Pages
+                </Link>
                 <Link
                   href="/blog/word-to-handwriting-converter-online-free"
                   className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
