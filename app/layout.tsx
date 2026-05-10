@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import Script from "next/script";
 import { DM_Sans, Kalam } from "next/font/google";
 import { defaultSocialImage } from "@/lib/seo";
 import "./globals.css";
@@ -15,6 +16,8 @@ const kalam = Kalam({
   weight: ["300", "400", "700"],
   variable: "--font-hand",
 });
+
+const googleAnalyticsId = "G-024MVPR0W4";
 
 export const metadata: Metadata = {
   title: "Handwriting Tool - Text to Handwriting Converter Free Online",
@@ -86,6 +89,18 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${dmSans.variable} ${kalam.variable} overflow-x-hidden bg-brand-paper text-brand-ink antialiased`}>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${googleAnalyticsId}');
+          `}
+        </Script>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteSchema) }} />
         <div className="min-h-screen">
           <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/90 backdrop-blur">
