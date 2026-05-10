@@ -18,6 +18,7 @@ const kalam = Kalam({
 });
 
 const googleAnalyticsId = "G-024MVPR0W4";
+const googleAdsensePublisherId = "ca-pub-5045380130139381";
 
 export const metadata: Metadata = {
   title: "Handwriting Tool - Text to Handwriting Converter Free Online",
@@ -88,6 +89,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${googleAdsensePublisherId}`}
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className={`${dmSans.variable} ${kalam.variable} overflow-x-hidden bg-brand-paper text-brand-ink antialiased`}>
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
