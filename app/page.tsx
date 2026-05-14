@@ -501,6 +501,12 @@ export default function HomePage() {
               </p>
               <div className="mt-6 flex flex-wrap gap-3 text-sm font-semibold">
                 <Link
+                  href="/blog/handwriting-text"
+                  className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
+                >
+                  Handwriting Text
+                </Link>
+                <Link
                   href="/blog/create-handwritten-pages-online-free"
                   className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
                 >
