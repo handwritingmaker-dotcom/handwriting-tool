@@ -25,6 +25,11 @@ export const metadata = {
 
 const popularGuides = [
   {
+    href: "/blog/how-to-make-typed-notes-look-handwritten-online",
+    title: "Typed Notes to Handwriting",
+    text: "Make typed notes look handwritten online.",
+  },
+  {
     href: "/blog/handwriting-text",
     title: "Handwriting Text",
     text: "Convert typed text into realistic handwriting.",
