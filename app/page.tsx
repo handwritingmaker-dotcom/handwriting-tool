@@ -39,29 +39,24 @@ const features = [
 
 const useCases = [
   {
-    title: "Handwritten Pages",
-    text: "Create complete handwritten-style pages online from typed text with paper, spacing, and export controls.",
+    title: "How to Convert Text to Handwriting",
+    text: "Start with the complete text-to-handwriting workflow.",
+    href: "/blog/how-to-convert-text-to-handwriting",
+  },
+  {
+    title: "Create Handwritten Pages Online Free",
+    text: "Create complete handwritten-style pages online from typed text.",
     href: "/blog/create-handwritten-pages-online-free",
   },
   {
-    title: "Study Notes",
-    text: "Turn typed revision points, definitions, and class notes into printable handwritten pages.",
-    href: "/blog/text-to-handwriting-converter-for-notes",
+    title: "Best Text to Handwriting Tools 2026",
+    text: "Compare free and paid handwriting converter options.",
+    href: "/blog/best-text-to-handwriting-tools-2026-comparison",
   },
   {
-    title: "Typed Notes",
-    text: "Make typed notes look handwritten online with notebook-style paper and PDF export.",
-    href: "/blog/how-to-make-typed-notes-look-handwritten-online",
-  },
-  {
-    title: "Worksheet Pages",
-    text: "Create clean worksheet-style pages when digital handwritten output is allowed by your instructions.",
-    href: "/blog/make-handwritten-assignment-online",
-  },
-  {
-    title: "PDF Export",
-    text: "Download multi-page handwritten output as a PDF for printing, saving, or sharing.",
-    href: "/blog/text-to-handwriting-pdf-generator",
+    title: "Best Handwriting Fonts",
+    text: "Find handwriting styles that look realistic and readable.",
+    href: "/blog/best-handwriting-fonts-for-assignments",
   },
 ];
 
@@ -506,58 +501,28 @@ export default function HomePage() {
               </p>
               <div className="mt-6 flex flex-wrap gap-3 text-sm font-semibold">
                 <Link
-                  href="/blog/handwriting-text"
+                  href="/blog/how-to-convert-text-to-handwriting"
                   className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
                 >
-                  Handwriting Text
+                  How to Convert Text to Handwriting
                 </Link>
                 <Link
                   href="/blog/create-handwritten-pages-online-free"
                   className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
                 >
-                  Handwritten Pages
+                  Create Handwritten Pages Online Free
                 </Link>
                 <Link
-                  href="/blog/word-to-handwriting-converter-online-free"
+                  href="/blog/best-text-to-handwriting-tools-2026-comparison"
                   className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
                 >
-                  Word to Handwriting
+                  Best Text to Handwriting Tools 2026
                 </Link>
                 <Link
-                  href="/blog/pdf-to-handwriting-converter"
+                  href="/blog/best-handwriting-fonts-for-assignments"
                   className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
                 >
-                  PDF to Handwriting
-                </Link>
-                <Link
-                  href="/blog/free-handwriting-generator-online-without-sign-up"
-                  className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
-                >
-                  Free No-Signup Tool
-                </Link>
-                <Link
-                  href="/blog/best-handwriting-generator-for-students-2026"
-                  className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
-                >
-                  Student Guide
-                </Link>
-                <Link
-                  href="/blog/text-to-handwriting-converter-for-notes"
-                  className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
-                >
-                  Printable Notes
-                </Link>
-                <Link
-                  href="/blog/how-to-make-typed-notes-look-handwritten-online"
-                  className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
-                >
-                  Typed Notes Guide
-                </Link>
-                <Link
-                  href="/blog/make-handwritten-assignment-online"
-                  className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
-                >
-                  Permitted Page Formats
+                  Best Handwriting Fonts
                 </Link>
               </div>
             </div>

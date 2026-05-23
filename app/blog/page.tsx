@@ -25,44 +25,24 @@ export const metadata = {
 
 const popularGuides = [
   {
-    href: "/blog/how-to-make-typed-notes-look-handwritten-online",
-    title: "Typed Notes to Handwriting",
-    text: "Make typed notes look handwritten online.",
-  },
-  {
-    href: "/blog/handwriting-text",
-    title: "Handwriting Text",
-    text: "Convert typed text into realistic handwriting.",
+    href: "/blog/how-to-convert-text-to-handwriting",
+    title: "How to Convert Text to Handwriting",
+    text: "Start here for the complete step-by-step workflow.",
   },
   {
     href: "/blog/create-handwritten-pages-online-free",
-    title: "Create Handwritten Pages",
-    text: "Make complete handwritten-style pages online.",
+    title: "Create Handwritten Pages Online Free",
+    text: "Make complete handwritten-style pages from typed text.",
   },
   {
-    href: "/blog/word-to-handwriting-converter-online-free",
-    title: "Word to Handwriting Converter",
-    text: "Turn document text into handwritten-style pages.",
+    href: "/blog/best-text-to-handwriting-tools-2026-comparison",
+    title: "Best Tools Compared 2026",
+    text: "Free and paid options reviewed side by side.",
   },
   {
-    href: "/blog/how-to-convert-text-to-handwriting",
-    title: "How to Convert Text to Handwriting",
-    text: "Start here for the complete beginner workflow.",
-  },
-  {
-    href: "/blog/pdf-to-handwriting-converter",
-    title: "PDF to Handwriting Converter",
-    text: "Turn PDF text into handwritten pages.",
-  },
-  {
-    href: "/blog/make-handwritten-assignment-online",
-    title: "Permitted Handwritten-Style Pages",
-    text: "Responsible workflow for permitted page formats.",
-  },
-  {
-    href: "/blog/text-to-handwriting-converter-for-notes",
-    title: "Printable Handwritten Notes",
-    text: "Create study pages from typed notes.",
+    href: "/blog/best-handwriting-fonts-for-assignments",
+    title: "Best Handwriting Fonts",
+    text: "Which styles look realistic and readable.",
   },
 ];
 
