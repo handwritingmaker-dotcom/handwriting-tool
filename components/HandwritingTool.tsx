@@ -104,7 +104,7 @@ const settingPresets: Array<{
     },
   },
   {
-    label: "Exam Sheet",
+    label: "Practice Sheet",
     icon: "check",
     className: "bg-indigo-600 text-white shadow-paper hover:bg-indigo-700",
     settings: {

@@ -77,7 +77,7 @@ export default function BlogPage() {
           Guides for better notes, readable pages, and productive work
         </h1>
         <p className="mt-5 text-lg leading-8 text-slate-600">
-          Practical articles for students, creators, and developers who want cleaner workflows and faster results.
+          Practical articles for students, teachers, and creators who want cleaner workflows and faster results.
         </p>
       </div>
 

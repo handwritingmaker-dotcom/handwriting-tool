@@ -10,6 +10,16 @@ const nextConfig: NextConfig = {
         destination: "/responsible-use",
         permanent: true,
       },
+      {
+        source: "/privacy",
+        destination: "/privacy-policy",
+        permanent: true,
+      },
+      {
+        source: "/terms-and-conditions",
+        destination: "/terms",
+        permanent: true,
+      },
     ];
   },
 };

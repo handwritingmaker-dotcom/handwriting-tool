@@ -99,7 +99,7 @@ export const handwritingStyles: HandwritingStyle[] = [
   },
   {
     id: "exam-sheet",
-    label: "Exam Sheet",
+    label: "Practice Sheet",
     primary: '"Architects Daughter", "Comic Sans MS", cursive',
     alternates: ['"Patrick Hand", cursive', '"Indie Flower", cursive'],
     slant: 0.012,
