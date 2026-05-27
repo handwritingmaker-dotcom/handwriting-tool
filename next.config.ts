@@ -20,6 +20,16 @@ const nextConfig: NextConfig = {
         destination: "/terms",
         permanent: true,
       },
+      {
+        source: "/blog/text-to-handwriting-converter-for-notes",
+        destination: "/blog/handwritten-notes-generator",
+        permanent: true,
+      },
+      {
+        source: "/blog/handwriting-generator-for-assignments",
+        destination: "/blog/make-handwritten-assignment-online",
+        permanent: true,
+      },
     ];
   },
 };
