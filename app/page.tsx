@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { HandwritingTool } from "@/components/HandwritingTool";
+import { HandwritingToolLoader } from "@/components/HandwritingToolLoader";
 
 const siteUrl = "https://www.handwritingtool.com";
 
@@ -192,7 +192,7 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
-        <HandwritingTool />
+        <HandwritingToolLoader />
       </section>
 
       <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">

@@ -1,6 +1,5 @@
 "use client";
 
-import { jsPDF } from "jspdf";
 import { useEffect, useRef, useState } from "react";
 import {
   defaultSettings,
@@ -157,6 +156,15 @@ export function HandwritingTool() {
   const stylePreviewCache = useRef(new Map<string, HTMLCanvasElement>());
 
   useEffect(() => {
+    if (!text.trim()) {
+      renderRequestId.current += 1;
+      const timeoutId = window.setTimeout(() => {
+        setPages([]);
+        setIsRendering(false);
+      }, 0);
+      return () => window.clearTimeout(timeoutId);
+    }
+
     const requestId = renderRequestId.current + 1;
     renderRequestId.current = requestId;
 
@@ -225,7 +233,7 @@ export function HandwritingTool() {
     await downloadImage(page, selectedPageIndex, format);
   };
 
-  const downloadPdf = (scope: "all" | "current") => {
+  const downloadPdf = async (scope: "all" | "current") => {
     if (!canDownload) return;
 
     const targetPages = scope === "all" ? pages : pages.slice(selectedPageIndex, selectedPageIndex + 1);
@@ -233,6 +241,7 @@ export function HandwritingTool() {
 
     if (!firstPage) return;
 
+    const { jsPDF } = await import("jspdf");
     const pdf = new jsPDF({
       orientation: "portrait",
       unit: "px",
@@ -268,7 +277,7 @@ export function HandwritingTool() {
   };
 
   return (
-    <section id="tool" className="grid scroll-mt-36 gap-6 md:scroll-mt-28 lg:grid-cols-[1.08fr,0.92fr]">
+    <section className="grid scroll-mt-36 gap-6 md:scroll-mt-28 lg:grid-cols-[1.08fr,0.92fr]">
       <div className="control-card">
         <div className="mb-5 flex items-center justify-between gap-4">
           <div>
@@ -603,7 +612,9 @@ export function HandwritingTool() {
           <div className="mt-4">
             <button
               type="button"
-              onClick={() => downloadPdf(scope)}
+              onClick={() => {
+                void downloadPdf(scope);
+              }}
               disabled={!canDownload}
               className="w-full rounded-full bg-brand-blue px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
             >
@@ -652,6 +663,14 @@ export function HandwritingTool() {
         </div>
 
         <div className="max-h-[980px] space-y-6 overflow-auto pr-1">
+          {!pages.length && !isRendering && (
+            <div className="rounded-[28px] border border-dashed border-slate-200 bg-slate-50 p-8 text-center">
+              <p className="text-lg font-semibold text-slate-950">Paste text to generate a preview</p>
+              <p className="mt-2 text-sm leading-6 text-slate-500">
+                The handwriting preview starts after you add text, which keeps the page fast on first load.
+              </p>
+            </div>
+          )}
           {pages.map((page, index) => (
             <div
               key={`${page.pngUrl}-${index}`}
@@ -682,67 +701,7 @@ function StylePreviewCard({
   previewCache: { current: Map<string, HTMLCanvasElement> };
   onClick: () => void;
 }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    let isMounted = true;
-
-    const drawPreview = (preview: HTMLCanvasElement) => {
-      const canvas = canvasRef.current;
-      const ctx = canvas?.getContext("2d");
-
-      if (!canvas || !ctx) return;
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(preview, 0, 0);
-    };
-
-    const cachedPreview = previewCache.current.get(style.id);
-    if (cachedPreview) {
-      drawPreview(cachedPreview);
-      return;
-    }
-
-    void renderHandwriting("Hello World Sample", {
-      ...defaultSettings,
-      styleId: style.id,
-      pageType: "blank",
-      fontSize: 38,
-      leftMargin: 90,
-      rightMargin: 90,
-      topMargin: 80,
-      bottomMargin: 80,
-      assignmentMode: false,
-      pdfQuality: "low",
-      showMarginLine: false,
-      pageTilt: 0,
-    })
-      .then((result) => {
-        if (!isMounted) return;
-
-        const source = result.pages[0];
-        const preview = document.createElement("canvas");
-        const ctx = preview.getContext("2d");
-
-        preview.width = 130;
-        preview.height = 32;
-
-        if (!source || !ctx) return;
-
-        ctx.fillStyle = "#ffffff";
-        ctx.fillRect(0, 0, preview.width, preview.height);
-        ctx.drawImage(source, 58, 54, 620, 150, 0, 0, preview.width, preview.height);
-        previewCache.current.set(style.id, preview);
-        drawPreview(preview);
-      })
-      .catch((error) => {
-        console.error("Failed to render handwriting style preview", error);
-      });
-
-    return () => {
-      isMounted = false;
-    };
-  }, [previewCache, style.id]);
+  void previewCache;
 
   return (
     <button
@@ -755,7 +714,12 @@ function StylePreviewCard({
       }`}
     >
       <span className="block truncate text-xs font-semibold text-slate-950">{style.label}</span>
-      <canvas ref={canvasRef} width={130} height={32} className="mt-1 h-8 w-[130px] rounded-lg bg-white" />
+      <span
+        className="mt-1 block h-8 w-[130px] truncate rounded-lg bg-white px-2 py-1 text-lg leading-6 text-brand-blue"
+        style={{ fontFamily: style.primary }}
+      >
+        Hello sample
+      </span>
     </button>
   );
 }
