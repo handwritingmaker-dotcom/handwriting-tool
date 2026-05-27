@@ -39,6 +39,11 @@ const features = [
 
 const useCases = [
   {
+    title: "Free Printable Templates",
+    text: "Download lined paper, graph paper, practice sheets, and settings guides.",
+    href: "/templates",
+  },
+  {
     title: "How to Convert Text to Handwriting",
     text: "Start with the complete text-to-handwriting workflow.",
     href: "/blog/how-to-convert-text-to-handwriting",
@@ -52,11 +57,6 @@ const useCases = [
     title: "Best Text to Handwriting Tools 2026",
     text: "Compare free and paid handwriting converter options.",
     href: "/blog/best-text-to-handwriting-tools-2026-comparison",
-  },
-  {
-    title: "Best Handwriting Fonts",
-    text: "Find handwriting styles that look realistic and readable.",
-    href: "/blog/best-handwriting-fonts-for-assignments",
   },
 ];
 
@@ -112,7 +112,7 @@ const faqSchema = {
 
 const softwareSchema = {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
+  "@type": ["WebApplication", "SoftwareApplication"],
   name: "HandwritingTool",
   applicationCategory: "ProductivityApplication",
   operatingSystem: "Web",
@@ -241,6 +241,49 @@ export default function HomePage() {
               Paste typed content on one side and review the handwritten page output on the other before exporting.
             </figcaption>
           </figure>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid gap-8 rounded-[32px] border border-slate-200 bg-white p-6 shadow-card lg:grid-cols-[0.95fr,1.05fr] lg:p-10">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-green">Free Templates</p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">
+              Printable paper and settings guides for cleaner handwriting pages
+            </h2>
+            <p className="mt-4 text-lg leading-8 text-slate-600">
+              Download lined paper, graph paper, a handwriting practice sheet, and a best settings guide. Use them for
+              manual writing, examples, drafts, or alongside the converter.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href="/templates"
+                className="rounded-full bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
+              >
+                View Templates
+              </Link>
+              <a
+                href="/templates/printable-lined-paper-a4.pdf"
+                download
+                className="rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+              >
+                Download Lined Paper
+              </a>
+            </div>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {[
+              ["Lined Paper PDF", "Notebook-style printable page"],
+              ["Graph Paper PDF", "Math and lab note template"],
+              ["Practice Sheet", "Guide lines for handwriting practice"],
+              ["Settings Guide", "Best paper, ink, size, and export choices"],
+            ].map(([title, text]) => (
+              <div key={title} className="rounded-3xl border border-blue-100 bg-blue-50 p-5">
+                <h3 className="text-lg font-semibold text-slate-950">{title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-600">{text}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

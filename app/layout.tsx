@@ -65,15 +65,30 @@ const siteSchema = [
     name: "HandwritingTool",
     url: "https://www.handwritingtool.com",
   },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "HandwritingTool",
+    url: "https://www.handwritingtool.com",
+    applicationCategory: "ProductivityApplication",
+    operatingSystem: "Web",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+  },
 ];
 
 const headerLinks = [
+  { href: "/templates", label: "Templates" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
 
 const footerLinks = [
+  { href: "/templates", label: "Templates" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
