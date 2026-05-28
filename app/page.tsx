@@ -231,10 +231,10 @@ export default function HomePage() {
           </div>
           <figure className="rounded-3xl border border-slate-200 bg-white p-4 shadow-card">
             <Image
-              src="/blog/text-to-handwriting-output-preview.png"
+              src="/blog/current-tool-output-preview.png"
               alt="HandwritingTool text input and real-time handwritten page preview"
-              width={1350}
-              height={638}
+              width={1200}
+              height={760}
               className="h-auto w-full rounded-2xl"
             />
             <figcaption className="mt-4 px-2 text-sm leading-6 text-slate-600">

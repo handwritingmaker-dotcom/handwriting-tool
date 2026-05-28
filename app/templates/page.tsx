@@ -67,19 +67,19 @@ const galleryItems = [
   {
     title: "Homepage Tool Preview",
     text: "A quick look at the browser-based converter experience.",
-    src: "/blog/text-to-handwriting-tool-home.png",
+    src: "/blog/current-tool-home-preview.png",
     alt: "HandwritingTool homepage preview",
   },
   {
     title: "Editor and Page Controls",
     text: "Text input, paper controls, handwriting styles, and export options.",
-    src: "/blog/text-to-handwriting-tool-editor.png",
+    src: "/blog/current-tool-editor-controls.png",
     alt: "HandwritingTool editor controls",
   },
   {
     title: "Handwritten Output Preview",
     text: "Typed text and handwritten page output shown side by side.",
-    src: "/blog/text-to-handwriting-output-preview.png",
+    src: "/blog/current-tool-output-preview.png",
     alt: "HandwritingTool handwritten output preview",
   },
 ];
@@ -216,8 +216,8 @@ export default function TemplatesPage() {
               <Image
                 src={item.src}
                 alt={item.alt}
-                width={1350}
-                height={638}
+                width={1200}
+                height={760}
                 className="aspect-[16/10] w-full rounded-2xl object-cover object-left-top"
               />
               <figcaption className="px-2 py-4">
