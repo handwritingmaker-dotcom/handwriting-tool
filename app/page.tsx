@@ -60,6 +60,25 @@ const useCases = [
   },
 ];
 
+const popularGuides = [
+  {
+    title: "How to Convert Text to Handwriting",
+    href: "/blog/how-to-convert-text-to-handwriting",
+  },
+  {
+    title: "Best Text to Handwriting Tools 2026",
+    href: "/blog/best-text-to-handwriting-tools-2026-comparison",
+  },
+  {
+    title: "Text to Handwriting PDF Generator",
+    href: "/blog/text-to-handwriting-pdf-generator",
+  },
+  {
+    title: "Best Handwriting Generator for Students 2026",
+    href: "/blog/best-handwriting-generator-for-students-2026",
+  },
+];
+
 const comparisonRows = [
   ["No signup", "Start in the browser without creating an account.", "Many tools add login or account friction."],
   ["PDF, PNG, JPG", "Export complete pages as PDF or image formats.", "Some converters only download PNG images."],
@@ -336,6 +355,30 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section id="popular-guides" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mb-10 max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">Popular Guides</p>
+          <h2 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">Popular Guides</h2>
+          <p className="mt-4 text-lg leading-8 text-slate-600">
+            Start with the most useful handwriting guides
+          </p>
+        </div>
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          {popularGuides.map((guide) => (
+            <Link
+              key={guide.title}
+              href={guide.href}
+              className="group rounded-3xl border border-slate-200 bg-white p-6 shadow-card transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-paper"
+            >
+              <h3 className="text-xl font-semibold tracking-tight text-slate-950 transition group-hover:text-brand-blue">
+                {guide.title}
+              </h3>
+              <p className="mt-5 text-sm font-semibold text-brand-blue">Read guide -&gt;</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="mb-10 max-w-3xl">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">Why Choose Us</p>
@@ -378,6 +421,13 @@ export default function HomePage() {
             <p className="text-lg leading-8">
               HandwritingTool is a fast, simple, and powerful text to handwriting converter designed for students,
               teachers, creators, and anyone who needs handwritten-style pages for legitimate use.
+            </p>
+            <p className="text-lg leading-8">
+              Start with our{" "}
+              <Link href="/blog/how-to-convert-text-to-handwriting" className="font-semibold text-brand-blue">
+                step-by-step guide on how to convert text to handwriting
+              </Link>{" "}
+              to learn the complete workflow.
             </p>
             <p className="rounded-2xl border border-blue-100 bg-blue-50 px-5 py-4 text-base font-semibold text-brand-blue">
               No signup. No hassle. Just type, convert, and download.
