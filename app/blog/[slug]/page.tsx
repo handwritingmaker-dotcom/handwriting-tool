@@ -66,7 +66,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   const articleSchema = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: post.title,
     description: post.description,
     datePublished: post.date,
@@ -76,7 +76,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     author: {
       "@type": "Person",
       name: "Anwar",
-      url: siteUrl,
+      url: `${siteUrl}/about`,
+      jobTitle: "Founder and editor of HandwritingTool",
     },
     publisher: {
       "@type": "Organization",
@@ -124,14 +125,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           {formatDate(post.date)}
         </p>
         <div className="mt-5 rounded-3xl border border-blue-100 bg-blue-50 px-5 py-4">
-          <p className="text-sm font-semibold text-slate-950">Written by Anwar, Founder of HandwritingTool</p>
+          <p className="text-sm font-semibold text-slate-950">Written and edited by Anwar</p>
           <p className="mt-2 text-sm leading-6 text-slate-600">
-            Practical guidance from the team behind HandwritingTool, focused on helping students and everyday users
-            create clear handwritten-style pages faster.
+            Anwar founded HandwritingTool and edits the site&apos;s guides on handwriting conversion, page layout,
+            printable documents, and writing workflows.
           </p>
           <p className="mt-2 text-sm leading-6 text-slate-600">
-            Updated {formatDate(post.updated || post.date)}. Use the tool only for notes, drafts, worksheets, examples,
-            and formats allowed by your instructions.
+            Updated {formatDate(post.updated || post.date)}. Each guide is reviewed for clarity, practical usefulness,
+            and responsible page-creation workflows.
           </p>
         </div>
         <div className="prose prose-slate mt-6 max-w-none prose-headings:tracking-tight prose-headings:text-slate-950 prose-a:text-brand-blue prose-strong:text-slate-950 prose-li:marker:text-brand-blue">
@@ -140,8 +141,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <section className="mt-10 rounded-3xl border border-emerald-100 bg-emerald-50 p-6">
           <h2 className="text-2xl font-semibold text-slate-950">Use the Converter Responsibly</h2>
           <p className="mt-3 text-base leading-7 text-slate-700">
-            HandwritingTool is best for readable notes, drafts, worksheets, examples, printable study material, and
-            permitted handwritten-style page formats. If original handwriting is required, follow that rule.
+            HandwritingTool is best for readable notes, drafts, worksheets, examples, journal pages, printable
+            resources, and document previews. Review your output carefully before printing or sharing it.
           </p>
           <div className="mt-5 flex flex-wrap gap-3">
             <Link

@@ -3,14 +3,14 @@ import { defaultSocialImage } from "@/lib/seo";
 export const metadata = {
   title: "About Us | HandwritingTool",
   description:
-    "Learn about HandwritingTool, a simple platform for converting text into readable handwritten-style notes, drafts, worksheets, and permitted page formats.",
+    "Learn about HandwritingTool, a simple platform for converting text into readable handwritten-style notes, drafts, worksheets, journal pages, and documents.",
   alternates: {
     canonical: "/about",
   },
   openGraph: {
     title: "About Us | HandwritingTool",
     description:
-      "Learn about HandwritingTool, a simple platform for converting text into readable handwritten-style notes, drafts, worksheets, and permitted page formats.",
+      "Learn about HandwritingTool, a simple platform for converting text into readable handwritten-style notes, drafts, worksheets, journal pages, and documents.",
     url: "/about",
     type: "website",
     images: [defaultSocialImage],
@@ -19,7 +19,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "About Us | HandwritingTool",
     description:
-      "Learn about HandwritingTool, a simple platform for converting text into readable handwritten-style notes, drafts, worksheets, and permitted page formats.",
+      "Learn about HandwritingTool, a simple platform for converting text into readable handwritten-style notes, drafts, worksheets, journal pages, and documents.",
     images: [defaultSocialImage.url],
   },
 };
@@ -33,7 +33,7 @@ const reasons = [
 
 const capabilities = [
   "Convert plain text into natural-looking handwriting",
-  "Generate study notes, drafts, worksheets, and permitted page formats",
+  "Generate notes, drafts, worksheets, journal pages, and documents",
   "Save your output as image or PDF",
   "Use different writing styles for better customization",
 ];
@@ -56,8 +56,9 @@ export default function AboutPage() {
 
         <div className="mt-8 space-y-5 text-lg leading-8 text-slate-600">
           <p>
-            HandwritingTool is built with a clear purpose: to make handwritten-style page creation easier for students,
-            teachers, professionals, and everyday users who need readable notes, drafts, worksheets, or printable pages.
+            HandwritingTool is built with a clear purpose: to make handwritten-style page creation easier for writers,
+            teachers, creators, professionals, and everyday users who need readable notes, drafts, worksheets, journal
+            pages, or printable documents.
           </p>
           <p>
             In many situations, people still need handwritten-style notes, examples, worksheets, and documents. Creating
@@ -68,13 +69,18 @@ export default function AboutPage() {
             We provide a simple and efficient way to convert your text into handwritten-style content within seconds,
             while keeping quality, readability, and responsible use in focus.
           </p>
+          <p>
+            The site is operated by Anwar, the founder and editor of HandwritingTool. Our editorial goal is to publish
+            practical guides that explain handwriting conversion, page layout, printable documents, and writing
+            workflows in plain language.
+          </p>
         </div>
 
         <section className="mt-12">
           <h2 className="text-2xl font-semibold text-slate-950">Why We Created HandwritingTool</h2>
           <p className="mt-4 text-lg leading-8 text-slate-600">
-            We noticed that many users needed a cleaner way to prepare notebook-style pages, study notes, printable
-            examples, and accepted digital formats. At the same time, many existing tools online were complicated,
+            We noticed that many users needed a cleaner way to prepare notebook-style pages, printable examples,
+            creative drafts, teacher resources, and document previews. At the same time, many existing tools online were complicated,
             low-quality, or filled with unnecessary limitations.
           </p>
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
@@ -101,7 +107,7 @@ export default function AboutPage() {
           <h2 className="text-2xl font-semibold text-slate-950">Our Goal</h2>
           <p className="mt-4 text-lg leading-8 text-slate-600">
             Our goal is not just to provide a tool, but to build a reliable platform that people can trust for everyday
-            study, productivity, and writing needs. We continuously improve the tool based on user feedback and
+            productivity, teaching, design, journaling, and writing needs. We continuously improve the tool based on user feedback and
             real-world usage.
           </p>
         </section>
