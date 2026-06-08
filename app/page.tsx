@@ -74,8 +74,8 @@ const popularGuides = [
     href: "/blog/text-to-handwriting-pdf-generator",
   },
   {
-    title: "Best Handwriting Generator for Students 2026",
-    href: "/blog/best-handwriting-generator-for-students-2026",
+    title: "Handwritten Notes Generator",
+    href: "/blog/handwritten-notes-generator",
   },
 ];
 
@@ -612,10 +612,10 @@ export default function HomePage() {
                   Best Text to Handwriting Tools 2026
                 </Link>
                 <Link
-                  href="/blog/best-handwriting-fonts-for-assignments"
+                  href="/blog/how-to-make-handwriting-look-realistic-online"
                   className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
                 >
-                  Best Handwriting Fonts
+                  Make Handwriting Look Realistic
                 </Link>
               </div>
             </div>

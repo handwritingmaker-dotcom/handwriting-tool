@@ -40,9 +40,9 @@ const popularGuides = [
     text: "Free and paid options reviewed side by side.",
   },
   {
-    href: "/blog/best-handwriting-fonts-for-assignments",
-    title: "Best Handwriting Fonts",
-    text: "Which styles look realistic and readable.",
+    href: "/blog/how-to-make-handwriting-look-realistic-online",
+    title: "Realistic Handwriting Guide",
+    text: "Tune spacing, ink, and variation for natural-looking pages.",
   },
 ];
 
