@@ -155,15 +155,23 @@ export function HandwritingTool() {
   const renderRequestId = useRef(0);
   const stylePreviewCache = useRef(new Map<string, HTMLCanvasElement>());
   const hasUserText = text.trim().length > 0;
-  const previewText = hasUserText ? text : starterText;
 
   useEffect(() => {
+    if (!hasUserText) {
+      renderRequestId.current += 1;
+      const timeoutId = window.setTimeout(() => {
+        setPages([]);
+        setIsRendering(false);
+      }, 0);
+      return () => window.clearTimeout(timeoutId);
+    }
+
     const requestId = renderRequestId.current + 1;
     renderRequestId.current = requestId;
 
     const timeoutId = window.setTimeout(() => {
       setIsRendering(true);
-      void renderHandwriting(previewText, settings)
+      void renderHandwriting(text, settings)
         .then((result) => {
           if (renderRequestId.current !== requestId) {
             return;
@@ -188,7 +196,7 @@ export function HandwritingTool() {
     }, hasUserText ? 120 : 0);
 
     return () => window.clearTimeout(timeoutId);
-  }, [hasUserText, previewText, settings]);
+  }, [hasUserText, settings, text]);
 
   const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
   const shownPageCount = hasUserText ? pages.length : 0;
@@ -652,22 +660,17 @@ export function HandwritingTool() {
             <h3 className="mt-2 text-2xl font-semibold text-slate-950">Real-time handwritten pages</h3>
           </div>
           <div className="rounded-full bg-emerald-50 px-4 py-2 text-xs font-semibold text-brand-green">
-            {hasUserText ? "Live preview" : "Sample page"}
+            {hasUserText ? "Live preview" : "Waiting for text"}
           </div>
         </div>
 
         <div className="max-h-[980px] space-y-6 overflow-auto pr-1" aria-live="polite">
-          {!pages.length && <PreviewPaperSkeleton />}
+          {!pages.length && <BlankPreviewPaper />}
           {pages.map((page, index) => (
             <div
               key={`${page.pngUrl}-${index}`}
               className="paper-frame relative rounded-[28px] border border-slate-200 bg-white p-3 shadow-paper"
             >
-              {!hasUserText && index === 0 && (
-                <span className="absolute right-6 top-6 z-10 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-slate-500 shadow-sm ring-1 ring-slate-200">
-                  Sample
-                </span>
-              )}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={page.pngUrl}
@@ -716,7 +719,7 @@ function StylePreviewCard({
   );
 }
 
-function PreviewPaperSkeleton() {
+function BlankPreviewPaper() {
   return (
     <div className="paper-frame rounded-[28px] border border-slate-200 bg-white p-3 shadow-paper">
       <div className="relative aspect-[1240/1754] overflow-hidden rounded-[22px] bg-[#fffdf4]">
@@ -724,15 +727,6 @@ function PreviewPaperSkeleton() {
         <div className="absolute inset-x-0 top-[11%] space-y-[4.7%]">
           {Array.from({ length: 16 }).map((_, index) => (
             <div key={index} className="h-px bg-blue-200/70" />
-          ))}
-        </div>
-        <div className="absolute left-[16%] right-[10%] top-[14%] space-y-[4.9%]">
-          {Array.from({ length: 10 }).map((_, index) => (
-            <div
-              key={index}
-              className="h-3 rounded-full bg-blue-500/15"
-              style={{ width: `${index % 3 === 0 ? 92 : index % 3 === 1 ? 76 : 86}%` }}
-            />
           ))}
         </div>
       </div>

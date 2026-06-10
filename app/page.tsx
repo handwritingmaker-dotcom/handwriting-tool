@@ -172,42 +172,20 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify([softwareSchema, faqSchema]) }}
       />
-      <section className="relative isolate overflow-hidden border-b border-blue-100 bg-[#eef7ff]">
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,#f8fafc_0%,rgba(248,250,252,0.97)_42%,rgba(248,250,252,0.72)_68%,rgba(248,250,252,0.35)_100%)]" />
-        <div className="absolute inset-x-0 bottom-0 top-36 opacity-25 sm:top-24 lg:hidden">
-          <Image
-            src="/blog/current-tool-output-preview.png"
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center"
-          />
-        </div>
-        <div className="absolute bottom-[-24px] right-[-160px] top-8 hidden w-[72%] lg:block xl:right-[-110px]">
-          <Image
-            src="/blog/current-tool-output-preview.png"
-            alt=""
-            fill
-            priority
-            sizes="72vw"
-            className="object-contain object-right-bottom drop-shadow-[0_34px_55px_rgba(37,99,235,0.18)]"
-          />
-        </div>
-
-        <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
-          <div className="max-w-3xl">
-            <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-blue-100 bg-white/80 px-4 py-2 text-sm font-semibold text-brand-blue shadow-sm">
+      <section className="relative overflow-hidden border-b border-slate-200 bg-[#f5f9ff]">
+        <div className="mx-auto grid max-w-7xl items-center gap-9 px-4 py-10 sm:px-6 sm:py-14 lg:grid-cols-[0.92fr,1.08fr] lg:px-8 lg:py-16">
+          <div className="max-w-2xl">
+            <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-emerald-100 bg-white px-4 py-2 text-sm font-semibold text-emerald-700 shadow-sm">
               <FeatureIcon name="check" className="h-4 w-4 shrink-0 text-brand-green" />
-              <span>No login - private browser rendering - instant page preview</span>
+              <span>No login. No upload. Private browser preview.</span>
             </div>
-            <h1 className="mt-6 max-w-3xl text-4xl font-semibold leading-tight text-slate-950 sm:text-6xl lg:text-7xl">
+            <h1 className="mt-6 max-w-3xl text-4xl font-semibold leading-tight text-slate-950 sm:text-6xl">
               Text to Handwriting Converter
-              <span className="font-hand mt-2 block text-brand-blue">for real handwritten pages</span>
+              <span className="font-hand mt-2 block text-brand-blue">that feels like a real page</span>
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-700 sm:text-xl sm:leading-9">
-              Paste your typed notes, choose a handwriting style, preview a notebook-style page in real time, and export
-              clean PDF, PNG, or JPG files from your browser.
+              Paste notes on the left, watch the notebook page fill on the right, then download clean handwritten-style
+              pages as PDF, PNG, or JPG.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
@@ -219,10 +197,10 @@ export default function HomePage() {
                 <span aria-hidden="true">-&gt;</span>
               </Link>
               <Link
-                href="/templates"
+                href="/#features"
                 className="rounded-full border border-slate-200 bg-white/90 px-6 py-3 text-sm font-semibold text-slate-800 shadow-sm transition hover:bg-white"
               >
-                View Templates
+                See Features
               </Link>
             </div>
 
@@ -257,6 +235,8 @@ export default function HomePage() {
               </div>
             </div>
           </div>
+
+          <HeroWorkspacePreview />
         </div>
       </section>
 
@@ -680,6 +660,72 @@ export default function HomePage() {
         </div>
       </section>
     </main>
+  );
+}
+
+function HeroWorkspacePreview() {
+  return (
+    <div className="relative min-h-[520px] overflow-hidden rounded-3xl border border-slate-200 bg-white p-4 shadow-card sm:p-5">
+      <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div className="flex items-center gap-2">
+          <span className="h-3 w-3 rounded-full bg-red-300" />
+          <span className="h-3 w-3 rounded-full bg-amber-300" />
+          <span className="h-3 w-3 rounded-full bg-emerald-300" />
+        </div>
+        <div className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-500">Live workspace</div>
+      </div>
+
+      <div className="mt-5 grid gap-4 lg:grid-cols-[0.88fr,1.12fr]">
+        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+          <div className="flex items-center justify-between">
+            <p className="text-xs font-semibold uppercase text-brand-blue">Typed text</p>
+            <p className="rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-slate-500">42 words</p>
+          </div>
+          <div className="mt-4 rounded-xl border border-slate-200 bg-white p-4 text-sm leading-7 text-slate-600 shadow-sm">
+            <p>Topic: Clean handwritten pages</p>
+            <p className="mt-3">
+              Paste your notes here and the page preview updates as you write.
+            </p>
+            <p className="mt-3">
+              Adjust paper, ink, spacing, and margins before export.
+            </p>
+          </div>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {["Worksheet", "Class Notes", "PDF"].map((item) => (
+              <span key={item} className="rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 ring-1 ring-slate-200">
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="paper-frame rounded-2xl border border-slate-200 bg-white p-3 shadow-paper">
+          <div className="relative aspect-[0.72] overflow-hidden rounded-xl bg-[#fffdf4]">
+            <div className="absolute inset-y-0 left-[15%] border-l-2 border-red-200" />
+            <div className="absolute inset-x-0 top-[14%] space-y-[7%]">
+              {Array.from({ length: 11 }).map((_, index) => (
+                <div key={index} className="h-px bg-blue-200/80" />
+              ))}
+            </div>
+            <div className="absolute left-[21%] right-[8%] top-[18%]">
+              <p className="text-xs font-semibold text-slate-600 sm:text-sm">Name: HandwritingTool</p>
+              <p className="mt-2 text-xs font-semibold text-slate-600 sm:text-sm">Topic: Live preview</p>
+              <div className="font-hand mt-5 space-y-3 text-[1.35rem] leading-7 text-brand-blue sm:text-[1.7rem] sm:leading-8">
+                <p>The notebook page fills only after you type.</p>
+                <p>Spacing, paper, and ink stay easy to check.</p>
+                <p>Export when the page looks right.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-4 grid gap-3 text-xs font-semibold text-slate-600 sm:grid-cols-3">
+        <div className="rounded-2xl border border-blue-100 bg-blue-50 px-4 py-3">Real-time preview</div>
+        <div className="rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3">Browser private</div>
+        <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3">PDF export ready</div>
+      </div>
+    </div>
   );
 }
 
