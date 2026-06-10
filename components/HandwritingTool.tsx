@@ -154,35 +154,28 @@ export function HandwritingTool() {
   const [isRendering, setIsRendering] = useState(true);
   const renderRequestId = useRef(0);
   const stylePreviewCache = useRef(new Map<string, HTMLCanvasElement>());
+  const hasUserText = text.trim().length > 0;
+  const previewText = hasUserText ? text : starterText;
 
   useEffect(() => {
-    if (!text.trim()) {
-      renderRequestId.current += 1;
-      const timeoutId = window.setTimeout(() => {
-        setPages([]);
-        setIsRendering(false);
-      }, 0);
-      return () => window.clearTimeout(timeoutId);
-    }
-
     const requestId = renderRequestId.current + 1;
     renderRequestId.current = requestId;
 
     const timeoutId = window.setTimeout(() => {
       setIsRendering(true);
-      void renderHandwriting(text, settings)
+      void renderHandwriting(previewText, settings)
         .then((result) => {
           if (renderRequestId.current !== requestId) {
             return;
           }
 
-        setPages(
-          result.pages.map((page) => ({
-            pngUrl: page.toDataURL("image/png"),
-            width: result.pageWidth,
-            height: result.pageHeight,
-          })),
-        );
+          setPages(
+            result.pages.map((page) => ({
+              pngUrl: page.toDataURL("image/png"),
+              width: result.pageWidth,
+              height: result.pageHeight,
+            })),
+          );
         })
         .catch((error) => {
           console.error("Failed to render handwriting preview", error);
@@ -192,13 +185,14 @@ export function HandwritingTool() {
             setIsRendering(false);
           }
         });
-    }, 350);
+    }, hasUserText ? 120 : 0);
 
     return () => window.clearTimeout(timeoutId);
-  }, [settings, text]);
+  }, [hasUserText, previewText, settings]);
 
   const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
-  const canDownload = pages.length > 0 && !isRendering;
+  const shownPageCount = hasUserText ? pages.length : 0;
+  const canDownload = hasUserText && pages.length > 0 && !isRendering;
   const safeBaseName = sanitizeFileName(fileName) || "handwriting-pages";
   const selectedPageIndex = Math.min(currentPageIndex, Math.max(pages.length - 1, 0));
 
@@ -285,7 +279,7 @@ export function HandwritingTool() {
             <h2 className="mt-2 text-3xl font-semibold text-slate-950">Convert typed text into believable handwriting</h2>
           </div>
           <div className="rounded-full bg-blue-50 px-4 py-2 text-xs font-semibold text-brand-blue">
-            {wordCount} words / {pages.length} page{pages.length === 1 ? "" : "s"}
+            {wordCount} words / {shownPageCount} page{shownPageCount === 1 ? "" : "s"}
           </div>
         </div>
 
@@ -580,7 +574,7 @@ export function HandwritingTool() {
               className="input-field min-w-40"
               value={selectedPageIndex}
               onChange={(event) => setCurrentPageIndex(Number(event.target.value))}
-              disabled={!pages.length}
+              disabled={!hasUserText || !pages.length}
             >
               {pages.map((_, index) => (
                 <option key={index} value={index}>
@@ -658,24 +652,22 @@ export function HandwritingTool() {
             <h3 className="mt-2 text-2xl font-semibold text-slate-950">Real-time handwritten pages</h3>
           </div>
           <div className="rounded-full bg-emerald-50 px-4 py-2 text-xs font-semibold text-brand-green">
-            Mobile-ready
+            {hasUserText ? "Live preview" : "Sample page"}
           </div>
         </div>
 
-        <div className="max-h-[980px] space-y-6 overflow-auto pr-1">
-          {!pages.length && !isRendering && (
-            <div className="rounded-[28px] border border-dashed border-slate-200 bg-slate-50 p-8 text-center">
-              <p className="text-lg font-semibold text-slate-950">Paste text to generate a preview</p>
-              <p className="mt-2 text-sm leading-6 text-slate-500">
-                The handwriting preview starts after you add text, which keeps the page fast on first load.
-              </p>
-            </div>
-          )}
+        <div className="max-h-[980px] space-y-6 overflow-auto pr-1" aria-live="polite">
+          {!pages.length && <PreviewPaperSkeleton />}
           {pages.map((page, index) => (
             <div
               key={`${page.pngUrl}-${index}`}
-              className="paper-frame rounded-[28px] border border-slate-200 bg-white p-3 shadow-paper"
+              className="paper-frame relative rounded-[28px] border border-slate-200 bg-white p-3 shadow-paper"
             >
+              {!hasUserText && index === 0 && (
+                <span className="absolute right-6 top-6 z-10 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-slate-500 shadow-sm ring-1 ring-slate-200">
+                  Sample
+                </span>
+              )}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={page.pngUrl}
@@ -721,6 +713,30 @@ function StylePreviewCard({
         Hello sample
       </span>
     </button>
+  );
+}
+
+function PreviewPaperSkeleton() {
+  return (
+    <div className="paper-frame rounded-[28px] border border-slate-200 bg-white p-3 shadow-paper">
+      <div className="relative aspect-[1240/1754] overflow-hidden rounded-[22px] bg-[#fffdf4]">
+        <div className="absolute bottom-0 left-0 top-0 w-[11%] border-r-2 border-red-200/80" />
+        <div className="absolute inset-x-0 top-[11%] space-y-[4.7%]">
+          {Array.from({ length: 16 }).map((_, index) => (
+            <div key={index} className="h-px bg-blue-200/70" />
+          ))}
+        </div>
+        <div className="absolute left-[16%] right-[10%] top-[14%] space-y-[4.9%]">
+          {Array.from({ length: 10 }).map((_, index) => (
+            <div
+              key={index}
+              className="h-3 rounded-full bg-blue-500/15"
+              style={{ width: `${index % 3 === 0 ? 92 : index % 3 === 1 ? 76 : 86}%` }}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 
