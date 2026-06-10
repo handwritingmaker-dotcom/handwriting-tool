@@ -172,58 +172,88 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify([softwareSchema, faqSchema]) }}
       />
-      <section className="bg-hero-grid bg-grid">
-        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[1.05fr,0.95fr] lg:px-8 lg:py-14">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/80 px-4 py-2 text-sm font-semibold text-brand-blue shadow-sm">
-              No login required - Works instantly in your browser
+      <section className="relative isolate overflow-hidden border-b border-blue-100 bg-[#eef7ff]">
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,#f8fafc_0%,rgba(248,250,252,0.97)_42%,rgba(248,250,252,0.72)_68%,rgba(248,250,252,0.35)_100%)]" />
+        <div className="absolute inset-x-0 bottom-0 top-36 opacity-25 sm:top-24 lg:hidden">
+          <Image
+            src="/blog/current-tool-output-preview.png"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+        </div>
+        <div className="absolute bottom-[-24px] right-[-160px] top-8 hidden w-[72%] lg:block xl:right-[-110px]">
+          <Image
+            src="/blog/current-tool-output-preview.png"
+            alt=""
+            fill
+            priority
+            sizes="72vw"
+            className="object-contain object-right-bottom drop-shadow-[0_34px_55px_rgba(37,99,235,0.18)]"
+          />
+        </div>
+
+        <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
+          <div className="max-w-3xl">
+            <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-blue-100 bg-white/80 px-4 py-2 text-sm font-semibold text-brand-blue shadow-sm">
+              <FeatureIcon name="check" className="h-4 w-4 shrink-0 text-brand-green" />
+              <span>No login - private browser rendering - instant page preview</span>
             </div>
-            <h1 className="mt-6 max-w-full text-4xl font-semibold leading-tight tracking-tight text-slate-950 sm:text-6xl">
-              Text to Handwriting Converter Online
-              <span className="font-hand mt-1 block text-brand-blue sm:ml-3 sm:inline">Free and Easy</span>
+            <h1 className="mt-6 max-w-3xl text-4xl font-semibold leading-tight text-slate-950 sm:text-6xl lg:text-7xl">
+              Text to Handwriting Converter
+              <span className="font-hand mt-2 block text-brand-blue">for real handwritten pages</span>
             </h1>
-            <p className="mt-6 max-w-[21rem] text-lg leading-8 text-slate-600 sm:max-w-xl">
-              Convert your text into realistic handwriting instantly. Create handwritten-style notes, worksheets,
-              drafts, and printable pages in seconds.
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-700 sm:text-xl sm:leading-9">
+              Paste your typed notes, choose a handwriting style, preview a notebook-style page in real time, and export
+              clean PDF, PNG, or JPG files from your browser.
             </p>
+
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 href="/#tool"
-                className="rounded-full bg-brand-blue px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
+                className="inline-flex items-center gap-2 rounded-full bg-brand-blue px-6 py-3 text-sm font-semibold text-white shadow-paper transition hover:bg-blue-700"
               >
                 Start Converting
+                <span aria-hidden="true">-&gt;</span>
               </Link>
               <Link
-                href="/#features"
-                className="rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+                href="/templates"
+                className="rounded-full border border-slate-200 bg-white/90 px-6 py-3 text-sm font-semibold text-slate-800 shadow-sm transition hover:bg-white"
               >
-                Explore Features
+                View Templates
               </Link>
             </div>
-            <div className="mt-10 grid gap-4 sm:grid-cols-3">
-              <StatCard value="10" label="Handwriting styles" icon="spark" />
-              <StatCard value="3" label="Paper types" icon="paper" />
-              <StatCard value="1-click" label="PDF & image export" icon="download" />
-            </div>
-          </div>
 
-          <div className="rounded-[32px] border border-white/70 bg-white/85 p-6 shadow-card backdrop-blur">
-            <div className="rounded-[28px] bg-slate-950 p-1 shadow-paper">
-              <div className="rounded-[24px] bg-white p-6">
-                <div className="rounded-[24px] border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-emerald-50 p-6">
-                  <p className="text-sm font-semibold uppercase tracking-[0.3em] text-brand-blue">
-                    Why it looks real
-                  </p>
-                  <ul className="mt-5 space-y-4 text-sm leading-7 text-slate-600">
-                    <li>Every letter looks slightly different, just like real human handwriting.</li>
-                    <li>Natural spacing and alignment make pages feel written by hand, not generated.</li>
-                    <li>Notebook lines, margins, and paper styles create a familiar page layout.</li>
-                    <li>No repeating patterns - your pages look natural and unique every time.</li>
-                  </ul>
-                  <div className="mt-6 rounded-3xl bg-slate-950 px-5 py-4 text-sm text-white">
-                    Perfect for writers, teachers, and creators making notes, worksheets, drafts, and printable pages.
-                  </div>
+            <div className="mt-9 flex flex-wrap gap-3 text-sm font-semibold text-slate-700">
+              {[
+                ["10 styles", "spark"],
+                ["Lined, blank, graph", "paper"],
+                ["PDF, PNG, JPG", "download"],
+              ].map(([label, icon]) => (
+                <div
+                  key={label}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/75 px-4 py-2 shadow-sm backdrop-blur"
+                >
+                  <FeatureIcon name={icon} className="h-4 w-4 text-brand-blue" />
+                  {label}
                 </div>
+              ))}
+            </div>
+
+            <div className="mt-10 grid max-w-2xl gap-5 border-t border-slate-200/80 pt-6 text-sm text-slate-600 sm:grid-cols-3">
+              <div>
+                <p className="text-2xl font-semibold text-slate-950">Browser-only</p>
+                <p className="mt-1 leading-6">Your text stays on your device.</p>
+              </div>
+              <div>
+                <p className="text-2xl font-semibold text-slate-950">Live layout</p>
+                <p className="mt-1 leading-6">Check spacing before export.</p>
+              </div>
+              <div>
+                <p className="text-2xl font-semibold text-slate-950">Print-ready</p>
+                <p className="mt-1 leading-6">Create neat full-page output.</p>
               </div>
             </div>
           </div>
@@ -650,18 +680,6 @@ export default function HomePage() {
         </div>
       </section>
     </main>
-  );
-}
-
-function StatCard({ value, label, icon }: { value: string; label: string; icon: string }) {
-  return (
-    <div className="rounded-3xl border border-slate-200 bg-white px-5 py-5 shadow-sm">
-      <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-50 text-brand-blue">
-        <FeatureIcon name={icon} className="h-5 w-5" />
-      </div>
-      <p className="text-2xl font-semibold text-slate-950">{value}</p>
-      <p className="mt-1 text-sm text-slate-500">{label}</p>
-    </div>
   );
 }
 
