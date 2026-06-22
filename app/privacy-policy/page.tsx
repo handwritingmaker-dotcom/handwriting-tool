@@ -114,12 +114,13 @@ export default function PrivacyPolicyPage() {
           <h2 className="text-2xl font-semibold text-slate-950">Analytics and Advertising Partners</h2>
           <p>
             We may use Google Analytics to understand aggregate website traffic and usage patterns. We may also use
-            Google AdSense or related advertising services to display ads if advertising is enabled on the site.
+            Google AdSense, Adsterra, or related advertising services to display ads if advertising is enabled on the
+            site.
           </p>
           <p>
-            Google and its partners may use cookies or similar technologies to serve ads, measure ad performance,
-            prevent abuse, and personalize ads depending on user settings and applicable law. These services process
-            information according to their own privacy policies and controls.
+            Advertising partners may use cookies or similar technologies to serve ads, measure ad performance, prevent
+            abuse, and personalize ads depending on user settings and applicable law. These services process information
+            according to their own privacy policies and controls.
           </p>
           <p>
             You can learn more about Google advertising privacy choices through Google&apos;s ad settings and privacy

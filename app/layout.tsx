@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
 import { DM_Sans, Kalam } from "next/font/google";
+import { AdsterraSocialBar } from "@/components/AdsterraAds";
 import { defaultSocialImage } from "@/lib/seo";
 import "./globals.css";
 
@@ -122,6 +123,7 @@ export default function RootLayout({
             gtag('config', '${googleAnalyticsId}');
           `}
         </Script>
+        <AdsterraSocialBar />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteSchema) }} />
         <div className="min-h-screen">
           <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/90 backdrop-blur">

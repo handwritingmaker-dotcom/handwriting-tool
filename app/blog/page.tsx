@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AdsterraNativeBanner } from "@/components/AdsterraAds";
 import { getAllPosts } from "@/lib/blog";
 import { editorSocialImage } from "@/lib/seo";
 
@@ -84,6 +85,8 @@ export default function BlogPage() {
           ))}
         </div>
       </section>
+
+      <AdsterraNativeBanner placement="blog-index-before-posts" className="mb-10" />
 
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
         {posts.map((post) => (

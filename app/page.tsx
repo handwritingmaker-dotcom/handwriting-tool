@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { AdsterraNativeBanner } from "@/components/AdsterraAds";
 import { HandwritingToolLoader } from "@/components/HandwritingToolLoader";
 
 const siteUrl = "https://www.handwritingtool.com";
@@ -259,6 +260,10 @@ export default function HomePage() {
             Nothing is stored
           </div>
         </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pb-10 sm:px-6 lg:px-8">
+        <AdsterraNativeBanner placement="home-after-tool" />
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
