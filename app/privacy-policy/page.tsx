@@ -114,7 +114,7 @@ export default function PrivacyPolicyPage() {
           <h2 className="text-2xl font-semibold text-slate-950">Analytics and Advertising Partners</h2>
           <p>
             We may use Google Analytics to understand aggregate website traffic and usage patterns. We may also use
-            Google AdSense, Adsterra, or related advertising services to display ads if advertising is enabled on the
+            Google AdSense, Ezoic, or related advertising services to display ads if advertising is enabled on the
             site.
           </p>
           <p>

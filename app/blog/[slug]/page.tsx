@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { AdsterraNativeBanner } from "@/components/AdsterraAds";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
 import { outputSocialImage } from "@/lib/seo";
 
@@ -136,7 +135,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             and responsible page-creation workflows.
           </p>
         </div>
-        <AdsterraNativeBanner placement={`blog-post-${post.slug}`} className="mt-8" />
         <div className="prose prose-slate mt-6 max-w-none prose-headings:tracking-tight prose-headings:text-slate-950 prose-a:text-brand-blue prose-strong:text-slate-950 prose-li:marker:text-brand-blue">
           <MDXRemote source={post.content} />
         </div>
