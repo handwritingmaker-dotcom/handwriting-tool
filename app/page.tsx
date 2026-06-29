@@ -50,7 +50,7 @@ const useCases = [
   },
   {
     title: "Create Handwritten Pages Online Free",
-    text: "Create complete handwritten-style pages online from typed text.",
+    text: "Build printable page layouts from your own notes and drafts.",
     href: "/blog/create-handwritten-pages-online-free",
   },
   {
@@ -60,23 +60,23 @@ const useCases = [
   },
   {
     title: "Journal Writing",
-    text: "Turn reflections, prompts, and planning notes into handwritten-style pages.",
-    href: "/blog/create-handwritten-pages-online-free",
+    text: "Draft private reflections, prompts, and planning pages for personal use.",
+    href: "/blog/handwritten-notes-generator",
   },
   {
     title: "Teacher Worksheets",
-    text: "Create readable worksheet examples, classroom notes, and printable resources.",
-    href: "/blog/create-handwritten-pages-online-free",
+    text: "Prepare printable worksheet examples, class notes, and teaching resources.",
+    href: "/templates",
   },
   {
     title: "Creative Projects",
-    text: "Make handwritten-style drafts, quote pages, recipe cards, and greeting card previews.",
-    href: "/blog/create-handwritten-pages-online-free",
+    text: "Plan quote pages, recipe cards, greeting cards, and layout drafts.",
+    href: "/blog/how-to-make-typed-notes-look-handwritten-online",
   },
   {
     title: "Design Mockups",
-    text: "Preview handwritten labels, stationery concepts, and note-style visuals.",
-    href: "/blog/create-handwritten-pages-online-free",
+    text: "Preview labels, stationery concepts, and note-style visuals before publishing.",
+    href: "/blog/how-to-make-handwriting-look-realistic-online",
   },
 ];
 
@@ -122,7 +122,7 @@ const faqs = [
   {
     question: "What can I create with this handwriting tool?",
     answer:
-      "You can create handwritten-style notes, worksheets, drafts, journal pages, creative projects, design mockups, and documents.",
+      "You can create personal notes, teacher worksheets, creative drafts, journal pages, printables, and design mockups.",
   },
   {
     question: "Can I use this as a word to handwriting converter online free?",
@@ -130,7 +130,7 @@ const faqs = [
       "Yes. You can copy text from Word or another document, paste it into HandwritingTool, and download handwritten pages.",
   },
   {
-    question: "What makes this handwriting converter realistic?",
+    question: "What makes the page output readable?",
     answer:
       "Readable handwriting styles, natural spacing, paper backgrounds, margins, ink color, and small variation settings help the output look more natural.",
   },
@@ -162,7 +162,7 @@ const softwareSchema = {
     priceCurrency: "USD",
   },
   description:
-    "Free online text to handwriting converter for creating notes, drafts, worksheets, journal pages, creative projects, and documents as PDF, PNG, or JPG.",
+    "Free online tool for creating printable notes, teacher worksheets, journal pages, creative drafts, and design mockups as PDF, PNG, or JPG.",
 };
 
 export default function HomePage() {
@@ -181,11 +181,11 @@ export default function HomePage() {
             </div>
             <h1 className="mt-6 max-w-3xl text-4xl font-semibold leading-tight text-slate-950 sm:text-6xl">
               Text to Handwriting Converter
-              <span className="font-hand mt-2 block text-brand-blue">that feels like a real page</span>
+              <span className="font-hand mt-2 block text-brand-blue">for notes, drafts, and printable pages</span>
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-700 sm:text-xl sm:leading-9">
-              Paste notes on the left, watch the notebook page fill on the right, then download clean handwritten-style
-              pages as PDF, PNG, or JPG.
+              Paste notes on the left, preview a clean page on the right, then download useful printable output as PDF,
+              PNG, or JPG.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
@@ -239,6 +239,8 @@ export default function HomePage() {
           <HeroWorkspacePreview />
         </div>
       </section>
+
+      <ResponsibleUseBand />
 
       <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
         <HandwritingToolLoader />
@@ -360,12 +362,11 @@ export default function HomePage() {
         <div className="mb-10 max-w-3xl">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-green">Use Cases</p>
           <h2 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">
-            One handwriting converter for notes, documents, and printable pages
+            Practical pages for teachers, writers, and creators
           </h2>
           <p className="mt-4 text-lg leading-8 text-slate-600">
-            Whether you search for an online text to handwriting converter, a handwriting converter for notes, or a word
-            to handwriting converter online free, the workflow is the same: paste text, customize the page, preview, and
-            export.
+            Choose a page type, adjust the layout, preview the result, and export a clean file for your own notes,
+            teaching materials, creative projects, or design previews.
           </p>
         </div>
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
@@ -445,12 +446,12 @@ export default function HomePage() {
           <article className="mt-6 space-y-5 text-slate-600">
             <h2 className="text-3xl font-semibold text-slate-950">Text to Handwriting Converter Online</h2>
             <p className="text-lg leading-8">
-              Convert your text into realistic handwriting instantly with HandwritingTool. Create handwritten
-              notes, worksheets, drafts, and documents in seconds.
+              HandwritingTool helps you turn plain text into readable page layouts for notes, printables, classroom
+              examples, journal pages, and design previews.
             </p>
             <p className="text-lg leading-8">
-              HandwritingTool is a fast, simple, and powerful text to handwriting converter designed for writers,
-              teachers, creators, and anyone who needs handwritten-style pages for notes, documents, and visual work.
+              The editor keeps the workflow simple: paste your own text, choose a paper style, adjust spacing and ink,
+              preview the page, then export a PDF, PNG, or JPG.
             </p>
             <p className="text-lg leading-8">
               Start with our{" "}
@@ -465,89 +466,44 @@ export default function HomePage() {
 
             <h2 className="pt-3 text-2xl font-semibold text-slate-950">What is a Text to Handwriting Converter?</h2>
             <p className="text-lg leading-8">
-              A text to handwriting converter is an online tool that transforms digital text into handwritten content.
-              Instead of writing everything by hand, you can simply type or paste your text and generate natural-looking
-              handwriting automatically.
+              It is a browser tool that formats typed text as a handwritten-style page. The output is useful when you
+              want a printable draft, teaching example, journal layout, or visual concept without opening a design app.
             </p>
             <p className="text-lg leading-8">
-              HandwritingTool works as a handwriting generator that allows you to create handwritten-style notes,
-              worksheets, drafts, and documents with ease.
+              All preview work happens on your device. You can test paper, margins, line height, color, and export
+              format before saving the final file.
             </p>
             <ul className="list-disc space-y-2 pl-6 text-lg leading-8">
-              <li>Writers, teachers, and creators making handwritten-style notes and documents</li>
-              <li>Users converting digital text into handwritten notes</li>
-              <li>Anyone looking for a quick handwriting solution</li>
+              <li>Teachers preparing printable worksheet examples and classroom notes</li>
+              <li>Writers drafting journal pages, planning notes, and creative layouts</li>
+              <li>Creators previewing stationery, labels, quote pages, and mockups</li>
             </ul>
 
-            <h2 className="pt-3 text-2xl font-semibold text-slate-950">Convert Text to Handwriting in Seconds</h2>
+            <h2 className="pt-3 text-2xl font-semibold text-slate-950">Create a Page in a Few Steps</h2>
             <p className="text-lg leading-8">
-              With HandwritingTool, you can easily convert text into handwriting without any complicated steps. Just enter
-              your text, choose your preferred handwriting style, and download your handwritten output.
+              Copy text from Word, Google Docs, Notepad, or any editor and paste it into the tool. Pick a style, check
+              the live preview, and download only when the page is clear and readable.
             </p>
-            <p className="text-lg leading-8">
-              This handwriting tool online is designed to be fast, reliable, and user-friendly, making it perfect for
-              everyday use.
-            </p>
-
-            <h2 className="pt-3 text-2xl font-semibold text-slate-950">Word to Handwriting Converter Online Free</h2>
-            <p className="text-lg leading-8">
-              If your content is written in Microsoft Word, Google Docs, Notepad, or another editor, you can copy the
-              text and paste it into HandwritingTool. The tool works as a word to handwriting converter online free
-              because you can turn document text into handwritten pages without uploading a file or creating an account.
-            </p>
-
-            <h2 className="pt-3 text-2xl font-semibold text-slate-950">Create Handwritten Pages Online</h2>
-            <p className="text-lg leading-8">
-              If you need complete page output, read our guide on how to create handwritten pages online. It explains
-              paper styles, margins, spacing, preview checks, and PDF or image downloads for clean handwritten-style
-              pages.
-            </p>
-
-            <h2 className="pt-3 text-2xl font-semibold text-slate-950">Online Text to Handwriting Converter</h2>
-            <p className="text-lg leading-8">
-              An online text to handwriting converter should be quick, readable, and flexible. HandwritingTool lets you
-              choose paper type, handwriting style, ink color, margins, line spacing, and export format directly in your
-              browser.
-            </p>
-
-            <h2 className="pt-3 text-2xl font-semibold text-slate-950">Key Features of HandwritingTool</h2>
-            <h3 className="pt-2 text-xl font-semibold text-slate-950">Realistic Handwriting Generator</h3>
-            <p className="text-lg leading-8">Generate natural and clean handwritten text that looks like real human writing.</p>
-            <h3 className="pt-2 text-xl font-semibold text-slate-950">Instant Text to Handwriting Conversion</h3>
-            <p className="text-lg leading-8">Convert your text into handwritten format instantly without delays.</p>
-            <h3 className="pt-2 text-xl font-semibold text-slate-950">Download as PDF or Image</h3>
-            <p className="text-lg leading-8">Save your handwritten content as a PDF or image for easy use and sharing.</p>
-            <h3 className="pt-2 text-xl font-semibold text-slate-950">Multiple Handwriting Styles</h3>
-            <p className="text-lg leading-8">Choose from different handwriting styles to customize your output.</p>
-            <h3 className="pt-2 text-xl font-semibold text-slate-950">Simple and Clean Interface</h3>
-            <p className="text-lg leading-8">No learning curve, just type, convert, and download.</p>
-
-            <h2 className="pt-3 text-2xl font-semibold text-slate-950">How to Convert Text into Handwriting</h2>
-            <p className="text-lg leading-8">Using this text to handwriting converter free tool is very simple:</p>
             <ul className="list-disc space-y-2 pl-6 text-lg leading-8">
               <li>Enter or paste your text</li>
-              <li>Select a handwriting style</li>
-              <li>Adjust settings if needed</li>
-              <li>Download your handwritten output</li>
+              <li>Select lined, blank, or graph paper</li>
+              <li>Adjust margins, spacing, ink, and style</li>
+              <li>Export a PDF or image after reviewing the page</li>
             </ul>
-            <p className="text-lg leading-8">
-              Within seconds, your digital text becomes handwritten content.
-            </p>
 
             <h2 className="pt-3 text-2xl font-semibold text-slate-950">Use Cases: Who is This Tool For?</h2>
             <p className="text-lg leading-8">
-              HandwritingTool is designed for real-world use cases:
+              The tool is meant for clear, original, and responsible page creation:
             </p>
             <ul className="list-disc space-y-2 pl-6 text-lg leading-8">
-              <li>Creating handwritten-style worksheets and documents online</li>
-              <li>Generating handwritten notes for your work</li>
-              <li>Converting typed text into handwritten format</li>
-              <li>Preparing documents in handwriting style</li>
-              <li>Making journal writing pages, teacher worksheets, creative projects, and design mockups</li>
+              <li>Teachers creating printable worksheets and example notes</li>
+              <li>Writers drafting handwritten-style journal and planning pages</li>
+              <li>Creators making recipe cards, quote layouts, stationery previews, and mockups</li>
+              <li>Anyone preparing personal notes, drafts, or printable resources</li>
             </ul>
             <p className="text-lg leading-8">
-              Whether you need a handwriting generator for notes, worksheets, drafts, or accepted digital formats, this
-              platform is built to make page creation easier.
+              It should not be used to misrepresent authorship, submit work dishonestly, or bypass rules set by a
+              school, employer, or platform.
             </p>
 
             <h2 className="pt-3 text-2xl font-semibold text-slate-950">Why Choose HandwritingTool?</h2>
@@ -557,44 +513,17 @@ export default function HomePage() {
             </p>
             <ul className="list-disc space-y-2 pl-6 text-lg leading-8">
               <li>Fast performance</li>
-              <li>Realistic handwriting output</li>
+              <li>Readable page output</li>
               <li>Easy-to-use interface</li>
-              <li>No unnecessary complexity</li>
+              <li>Browser-only preview with no upload requirement</li>
             </ul>
-            <p className="text-lg leading-8">
-              This makes it one of the most reliable online handwriting generators available today.
-            </p>
 
             <h2 className="pt-3 text-2xl font-semibold text-slate-950">Start Using the Handwriting Tool Now</h2>
             <p className="text-lg leading-8">
-              Turn your text into handwriting in just a few clicks. Try the best text to handwriting converter online and
-              create handwritten content instantly.
+              Open the editor above, paste your own content, and create a clean page for notes, worksheets, creative
+              drafts, or printable designs.
             </p>
           </article>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
-        <div className="rounded-[32px] border border-emerald-100 bg-emerald-50 p-8 shadow-sm lg:p-10">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-green">Responsible Use</p>
-          <div className="mt-4 grid gap-6 lg:grid-cols-[1fr,auto] lg:items-end">
-            <div>
-              <h2 className="text-3xl font-semibold tracking-tight text-slate-950">
-                Create handwritten-style pages for clear, useful work
-              </h2>
-              <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-700">
-                HandwritingTool is for notes, drafts, worksheets, examples, printable resources, documents, journal
-                pages, and creative work. Use it to plan ideas, present information clearly, and preview handwriting
-                styles before exporting your work.
-              </p>
-            </div>
-            <Link
-              href="/responsible-use"
-              className="w-fit rounded-full bg-slate-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
-            >
-              Responsible Use
-            </Link>
-          </div>
         </div>
       </section>
 
@@ -618,10 +547,10 @@ export default function HomePage() {
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-emerald-300">Learning Center</p>
           <div className="mt-4 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
-              <h2 className="text-3xl font-semibold">Guides for handwritten-style notes, worksheets, and study workflows</h2>
+              <h2 className="text-3xl font-semibold">Guides for notes, worksheets, and printable page workflows</h2>
               <p className="mt-4 text-lg leading-8 text-slate-300">
                 Read practical articles about text to handwriting conversion, responsible formatting, productivity
-                tools, and exporting clean PDF pages for school or personal study.
+                tools, and exporting clean PDF pages for personal, teaching, and creative use.
               </p>
               <div className="mt-6 flex flex-wrap gap-3 text-sm font-semibold">
                 <Link
@@ -646,7 +575,7 @@ export default function HomePage() {
                   href="/blog/how-to-make-handwriting-look-realistic-online"
                   className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
                 >
-                  Make Handwriting Look Realistic
+                  Make Pages Look Natural
                 </Link>
               </div>
             </div>
@@ -660,6 +589,33 @@ export default function HomePage() {
         </div>
       </section>
     </main>
+  );
+}
+
+function ResponsibleUseBand() {
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+      <div className="rounded-[28px] border border-emerald-100 bg-emerald-50 p-6 shadow-sm lg:p-8">
+        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-green">Responsible Use</p>
+        <div className="mt-4 grid gap-6 lg:grid-cols-[1fr,auto] lg:items-end">
+          <div>
+            <h2 className="text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl">
+              Made for notes, teaching resources, creative drafts, and printable pages
+            </h2>
+            <p className="mt-4 max-w-4xl text-base leading-7 text-slate-700 sm:text-lg sm:leading-8">
+              HandwritingTool is for personal notes, teacher worksheets, creative drafts, design previews, and printable
+              pages only. Use it to plan ideas, present information clearly, and prepare original work responsibly.
+            </p>
+          </div>
+          <Link
+            href="/responsible-use"
+            className="w-fit rounded-full bg-slate-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+          >
+            Responsible Use
+          </Link>
+        </div>
+      </div>
+    </section>
   );
 }
 

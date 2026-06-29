@@ -10,17 +10,14 @@ import {
   RenderSettings,
 } from "@/lib/handwriting";
 
-const starterText = `Name: Alex Carter
-Class: History 101
-Topic: Causes of the Industrial Revolution
+const starterText = `Title: Weekly Planning Notes
+Topic: Printable page draft
 
-The Industrial Revolution began in Britain during the late eighteenth century and completely changed the way goods were produced. Earlier, most items were made by hand in small workshops or at home. After new machines were invented, factories began to grow and production became faster.
+This page is a simple example for planning, teaching, journaling, or creative layout work. Use the editor to test paper styles, spacing, margins, and ink color before exporting a clean printable page.
 
-One major cause was the availability of natural resources such as coal and iron. These resources were necessary for powering machines and building tools, engines, and railways. Britain also had strong trade networks and many colonies, which created demand for goods and access to raw materials.
+Teachers can prepare worksheet examples or classroom notes. Writers can draft journal pages, outline ideas, or preview handwritten-style layouts for personal projects.
 
-Another important reason was innovation. New inventions such as the spinning jenny, steam engine, and power loom improved efficiency. Transportation also improved through better roads, canals, and railways, helping factories move products quickly.
-
-In conclusion, the Industrial Revolution was caused by a combination of resources, invention, capital, and expanding trade. It had a lasting effect on society, industry, and daily life.`;
+When the page looks right, export it as a PDF, PNG, or JPG for your own notes, printables, or design previews.`;
 
 const pageTypes = [
   { value: "lined", label: "Lined Paper" },
@@ -284,7 +281,7 @@ export function HandwritingTool() {
         <div className="mb-5 flex items-center justify-between gap-4">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">Handwriting Studio</p>
-            <h2 className="mt-2 text-3xl font-semibold text-slate-950">Convert typed text into believable handwriting</h2>
+            <h2 className="mt-2 text-3xl font-semibold text-slate-950">Create readable handwritten-style pages</h2>
           </div>
           <div className="rounded-full bg-blue-50 px-4 py-2 text-xs font-semibold text-brand-blue">
             {wordCount} words / {shownPageCount} page{shownPageCount === 1 ? "" : "s"}
@@ -292,7 +289,7 @@ export function HandwritingTool() {
         </div>
 
         <label className="input-label" htmlFor="handwriting-text">
-          Paste your notes, worksheet text, draft, or article
+          Paste notes, worksheet text, drafts, or article copy
         </label>
         <div className="mb-4">
           <p className="input-label">Quick presets</p>
@@ -320,7 +317,7 @@ export function HandwritingTool() {
           value={text}
           onChange={(event) => setText(event.target.value)}
           className="input-field min-h-[320px] resize-y leading-7"
-          placeholder="Paste your notes, draft, worksheet, or article here..."
+          placeholder="Paste personal notes, worksheet text, journal drafts, or article copy here..."
         />
         {text.length === 0 && (
           <div className="mt-3 rounded-2xl border border-dashed border-slate-200 bg-slate-50 px-4 py-4">
