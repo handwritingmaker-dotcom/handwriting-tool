@@ -105,10 +105,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <meta name="monetag" content="314cda66236dffbf885f1644d253813d" />
-        <script src="https://quge5.com/88/tag.min.js" data-zone="254056" async data-cfasync="false"></script>
-        <script data-cfasync="false" src="https://cmp.gatekeeperconsent.com/min.js"></script>
-        <script data-cfasync="false" src="https://the.gatekeeperconsent.com/cmp.min.js"></script>
         <script async src="//www.ezojs.com/ezoic/sa.min.js"></script>
         <script
           dangerouslySetInnerHTML={{
