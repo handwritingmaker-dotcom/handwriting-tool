@@ -23,7 +23,7 @@ const googleAdsensePublisherId = "ca-pub-5045380130139381";
 export const metadata: Metadata = {
   title: "Handwriting Tool - Text to Handwriting Converter Free Online",
   description:
-    "Convert text to handwriting online for free. Create handwritten-style notes, drafts, worksheets, journal pages, and documents as PDF, PNG, or JPG.",
+    "Create handwritten-style notes, drafts, worksheets, journal pages, and printable pages as PDF, PNG, or JPG.",
   metadataBase: new URL("https://www.handwritingtool.com"),
   icons: {
     icon: "/favicon.png",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Handwriting Tool - Text to Handwriting Converter Free Online",
     description:
-      "Convert text to handwriting online for free. Create handwritten-style notes, drafts, worksheets, journal pages, and documents as PDF, PNG, or JPG.",
+      "Create handwritten-style notes, drafts, worksheets, journal pages, and printable pages as PDF, PNG, or JPG.",
     url: "/",
     siteName: "Handwriting Tool",
     type: "website",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Handwriting Tool - Text to Handwriting Converter Free Online",
     description:
-      "Convert text to handwriting online for free. Create handwritten-style notes, drafts, worksheets, journal pages, and documents as PDF, PNG, or JPG.",
+      "Create handwritten-style notes, drafts, worksheets, journal pages, and printable pages as PDF, PNG, or JPG.",
     images: [defaultSocialImage.url],
   },
 };

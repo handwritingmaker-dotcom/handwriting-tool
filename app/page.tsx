@@ -180,8 +180,8 @@ export default function HomePage() {
               <span>No login. No upload. Private browser preview.</span>
             </div>
             <h1 className="mt-6 max-w-3xl text-4xl font-semibold leading-tight text-slate-950 sm:text-6xl">
-              Text to Handwriting Converter
-              <span className="font-hand mt-2 block text-brand-blue">for notes, drafts, and printable pages</span>
+              Text to Handwriting Converter{" "}
+              <span className="font-hand mt-2 block text-brand-blue">for Notes, Drafts and Printable Pages</span>
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-700 sm:text-xl sm:leading-9">
               Paste notes on the left, preview a clean page on the right, then download useful printable output as PDF,
@@ -444,9 +444,9 @@ export default function HomePage() {
         <div className="rounded-[32px] border border-slate-200 bg-white p-8 shadow-card lg:p-12">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">Text to Handwriting Guide</p>
           <article className="mt-6 space-y-5 text-slate-600">
-            <h2 className="text-3xl font-semibold text-slate-950">Text to Handwriting Converter Online</h2>
+            <h2 className="text-3xl font-semibold text-slate-950">Create Handwritten-Style Pages Online</h2>
             <p className="text-lg leading-8">
-              HandwritingTool helps you turn plain text into readable page layouts for notes, printables, classroom
+              HandwritingTool helps you create readable handwritten-style pages for notes, printables, classroom
               examples, journal pages, and design previews.
             </p>
             <p className="text-lg leading-8">
@@ -461,13 +461,13 @@ export default function HomePage() {
               to learn the complete workflow.
             </p>
             <p className="rounded-2xl border border-blue-100 bg-blue-50 px-5 py-4 text-base font-semibold text-brand-blue">
-              No signup. No hassle. Just type, convert, and download.
+              No signup. No upload. Preview the page in your browser before downloading.
             </p>
 
-            <h2 className="pt-3 text-2xl font-semibold text-slate-950">What is a Text to Handwriting Converter?</h2>
+            <h2 className="pt-3 text-2xl font-semibold text-slate-950">What Can You Make?</h2>
             <p className="text-lg leading-8">
-              It is a browser tool that formats typed text as a handwritten-style page. The output is useful when you
-              want a printable draft, teaching example, journal layout, or visual concept without opening a design app.
+              It is a browser tool for creating handwritten-style notes from typed text. The output is useful for
+              printable drafts, teaching examples, journal layouts, and visual concepts without opening a design app.
             </p>
             <p className="text-lg leading-8">
               All preview work happens on your device. You can test paper, margins, line height, color, and export
@@ -491,10 +491,7 @@ export default function HomePage() {
               <li>Export a PDF or image after reviewing the page</li>
             </ul>
 
-            <h2 className="pt-3 text-2xl font-semibold text-slate-950">Use Cases: Who is This Tool For?</h2>
-            <p className="text-lg leading-8">
-              The tool is meant for clear, original, and responsible page creation:
-            </p>
+            <h2 className="pt-3 text-2xl font-semibold text-slate-950">Responsible Use Cases</h2>
             <ul className="list-disc space-y-2 pl-6 text-lg leading-8">
               <li>Teachers creating printable worksheets and example notes</li>
               <li>Writers drafting handwritten-style journal and planning pages</li>
@@ -507,22 +504,12 @@ export default function HomePage() {
             </p>
 
             <h2 className="pt-3 text-2xl font-semibold text-slate-950">Why Choose HandwritingTool?</h2>
-            <p className="text-lg leading-8">
-              There are many tools available online, but most are either slow, complicated, or limited. HandwritingTool
-              focuses on what matters:
-            </p>
             <ul className="list-disc space-y-2 pl-6 text-lg leading-8">
               <li>Fast performance</li>
               <li>Readable page output</li>
               <li>Easy-to-use interface</li>
               <li>Browser-only preview with no upload requirement</li>
             </ul>
-
-            <h2 className="pt-3 text-2xl font-semibold text-slate-950">Start Using the Handwriting Tool Now</h2>
-            <p className="text-lg leading-8">
-              Open the editor above, paste your own content, and create a clean page for notes, worksheets, creative
-              drafts, or printable designs.
-            </p>
           </article>
         </div>
       </section>

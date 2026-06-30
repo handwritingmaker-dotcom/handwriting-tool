@@ -142,7 +142,7 @@ type RenderedPage = {
 };
 
 export function HandwritingTool() {
-  const [text, setText] = useState("");
+  const [text, setText] = useState(starterText);
   const [settings, setSettings] = useState<RenderSettings>(defaultSettings);
   const [pages, setPages] = useState<RenderedPage[]>([]);
   const [fileName, setFileName] = useState("handwriting-pages");
@@ -196,7 +196,7 @@ export function HandwritingTool() {
   }, [hasUserText, settings, text]);
 
   const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
-  const shownPageCount = hasUserText ? pages.length : 0;
+  const shownPageCount = hasUserText ? Math.max(pages.length, 1) : 0;
   const canDownload = hasUserText && pages.length > 0 && !isRendering;
   const safeBaseName = sanitizeFileName(fileName) || "handwriting-pages";
   const selectedPageIndex = Math.min(currentPageIndex, Math.max(pages.length - 1, 0));
@@ -662,7 +662,7 @@ export function HandwritingTool() {
         </div>
 
         <div className="max-h-[980px] space-y-6 overflow-auto pr-1" aria-live="polite">
-          {!pages.length && <BlankPreviewPaper />}
+          {!pages.length && (hasUserText ? <StaticPreviewPaper /> : <BlankPreviewPaper />)}
           {pages.map((page, index) => (
             <div
               key={`${page.pngUrl}-${index}`}
@@ -725,6 +725,33 @@ function BlankPreviewPaper() {
           {Array.from({ length: 16 }).map((_, index) => (
             <div key={index} className="h-px bg-blue-200/70" />
           ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function StaticPreviewPaper() {
+  return (
+    <div className="paper-frame rounded-[28px] border border-slate-200 bg-white p-3 shadow-paper">
+      <div className="relative aspect-[1240/1754] overflow-hidden rounded-[22px] bg-[#fffdf4]">
+        <div className="absolute bottom-0 left-0 top-0 w-[11%] border-r-2 border-red-200/80" />
+        <div className="absolute inset-x-0 top-[11%] space-y-[4.7%]">
+          {Array.from({ length: 16 }).map((_, index) => (
+            <div key={index} className="h-px bg-blue-200/70" />
+          ))}
+        </div>
+        <div className="absolute left-[16%] right-[8%] top-[10%] text-brand-blue">
+          <p className="font-hand text-[clamp(1.2rem,3vw,2.4rem)] leading-snug">Title: Weekly Planning Notes</p>
+          <p className="font-hand mt-[5%] text-[clamp(1.05rem,2.5vw,2rem)] leading-snug">
+            This preview shows how your typed notes can become a readable handwritten-style page.
+          </p>
+          <p className="font-hand mt-[5%] text-[clamp(1.05rem,2.5vw,2rem)] leading-snug">
+            Adjust paper, spacing, margins, ink color, and style before exporting.
+          </p>
+          <p className="font-hand mt-[5%] text-[clamp(1.05rem,2.5vw,2rem)] leading-snug">
+            Use it for notes, worksheets, journal drafts, printables, and design previews.
+          </p>
         </div>
       </div>
     </div>
