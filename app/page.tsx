@@ -172,77 +172,34 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify([softwareSchema, faqSchema]) }}
       />
-      <section className="relative overflow-hidden border-b border-slate-200 bg-[#f5f9ff]">
-        <div className="mx-auto grid max-w-7xl items-center gap-9 px-4 py-10 sm:px-6 sm:py-14 lg:grid-cols-[0.92fr,1.08fr] lg:px-8 lg:py-16">
-          <div className="max-w-2xl">
-            <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-emerald-100 bg-white px-4 py-2 text-sm font-semibold text-emerald-700 shadow-sm">
-              <FeatureIcon name="check" className="h-4 w-4 shrink-0 text-brand-green" />
-              <span>No login. No upload. Private browser preview.</span>
-            </div>
-            <h1 className="mt-6 max-w-3xl text-4xl font-semibold leading-tight text-slate-950 sm:text-6xl">
-              Text to Handwriting Converter{" "}
-              <span className="font-hand mt-2 block text-brand-blue">for Notes, Drafts and Printable Pages</span>
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-700 sm:text-xl sm:leading-9">
-              Paste notes on the left, preview a clean page on the right, then download useful printable output as PDF,
-              PNG, or JPG.
-            </p>
-
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                href="/#tool"
-                className="inline-flex items-center gap-2 rounded-full bg-brand-blue px-6 py-3 text-sm font-semibold text-white shadow-paper transition hover:bg-blue-700"
-              >
-                Start Converting
-                <span aria-hidden="true">-&gt;</span>
-              </Link>
-              <Link
-                href="/#features"
-                className="rounded-full border border-slate-200 bg-white/90 px-6 py-3 text-sm font-semibold text-slate-800 shadow-sm transition hover:bg-white"
-              >
-                See Features
-              </Link>
-            </div>
-
-            <div className="mt-9 flex flex-wrap gap-3 text-sm font-semibold text-slate-700">
-              {[
-                ["10 styles", "spark"],
-                ["Lined, blank, graph", "paper"],
-                ["PDF, PNG, JPG", "download"],
-              ].map(([label, icon]) => (
-                <div
-                  key={label}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/75 px-4 py-2 shadow-sm backdrop-blur"
-                >
-                  <FeatureIcon name={icon} className="h-4 w-4 text-brand-blue" />
-                  {label}
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-10 grid max-w-2xl gap-5 border-t border-slate-200/80 pt-6 text-sm text-slate-600 sm:grid-cols-3">
-              <div>
-                <p className="text-2xl font-semibold text-slate-950">Browser-only</p>
-                <p className="mt-1 leading-6">Your text stays on your device.</p>
-              </div>
-              <div>
-                <p className="text-2xl font-semibold text-slate-950">Live layout</p>
-                <p className="mt-1 leading-6">Check spacing before export.</p>
-              </div>
-              <div>
-                <p className="text-2xl font-semibold text-slate-950">Print-ready</p>
-                <p className="mt-1 leading-6">Create neat full-page output.</p>
-              </div>
-            </div>
+      <section className="hero-surface border-b border-slate-200/80">
+        <div className="mx-auto max-w-7xl px-4 pb-8 pt-10 text-center sm:px-6 sm:pb-10 sm:pt-14 lg:px-8">
+          <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/90 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-brand-blue shadow-sm">
+            <FeatureIcon name="spark" className="h-4 w-4" />
+            Free · Private · No sign up
           </div>
-
-          <HeroWorkspacePreview />
+          <h1 className="mx-auto mt-5 max-w-4xl text-4xl font-bold tracking-[-0.045em] text-slate-950 sm:text-5xl lg:text-6xl">
+            Transform your text into <span className="hero-ink">natural handwriting</span>
+          </h1>
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
+            Type or paste your text, shape every detail, and export polished handwritten pages as PDF, PNG, or JPG.
+          </p>
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-medium text-slate-600">
+            {[
+              ["10 handwriting styles", "spark"],
+              ["Lined, blank & graph paper", "paper"],
+              ["Instant browser preview", "check"],
+            ].map(([label, icon]) => (
+              <span key={label} className="inline-flex items-center gap-2">
+                <FeatureIcon name={icon} className="h-4 w-4 text-brand-blue" />
+                {label}
+              </span>
+            ))}
+          </div>
         </div>
       </section>
 
-      <ResponsibleUseBand />
-
-      <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
+      <section className="relative z-10 mx-auto max-w-[1500px] px-3 py-6 sm:px-5 lg:px-7 lg:py-8">
         <HandwritingToolLoader />
       </section>
 
