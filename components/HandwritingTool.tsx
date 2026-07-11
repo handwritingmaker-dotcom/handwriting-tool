@@ -276,14 +276,14 @@ export function HandwritingTool() {
   };
 
   return (
-    <section className="grid scroll-mt-36 gap-6 md:scroll-mt-28 lg:grid-cols-[1.08fr,0.92fr]">
-      <div className="control-card">
+    <section className="handwriting-workspace grid scroll-mt-36 items-start gap-0 border-y border-slate-200 bg-white md:scroll-mt-28 lg:grid-cols-[minmax(0,0.82fr)_minmax(440px,1.18fr)]">
+      <div className="editor-panel min-w-0 bg-white px-5 py-6 sm:px-6 lg:border-r lg:border-slate-200 lg:px-7">
         <div className="mb-5 flex items-center justify-between gap-4">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">Handwriting Studio</p>
             <h2 className="mt-2 text-3xl font-semibold text-slate-950">Create readable handwritten-style pages</h2>
           </div>
-          <div className="rounded-full bg-blue-50 px-4 py-2 text-xs font-semibold text-brand-blue">
+          <div className="shrink-0 border-l border-slate-200 pl-4 text-xs font-semibold text-brand-blue">
             {wordCount} words / {shownPageCount} page{shownPageCount === 1 ? "" : "s"}
           </div>
         </div>
@@ -304,7 +304,7 @@ export function HandwritingTool() {
                     ...preset.settings,
                   }))
                 }
-                className={`inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold transition focus:outline-none focus:ring-4 focus:ring-blue-100 ${preset.className}`}
+                className={`inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold transition focus:outline-none focus:ring-4 focus:ring-blue-100 ${preset.className}`}
               >
                 <PresetIcon name={preset.icon} className="h-4 w-4" />
                 {preset.label}
@@ -316,7 +316,7 @@ export function HandwritingTool() {
           id="handwriting-text"
           value={text}
           onChange={(event) => setText(event.target.value)}
-          className="input-field min-h-[320px] resize-y leading-7"
+          className="input-field min-h-[210px] resize-y rounded-xl leading-6"
           placeholder="Paste personal notes, worksheet text, journal drafts, or article copy here..."
         />
         {text.length === 0 && (
@@ -359,7 +359,7 @@ export function HandwritingTool() {
         </div>
 
         <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          <div className="md:col-span-2 xl:col-span-3">
+          <div className="border-t border-slate-200 pt-5 md:col-span-2 xl:col-span-3">
             <p className="input-label" id="styleId">
               Handwriting Style
             </p>
@@ -477,7 +477,7 @@ export function HandwritingTool() {
           />
         </div>
 
-        <details className="mt-5 rounded-3xl border border-slate-200 bg-slate-50 p-4">
+        <details className="mt-6 border-y border-slate-200 py-4">
           <summary className="cursor-pointer list-none text-sm font-semibold text-slate-950">
             <span className="mr-2 inline-flex h-5 w-5 items-center justify-center rounded-full border border-slate-300 text-xs text-slate-600">
               &gt;
@@ -537,7 +537,7 @@ export function HandwritingTool() {
         </details>
 
         <div className="mt-5 flex flex-wrap items-center gap-3">
-          <label className="inline-flex items-center gap-3 rounded-full border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700">
+          <label className="inline-flex items-center gap-3 text-sm font-medium text-slate-700">
             <input
               type="checkbox"
               checked={settings.assignmentMode}
@@ -546,7 +546,7 @@ export function HandwritingTool() {
             />
             Page Layout Mode
           </label>
-          <label className="inline-flex items-center gap-3 rounded-full border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700">
+          <label className="inline-flex items-center gap-3 border-l border-slate-200 pl-4 text-sm font-medium text-slate-700">
             <input
               type="checkbox"
               checked={settings.showMarginLine}
@@ -557,7 +557,7 @@ export function HandwritingTool() {
           </label>
         </div>
 
-        <div className="mt-6 grid gap-4 rounded-3xl border border-slate-200 bg-slate-50 p-4 lg:grid-cols-[1fr,auto] lg:items-end">
+        <div className="mt-6 grid gap-4 border-t border-slate-200 pt-5 lg:grid-cols-[1fr,auto] lg:items-end">
           <div>
             <label className="input-label" htmlFor="fileName">
               Export File Name
@@ -590,7 +590,7 @@ export function HandwritingTool() {
           </div>
         </div>
 
-        <div className="mt-5 rounded-3xl border border-slate-200 bg-white p-4">
+        <div className="mt-5 border-t border-slate-200 pt-5">
           <div className="flex flex-wrap gap-2">
             {(["current", "all"] as const).map((item) => (
               <button
@@ -649,7 +649,7 @@ export function HandwritingTool() {
         </div>
       </div>
 
-      <div className="control-card page-preview relative overflow-hidden">
+      <div className="preview-panel page-preview relative self-start bg-[#f3f5f8] px-5 py-6 sm:px-7 lg:sticky lg:top-24 lg:min-h-[760px]">
         {isRendering && <div className="absolute left-0 top-0 h-[3px] w-full animate-pulse bg-brand-blue" />}
         <div className="mb-5 flex items-center justify-between">
           <div>
@@ -661,18 +661,18 @@ export function HandwritingTool() {
           </div>
         </div>
 
-        <div className="max-h-[980px] space-y-6 overflow-auto pr-1" aria-live="polite">
+        <div className="studio-preview-scroll max-h-[800px] space-y-6 overflow-auto px-1 pb-5" aria-live="polite">
           {!pages.length && (hasUserText ? <StaticPreviewPaper /> : <BlankPreviewPaper />)}
           {pages.map((page, index) => (
             <div
               key={`${page.pngUrl}-${index}`}
-              className="paper-frame relative rounded-[28px] border border-slate-200 bg-white p-3 shadow-paper"
+              className="paper-frame relative mx-auto max-w-[570px] bg-white shadow-[0_18px_48px_rgba(15,23,42,0.16)] ring-1 ring-slate-300/70"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={page.pngUrl}
                 alt={`Handwriting preview page ${index + 1}`}
-                className="h-auto w-full rounded-[22px]"
+                className="h-auto w-full"
               />
             </div>
           ))}
@@ -699,7 +699,7 @@ function StylePreviewCard({
     <button
       type="button"
       onClick={onClick}
-      className={`h-[72px] w-[140px] rounded-lg p-1.5 text-left transition ${
+      className={`min-h-[66px] flex-1 basis-[120px] rounded-lg p-1.5 text-left transition ${
         selected
           ? "border-2 border-brand-blue bg-blue-50"
           : "border border-slate-200 bg-white hover:bg-slate-50"
@@ -707,7 +707,7 @@ function StylePreviewCard({
     >
       <span className="block truncate text-xs font-semibold text-slate-950">{style.label}</span>
       <span
-        className="mt-1 block h-8 w-[130px] truncate rounded-lg bg-white px-2 py-1 text-lg leading-6 text-brand-blue"
+        className="mt-1 block h-8 w-full truncate bg-white/70 px-1 py-1 text-lg leading-6 text-brand-blue"
         style={{ fontFamily: style.primary }}
       >
         Hello sample
@@ -718,8 +718,8 @@ function StylePreviewCard({
 
 function BlankPreviewPaper() {
   return (
-    <div className="paper-frame rounded-[28px] border border-slate-200 bg-white p-3 shadow-paper">
-      <div className="relative aspect-[1240/1754] overflow-hidden rounded-[22px] bg-[#fffdf4]">
+    <div className="paper-frame mx-auto max-w-[570px] bg-white shadow-[0_18px_48px_rgba(15,23,42,0.16)] ring-1 ring-slate-300/70">
+      <div className="relative aspect-[1240/1754] overflow-hidden bg-[#fffdf4]">
         <div className="absolute bottom-0 left-0 top-0 w-[11%] border-r-2 border-red-200/80" />
         <div className="absolute inset-x-0 top-[11%] space-y-[4.7%]">
           {Array.from({ length: 16 }).map((_, index) => (
@@ -733,8 +733,8 @@ function BlankPreviewPaper() {
 
 function StaticPreviewPaper() {
   return (
-    <div className="paper-frame rounded-[28px] border border-slate-200 bg-white p-3 shadow-paper">
-      <div className="relative aspect-[1240/1754] overflow-hidden rounded-[22px] bg-[#fffdf4]">
+    <div className="paper-frame mx-auto max-w-[570px] bg-white shadow-[0_18px_48px_rgba(15,23,42,0.16)] ring-1 ring-slate-300/70">
+      <div className="relative aspect-[1240/1754] overflow-hidden bg-[#fffdf4]">
         <div className="absolute bottom-0 left-0 top-0 w-[11%] border-r-2 border-red-200/80" />
         <div className="absolute inset-x-0 top-[11%] space-y-[4.7%]">
           {Array.from({ length: 16 }).map((_, index) => (
@@ -872,18 +872,12 @@ function RangeControl({
   onChange: (value: number) => void;
 }) {
   return (
-    <div>
-      <label className="input-label" htmlFor={id}>
-        {label}
-      </label>
-      <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4">
-        <div className="mb-3 flex items-center justify-between text-sm text-slate-600">
-          <span>{min}</span>
-          <span className="rounded-full bg-white px-3 py-1 font-semibold text-slate-950 shadow-sm">
-            {value.toFixed(step < 1 ? 2 : 0)}
-          </span>
-          <span>{max}</span>
-        </div>
+    <div className="border-b border-slate-100 pb-3">
+      <div className="mb-2 flex items-center justify-between gap-3">
+        <label className="text-xs font-semibold text-slate-700" htmlFor={id}>{label}</label>
+        <span className="text-xs font-semibold tabular-nums text-brand-blue">{value.toFixed(step < 1 ? 2 : 0)}</span>
+      </div>
+      <div>
         <input
           id={id}
           type="range"
@@ -894,6 +888,7 @@ function RangeControl({
           onChange={(event) => onChange(Number(event.target.value))}
           className="range-field"
         />
+        <div className="mt-1 flex justify-between text-[10px] text-slate-400"><span>{min}</span><span>{max}</span></div>
       </div>
     </div>
   );
