@@ -12,6 +12,11 @@ html {
   scroll-behavior: smooth;
 }
 
+:where(a, button, input, textarea, select, summary):focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.55);
+  outline-offset: 3px;
+}
+
 body {
   font-family: var(--font-sans), sans-serif;
   background: #f7f8fa;
@@ -83,4 +88,19 @@ body {
   background-image:
     linear-gradient(180deg, rgba(15, 23, 42, 0.04), transparent 20%),
     radial-gradient(circle at top left, rgba(255, 255, 255, 0.95), transparent 25%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }

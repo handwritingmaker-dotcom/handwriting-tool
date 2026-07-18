@@ -141,6 +141,11 @@ type RenderedPage = {
   height: number;
 };
 
+type ExportState = {
+  active: boolean;
+  message: string;
+};
+
 export function HandwritingTool() {
   const [text, setText] = useState(starterText);
   const [settings, setSettings] = useState<RenderSettings>(defaultSettings);
@@ -149,7 +154,11 @@ export function HandwritingTool() {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const [scope, setScope] = useState<"current" | "all">("current");
   const [isRendering, setIsRendering] = useState(true);
+  const [renderError, setRenderError] = useState("");
+  const [renderAttempt, setRenderAttempt] = useState(0);
+  const [exportState, setExportState] = useState<ExportState>({ active: false, message: "" });
   const renderRequestId = useRef(0);
+  const exportLock = useRef(false);
   const stylePreviewCache = useRef(new Map<string, HTMLCanvasElement>());
   const hasUserText = text.trim().length > 0;
 
@@ -168,6 +177,7 @@ export function HandwritingTool() {
 
     const timeoutId = window.setTimeout(() => {
       setIsRendering(true);
+      setRenderError("");
       void renderHandwriting(text, settings)
         .then((result) => {
           if (renderRequestId.current !== requestId) {
@@ -184,6 +194,12 @@ export function HandwritingTool() {
         })
         .catch((error) => {
           console.error("Failed to render handwriting preview", error);
+          if (renderRequestId.current === requestId) {
+            setPages([]);
+            setRenderError(
+              "We could not create the preview. Your browser may be low on memory, or the document may be too large. Try again, reduce PDF quality, or split the text into smaller sections.",
+            );
+          }
         })
         .finally(() => {
           if (renderRequestId.current === requestId) {
@@ -193,11 +209,11 @@ export function HandwritingTool() {
     }, hasUserText ? 120 : 0);
 
     return () => window.clearTimeout(timeoutId);
-  }, [hasUserText, settings, text]);
+  }, [hasUserText, renderAttempt, settings, text]);
 
   const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
   const shownPageCount = hasUserText ? Math.max(pages.length, 1) : 0;
-  const canDownload = hasUserText && pages.length > 0 && !isRendering;
+  const canDownload = hasUserText && pages.length > 0 && !isRendering && !exportState.active;
   const safeBaseName = sanitizeFileName(fileName) || "handwriting-pages";
   const selectedPageIndex = Math.min(currentPageIndex, Math.max(pages.length - 1, 0));
 
@@ -216,55 +232,73 @@ export function HandwritingTool() {
   };
 
   const downloadImages = async (format: Extract<ExportFormat, "png" | "jpg">) => {
-    if (!canDownload) return;
+    if (!canDownload || exportLock.current) return;
+    exportLock.current = true;
 
-    for (let index = 0; index < pages.length; index += 1) {
-      await downloadImage(pages[index], index, format);
+    setExportState({ active: true, message: `Preparing ${pages.length} ${format.toUpperCase()} files…` });
+    try {
+      for (let index = 0; index < pages.length; index += 1) {
+        setExportState({ active: true, message: `Downloading page ${index + 1} of ${pages.length}…` });
+        await downloadImage(pages[index], index, format);
+      }
+      setExportState({ active: false, message: `${format.toUpperCase()} download complete.` });
+    } catch {
+      setExportState({ active: false, message: "The image download failed. Try the current page, use PNG, or reduce PDF quality." });
+    } finally {
+      exportLock.current = false;
     }
   };
 
   const downloadCurrentImage = async (format: Extract<ExportFormat, "png" | "jpg">) => {
-    if (!canDownload) return;
+    if (!canDownload || exportLock.current) return;
+    exportLock.current = true;
 
     const page = pages[selectedPageIndex];
     if (!page) return;
 
-    await downloadImage(page, selectedPageIndex, format);
+    setExportState({ active: true, message: `Preparing page ${selectedPageIndex + 1}…` });
+    try {
+      await downloadImage(page, selectedPageIndex, format);
+      setExportState({ active: false, message: `${format.toUpperCase()} download complete.` });
+    } catch {
+      setExportState({ active: false, message: "The image download failed. Try PNG or reduce PDF quality." });
+    } finally {
+      exportLock.current = false;
+    }
   };
 
   const downloadPdf = async (scope: "all" | "current") => {
-    if (!canDownload) return;
+    if (!canDownload || exportLock.current) return;
+    exportLock.current = true;
 
     const targetPages = scope === "all" ? pages : pages.slice(selectedPageIndex, selectedPageIndex + 1);
     const firstPage = targetPages[0];
 
     if (!firstPage) return;
 
-    const { jsPDF } = await import("jspdf");
-    const pdf = new jsPDF({
-      orientation: "portrait",
-      unit: "px",
-      format: [firstPage.width, firstPage.height],
-      compress: true,
-    });
+    setExportState({ active: true, message: `Preparing ${targetPages.length}-page PDF…` });
+    try {
+      const { jsPDF } = await import("jspdf");
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "px",
+        format: [firstPage.width, firstPage.height],
+        compress: true,
+      });
 
-    targetPages.forEach((page, index) => {
-      if (index > 0) {
-        pdf.addPage([page.width, page.height], "portrait");
-      }
-      pdf.addImage(
-        page.pngUrl,
-        "PNG",
-        0,
-        0,
-        page.width,
-        page.height,
-        undefined,
-        settings.pdfQuality === "high" ? "NONE" : "FAST",
-      );
-    });
+      targetPages.forEach((page, index) => {
+        setExportState({ active: true, message: `Adding page ${index + 1} of ${targetPages.length}…` });
+        if (index > 0) pdf.addPage([page.width, page.height], "portrait");
+        pdf.addImage(page.pngUrl, "PNG", 0, 0, page.width, page.height, undefined, settings.pdfQuality === "high" ? "NONE" : "FAST");
+      });
 
-    pdf.save(`${safeBaseName}${scope === "current" ? `-page-${selectedPageIndex + 1}` : ""}.pdf`);
+      pdf.save(`${safeBaseName}${scope === "current" ? `-page-${selectedPageIndex + 1}` : ""}.pdf`);
+      setExportState({ active: false, message: "PDF download complete." });
+    } catch {
+      setExportState({ active: false, message: "The PDF could not be created. Try a lower quality setting, export one page, or split the document." });
+    } finally {
+      exportLock.current = false;
+    }
   };
 
   const clearText = () => {
@@ -273,12 +307,16 @@ export function HandwritingTool() {
 
   const resetText = () => {
     setText(starterText);
+    setRenderError("");
   };
+
+  const largeDocument = wordCount >= 5000 || text.length >= 30000;
+  const manyPages = pages.length >= 10;
 
   return (
     <section className="handwriting-workspace grid scroll-mt-36 items-start gap-0 border-y border-slate-200 bg-white md:scroll-mt-28 lg:grid-cols-[minmax(0,0.82fr)_minmax(440px,1.18fr)]">
       <div className="editor-panel min-w-0 bg-white px-5 py-6 sm:px-6 lg:border-r lg:border-slate-200 lg:px-7">
-        <div className="mb-5 flex items-center justify-between gap-4">
+        <div className="mb-5 flex flex-wrap items-center justify-between gap-4">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">Handwriting Studio</p>
             <h2 className="mt-2 text-3xl font-semibold text-slate-950">Create readable handwritten-style pages</h2>
@@ -304,7 +342,7 @@ export function HandwritingTool() {
                     ...preset.settings,
                   }))
                 }
-                className={`inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold transition focus:outline-none focus:ring-4 focus:ring-blue-100 ${preset.className}`}
+                className={`inline-flex min-h-11 items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold transition focus:outline-none focus:ring-4 focus:ring-blue-100 ${preset.className}`}
               >
                 <PresetIcon name={preset.icon} className="h-4 w-4" />
                 {preset.label}
@@ -357,6 +395,34 @@ export function HandwritingTool() {
             )}
           </div>
         </div>
+
+        <div id="input-guidance" className="mt-4 rounded-2xl border border-blue-100 bg-blue-50 px-4 py-3 text-sm leading-6 text-slate-700">
+          <p>
+            There is no fixed text limit. For faster previews, work in sections when a document reaches several thousand
+            words, and use low or medium PDF quality on memory-limited phones.
+          </p>
+          {(largeDocument || manyPages) && (
+            <p className="mt-2 font-semibold text-amber-800" role="status">
+              {manyPages
+                ? `This document currently uses ${pages.length} pages. Large exports may take longer and use more memory.`
+                : "This is a large document. Preview and export may take longer; splitting it into sections can improve reliability."}
+            </p>
+          )}
+        </div>
+
+        {renderError && (
+          <div className="mt-4 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-4 text-sm leading-6 text-rose-800" role="alert">
+            <p>{renderError}</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <button type="button" onClick={() => setRenderAttempt((attempt) => attempt + 1)} className="inline-flex min-h-11 items-center rounded-full bg-rose-700 px-4 py-2 font-semibold text-white transition hover:bg-rose-800">
+                Retry Preview
+              </button>
+              <button type="button" onClick={() => setSettings(defaultSettings)} className="inline-flex min-h-11 items-center rounded-full border border-rose-200 bg-white px-4 py-2 font-semibold text-rose-800 transition hover:bg-rose-100">
+                Reset Settings
+              </button>
+            </div>
+          </div>
+        )}
 
         <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           <div className="border-t border-slate-200 pt-5 md:col-span-2 xl:col-span-3">
@@ -615,9 +681,9 @@ export function HandwritingTool() {
                 void downloadPdf(scope);
               }}
               disabled={!canDownload}
-              className="w-full rounded-full bg-brand-blue px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+              className="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-brand-blue px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
             >
-              Download PDF
+              {exportState.active ? "Preparing…" : "Download PDF"}
             </button>
           </div>
 
@@ -630,7 +696,7 @@ export function HandwritingTool() {
                   void (scope === "current" ? downloadCurrentImage("png") : downloadImages("png"));
                 }}
                 disabled={!canDownload}
-                className="rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+                className="inline-flex min-h-11 items-center rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 Download PNG
               </button>
@@ -640,12 +706,26 @@ export function HandwritingTool() {
                   void (scope === "current" ? downloadCurrentImage("jpg") : downloadImages("jpg"));
                 }}
                 disabled={!canDownload}
-                className="rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+                className="inline-flex min-h-11 items-center rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 Download JPG
               </button>
             </div>
           </details>
+
+          {exportState.message && (
+            <div
+              className={`mt-4 rounded-2xl border px-4 py-3 text-sm leading-6 ${
+                exportState.message.includes("failed") || exportState.message.includes("could not")
+                  ? "border-rose-200 bg-rose-50 text-rose-800"
+                  : "border-blue-100 bg-blue-50 text-slate-700"
+              }`}
+              role={exportState.message.includes("failed") || exportState.message.includes("could not") ? "alert" : "status"}
+              aria-live="polite"
+            >
+              {exportState.message}
+            </div>
+          )}
         </div>
       </div>
 
@@ -661,7 +741,10 @@ export function HandwritingTool() {
           </div>
         </div>
 
-        <div className="studio-preview-scroll max-h-[800px] space-y-6 overflow-auto px-1 pb-5" aria-live="polite">
+        <p id="preview-description" className="sr-only">
+          The preview contains {pages.length || (hasUserText ? 1 : 0)} handwritten-style page{pages.length === 1 ? "" : "s"} generated from the text editor. Decorative paper lines and text positioning are represented in the preview images.
+        </p>
+        <div className="studio-preview-scroll max-h-[800px] space-y-6 overflow-auto px-1 pb-5" aria-live="polite" aria-describedby="preview-description" aria-busy={isRendering}>
           {!pages.length && (hasUserText ? <StaticPreviewPaper /> : <BlankPreviewPaper />)}
           {pages.map((page, index) => (
             <div
@@ -885,6 +968,10 @@ function RangeControl({
           max={max}
           step={step}
           value={value}
+          aria-valuemin={min}
+          aria-valuemax={max}
+          aria-valuenow={value}
+          aria-valuetext={`${label}: ${value.toFixed(step < 1 ? 2 : 0)}`}
           onChange={(event) => onChange(Number(event.target.value))}
           className="range-field"
         />

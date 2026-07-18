@@ -117,7 +117,8 @@ const faqs = [
   },
   {
     question: "Does the tool store my data?",
-    answer: "No, all processing happens in your browser and nothing is stored.",
+    answer:
+      "The handwriting text is rendered in your browser and is not sent to a HandwritingTool application server. The website still uses analytics, advertising, and related third-party services that may collect technical and usage data.",
   },
   {
     question: "What can I create with this handwriting tool?",
@@ -207,7 +208,7 @@ export default function HomePage() {
         <div className="grid gap-3 rounded-3xl border border-slate-200 bg-white/80 px-5 py-4 text-sm font-medium text-slate-600 shadow-sm md:grid-cols-3">
           <div className="flex items-center gap-2">
             <FeatureIcon name="check" className="h-4 w-4 text-brand-green" />
-            Your text is processed in your browser
+            Handwriting text is rendered in your browser
           </div>
           <div className="flex items-center gap-2">
             <FeatureIcon name="check" className="h-4 w-4 text-brand-green" />
@@ -215,7 +216,7 @@ export default function HomePage() {
           </div>
           <div className="flex items-center gap-2">
             <FeatureIcon name="check" className="h-4 w-4 text-brand-green" />
-            Nothing is stored
+            No account or server-side text storage
           </div>
         </div>
       </section>
@@ -533,99 +534,6 @@ export default function HomePage() {
         </div>
       </section>
     </main>
-  );
-}
-
-function ResponsibleUseBand() {
-  return (
-    <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
-      <div className="rounded-[28px] border border-emerald-100 bg-emerald-50 p-6 shadow-sm lg:p-8">
-        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-green">Responsible Use</p>
-        <div className="mt-4 grid gap-6 lg:grid-cols-[1fr,auto] lg:items-end">
-          <div>
-            <h2 className="text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl">
-              Made for notes, teaching resources, creative drafts, and printable pages
-            </h2>
-            <p className="mt-4 max-w-4xl text-base leading-7 text-slate-700 sm:text-lg sm:leading-8">
-              HandwritingTool is for personal notes, teacher worksheets, creative drafts, design previews, and printable
-              pages only. Use it to plan ideas, present information clearly, and prepare original work responsibly.
-            </p>
-          </div>
-          <Link
-            href="/responsible-use"
-            className="w-fit rounded-full bg-slate-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
-          >
-            Responsible Use
-          </Link>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function HeroWorkspacePreview() {
-  return (
-    <div className="relative min-h-[520px] overflow-hidden rounded-3xl border border-slate-200 bg-white p-4 shadow-card sm:p-5">
-      <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-        <div className="flex items-center gap-2">
-          <span className="h-3 w-3 rounded-full bg-red-300" />
-          <span className="h-3 w-3 rounded-full bg-amber-300" />
-          <span className="h-3 w-3 rounded-full bg-emerald-300" />
-        </div>
-        <div className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-500">Live workspace</div>
-      </div>
-
-      <div className="mt-5 grid gap-4 lg:grid-cols-[0.88fr,1.12fr]">
-        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-          <div className="flex items-center justify-between">
-            <p className="text-xs font-semibold uppercase text-brand-blue">Typed text</p>
-            <p className="rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-slate-500">42 words</p>
-          </div>
-          <div className="mt-4 rounded-xl border border-slate-200 bg-white p-4 text-sm leading-7 text-slate-600 shadow-sm">
-            <p>Topic: Clean handwritten pages</p>
-            <p className="mt-3">
-              Paste your notes here and the page preview updates as you write.
-            </p>
-            <p className="mt-3">
-              Adjust paper, ink, spacing, and margins before export.
-            </p>
-          </div>
-          <div className="mt-4 flex flex-wrap gap-2">
-            {["Worksheet", "Class Notes", "PDF"].map((item) => (
-              <span key={item} className="rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 ring-1 ring-slate-200">
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div className="paper-frame rounded-2xl border border-slate-200 bg-white p-3 shadow-paper">
-          <div className="relative aspect-[0.72] overflow-hidden rounded-xl bg-[#fffdf4]">
-            <div className="absolute inset-y-0 left-[15%] border-l-2 border-red-200" />
-            <div className="absolute inset-x-0 top-[14%] space-y-[7%]">
-              {Array.from({ length: 11 }).map((_, index) => (
-                <div key={index} className="h-px bg-blue-200/80" />
-              ))}
-            </div>
-            <div className="absolute left-[21%] right-[8%] top-[18%]">
-              <p className="text-xs font-semibold text-slate-600 sm:text-sm">Name: HandwritingTool</p>
-              <p className="mt-2 text-xs font-semibold text-slate-600 sm:text-sm">Topic: Live preview</p>
-              <div className="font-hand mt-5 space-y-3 text-[1.35rem] leading-7 text-brand-blue sm:text-[1.7rem] sm:leading-8">
-                <p>The notebook page fills only after you type.</p>
-                <p>Spacing, paper, and ink stay easy to check.</p>
-                <p>Export when the page looks right.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-4 grid gap-3 text-xs font-semibold text-slate-600 sm:grid-cols-3">
-        <div className="rounded-2xl border border-blue-100 bg-blue-50 px-4 py-3">Real-time preview</div>
-        <div className="rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3">Browser private</div>
-        <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3">PDF export ready</div>
-      </div>
-    </div>
   );
 }
 

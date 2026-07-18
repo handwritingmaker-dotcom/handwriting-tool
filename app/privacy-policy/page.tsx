@@ -44,6 +44,7 @@ const userChoices = [
   "Avoid entering sensitive personal information into the converter",
   "Contact us to request access, correction, or deletion of information you voluntarily provided",
   "Use browser privacy settings or consent tools where available to limit third-party tracking",
+  "California residents may contact us with a Do Not Sell or Share My Personal Information request where applicable",
 ];
 
 export default function PrivacyPolicyPage() {
@@ -57,16 +58,19 @@ export default function PrivacyPolicyPage() {
           articles, contact us, or create handwritten-style pages with the online converter.
         </p>
         <p className="mt-4 text-lg leading-8 text-slate-600">
-          Last updated: June 8, 2026.
+          Last updated: June 30, 2026.
         </p>
 
         <section className="mt-10 space-y-4 text-lg leading-8 text-slate-600">
           <h2 className="text-2xl font-semibold text-slate-950">Browser-Based Text Processing</h2>
           <p>
             HandwritingTool is designed so the text you enter into the converter is processed in your browser for the
-            purpose of generating handwritten-style output. We do not ask you to enter sensitive personal information
-            into the converter, and you should avoid pasting private, confidential, financial, medical, or highly
-            sensitive text into any online tool.
+            purpose of generating handwritten-style output. The application code does not send that handwriting text
+            to a HandwritingTool application server or save it to a HandwritingTool account. This statement applies to
+            the converter text itself; analytics, advertising, hosting, contact-form, and security providers may still
+            receive technical or usage data when the website loads or is used. We do not ask you to enter sensitive
+            personal information into the converter, and you should avoid pasting private, confidential, financial,
+            medical, or highly sensitive text into any online tool.
           </p>
           <p>
             We may receive normal technical request information from your browser when pages load, such as IP-related
@@ -114,8 +118,8 @@ export default function PrivacyPolicyPage() {
           <h2 className="text-2xl font-semibold text-slate-950">Analytics and Advertising Partners</h2>
           <p>
             We may use Google Analytics to understand aggregate website traffic and usage patterns. We may also use
-            Google AdSense, Ezoic, or related advertising services to display ads if advertising is enabled on the
-            site.
+            Google AdSense, Ezoic, or related advertising services to display, manage, or measure advertising when those
+            integrations are enabled on the site.
           </p>
           <p>
             Advertising partners may use cookies or similar technologies to serve ads, measure ad performance, prevent
@@ -124,7 +128,20 @@ export default function PrivacyPolicyPage() {
           </p>
           <p>
             You can learn more about Google advertising privacy choices through Google&apos;s ad settings and privacy
-            resources.
+            resources:{" "}
+            <a className="font-semibold text-brand-blue" href="https://adssettings.google.com" rel="noopener noreferrer" target="_blank">
+              Google Ad Settings
+            </a>{" "}
+            and{" "}
+            <a
+              className="font-semibold text-brand-blue"
+              href="https://policies.google.com/technologies/ads"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Google advertising privacy resources
+            </a>
+            .
           </p>
         </section>
 
@@ -134,6 +151,10 @@ export default function PrivacyPolicyPage() {
             If you contact us through the contact form or by email, we may receive your name, email address, selected
             topic, message content, and any other information you choose to send. We use this information to respond to
             your message, investigate issues, and improve the service.
+          </p>
+          <p>
+            The contact form is delivered through FormSubmit. The information you submit is sent to that provider and
+            the HandwritingTool support inbox; it is not processed by the browser-only handwriting renderer.
           </p>
           <p>
             Please do not send passwords, payment information, private documents, or other sensitive data through the
@@ -160,6 +181,11 @@ export default function PrivacyPolicyPage() {
             Depending on your location, you may have rights to access, correct, delete, restrict, or object to certain
             processing of personal information. Practical privacy choices include:
           </p>
+          <p className="mt-4 text-lg leading-8 text-slate-600">
+            If you are located in the European Economic Area or UK, you have rights under GDPR. If you are a California
+            resident, you have rights under the CCPA/CPRA, including the right to opt out of the sale or sharing of
+            personal information.
+          </p>
           <ul className="mt-4 list-disc space-y-2 pl-6 text-lg leading-8 text-slate-600">
             {userChoices.map((item) => (
               <li key={item}>{item}</li>
@@ -180,8 +206,8 @@ export default function PrivacyPolicyPage() {
           <h2 className="text-2xl font-semibold text-slate-950">Children&apos;s Privacy</h2>
           <p>
             HandwritingTool is intended for general audiences. We do not knowingly collect personal information from
-            children. If you believe a child has provided personal information to us, contact us so we can review and
-            remove it where appropriate.
+            children under 13 (or under 16 in applicable regions). If you believe a child has provided personal
+            information to us, contact us so we can review and remove it where appropriate.
           </p>
         </section>
 

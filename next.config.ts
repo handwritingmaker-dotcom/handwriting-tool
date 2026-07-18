@@ -32,7 +32,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/blog/handwriting-generator-for-assignments",
-        destination: "/blog/make-handwritten-assignment-online",
+        destination: "/blog/handwritten-notes-generator",
         permanent: true,
       },
     ];

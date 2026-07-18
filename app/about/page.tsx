@@ -75,7 +75,7 @@ export default function AboutPage() {
           </section>
 
           <section className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-card sm:p-8">
-            <h2 className="text-2xl font-semibold text-slate-950">Who's Behind This</h2>
+            <h2 className="text-2xl font-semibold text-slate-950">Who&apos;s Behind This</h2>
             <div className="mt-4 space-y-4 text-lg leading-8 text-slate-600">
               <p>
                 HandwritingTool is built and maintained by Anwar as a small, independently run project. It is not a
@@ -101,7 +101,7 @@ export default function AboutPage() {
           </section>
 
           <section className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-card sm:p-8">
-            <h2 className="text-2xl font-semibold text-slate-950">What It's For</h2>
+            <h2 className="text-2xl font-semibold text-slate-950">What It&apos;s For</h2>
             <p className="mt-4 text-lg leading-8 text-slate-600">
               This tool is built for notes, drafts, worksheets, journal pages, printable templates, and creative or
               design work where a handwritten look is genuinely useful and appropriate.
