@@ -1,4 +1,5 @@
 import { defaultSocialImage } from "@/lib/seo";
+import { ContactForm } from "@/components/ContactForm";
 
 export const metadata = {
   title: "Contact Us | HandwritingTool",
@@ -33,7 +34,7 @@ const contactTopics = [
 ];
 
 const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "handwritingmaker@gmail.com";
-const formAction = `https://formsubmit.co/${contactEmail}`;
+const formAction = `https://formsubmit.co/ajax/${contactEmail}`;
 
 export default function ContactPage() {
   return (
@@ -88,66 +89,7 @@ export default function ContactPage() {
             .
           </p>
 
-          <form action={formAction} method="POST" className="mt-8 grid gap-4">
-            <input type="hidden" name="_subject" value="New message from HandwritingTool contact page" />
-            <input type="hidden" name="_template" value="table" />
-            <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_next" value="https://www.handwritingtool.com/contact" />
-
-            <div>
-              <label className="input-label" htmlFor="name">
-                Your Name
-              </label>
-              <input id="name" name="name" className="input-field" placeholder="Enter your name" required />
-            </div>
-
-            <div>
-              <label className="input-label" htmlFor="email">
-                Email Address
-              </label>
-              <input
-                id="email"
-                name="email"
-                className="input-field"
-                placeholder="Enter your email address"
-                type="email"
-                required
-              />
-            </div>
-
-            <div>
-              <label className="input-label" htmlFor="topic">
-                Topic
-              </label>
-              <select id="topic" name="topic" className="input-field" defaultValue="General feedback">
-                {contactTopics.map((topic) => (
-                  <option key={topic} value={topic}>
-                    {topic}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="input-label" htmlFor="message">
-                Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                className="input-field min-h-44"
-                placeholder="Write your message here"
-                required
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="w-fit rounded-full bg-brand-blue px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
-            >
-              Send Message
-            </button>
-          </form>
+          <ContactForm action={formAction} supportEmail={contactEmail} topics={contactTopics} />
         </section>
       </div>
     </main>

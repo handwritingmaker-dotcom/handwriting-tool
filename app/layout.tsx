@@ -81,6 +81,7 @@ const siteSchema = [
 ];
 
 const headerLinks = [
+  { href: "/tools", label: "Tools" },
   { href: "/templates", label: "Templates" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
@@ -88,6 +89,7 @@ const headerLinks = [
 ];
 
 const footerLinks = [
+  { href: "/tools", label: "Tools" },
   { href: "/templates", label: "Templates" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
@@ -105,14 +107,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <script async src="//www.ezojs.com/ezoic/sa.min.js"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.ezstandalone = window.ezstandalone || {};
-ezstandalone.cmd = ezstandalone.cmd || [];`,
-          }}
-        />
-        <script src="//ezoicanalytics.com/analytics.js"></script>
+        <Script id="ezoic-standalone-init" strategy="beforeInteractive">
+          {`window.ezstandalone = window.ezstandalone || {};
+window.ezstandalone.cmd = window.ezstandalone.cmd || [];`}
+        </Script>
       </head>
       <body className={`${dmSans.variable} ${kalam.variable} overflow-x-hidden bg-brand-paper text-brand-ink antialiased`}>
         <Script
@@ -120,6 +118,8 @@ ezstandalone.cmd = ezstandalone.cmd || [];`,
           strategy="lazyOnload"
           crossOrigin="anonymous"
         />
+        <Script src="https://www.ezojs.com/ezoic/sa.min.js" strategy="afterInteractive" />
+        <Script src="https://ezoicanalytics.com/analytics.js" strategy="lazyOnload" />
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
           strategy="afterInteractive"
@@ -146,21 +146,21 @@ ezstandalone.cmd = ezstandalone.cmd || [];`,
                   className="h-14 w-auto md:h-16"
                 />
               </Link>
-              <nav className="flex w-full min-w-0 max-w-full items-center gap-2 overflow-x-auto pb-1 text-sm font-semibold text-slate-600 md:w-auto md:gap-6 md:overflow-visible md:pb-0 md:font-medium">
-                <Link href="/#tool" className="whitespace-nowrap rounded-full px-3 py-2 transition hover:bg-blue-50 hover:text-brand-blue md:px-0 md:py-0 md:hover:bg-transparent">
+              <nav aria-label="Primary navigation" className="flex w-full min-w-0 max-w-full flex-wrap items-center justify-center gap-1 text-sm font-semibold text-slate-600 md:w-auto md:flex-nowrap md:justify-start md:gap-6 md:font-medium">
+                <Link href="/#tool" className="inline-flex min-h-11 items-center whitespace-nowrap rounded-full px-3 py-2 transition hover:bg-blue-50 hover:text-brand-blue md:min-h-0 md:px-0 md:py-0 md:hover:bg-transparent">
                   Converter
                 </Link>
-                <Link href="/#features" className="whitespace-nowrap rounded-full px-3 py-2 transition hover:bg-blue-50 hover:text-brand-blue md:px-0 md:py-0 md:hover:bg-transparent">
+                <Link href="/#features" className="inline-flex min-h-11 items-center whitespace-nowrap rounded-full px-3 py-2 transition hover:bg-blue-50 hover:text-brand-blue md:min-h-0 md:px-0 md:py-0 md:hover:bg-transparent">
                   Features
                 </Link>
-                <Link href="/#seo-guide" className="whitespace-nowrap rounded-full px-3 py-2 transition hover:bg-blue-50 hover:text-brand-blue md:px-0 md:py-0 md:hover:bg-transparent">
+                <Link href="/#seo-guide" className="inline-flex min-h-11 items-center whitespace-nowrap rounded-full px-3 py-2 transition hover:bg-blue-50 hover:text-brand-blue md:min-h-0 md:px-0 md:py-0 md:hover:bg-transparent">
                   Guide
                 </Link>
                 {headerLinks.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="whitespace-nowrap rounded-full px-3 py-2 transition hover:bg-blue-50 hover:text-brand-blue md:px-0 md:py-0 md:hover:bg-transparent"
+                    className="inline-flex min-h-11 items-center whitespace-nowrap rounded-full px-3 py-2 transition hover:bg-blue-50 hover:text-brand-blue md:min-h-0 md:px-0 md:py-0 md:hover:bg-transparent"
                   >
                     {link.label}
                   </Link>

@@ -11,6 +11,31 @@ export type BlogPost = {
   updated: string;
   description: string;
   content: string;
+  category: BlogCategory;
+};
+
+export type BlogCategory =
+  | "Getting Started"
+  | "Handwriting Generators"
+  | "Paper & Layout"
+  | "PDF & Export"
+  | "Notes & Study"
+  | "Guides"
+  | "Research & Comparisons";
+
+const categoryBySlug: Record<string, BlogCategory> = {
+  "how-to-convert-text-to-handwriting": "Getting Started",
+  "create-handwritten-pages-online-free": "Handwriting Generators",
+  "graph-paper-handwriting-generator": "Paper & Layout",
+  "text-to-handwriting-a4-size": "Paper & Layout",
+  "text-to-handwriting-on-lined-paper": "Paper & Layout",
+  "text-to-handwriting-pdf-generator": "PDF & Export",
+  "pdf-to-handwriting-converter": "PDF & Export",
+  "handwritten-notes-generator": "Notes & Study",
+  "word-to-handwriting-converter-online-free": "Guides",
+  "how-to-make-handwriting-look-realistic-online": "Guides",
+  "best-text-to-handwriting-tools-2026-comparison": "Research & Comparisons",
+  "why-handwriting-still-matters-digital-age": "Research & Comparisons",
 };
 
 type Frontmatter = {
@@ -52,6 +77,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
   return {
     slug: realSlug,
     content,
+    category: categoryBySlug[realSlug] ?? "Handwriting Generators",
     ...frontmatter,
   };
 }

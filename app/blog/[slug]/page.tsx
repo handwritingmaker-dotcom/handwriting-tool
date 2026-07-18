@@ -71,6 +71,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     description: post.description,
     datePublished: post.date,
     dateModified: post.updated,
+    articleSection: post.category,
     image: `${siteUrl}${outputSocialImage.url}`,
     mainEntityOfPage: `${siteUrl}/blog/${post.slug}`,
     author: {
@@ -122,7 +123,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       />
       <article className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-card sm:p-8 lg:p-12">
         <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">
-          {formatDate(post.date)}
+          {post.category} · {formatDate(post.date)}
         </p>
         <div className="mt-5 rounded-3xl border border-blue-100 bg-blue-50 px-5 py-4">
           <p className="text-sm font-semibold text-slate-950">Written and edited by Anwar</p>
