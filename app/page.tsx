@@ -49,19 +49,19 @@ const useCases = [
     href: "/blog/how-to-convert-text-to-handwriting",
   },
   {
-    title: "Create Handwritten Pages Online Free",
-    text: "Build printable page layouts from your own notes and drafts.",
-    href: "/blog/create-handwritten-pages-online-free",
+    title: "A4 Handwriting Pages",
+    text: "Choose A4 margins, spacing, paper, and print settings.",
+    href: "/blog/text-to-handwriting-a4-size",
   },
   {
-    title: "Best Text to Handwriting Tools 2026",
-    text: "Compare free and paid handwriting converter options.",
-    href: "/blog/best-text-to-handwriting-tools-2026-comparison",
+    title: "Lined Paper Handwriting",
+    text: "Create readable notebook-style pages on ruled paper.",
+    href: "/blog/text-to-handwriting-on-lined-paper",
   },
   {
-    title: "Journal Writing",
-    text: "Draft private reflections, prompts, and planning pages for personal use.",
-    href: "/blog/handwritten-notes-generator",
+    title: "Graph Paper Handwriting",
+    text: "Use a structured grid for lab records and text-based math notes.",
+    href: "/blog/graph-paper-handwriting-generator",
   },
   {
     title: "Teacher Worksheets",
@@ -69,9 +69,9 @@ const useCases = [
     href: "/templates",
   },
   {
-    title: "Creative Projects",
-    text: "Plan quote pages, recipe cards, greeting cards, and layout drafts.",
-    href: "/blog/how-to-make-typed-notes-look-handwritten-online",
+    title: "PDF Export Guide",
+    text: "Prepare multi-page output for printing, sharing, and archiving.",
+    href: "/blog/text-to-handwriting-pdf-generator",
   },
   {
     title: "Design Mockups",

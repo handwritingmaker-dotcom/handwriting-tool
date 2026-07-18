@@ -35,6 +35,31 @@ const nextConfig: NextConfig = {
         destination: "/blog/handwritten-notes-generator",
         permanent: true,
       },
+      {
+        source: "/blog/handwriting-text",
+        destination: "/blog/how-to-convert-text-to-handwriting",
+        statusCode: 301,
+      },
+      {
+        source: "/blog/handwritten-text-generator",
+        destination: "/blog/how-to-convert-text-to-handwriting",
+        statusCode: 301,
+      },
+      {
+        source: "/blog/handwriting-tool-vs-handwriting-generator",
+        destination: "/blog/how-to-convert-text-to-handwriting",
+        statusCode: 301,
+      },
+      {
+        source: "/blog/how-to-make-typed-notes-look-handwritten-online",
+        destination: "/blog/handwritten-notes-generator",
+        statusCode: 301,
+      },
+      {
+        source: "/blog/free-handwriting-generator-online-without-sign-up",
+        destination: "/",
+        statusCode: 301,
+      },
     ];
   },
 };

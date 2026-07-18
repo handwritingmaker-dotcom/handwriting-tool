@@ -5,9 +5,9 @@ const siteUrl = "https://www.handwritingtool.com";
 const fallbackLastModified = new Date("2026-05-01");
 
 const staticRoutes = [
-  { path: "", changeFrequency: "weekly", priority: 1, lastModified: "2026-05-17" },
+  { path: "", changeFrequency: "weekly", priority: 1, lastModified: "2026-07-18" },
   { path: "/about", changeFrequency: "monthly", priority: 0.6, lastModified: "2026-04-30" },
-  { path: "/blog", changeFrequency: "weekly", priority: 0.8, lastModified: "2026-06-01" },
+  { path: "/blog", changeFrequency: "weekly", priority: 0.8, lastModified: "2026-07-18" },
   { path: "/templates", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-05-27" },
   { path: "/contact", changeFrequency: "monthly", priority: 0.6, lastModified: "2026-05-04" },
   { path: "/responsible-use", changeFrequency: "yearly", priority: 0.5, lastModified: "2026-05-08" },
