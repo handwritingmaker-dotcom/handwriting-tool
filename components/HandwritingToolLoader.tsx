@@ -1,9 +1,10 @@
 import { HandwritingTool } from "./HandwritingTool";
+import type { ToolProfile } from "@/lib/tool-profiles";
 
-export function HandwritingToolLoader() {
+export function HandwritingToolLoader({ profile = "default" }: { profile?: ToolProfile }) {
   return (
     <div id="tool">
-      <HandwritingTool />
+      <HandwritingTool profile={profile} />
     </div>
   );
 }

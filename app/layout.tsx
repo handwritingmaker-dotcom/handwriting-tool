@@ -81,6 +81,7 @@ const siteSchema = [
 ];
 
 const headerLinks = [
+  { href: "/tools", label: "Tools" },
   { href: "/templates", label: "Templates" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
@@ -88,6 +89,7 @@ const headerLinks = [
 ];
 
 const footerLinks = [
+  { href: "/tools", label: "Tools" },
   { href: "/templates", label: "Templates" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },

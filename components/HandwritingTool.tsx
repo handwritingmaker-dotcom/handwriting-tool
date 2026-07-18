@@ -2,22 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import {
-  defaultSettings,
   ExportFormat,
   HandwritingStyle,
   handwritingStyles,
   renderHandwriting,
   RenderSettings,
 } from "@/lib/handwriting";
-
-const starterText = `Title: Weekly Planning Notes
-Topic: Printable page draft
-
-This page is a simple example for planning, teaching, journaling, or creative layout work. Use the editor to test paper styles, spacing, margins, and ink color before exporting a clean printable page.
-
-Teachers can prepare worksheet examples or classroom notes. Writers can draft journal pages, outline ideas, or preview handwritten-style layouts for personal projects.
-
-When the page looks right, export it as a PDF, PNG, or JPG for your own notes, printables, or design previews.`;
+import { toolProfiles, type ToolProfile } from "@/lib/tool-profiles";
 
 const pageTypes = [
   { value: "lined", label: "Lined Paper" },
@@ -133,6 +124,44 @@ const settingPresets: Array<{
       assignmentMode: false,
     },
   },
+  {
+    label: "Revision Notes",
+    icon: "book",
+    className: "bg-violet-700 text-white shadow-paper hover:bg-violet-800",
+    settings: {
+      styleId: "clean-notes",
+      pageType: "lined",
+      pageSize: "a4",
+      inkColor: "black",
+      fontSize: 31,
+      lineSpacing: 1.55,
+      wordSpacing: 1,
+      randomness: 0.26,
+      leftMargin: 170,
+      topMargin: 115,
+      showMarginLine: true,
+      assignmentMode: false,
+    },
+  },
+  {
+    label: "Simple Notes",
+    icon: "note",
+    className: "bg-slate-600 text-white shadow-paper hover:bg-slate-700",
+    settings: {
+      styleId: "daily-notebook",
+      pageType: "blank",
+      pageSize: "a4",
+      inkColor: "blue",
+      fontSize: 32,
+      lineSpacing: 1.5,
+      wordSpacing: 1,
+      randomness: 0.3,
+      leftMargin: 145,
+      topMargin: 110,
+      showMarginLine: false,
+      assignmentMode: false,
+    },
+  },
 ];
 
 type RenderedPage = {
@@ -146,11 +175,15 @@ type ExportState = {
   message: string;
 };
 
-export function HandwritingTool() {
-  const [text, setText] = useState(starterText);
-  const [settings, setSettings] = useState<RenderSettings>(defaultSettings);
+export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile }) {
+  const profileConfig = toolProfiles[profile];
+  const [text, setText] = useState(profileConfig.starterText);
+  const [settings, setSettings] = useState<RenderSettings>(profileConfig.settings);
   const [pages, setPages] = useState<RenderedPage[]>([]);
-  const [fileName, setFileName] = useState("handwriting-pages");
+  const [fileName, setFileName] = useState(profileConfig.fileName);
+  const [noteTitle, setNoteTitle] = useState("");
+  const [noteSubject, setNoteSubject] = useState("");
+  const [noteDate, setNoteDate] = useState("");
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const [scope, setScope] = useState<"current" | "all">("current");
   const [isRendering, setIsRendering] = useState(true);
@@ -254,7 +287,10 @@ export function HandwritingTool() {
     exportLock.current = true;
 
     const page = pages[selectedPageIndex];
-    if (!page) return;
+    if (!page) {
+      exportLock.current = false;
+      return;
+    }
 
     setExportState({ active: true, message: `Preparing page ${selectedPageIndex + 1}…` });
     try {
@@ -274,7 +310,10 @@ export function HandwritingTool() {
     const targetPages = scope === "all" ? pages : pages.slice(selectedPageIndex, selectedPageIndex + 1);
     const firstPage = targetPages[0];
 
-    if (!firstPage) return;
+    if (!firstPage) {
+      exportLock.current = false;
+      return;
+    }
 
     setExportState({ active: true, message: `Preparing ${targetPages.length}-page PDF…` });
     try {
@@ -306,8 +345,19 @@ export function HandwritingTool() {
   };
 
   const resetText = () => {
-    setText(starterText);
+    setText(profileConfig.starterText);
     setRenderError("");
+  };
+
+  const applyNoteHeader = () => {
+    const body = text.replace(/^(?:Title|Subject|Date):.*\n(?:Subject:.*\n)?(?:Date:.*\n)?\n/, "");
+    const header = [
+      noteTitle.trim() ? `Title: ${noteTitle.trim()}` : "",
+      noteSubject.trim() ? `Subject: ${noteSubject.trim()}` : "",
+      noteDate ? `Date: ${noteDate}` : "",
+    ].filter(Boolean);
+
+    setText(header.length ? `${header.join("\n")}\n\n${body}` : body);
   };
 
   const largeDocument = wordCount >= 5000 || text.length >= 30000;
@@ -318,8 +368,8 @@ export function HandwritingTool() {
       <div className="editor-panel min-w-0 bg-white px-5 py-6 sm:px-6 lg:border-r lg:border-slate-200 lg:px-7">
         <div className="mb-5 flex flex-wrap items-center justify-between gap-4">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">Handwriting Studio</p>
-            <h2 className="mt-2 text-3xl font-semibold text-slate-950">Create readable handwritten-style pages</h2>
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">{profileConfig.eyebrow}</p>
+            <h2 className="mt-2 text-3xl font-semibold text-slate-950">{profileConfig.editorTitle}</h2>
           </div>
           <div className="shrink-0 border-l border-slate-200 pl-4 text-xs font-semibold text-brand-blue">
             {wordCount} words / {shownPageCount} page{shownPageCount === 1 ? "" : "s"}
@@ -327,8 +377,30 @@ export function HandwritingTool() {
         </div>
 
         <label className="input-label" htmlFor="handwriting-text">
-          Paste notes, worksheet text, drafts, or article copy
+          {profileConfig.inputLabel}
         </label>
+        {profile === "notes" && (
+          <fieldset className="mb-4 rounded-2xl border border-blue-100 bg-blue-50 p-4">
+            <legend className="px-2 text-sm font-semibold text-slate-950">Optional note details</legend>
+            <div className="grid gap-3 sm:grid-cols-3">
+              <div>
+                <label className="input-label" htmlFor="noteTitle">Note title</label>
+                <input id="noteTitle" className="input-field" value={noteTitle} onChange={(event) => setNoteTitle(event.target.value)} placeholder="Chapter summary" />
+              </div>
+              <div>
+                <label className="input-label" htmlFor="noteSubject">Subject</label>
+                <input id="noteSubject" className="input-field" value={noteSubject} onChange={(event) => setNoteSubject(event.target.value)} placeholder="Biology" />
+              </div>
+              <div>
+                <label className="input-label" htmlFor="noteDate">Date</label>
+                <input id="noteDate" className="input-field" type="date" value={noteDate} onChange={(event) => setNoteDate(event.target.value)} />
+              </div>
+            </div>
+            <button type="button" onClick={applyNoteHeader} className="mt-3 inline-flex min-h-11 items-center rounded-full bg-brand-blue px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700">
+              Apply note details
+            </button>
+          </fieldset>
+        )}
         <div className="mb-4">
           <p className="input-label">Quick presets</p>
           <div className="flex flex-wrap gap-2">
@@ -355,7 +427,7 @@ export function HandwritingTool() {
           value={text}
           onChange={(event) => setText(event.target.value)}
           className="input-field min-h-[210px] resize-y rounded-xl leading-6"
-          placeholder="Paste personal notes, worksheet text, journal drafts, or article copy here..."
+          placeholder={profileConfig.placeholder}
         />
         {text.length === 0 && (
           <div className="mt-3 rounded-2xl border border-dashed border-slate-200 bg-slate-50 px-4 py-4">
@@ -417,7 +489,7 @@ export function HandwritingTool() {
               <button type="button" onClick={() => setRenderAttempt((attempt) => attempt + 1)} className="inline-flex min-h-11 items-center rounded-full bg-rose-700 px-4 py-2 font-semibold text-white transition hover:bg-rose-800">
                 Retry Preview
               </button>
-              <button type="button" onClick={() => setSettings(defaultSettings)} className="inline-flex min-h-11 items-center rounded-full border border-rose-200 bg-white px-4 py-2 font-semibold text-rose-800 transition hover:bg-rose-100">
+              <button type="button" onClick={() => setSettings(profileConfig.settings)} className="inline-flex min-h-11 items-center rounded-full border border-rose-200 bg-white px-4 py-2 font-semibold text-rose-800 transition hover:bg-rose-100">
                 Reset Settings
               </button>
             </div>
