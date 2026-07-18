@@ -60,6 +60,31 @@ const nextConfig: NextConfig = {
         destination: "/",
         statusCode: 301,
       },
+      {
+        source: "/blog/make-handwritten-assignment-online",
+        destination: "/blog/handwritten-notes-generator",
+        statusCode: 301,
+      },
+      {
+        source: "/blog/best-handwriting-generator-for-students-2026",
+        destination: "/blog/best-text-to-handwriting-tools-2026-comparison",
+        statusCode: 301,
+      },
+      {
+        source: "/blog/how-to-make-handwritten-assignment-pdf-on-mobile",
+        destination: "/blog/text-to-handwriting-pdf-generator",
+        statusCode: 301,
+      },
+      {
+        source: "/blog/how-to-write-assignments-faster-without-handwriting",
+        destination: "/",
+        statusCode: 301,
+      },
+      {
+        source: "/blog/best-handwriting-fonts-for-assignments",
+        destination: "/blog/how-to-make-handwriting-look-realistic-online",
+        statusCode: 301,
+      },
     ];
   },
 };
