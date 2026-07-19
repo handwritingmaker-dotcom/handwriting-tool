@@ -34,6 +34,7 @@ const categoryBySlug: Record<string, BlogCategory> = {
   "handwritten-notes-generator": "Notes & Study",
   "word-to-handwriting-converter-online-free": "Guides",
   "how-to-make-handwriting-look-realistic-online": "Guides",
+  "best-handwriting-fonts-for-students": "Guides",
   "best-text-to-handwriting-tools-2026-comparison": "Research & Comparisons",
   "why-handwriting-still-matters-digital-age": "Research & Comparisons",
 };
