@@ -6,11 +6,6 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        source: "/ads.txt",
-        destination: "https://srv.adstxtmanager.com/19390/handwritingtool.com",
-        permanent: true,
-      },
-      {
         source: "/blog/can-teachers-detect-handwriting-generator",
         destination: "/responsible-use",
         permanent: true,
