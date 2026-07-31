@@ -100,10 +100,11 @@ const popularGuides = [
 ];
 
 const comparisonRows = [
-  ["No signup", "Start in the browser without creating an account.", "Many tools add login or account friction."],
-  ["PDF, PNG, JPG", "Export complete pages as PDF or image formats.", "Some converters only download PNG images."],
-  ["Real page controls", "Adjust paper, spacing, margins, ink, and handwriting variation.", "Basic tools often only change the font."],
-  ["Privacy friendly", "Text is processed in your browser and is not stored by HandwritingTool.", "Upload-based workflows may require sending files."],
+  ["Handwriting", "10 readable handwriting styles", "Choose a style and preview changes instantly"],
+  ["Paper", "Lined, blank, and graph layouts", "Set up notebook, worksheet, or grid pages"],
+  ["Page controls", "Margins, spacing, ink, and variation", "Fine-tune the complete page, not only the font"],
+  ["Export", "Multi-page PDF, PNG, and JPG", "Review the layout before downloading"],
+  ["Privacy", "Browser-based text rendering", "No account or text upload required"],
 ];
 
 const faqs = [
@@ -163,7 +164,7 @@ const softwareSchema = {
     priceCurrency: "USD",
   },
   description:
-    "Free online tool for creating printable notes, teacher worksheets, journal pages, creative drafts, and design mockups as PDF, PNG, or JPG.",
+    "Free text to handwriting converter for creating realistic handwritten-style pages online and exporting them as multi-page PDF, PNG, or JPG.",
 };
 
 export default function HomePage() {
@@ -177,19 +178,20 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-4 pb-8 pt-10 text-center sm:px-6 sm:pb-10 sm:pt-14 lg:px-8">
           <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/90 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-brand-blue shadow-sm">
             <FeatureIcon name="spark" className="h-4 w-4" />
-            Free · Private · No sign up
+            Free &bull; Private &bull; No sign up
           </div>
           <h1 className="mx-auto mt-5 max-w-4xl text-4xl font-bold tracking-[-0.045em] text-slate-950 sm:text-5xl lg:text-6xl">
-            Transform your text into <span className="hero-ink">natural handwriting</span>
+            Free <span className="hero-ink">Text to Handwriting Converter</span> Online
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
-            Type or paste your text, shape every detail, and export polished handwritten pages as PDF, PNG, or JPG.
+            Convert typed text into realistic handwritten-style pages. Choose from 10 handwriting styles, adjust
+            paper and spacing, preview every page, and export a multi-page PDF, PNG, or JPG.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-medium text-slate-600">
             {[
               ["10 handwriting styles", "spark"],
               ["Lined, blank & graph paper", "paper"],
-              ["Instant browser preview", "check"],
+              ["Multi-page PDF & image export", "check"],
             ].map(([label, icon]) => (
               <span key={label} className="inline-flex items-center gap-2">
                 <FeatureIcon name={icon} className="h-4 w-4 text-brand-blue" />
@@ -247,7 +249,8 @@ export default function HomePage() {
               className="h-auto w-full rounded-2xl"
             />
             <figcaption className="mt-4 px-2 text-sm leading-6 text-slate-600">
-              Paste typed content on one side and review the handwritten page output on the other before exporting.
+              An actual HandwritingTool editor preview: typed text on the left and the generated handwritten page on
+              the right. Your result updates as you change the style, paper, spacing, margins, or ink.
             </figcaption>
           </figure>
         </div>
@@ -370,20 +373,20 @@ export default function HomePage() {
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="mb-10 max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">Why Choose Us</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">What You Can Control</p>
           <h2 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">
-            Why HandwritingTool is different from a basic handwriting font generator
+            More than a handwriting font: control the complete page
           </h2>
           <p className="mt-4 text-lg leading-8 text-slate-600">
-            A basic handwriting generator changes text style. HandwritingTool focuses on the complete page: paper,
-            margins, spacing, handwriting variation, and export formats.
+            Create handwriting that fits the page you need. Every option below is available in the converter and can
+            be checked in the live preview before export.
           </p>
         </div>
         <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-card">
           <div className="grid bg-slate-950 px-5 py-4 text-sm font-semibold text-white md:grid-cols-[0.8fr,1fr,1fr]">
-            <div>Feature</div>
-            <div>HandwritingTool</div>
-            <div>Basic converters</div>
+            <div>Setting</div>
+            <div>Available options</div>
+            <div>What it helps you do</div>
           </div>
           {comparisonRows.map(([feature, ours, basic]) => (
             <div
@@ -402,14 +405,14 @@ export default function HomePage() {
         <div className="rounded-[32px] border border-slate-200 bg-white p-8 shadow-card lg:p-12">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">Text to Handwriting Guide</p>
           <article className="mt-6 space-y-5 text-slate-600">
-            <h2 className="text-3xl font-semibold text-slate-950">Create Handwritten-Style Pages Online</h2>
+            <h2 className="text-3xl font-semibold text-slate-950">How to Convert Text to Handwriting Online</h2>
             <p className="text-lg leading-8">
-              HandwritingTool helps you create readable handwritten-style pages for notes, printables, classroom
-              examples, journal pages, and design previews.
+              This free text to handwriting converter turns typed words into readable handwritten-style pages for
+              notes, printables, classroom examples, journal layouts, and design previews.
             </p>
             <p className="text-lg leading-8">
-              The editor keeps the workflow simple: paste your own text, choose a paper style, adjust spacing and ink,
-              preview the page, then export a PDF, PNG, or JPG.
+              The editor keeps the workflow simple: paste your own text, choose a handwriting and paper style, adjust
+              spacing and ink, preview each page, then export a multi-page PDF, PNG, or JPG.
             </p>
             <p className="text-lg leading-8">
               Start with our{" "}
@@ -448,6 +451,27 @@ export default function HomePage() {
               <li>Adjust margins, spacing, ink, and style</li>
               <li>Export a PDF or image after reviewing the page</li>
             </ul>
+
+            <h2 className="pt-3 text-2xl font-semibold text-slate-950">Choose the Right Page Format</h2>
+            <p className="text-lg leading-8">
+              Use the dedicated tools when you already know the output you need: create a{" "}
+              <Link href="/tools/text-to-handwriting-pdf" className="font-semibold text-brand-blue">
+                text to handwriting PDF
+              </Link>
+              , write on{" "}
+              <Link href="/tools/lined-paper-handwriting" className="font-semibold text-brand-blue">
+                lined paper
+              </Link>
+              , prepare a{" "}
+              <Link href="/tools/graph-paper-handwriting" className="font-semibold text-brand-blue">
+                graph paper page
+              </Link>
+              , or format clean{" "}
+              <Link href="/tools/handwritten-notes" className="font-semibold text-brand-blue">
+                handwritten notes
+              </Link>
+              .
+            </p>
 
             <h2 className="pt-3 text-2xl font-semibold text-slate-950">Responsible Use Cases</h2>
             <ul className="list-disc space-y-2 pl-6 text-lg leading-8">
