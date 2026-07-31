@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { HandwritingToolLoader } from "@/components/HandwritingToolLoader";
 import { editorSocialImage } from "@/lib/seo";
@@ -44,6 +45,18 @@ export function ToolExperiencePage({ profile }: { profile: FunctionalToolProfile
     },
     {
       "@context": "https://schema.org",
+      "@type": "HowTo",
+      name: `How to use ${tool.name}`,
+      description: tool.intro,
+      step: tool.howTo.map((text, index) => ({
+        "@type": "HowToStep",
+        position: index + 1,
+        name: `Step ${index + 1}`,
+        text,
+      })),
+    },
+    {
+      "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
@@ -73,6 +86,32 @@ export function ToolExperiencePage({ profile }: { profile: FunctionalToolProfile
 
       <section className="relative z-10 mx-auto max-w-[1500px] px-3 pb-12 sm:px-5 lg:px-7">
         <HandwritingToolLoader profile={profile} />
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8">
+        <div className="grid items-center gap-7 rounded-[32px] border border-slate-200 bg-white p-6 shadow-card lg:grid-cols-[0.9fr,1.1fr] lg:p-9">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand-blue">Current Output Example</p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">What this focused tool creates</h2>
+            <p className="mt-4 leading-7 text-slate-600">{tool.sampleCaption}</p>
+            <ul className="mt-5 space-y-3 text-sm font-semibold text-slate-700">
+              {tool.benefits.map((benefit) => (
+                <li key={benefit} className="flex gap-3">
+                  <span aria-hidden="true" className="text-brand-green">&#10003;</span>
+                  {benefit}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <Image
+            src={tool.sampleImage}
+            alt={tool.sampleAlt}
+            width={1200}
+            height={760}
+            sizes="(min-width: 1024px) 55vw, 100vw"
+            className="h-auto w-full rounded-2xl border border-slate-200"
+          />
+        </div>
       </section>
 
       <section className="mx-auto grid max-w-6xl gap-6 px-4 pb-16 sm:px-6 lg:grid-cols-2 lg:px-8">
@@ -107,6 +146,7 @@ export function ToolExperiencePage({ profile }: { profile: FunctionalToolProfile
           <div className="mt-5 flex flex-wrap gap-3">
             <Link href={tool.guideHref} className="rounded-full bg-brand-blue px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700">{tool.guideLabel}</Link>
             <Link href="/tools" className="rounded-full border border-emerald-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-emerald-100">Browse all tools</Link>
+            <Link href="/" className="rounded-full border border-emerald-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-emerald-100">Main text to handwriting converter</Link>
             <Link href="/privacy-policy" className="rounded-full border border-emerald-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-emerald-100">Privacy policy</Link>
           </div>
         </div>

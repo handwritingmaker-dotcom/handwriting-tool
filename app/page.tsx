@@ -107,6 +107,45 @@ const comparisonRows = [
   ["Privacy", "Browser-based text rendering", "No account or text upload required"],
 ];
 
+const outputGallery = [
+  {
+    title: "Lined notebook page",
+    text: "Blue ink, ruled paper, and a visible margin for readable notebook-style writing.",
+    image: "/blog/blog-lined-paper-output.png",
+    href: "/tools/lined-paper-handwriting",
+  },
+  {
+    title: "Blank paper page",
+    text: "A clean page for letters, journal layouts, quotes, and visual drafts.",
+    image: "/blog/blog-create-pages-workspace.png",
+    href: "/#tool",
+  },
+  {
+    title: "Graph paper page",
+    text: "Grid-based output for structured observations, labels, and lab notes.",
+    image: "/blog/blog-graph-paper-preview.png",
+    href: "/tools/graph-paper-handwriting",
+  },
+  {
+    title: "Handwritten notes",
+    text: "Comfortable line spacing and margins for class notes and revision pages.",
+    image: "/blog/blog-notes-generator-preview.png",
+    href: "/tools/handwritten-notes",
+  },
+  {
+    title: "Worksheet example",
+    text: "A complete page layout for permitted teaching examples and printable worksheets.",
+    image: "/blog/blog-assignment-online-layout.png",
+    href: "/templates",
+  },
+  {
+    title: "Multi-page PDF workflow",
+    text: "Preview the page on mobile, then keep longer output together in one PDF.",
+    image: "/blog/blog-mobile-pdf-preview.png",
+    href: "/tools/text-to-handwriting-pdf",
+  },
+];
+
 const faqs = [
   {
     question: "Is this text to handwriting converter free?",
@@ -223,36 +262,99 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid items-center gap-8 lg:grid-cols-[0.85fr,1.15fr]">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">Output Preview</p>
-            <h2 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">
-              See how the text to handwriting converter looks before you export
-            </h2>
-            <p className="mt-4 text-lg leading-8 text-slate-600">
-              HandwritingTool is built around real page output, not only font styling. You can preview notebook-style
-              handwriting, tune spacing, and download the final page as PDF, PNG, or JPG.
-            </p>
-            <div className="mt-6 grid gap-3 text-sm font-semibold text-slate-700 sm:grid-cols-2 lg:grid-cols-1">
-              <div className="rounded-2xl border border-blue-100 bg-blue-50 px-4 py-3">Typed text and handwritten preview side by side</div>
-              <div className="rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3">Real-time page preview before download</div>
-              <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3">PDF, PNG, and JPG export after checking layout</div>
+      <section id="output-preview" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="overflow-hidden rounded-[36px] bg-slate-950 px-6 py-8 text-white shadow-paper sm:px-8 lg:px-12 lg:py-12">
+          <div className="grid items-center gap-10 lg:grid-cols-[0.78fr,1.22fr]">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-emerald-300">Live Page Proof</p>
+              <h2 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
+                Check the complete page before you download
+              </h2>
+              <p className="mt-5 text-lg leading-8 text-slate-300">
+                The preview responds to your handwriting, paper, ink, spacing, margin, and variation settings. What
+                you review is what the converter prepares for export.
+              </p>
+              <div className="mt-7 flex flex-wrap gap-3 text-sm font-semibold">
+                <span className="rounded-full border border-white/15 bg-white/5 px-4 py-2">10 writing styles</span>
+                <span className="rounded-full border border-white/15 bg-white/5 px-4 py-2">3 paper types</span>
+                <span className="rounded-full border border-white/15 bg-white/5 px-4 py-2">PDF + images</span>
+              </div>
+              <Link
+                href="/#tool"
+                className="mt-8 inline-flex rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-200"
+              >
+                Create your page
+              </Link>
+            </div>
+
+            <div className="rounded-[28px] border border-white/10 bg-white/10 p-3 shadow-2xl backdrop-blur sm:p-5">
+              <div className="mb-3 flex items-center justify-between px-1 text-xs font-semibold text-slate-300">
+                <span>LIVE PREVIEW</span>
+                <span className="inline-flex items-center gap-2 rounded-full bg-emerald-400/15 px-3 py-1 text-emerald-200">
+                  <span className="h-2 w-2 rounded-full bg-emerald-300" /> Ready to export
+                </span>
+              </div>
+              <div className="grid gap-3 md:grid-cols-[0.72fr,1.28fr]">
+                <div className="rounded-2xl bg-white p-5 text-slate-950">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-blue">Page settings</p>
+                  <div className="mt-4 space-y-3 text-sm">
+                    {[["Style", "Clean Notes"], ["Paper", "Lined A4"], ["Ink", "Blue"], ["Spacing", "Balanced"]].map(([label, value]) => (
+                      <div key={label} className="flex items-center justify-between rounded-xl bg-slate-100 px-3 py-2.5">
+                        <span className="text-slate-500">{label}</span>
+                        <span className="font-semibold">{value}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-4 rounded-xl bg-brand-blue px-3 py-2.5 text-center text-sm font-semibold text-white">Download PDF</div>
+                </div>
+                <div className="relative min-h-[360px] overflow-hidden rounded-2xl bg-[#fffdf7] px-8 py-10 text-slate-800 shadow-inner sm:px-12">
+                  <div aria-hidden="true" className="absolute inset-0 bg-[repeating-linear-gradient(to_bottom,transparent_0,transparent_39px,#dbeafe_40px)]" />
+                  <div aria-hidden="true" className="absolute bottom-0 left-8 top-0 w-px bg-rose-200" />
+                  <div className="relative ml-3 font-hand text-[26px] leading-[40px] text-blue-700 sm:text-[30px]">
+                    <p>Weekly planning notes</p>
+                    <p className="mt-10">A clear preview makes it easy to check every line before export.</p>
+                    <p className="mt-10">Adjust the page until the handwriting feels balanced and readable.</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <figure className="rounded-3xl border border-slate-200 bg-white p-4 shadow-card">
-            <Image
-              src="/blog/current-tool-output-preview.png"
-              alt="HandwritingTool text input and real-time handwritten page preview"
-              width={1200}
-              height={760}
-              className="h-auto w-full rounded-2xl"
-            />
-            <figcaption className="mt-4 px-2 text-sm leading-6 text-slate-600">
-              An actual HandwritingTool editor preview: typed text on the left and the generated handwritten page on
-              the right. Your result updates as you change the style, paper, spacing, margins, or ink.
-            </figcaption>
-          </figure>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8" aria-labelledby="output-gallery-heading">
+        <div className="mb-10 max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">Real Output Examples</p>
+          <h2 id="output-gallery-heading" className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">
+            See six pages created with HandwritingTool
+          </h2>
+          <p className="mt-4 text-lg leading-8 text-slate-600">
+            These examples show output from the current handwriting styles and page controls. Open the matching tool
+            to create your own version and check every page before downloading.
+          </p>
+        </div>
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {outputGallery.map((sample) => (
+            <Link
+              key={sample.title}
+              href={sample.href}
+              className="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-card transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-paper"
+            >
+              <Image
+                src={sample.image}
+                alt={`${sample.title} created with the HandwritingTool converter`}
+                width={1200}
+                height={760}
+                sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
+                className="aspect-[1200/760] w-full border-b border-slate-200 object-cover"
+              />
+              <div className="p-5">
+                <h3 className="text-xl font-semibold text-slate-950 transition group-hover:text-brand-blue">{sample.title}</h3>
+                <p className="mt-2 leading-7 text-slate-600">{sample.text}</p>
+                <p className="mt-4 text-sm font-semibold text-brand-blue">Open matching tool -&gt;</p>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
 

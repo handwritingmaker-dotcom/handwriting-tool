@@ -13,6 +13,10 @@ export type ToolPageConfig = {
   eyebrow: string;
   h1: string;
   intro: string;
+  sampleImage: string;
+  sampleAlt: string;
+  sampleCaption: string;
+  benefits: string[];
   howTo: string[];
   settings: Array<{ label: string; value: string }>;
   practicalHeading: string;
@@ -34,6 +38,10 @@ export const toolPageConfigs: Record<FunctionalToolProfile, ToolPageConfig> = {
     eyebrow: "Lined Paper Handwriting Generator",
     h1: "Create handwriting on lined paper",
     intro: "Type or paste your text into a notebook-focused editor with lined A4 paper, readable spacing, and a visible left margin selected by default.",
+    sampleImage: "/blog/blog-lined-paper-output.png",
+    sampleAlt: "Lined paper handwriting output with blue ink and notebook margin",
+    sampleCaption: "Current lined-paper output with blue ink, ruled baselines, and a visible left margin.",
+    benefits: ["Notebook-ready ruled layout", "A4 and Letter page sizes", "Current page or complete PDF export"],
     howTo: [
       "Enter your notes, letter, worksheet text, or paragraph in the editor.",
       "Choose a readable handwriting style and keep lined paper selected.",
@@ -66,6 +74,10 @@ export const toolPageConfigs: Record<FunctionalToolProfile, ToolPageConfig> = {
     eyebrow: "Graph Paper Handwriting Generator",
     h1: "Create handwritten-style pages on graph paper",
     intro: "Use a grid-focused editor with graph paper, A4 sizing, black ink, and structured spacing selected by default for lab records and text-based math or science notes.",
+    sampleImage: "/blog/blog-graph-paper-preview.png",
+    sampleAlt: "Graph paper handwriting output with structured black-ink notes",
+    sampleCaption: "Current graph-paper preset showing readable text over a printable grid.",
+    benefits: ["Structured grid-paper preset", "Spacing controls for readable labels", "PDF, PNG, and JPG export"],
     howTo: [
       "Enter plain-text observations, steps, labels, or structured notes.",
       "Keep graph paper selected or adjust the page size and handwriting style.",
@@ -98,6 +110,10 @@ export const toolPageConfigs: Record<FunctionalToolProfile, ToolPageConfig> = {
     eyebrow: "Handwritten Notes Generator",
     h1: "Turn typed notes into handwritten-style pages",
     intro: "Prepare class notes, revision points, or simple notes with optional title, subject, and date fields, then render them with the same reliable browser-based handwriting engine.",
+    sampleImage: "/blog/blog-notes-generator-preview.png",
+    sampleAlt: "Handwritten revision notes on lined notebook paper",
+    sampleCaption: "A readable notes preset with a simple header, lined paper, and open spacing.",
+    benefits: ["Optional title, subject, and date", "Class and revision-note presets", "Multi-page study-note PDF export"],
     howTo: [
       "Clean and verify the notes before styling them.",
       "Optionally add a title, subject, and date, then apply those details to the editor.",
@@ -130,6 +146,10 @@ export const toolPageConfigs: Record<FunctionalToolProfile, ToolPageConfig> = {
     eyebrow: "Text to Handwriting PDF Generator",
     h1: "Convert typed text into handwritten pages and download a PDF",
     intro: "Paste plain text, choose the page and handwriting settings, preview every generated page, set a filename and PDF quality, then export the current page or the complete document.",
+    sampleImage: "/blog/blog-pdf-generator-export.png",
+    sampleAlt: "Text to handwriting PDF generator export controls and page preview",
+    sampleCaption: "The current PDF workflow with page preview, filename, quality, and all-pages export controls.",
+    benefits: ["Current-page or all-pages PDF", "Low, medium, and high quality", "A4 and Letter print layouts"],
     howTo: [
       "Paste clean plain text into the PDF-focused editor.",
       "Choose A4 or Letter, paper style, handwriting, ink, spacing, and margins.",

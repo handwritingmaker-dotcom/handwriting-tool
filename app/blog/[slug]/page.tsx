@@ -8,6 +8,14 @@ import { outputSocialImage } from "@/lib/seo";
 
 const siteUrl = "https://www.handwritingtool.com";
 
+const relatedToolBySlug: Record<string, { href: string; label: string }> = {
+  "text-to-handwriting-pdf-generator": { href: "/tools/text-to-handwriting-pdf", label: "Open PDF generator" },
+  "pdf-to-handwriting-converter": { href: "/tools/text-to-handwriting-pdf", label: "Create a handwriting PDF" },
+  "text-to-handwriting-on-lined-paper": { href: "/tools/lined-paper-handwriting", label: "Open lined-paper tool" },
+  "graph-paper-handwriting-generator": { href: "/tools/graph-paper-handwriting", label: "Open graph-paper tool" },
+  "handwritten-notes-generator": { href: "/tools/handwritten-notes", label: "Open notes generator" },
+};
+
 type BlogPostPageProps = {
   params: Promise<{
     slug: string;
@@ -64,6 +72,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   if (!post) {
     notFound();
   }
+
+  const relatedTool = relatedToolBySlug[post.slug] ?? { href: "/#tool", label: "Try the main converter" };
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -127,7 +137,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       />
       <article className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-card sm:p-8 lg:p-12">
         <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">
-          {post.category} · {formatDate(post.date)}
+          {post.category} &bull; {formatDate(post.date)}
         </p>
         <div className="mt-5 rounded-3xl border border-blue-100 bg-blue-50 px-5 py-4">
           <p className="text-sm font-semibold text-slate-950">
@@ -155,10 +165,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </p>
           <div className="mt-5 flex flex-wrap gap-3">
             <Link
-              href="/#tool"
+              href={relatedTool.href}
               className="rounded-full bg-brand-blue px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700"
             >
-              Try Converter
+              {relatedTool.label}
             </Link>
             <Link
               href="/responsible-use"
