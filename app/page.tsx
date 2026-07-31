@@ -110,39 +110,45 @@ const comparisonRows = [
 const outputGallery = [
   {
     title: "Lined notebook page",
-    text: "Blue ink, ruled paper, and a visible margin for readable notebook-style writing.",
-    image: "/blog/blog-lined-paper-output.png",
+    text: "The live lined-paper workspace with notebook spacing, a visible margin, and the generated A4 page beside the editor.",
+    image: "/gallery/lined-paper-output.png",
     href: "/tools/lined-paper-handwriting",
+    tag: "LINED A4",
   },
   {
-    title: "Blank paper page",
-    text: "A clean page for letters, journal layouts, quotes, and visual drafts.",
-    image: "/blog/blog-create-pages-workspace.png",
+    title: "Blank paper letter",
+    text: "A real blank-paper conversion created from a short personal-letter sample inside the running converter.",
+    image: "/gallery/blank-paper-output.png",
     href: "/#tool",
+    tag: "BLANK PAPER",
   },
   {
-    title: "Graph paper page",
-    text: "Grid-based output for structured observations, labels, and lab notes.",
-    image: "/blog/blog-graph-paper-preview.png",
+    title: "Graph paper lab record",
+    text: "The graph-paper preset rendering a pendulum observation with structured spacing and black handwritten text.",
+    image: "/gallery/graph-paper-output.png",
     href: "/tools/graph-paper-handwriting",
+    tag: "GRAPH GRID",
   },
   {
-    title: "Handwritten notes",
-    text: "Comfortable line spacing and margins for class notes and revision pages.",
-    image: "/blog/blog-notes-generator-preview.png",
+    title: "Handwritten revision notes",
+    text: "The notes workspace with optional note details, revision text, and its generated notebook page shown together.",
+    image: "/gallery/notes-output.png",
     href: "/tools/handwritten-notes",
+    tag: "STUDY NOTES",
   },
   {
-    title: "Worksheet example",
-    text: "A complete page layout for permitted teaching examples and printable worksheets.",
-    image: "/blog/blog-assignment-online-layout.png",
-    href: "/templates",
+    title: "Worksheet workspace",
+    text: "The actual main converter with worksheet presets, editable source text, and a complete live page preview.",
+    image: "/gallery/worksheet-output.png",
+    href: "/#tool",
+    tag: "WORKSHEET",
   },
   {
     title: "Multi-page PDF workflow",
-    text: "Preview the page on mobile, then keep longer output together in one PDF.",
-    image: "/blog/blog-mobile-pdf-preview.png",
+    text: "A genuine long-document test showing 684 detected words, seven generated pages, and the first PDF page preview.",
+    image: "/gallery/multi-page-pdf-output.png",
     href: "/tools/text-to-handwriting-pdf",
+    tag: "7 PAGE PDF",
   },
 ];
 
@@ -263,61 +269,41 @@ export default function HomePage() {
       </section>
 
       <section id="output-preview" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="overflow-hidden rounded-[36px] bg-slate-950 px-6 py-8 text-white shadow-paper sm:px-8 lg:px-12 lg:py-12">
-          <div className="grid items-center gap-10 lg:grid-cols-[0.78fr,1.22fr]">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-emerald-300">Live Page Proof</p>
-              <h2 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
-                Check the complete page before you download
-              </h2>
-              <p className="mt-5 text-lg leading-8 text-slate-300">
-                The preview responds to your handwriting, paper, ink, spacing, margin, and variation settings. What
-                you review is what the converter prepares for export.
-              </p>
-              <div className="mt-7 flex flex-wrap gap-3 text-sm font-semibold">
-                <span className="rounded-full border border-white/15 bg-white/5 px-4 py-2">10 writing styles</span>
-                <span className="rounded-full border border-white/15 bg-white/5 px-4 py-2">3 paper types</span>
-                <span className="rounded-full border border-white/15 bg-white/5 px-4 py-2">PDF + images</span>
-              </div>
-              <Link
-                href="/#tool"
-                className="mt-8 inline-flex rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-200"
-              >
-                Create your page
-              </Link>
+        <div className="overflow-hidden rounded-[36px] border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-emerald-50 shadow-paper">
+          <div className="px-6 pb-8 pt-9 text-center sm:px-10 lg:px-14 lg:pt-12">
+            <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700 shadow-sm">
+              <span className="h-2 w-2 rounded-full bg-emerald-500" /> Captured from the live converter
             </div>
-
-            <div className="rounded-[28px] border border-white/10 bg-white/10 p-3 shadow-2xl backdrop-blur sm:p-5">
-              <div className="mb-3 flex items-center justify-between px-1 text-xs font-semibold text-slate-300">
-                <span>LIVE PREVIEW</span>
-                <span className="inline-flex items-center gap-2 rounded-full bg-emerald-400/15 px-3 py-1 text-emerald-200">
-                  <span className="h-2 w-2 rounded-full bg-emerald-300" /> Ready to export
-                </span>
-              </div>
-              <div className="grid gap-3 md:grid-cols-[0.72fr,1.28fr]">
-                <div className="rounded-2xl bg-white p-5 text-slate-950">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-blue">Page settings</p>
-                  <div className="mt-4 space-y-3 text-sm">
-                    {[["Style", "Clean Notes"], ["Paper", "Lined A4"], ["Ink", "Blue"], ["Spacing", "Balanced"]].map(([label, value]) => (
-                      <div key={label} className="flex items-center justify-between rounded-xl bg-slate-100 px-3 py-2.5">
-                        <span className="text-slate-500">{label}</span>
-                        <span className="font-semibold">{value}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-4 rounded-xl bg-brand-blue px-3 py-2.5 text-center text-sm font-semibold text-white">Download PDF</div>
-                </div>
-                <div className="relative min-h-[360px] overflow-hidden rounded-2xl bg-[#fffdf7] px-8 py-10 text-slate-800 shadow-inner sm:px-12">
-                  <div aria-hidden="true" className="absolute inset-0 bg-[repeating-linear-gradient(to_bottom,transparent_0,transparent_39px,#dbeafe_40px)]" />
-                  <div aria-hidden="true" className="absolute bottom-0 left-8 top-0 w-px bg-rose-200" />
-                  <div className="relative ml-3 font-hand text-[26px] leading-[40px] text-blue-700 sm:text-[30px]">
-                    <p>Weekly planning notes</p>
-                    <p className="mt-10">A clear preview makes it easy to check every line before export.</p>
-                    <p className="mt-10">Adjust the page until the handwriting feels balanced and readable.</p>
-                  </div>
-                </div>
-              </div>
+            <h2 className="mx-auto mt-5 max-w-3xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
+              Your editor and handwritten page stay side by side
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-slate-600">
+              This is the real HandwritingTool workspace—not a reconstructed mockup. Type on the left, review the
+              generated page on the right, then adjust every detail before export.
+            </p>
+          </div>
+          <div className="relative mx-3 overflow-hidden rounded-t-[28px] border border-slate-200 bg-white shadow-2xl sm:mx-6 lg:mx-10">
+            <div className="flex items-center gap-2 border-b border-slate-200 bg-slate-50 px-4 py-3">
+              <span className="h-2.5 w-2.5 rounded-full bg-rose-400" />
+              <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
+              <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
+              <span className="ml-3 text-xs font-semibold text-slate-500">handwritingtool.com — live workspace</span>
             </div>
+            <Image
+              src="/gallery/worksheet-output.png"
+              alt="Actual HandwritingTool converter with editable worksheet text and real-time handwritten page preview"
+              width={1384}
+              height={900}
+              sizes="(min-width: 1280px) 1100px, 95vw"
+              className="h-auto w-full"
+              priority={false}
+            />
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-3 px-6 py-7 text-sm font-semibold text-slate-700">
+            <span className="rounded-full bg-white px-4 py-2 shadow-sm">Editable source text</span>
+            <span className="rounded-full bg-white px-4 py-2 shadow-sm">Real-time rendered page</span>
+            <span className="rounded-full bg-white px-4 py-2 shadow-sm">PDF, PNG & JPG export</span>
+            <Link href="/#tool" className="rounded-full bg-slate-950 px-5 py-2 text-white transition hover:bg-slate-800">Open the converter</Link>
           </div>
         </div>
       </section>
@@ -333,25 +319,31 @@ export default function HomePage() {
             to create your own version and check every page before downloading.
           </p>
         </div>
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-7 lg:grid-cols-2">
           {outputGallery.map((sample) => (
             <Link
               key={sample.title}
               href={sample.href}
-              className="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-card transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-paper"
+              className="group overflow-hidden rounded-[30px] border border-slate-200 bg-white shadow-card transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-paper"
             >
               <Image
                 src={sample.image}
                 alt={`${sample.title} created with the HandwritingTool converter`}
                 width={1200}
                 height={760}
-                sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
-                className="aspect-[1200/760] w-full border-b border-slate-200 object-cover"
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="aspect-[1.54/1] w-full border-b border-slate-200 object-cover object-top transition duration-500 group-hover:scale-[1.015]"
               />
-              <div className="p-5">
-                <h3 className="text-xl font-semibold text-slate-950 transition group-hover:text-brand-blue">{sample.title}</h3>
-                <p className="mt-2 leading-7 text-slate-600">{sample.text}</p>
-                <p className="mt-4 text-sm font-semibold text-brand-blue">Open matching tool -&gt;</p>
+              <div className="p-6 sm:p-7">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-xs font-semibold tracking-[0.18em] text-brand-blue">{sample.tag}</p>
+                    <h3 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950 transition group-hover:text-brand-blue">{sample.title}</h3>
+                  </div>
+                  <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-50 text-xl text-brand-blue">&#8599;</span>
+                </div>
+                <p className="mt-3 leading-7 text-slate-600">{sample.text}</p>
+                <p className="mt-5 text-sm font-semibold text-brand-blue">Open this live workspace -&gt;</p>
               </div>
             </Link>
           ))}
