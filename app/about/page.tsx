@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import { siteAuthor } from "@/lib/author";
 import { defaultSocialImage } from "@/lib/seo";
 
 export const metadata = {
@@ -76,16 +78,29 @@ export default function AboutPage() {
 
           <section className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-card sm:p-8">
             <h2 className="text-2xl font-semibold text-slate-950">Who&apos;s Behind This</h2>
-            <div className="mt-4 space-y-4 text-lg leading-8 text-slate-600">
-              <p>
-                HandwritingTool is built and maintained by Anwar as a small, independently run project. It is not a
-                large company, and the product is shaped around practical improvements to the editor, export options,
-                page controls, and responsible-use guidance.
-              </p>
-              <p>
-                Most updates come from real use: making pages easier to preview, improving handwritten-style output, and
-                keeping the workflow simple enough that people can create a page without signing up.
-              </p>
+            <div className="mt-6 grid gap-6 sm:grid-cols-[140px,1fr] sm:items-center">
+              <Image
+                src={siteAuthor.imagePath}
+                alt="Anwar Fakhri, founder and editor of HandwritingTool"
+                width={640}
+                height={960}
+                sizes="140px"
+                className="h-48 w-36 rounded-3xl object-cover object-top shadow-card"
+              />
+              <div className="space-y-4 text-lg leading-8 text-slate-600">
+                <p>
+                  HandwritingTool is built and maintained by <strong className="text-slate-950">Anwar Fakhri</strong> as a small,
+                  independently run project. Anwar develops the converter and writes and edits its practical guides.
+                </p>
+                <p>
+                  The product is shaped around practical improvements to the editor, export options, page controls,
+                  and responsible-use guidance, while keeping the workflow simple enough to use without signing up.
+                </p>
+                <div className="flex flex-wrap gap-4 text-base font-semibold">
+                  <Link href={siteAuthor.profilePath} rel="author" className="text-brand-blue hover:underline">Read Anwar&apos;s author profile</Link>
+                  <a href={siteAuthor.pinterestUrl} target="_blank" rel="noopener noreferrer" className="text-brand-blue hover:underline">Pinterest</a>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -133,10 +148,10 @@ export default function AboutPage() {
                 your browser for preview and export.
               </p>
               <p>
-                The site is supported by ads, which helps keep the tool free with no subscription or paywall.
+                The tool is currently free to use without an account, subscription, or paywall.
               </p>
               <p>
-                If something is broken, unclear, or missing a feature you need, the fastest way to reach Anwar is the{" "}
+                If something is broken, unclear, or missing a feature you need, the fastest way to reach Anwar Fakhri is the{" "}
                 <Link href="/contact" className="font-semibold text-brand-blue">
                   Contact page
                 </Link>

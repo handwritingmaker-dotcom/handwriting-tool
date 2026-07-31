@@ -34,7 +34,7 @@ const recommendedUses = [
 const avoidUses = [
   "Misrepresenting generated pages or authorship",
   "Bypassing school, college, workplace, or platform rules",
-  "Creating false documents, misleading submissions, or deceptive materials",
+  "Creating false records, forged signatures, misleading submissions, or deceptive materials",
   "Using generated output in a way that violates someone else's instructions, rights, or trust",
 ];
 

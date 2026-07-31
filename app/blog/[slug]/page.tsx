@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
+import { siteAuthor } from "@/lib/author";
 import { outputSocialImage } from "@/lib/seo";
 
 const siteUrl = "https://www.handwritingtool.com";
@@ -76,9 +77,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     mainEntityOfPage: `${siteUrl}/blog/${post.slug}`,
     author: {
       "@type": "Person",
-      name: "Anwar",
-      url: `${siteUrl}/about`,
-      jobTitle: "Founder and editor of HandwritingTool",
+      "@id": `${siteUrl}${siteAuthor.profilePath}#person`,
+      name: siteAuthor.name,
+      url: `${siteUrl}${siteAuthor.profilePath}`,
+      image: `${siteUrl}${siteAuthor.imagePath}`,
+      jobTitle: siteAuthor.role,
+      sameAs: [siteAuthor.pinterestUrl],
     },
     publisher: {
       "@type": "Organization",
@@ -126,10 +130,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           {post.category} · {formatDate(post.date)}
         </p>
         <div className="mt-5 rounded-3xl border border-blue-100 bg-blue-50 px-5 py-4">
-          <p className="text-sm font-semibold text-slate-950">Written and edited by Anwar</p>
+          <p className="text-sm font-semibold text-slate-950">
+            Written and edited by{" "}
+            <Link href={siteAuthor.profilePath} rel="author" className="text-brand-blue hover:underline">
+              {siteAuthor.name}
+            </Link>
+          </p>
           <p className="mt-2 text-sm leading-6 text-slate-600">
-            Anwar founded HandwritingTool and edits the site&apos;s guides on handwriting conversion, page layout,
-            printable documents, and writing workflows.
+            {siteAuthor.shortBio}
           </p>
           <p className="mt-2 text-sm leading-6 text-slate-600">
             Updated {formatDate(post.updated || post.date)}. Each guide is reviewed for clarity, practical usefulness,

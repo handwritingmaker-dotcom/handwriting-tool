@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { siteAuthor } from "@/lib/author";
 import { defaultSocialImage } from "@/lib/seo";
 
 export const metadata = {
@@ -61,7 +63,7 @@ const sections = [
   },
   {
     title: "Third-Party Services",
-    text: "The website may use third-party services for hosting, analytics, contact forms, advertising, security, or external resources. These services may have their own terms and privacy policies. HandwritingTool is not responsible for third-party websites or services.",
+    text: "The website uses third-party services for hosting, analytics, contact-form delivery, security, and linked external resources. Those services operate under their own terms and privacy policies. The Privacy Policy explains the services that receive information through this website.",
   },
   {
     title: "Service Availability",
@@ -96,7 +98,11 @@ export default function TermsPage() {
           templates, articles, and related services.
         </p>
         <p className="mt-4 text-lg leading-8 text-slate-600">
-          Last updated: June 8, 2026.
+          HandwritingTool is independently operated by{" "}
+          <Link href={siteAuthor.profilePath} rel="author" className="font-semibold text-brand-blue">{siteAuthor.name}</Link>.
+        </p>
+        <p className="mt-4 text-lg leading-8 text-slate-600">
+          Last updated: July 31, 2026.
         </p>
 
         <div className="mt-10 space-y-8">
@@ -152,7 +158,7 @@ export default function TermsPage() {
         <section className="mt-10 rounded-2xl border border-blue-100 bg-blue-50 px-5 py-4 text-base leading-7 text-slate-700">
           <h2 className="text-xl font-semibold text-slate-950">Contact</h2>
           <p className="mt-2">
-            Questions about these terms can be sent through the <a className="font-semibold text-brand-blue" href="/contact">Contact page</a>.
+            Questions about these terms can be sent through the <Link className="font-semibold text-brand-blue" href="/contact">Contact page</Link>.
           </p>
         </section>
 

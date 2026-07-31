@@ -1,5 +1,6 @@
 import { defaultSocialImage } from "@/lib/seo";
 import { ContactForm } from "@/components/ContactForm";
+import { siteAuthor } from "@/lib/author";
 
 export const metadata = {
   title: "Contact Us | HandwritingTool",
@@ -33,7 +34,7 @@ const contactTopics = [
   "General feedback",
 ];
 
-const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "handwritingmaker@gmail.com";
+const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? siteAuthor.email;
 const formAction = `https://formsubmit.co/ajax/${contactEmail}`;
 
 export default function ContactPage() {
@@ -44,8 +45,8 @@ export default function ContactPage() {
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">Contact Us</p>
           <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">We are here to help</h1>
           <p className="mt-6 text-lg leading-8 text-slate-600">
-            If you have any questions, suggestions, or need assistance, feel free to reach out to us. We value your
-            feedback and aim to respond as quickly as possible.
+            Contact Anwar Fakhri, founder and editor of HandwritingTool, with questions, suggestions, or technical
+            issues. Your feedback helps improve the converter and its guides.
           </p>
 
           <section className="mt-10">
@@ -60,8 +61,7 @@ export default function ContactPage() {
           <section className="mt-10 space-y-4 text-lg leading-8 text-slate-600">
             <h2 className="text-2xl font-semibold text-slate-950">Response Time</h2>
             <p>
-              We usually respond within 24-48 hours. In some cases, it may take a little longer depending on the volume
-              of requests.
+              We aim to respond within 24–48 hours, although replies can take longer depending on message volume.
             </p>
           </section>
 

@@ -4,6 +4,7 @@ import Link from "next/link";
 import Script from "next/script";
 import { DM_Sans, Kalam } from "next/font/google";
 import { defaultSocialImage } from "@/lib/seo";
+import { siteAuthor } from "@/lib/author";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -18,7 +19,6 @@ const kalam = Kalam({
 });
 
 const googleAnalyticsId = "G-024MVPR0W4";
-const googleAdsensePublisherId = "ca-pub-5045380130139381";
 
 export const metadata: Metadata = {
   title: "Handwriting Tool - Text to Handwriting Converter Free Online",
@@ -58,6 +58,12 @@ const siteSchema = [
     name: "HandwritingTool",
     url: "https://www.handwritingtool.com",
     logo: "https://www.handwritingtool.com/handwriting-tool-logo.png",
+    founder: {
+      "@type": "Person",
+      "@id": `https://www.handwritingtool.com${siteAuthor.profilePath}#person`,
+      name: siteAuthor.name,
+      url: `https://www.handwritingtool.com${siteAuthor.profilePath}`,
+    },
   },
   {
     "@context": "https://schema.org",
@@ -106,20 +112,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <Script id="ezoic-standalone-init" strategy="beforeInteractive">
-          {`window.ezstandalone = window.ezstandalone || {};
-window.ezstandalone.cmd = window.ezstandalone.cmd || [];`}
-        </Script>
-      </head>
       <body className={`${dmSans.variable} ${kalam.variable} overflow-x-hidden bg-brand-paper text-brand-ink antialiased`}>
-        <Script
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${googleAdsensePublisherId}`}
-          strategy="lazyOnload"
-          crossOrigin="anonymous"
-        />
-        <Script src="https://www.ezojs.com/ezoic/sa.min.js" strategy="afterInteractive" />
-        <Script src="https://ezoicanalytics.com/analytics.js" strategy="lazyOnload" />
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
           strategy="afterInteractive"

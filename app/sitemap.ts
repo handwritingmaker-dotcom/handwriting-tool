@@ -11,13 +11,14 @@ const staticRoutes = [
   { path: "/tools/graph-paper-handwriting", changeFrequency: "monthly", priority: 0.9, lastModified: "2026-07-18" },
   { path: "/tools/handwritten-notes", changeFrequency: "monthly", priority: 0.9, lastModified: "2026-07-18" },
   { path: "/tools/text-to-handwriting-pdf", changeFrequency: "monthly", priority: 0.9, lastModified: "2026-07-18" },
-  { path: "/about", changeFrequency: "monthly", priority: 0.6, lastModified: "2026-04-30" },
+  { path: "/about", changeFrequency: "monthly", priority: 0.6, lastModified: "2026-07-31" },
+  { path: "/author/anwar-fakhri", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-07-31" },
   { path: "/blog", changeFrequency: "weekly", priority: 0.8, lastModified: "2026-07-18" },
   { path: "/templates", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-05-27" },
-  { path: "/contact", changeFrequency: "monthly", priority: 0.6, lastModified: "2026-05-04" },
-  { path: "/responsible-use", changeFrequency: "yearly", priority: 0.5, lastModified: "2026-05-08" },
-  { path: "/privacy-policy", changeFrequency: "yearly", priority: 0.4, lastModified: "2026-05-04" },
-  { path: "/terms", changeFrequency: "yearly", priority: 0.4, lastModified: "2026-05-04" },
+  { path: "/contact", changeFrequency: "monthly", priority: 0.6, lastModified: "2026-07-31" },
+  { path: "/responsible-use", changeFrequency: "yearly", priority: 0.5, lastModified: "2026-07-31" },
+  { path: "/privacy-policy", changeFrequency: "yearly", priority: 0.4, lastModified: "2026-07-31" },
+  { path: "/terms", changeFrequency: "yearly", priority: 0.4, lastModified: "2026-07-31" },
 ] satisfies Array<{
   path: string;
   changeFrequency: NonNullable<MetadataRoute.Sitemap[number]["changeFrequency"]>;

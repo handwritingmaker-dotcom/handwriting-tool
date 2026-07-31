@@ -1,16 +1,18 @@
+import Link from "next/link";
+import { siteAuthor } from "@/lib/author";
 import { defaultSocialImage } from "@/lib/seo";
 
 export const metadata = {
   title: "Privacy Policy | HandwritingTool",
   description:
-    "Read how HandwritingTool handles browser-based text processing, analytics, cookies, advertising partners, data retention, user rights, and privacy choices.",
+    "Read how HandwritingTool handles browser-based text processing, analytics, contact messages, data retention, and privacy choices.",
   alternates: {
     canonical: "/privacy-policy",
   },
   openGraph: {
     title: "Privacy Policy | HandwritingTool",
     description:
-      "Read how HandwritingTool handles browser-based text processing, analytics, cookies, advertising partners, data retention, user rights, and privacy choices.",
+      "Read how HandwritingTool handles browser-based text processing, analytics, contact messages, data retention, and privacy choices.",
     url: "/privacy-policy",
     type: "website",
     images: [defaultSocialImage],
@@ -19,7 +21,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Privacy Policy | HandwritingTool",
     description:
-      "Read how HandwritingTool handles browser-based text processing, analytics, cookies, advertising partners, data retention, user rights, and privacy choices.",
+      "Read how HandwritingTool handles browser-based text processing, analytics, contact messages, data retention, and privacy choices.",
     images: [defaultSocialImage.url],
   },
 };
@@ -36,7 +38,7 @@ const uses = [
   "Understand aggregate traffic, performance, and user experience patterns",
   "Respond to contact form submissions, support requests, and feedback",
   "Prevent abuse, troubleshoot errors, and protect the reliability of the service",
-  "Measure advertising and analytics performance where third-party services are enabled",
+  "Measure aggregate website usage through Google Analytics",
 ];
 
 const userChoices = [
@@ -44,7 +46,7 @@ const userChoices = [
   "Avoid entering sensitive personal information into the converter",
   "Contact us to request access, correction, or deletion of information you voluntarily provided",
   "Use browser privacy settings or consent tools where available to limit third-party tracking",
-  "California residents may contact us with a Do Not Sell or Share My Personal Information request where applicable",
+  "Contact us with a privacy question or a request concerning information you submitted",
 ];
 
 export default function PrivacyPolicyPage() {
@@ -58,7 +60,14 @@ export default function PrivacyPolicyPage() {
           articles, contact us, or create handwritten-style pages with the online converter.
         </p>
         <p className="mt-4 text-lg leading-8 text-slate-600">
-          Last updated: June 30, 2026.
+          HandwritingTool is an independently operated website maintained by{" "}
+          <Link href={siteAuthor.profilePath} rel="author" className="font-semibold text-brand-blue">
+            {siteAuthor.name}
+          </Link>
+          .
+        </p>
+        <p className="mt-4 text-lg leading-8 text-slate-600">
+          Last updated: July 31, 2026.
         </p>
 
         <section className="mt-10 space-y-4 text-lg leading-8 text-slate-600">
@@ -67,7 +76,7 @@ export default function PrivacyPolicyPage() {
             HandwritingTool is designed so the text you enter into the converter is processed in your browser for the
             purpose of generating handwritten-style output. The application code does not send that handwriting text
             to a HandwritingTool application server or save it to a HandwritingTool account. This statement applies to
-            the converter text itself; analytics, advertising, hosting, contact-form, and security providers may still
+            the converter text itself; analytics, hosting, contact-form, and security providers may still
             receive technical or usage data when the website loads or is used. We do not ask you to enter sensitive
             personal information into the converter, and you should avoid pasting private, confidential, financial,
             medical, or highly sensitive text into any online tool.
@@ -76,6 +85,15 @@ export default function PrivacyPolicyPage() {
             We may receive normal technical request information from your browser when pages load, such as IP-related
             network data, browser type, device information, and timestamps. This is common for websites and hosting
             services and is used for security, reliability, analytics, and troubleshooting.
+          </p>
+        </section>
+
+        <section className="mt-10 space-y-4 text-lg leading-8 text-slate-600">
+          <h2 className="text-2xl font-semibold text-slate-950">Information the Converter Does Not Ask For</h2>
+          <p>
+            HandwritingTool has no user account or payment system. The converter does not ask for your name, email
+            address, payment details, or an uploaded identity document. Text entered in the converter is used in your
+            browser to create the preview and export.
           </p>
         </section>
 
@@ -106,7 +124,7 @@ export default function PrivacyPolicyPage() {
           <p>
             HandwritingTool and third-party services may use cookies, local storage, pixels, tags, or similar
             technologies. These technologies can help remember basic preferences, measure traffic, improve performance,
-            understand feature usage, and support advertising or analytics.
+            understand feature usage, or support analytics.
           </p>
           <p>
             You can control cookies through your browser settings. Disabling cookies may affect some website features or
@@ -115,31 +133,25 @@ export default function PrivacyPolicyPage() {
         </section>
 
         <section className="mt-10 space-y-4 text-lg leading-8 text-slate-600">
-          <h2 className="text-2xl font-semibold text-slate-950">Analytics and Advertising Partners</h2>
+          <h2 className="text-2xl font-semibold text-slate-950">Analytics</h2>
           <p>
-            We may use Google Analytics to understand aggregate website traffic and usage patterns. We may also use
-            Google AdSense, Ezoic, or related advertising services to display, manage, or measure advertising when those
-            integrations are enabled on the site.
+            HandwritingTool uses Google Analytics to understand aggregate website traffic and usage patterns, such as
+            pages visited, approximate location, device and browser information, and interaction events. Google may
+            process identifiers and technical information according to its own policies.
           </p>
           <p>
-            Advertising partners may use cookies or similar technologies to serve ads, measure ad performance, prevent
-            abuse, and personalize ads depending on user settings and applicable law. These services process information
-            according to their own privacy policies and controls.
+            Analytics information is separate from the text entered into the handwriting converter. HandwritingTool
+            does not intentionally send converter text to Google Analytics.
           </p>
           <p>
-            You can learn more about Google advertising privacy choices through Google&apos;s ad settings and privacy
-            resources:{" "}
-            <a className="font-semibold text-brand-blue" href="https://adssettings.google.com" rel="noopener noreferrer" target="_blank">
-              Google Ad Settings
-            </a>{" "}
-            and{" "}
+            You can read how Google handles information from sites that use its services in{" "}
             <a
               className="font-semibold text-brand-blue"
-              href="https://policies.google.com/technologies/ads"
+              href="https://policies.google.com/privacy/partners"
               rel="noopener noreferrer"
               target="_blank"
             >
-              Google advertising privacy resources
+              Google&apos;s privacy information
             </a>
             .
           </p>
@@ -166,8 +178,8 @@ export default function PrivacyPolicyPage() {
           <h2 className="text-2xl font-semibold text-slate-950">Data Retention</h2>
           <p>
             We keep voluntarily submitted messages only as long as reasonably needed to respond, provide support,
-            maintain records, or protect the site from abuse. Analytics and advertising data may be retained by
-            third-party providers according to their own retention settings and policies.
+            maintain records, or protect the site from abuse. Analytics data may be retained by Google according to
+            the analytics settings and Google&apos;s policies.
           </p>
           <p>
             If you want us to delete a message or support request you sent, contact us and we will review the request
@@ -180,11 +192,6 @@ export default function PrivacyPolicyPage() {
           <p className="mt-4 text-lg leading-8 text-slate-600">
             Depending on your location, you may have rights to access, correct, delete, restrict, or object to certain
             processing of personal information. Practical privacy choices include:
-          </p>
-          <p className="mt-4 text-lg leading-8 text-slate-600">
-            If you are located in the European Economic Area or UK, you have rights under GDPR. If you are a California
-            resident, you have rights under the CCPA/CPRA, including the right to opt out of the sale or sharing of
-            personal information.
           </p>
           <ul className="mt-4 list-disc space-y-2 pl-6 text-lg leading-8 text-slate-600">
             {userChoices.map((item) => (
@@ -224,7 +231,7 @@ export default function PrivacyPolicyPage() {
           <h2 className="text-2xl font-semibold text-slate-950">Updates to This Policy</h2>
           <p>
             We may update this Privacy Policy from time to time to reflect changes in the website, legal requirements,
-            analytics, advertising, or business practices. The updated date on this page shows when the policy was last
+            analytics, or business practices. The updated date on this page shows when the policy was last
             revised.
           </p>
         </section>
@@ -232,7 +239,9 @@ export default function PrivacyPolicyPage() {
         <section className="mt-10 rounded-2xl border border-blue-100 bg-blue-50 px-5 py-4 text-base leading-7 text-slate-700">
           <h2 className="text-xl font-semibold text-slate-950">Contact</h2>
           <p className="mt-2">
-            For privacy questions or requests, contact us through the <a className="font-semibold text-brand-blue" href="/contact">Contact page</a>.
+            For privacy questions or requests, email{" "}
+            <a className="font-semibold text-brand-blue" href={`mailto:${siteAuthor.email}`}>{siteAuthor.email}</a>{" "}
+            or use the <Link className="font-semibold text-brand-blue" href="/contact">Contact page</Link>.
           </p>
         </section>
       </article>

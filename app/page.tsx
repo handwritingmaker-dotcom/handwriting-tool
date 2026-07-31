@@ -118,7 +118,7 @@ const faqs = [
   {
     question: "Does the tool store my data?",
     answer:
-      "The handwriting text is rendered in your browser and is not sent to a HandwritingTool application server. The website still uses analytics, advertising, and related third-party services that may collect technical and usage data.",
+      "The handwriting text is rendered in your browser and is not sent to a HandwritingTool application server. Website analytics, hosting, and security services may still collect technical and usage data.",
   },
   {
     question: "What can I create with this handwriting tool?",

@@ -48,7 +48,7 @@ export const toolPageConfigs: Record<FunctionalToolProfile, ToolPageConfig> = {
     practicalHeading: "Printing and export",
     practicalText: "Choose the same page size as your printer and test one page at actual size. PDF keeps multi-page layouts together; PNG is best for a sharp single page, while JPG creates a smaller image.",
     limitations: "The tool renders typed text with preset handwriting styles. It does not copy your own handwriting, understand document formatting, or guarantee perfect alignment for every style. Preview the ruled baseline before export.",
-    privacy: "Handwriting text is rendered in your browser and is not sent to a HandwritingTool application server for conversion or storage. Website analytics, advertising, hosting, and security services may still process technical usage data.",
+    privacy: "Handwriting text is rendered in your browser and is not sent to a HandwritingTool application server for conversion or storage. Website analytics, hosting, and security services may still process technical usage data.",
     guideHref: "/blog/text-to-handwriting-on-lined-paper",
     guideLabel: "Read the lined-paper layout guide",
     faqs: [
@@ -80,7 +80,7 @@ export const toolPageConfigs: Record<FunctionalToolProfile, ToolPageConfig> = {
     practicalHeading: "Math and science note use",
     practicalText: "The grid provides visual structure for labels, observations, short calculations, and lab notes. Add complex equations, charts, and diagrams separately when the page requires them.",
     limitations: "This tool does not solve equations, parse LaTeX, understand mathematical meaning, or draw diagrams. It renders the plain text you provide over a graph-paper background, so verify every symbol in the preview.",
-    privacy: "The text-to-page rendering happens in your browser. HandwritingTool does not receive the note text for conversion, although normal analytics, advertising, hosting, and security telemetry may still apply to the website.",
+    privacy: "The text-to-page rendering happens in your browser. HandwritingTool does not receive the note text for conversion, although normal analytics, hosting, and security telemetry may still apply to the website.",
     guideHref: "/blog/graph-paper-handwriting-generator",
     guideLabel: "Read the graph-paper workflow guide",
     faqs: [
@@ -144,7 +144,7 @@ export const toolPageConfigs: Record<FunctionalToolProfile, ToolPageConfig> = {
     practicalHeading: "PDF versus PDF-to-handwriting",
     practicalText: "This page creates a new handwritten-style PDF from text. It is not a PDF-upload converter. If the source already exists in a PDF, copy or extract its text first and clean the line breaks before pasting.",
     limitations: "There is no PDF or DOCX upload, OCR, original-layout preservation, page-number generator, header/footer system, or landscape orientation. Large high-quality canvas exports can exceed browser memory; split long documents when necessary.",
-    privacy: "The typed content is rendered into pages in your browser. It is not uploaded to a HandwritingTool application server for PDF generation or storage, while normal website analytics and advertising telemetry remain separate.",
+    privacy: "The typed content is rendered into pages in your browser. It is not uploaded to a HandwritingTool application server for PDF generation or storage, while normal website analytics remain separate.",
     guideHref: "/blog/text-to-handwriting-pdf-generator",
     guideLabel: "Read the PDF export and printing guide",
     faqs: [
