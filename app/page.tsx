@@ -437,10 +437,10 @@ export default function HomePage() {
                   How to Convert Text to Handwriting
                 </Link>
                 <Link
-                  href="/blog/create-handwritten-pages-online-free"
+                  href="/blog/best-text-to-handwriting-settings-realistic-output"
                   className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
                 >
-                  Create Handwritten Pages Online Free
+                  Best Settings for Realistic Output
                 </Link>
                 <Link
                   href="/blog/best-text-to-handwriting-tools-2026-comparison"

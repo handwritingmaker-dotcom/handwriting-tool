@@ -36,6 +36,7 @@ const categoryBySlug: Record<string, BlogCategory> = {
   "how-to-make-handwriting-look-realistic-online": "Guides",
   "best-handwriting-fonts-for-students": "Guides",
   "best-text-to-handwriting-tools-2026-comparison": "Research & Comparisons",
+  "best-text-to-handwriting-settings-realistic-output": "Guides",
   "why-handwriting-still-matters-digital-age": "Research & Comparisons",
 };
 
