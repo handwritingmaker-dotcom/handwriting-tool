@@ -7,6 +7,7 @@ const blogsDirectory = path.join(process.cwd(), "content", "blogs");
 export type BlogPost = {
   slug: string;
   title: string;
+  seoTitle: string;
   date: string;
   updated: string;
   description: string;
@@ -41,6 +42,7 @@ const categoryBySlug: Record<string, BlogCategory> = {
 
 type Frontmatter = {
   title?: string;
+  seoTitle?: string;
   date?: string;
   updated?: string;
   description?: string;
@@ -57,6 +59,7 @@ function getPostSlugs() {
 function normalizeFrontmatter(data: Frontmatter, slug: string) {
   return {
     title: data.title ?? slug,
+    seoTitle: data.seoTitle ?? data.title ?? slug,
     date: data.date ?? "",
     updated: data.updated ?? data.date ?? "",
     description: data.description ?? "",

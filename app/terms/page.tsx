@@ -5,14 +5,14 @@ import { defaultSocialImage } from "@/lib/seo";
 export const metadata = {
   title: "Terms and Conditions | HandwritingTool",
   description:
-    "Read the terms for using HandwritingTool, including acceptable use, user responsibility, generated content, intellectual property, third-party services, disclaimers, and liability.",
+    "Read the terms for using HandwritingTool, including acceptable use, user responsibility, generated output, third-party services, and limitations.",
   alternates: {
     canonical: "/terms",
   },
   openGraph: {
     title: "Terms and Conditions | HandwritingTool",
     description:
-      "Read the terms for using HandwritingTool, including acceptable use, user responsibility, generated content, intellectual property, third-party services, disclaimers, and liability.",
+      "Read the terms for using HandwritingTool, including acceptable use, user responsibility, generated output, third-party services, and limitations.",
     url: "/terms",
     type: "website",
     images: [defaultSocialImage],
@@ -21,7 +21,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Terms and Conditions | HandwritingTool",
     description:
-      "Read the terms for using HandwritingTool, including acceptable use, user responsibility, generated content, intellectual property, third-party services, disclaimers, and liability.",
+      "Read the terms for using HandwritingTool, including acceptable use, user responsibility, generated output, third-party services, and limitations.",
     images: [defaultSocialImage.url],
   },
 };

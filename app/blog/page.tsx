@@ -3,14 +3,14 @@ import { getAllPosts } from "@/lib/blog";
 import { editorSocialImage } from "@/lib/seo";
 
 export const metadata = {
-  title: "Blog | HandwritingTool",
+  title: "HandwritingTool Blog | Text to Handwriting Guides",
   description:
     "Read the latest HandwritingTool guides about text-to-handwriting conversion, realistic settings, paper layouts, notes, and PDF export.",
   alternates: {
     canonical: "/blog",
   },
   openGraph: {
-    title: "Blog | HandwritingTool",
+    title: "HandwritingTool Blog | Text to Handwriting Guides",
     description:
       "Read the latest HandwritingTool guides about text-to-handwriting conversion, realistic settings, paper layouts, notes, and PDF export.",
     url: "/blog",
@@ -19,7 +19,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blog | HandwritingTool",
+    title: "HandwritingTool Blog | Text to Handwriting Guides",
     description:
       "Read the latest HandwritingTool guides about text-to-handwriting conversion, realistic settings, paper layouts, notes, and PDF export.",
     images: [editorSocialImage.url],
@@ -34,7 +34,7 @@ export default function BlogPage() {
     <main className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
       <header className="mb-10 max-w-3xl sm:mb-12">
         <p className="text-sm font-semibold uppercase tracking-[0.22em] text-brand-blue">HandwritingTool Blog</p>
-        <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">Ideas and practical guides</h1>
+        <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">Text to handwriting blog and practical guides</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">
           Clear advice for better handwritten pages, realistic settings, printable layouts, and reliable exports.
         </p>

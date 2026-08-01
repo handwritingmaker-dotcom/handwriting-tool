@@ -4,14 +4,14 @@ import { siteAuthor } from "@/lib/author";
 import { defaultSocialImage } from "@/lib/seo";
 
 export const metadata = {
-  title: "About HandwritingTool",
+  title: "About HandwritingTool and Its Free Converter",
   description:
     "Learn who runs HandwritingTool, why it was built, what the tool does, and how it handles typed text in the browser.",
   alternates: {
     canonical: "/about",
   },
   openGraph: {
-    title: "About HandwritingTool",
+    title: "About HandwritingTool and Its Free Converter",
     description:
       "Learn who runs HandwritingTool, why it was built, what the tool does, and how it handles typed text in the browser.",
     url: "/about",
@@ -20,7 +20,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "About HandwritingTool",
+    title: "About HandwritingTool and Its Free Converter",
     description:
       "Learn who runs HandwritingTool, why it was built, what the tool does, and how it handles typed text in the browser.",
     images: [defaultSocialImage.url],

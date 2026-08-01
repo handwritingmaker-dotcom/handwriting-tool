@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
@@ -39,7 +40,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     };
   }
 
-  const title = `${post.title} | HandwritingTool`;
+  const title = `${post.seoTitle} | HandwritingTool`;
 
   return {
     title,
@@ -155,7 +156,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </p>
         </div>
         <div className="prose prose-slate mt-6 max-w-none prose-headings:tracking-tight prose-headings:text-slate-950 prose-a:text-brand-blue prose-strong:text-slate-950 prose-li:marker:text-brand-blue">
-          <MDXRemote source={post.content} />
+          <MDXRemote source={post.content} components={{ img: BlogImage }} />
         </div>
         <section className="mt-10 rounded-3xl border border-emerald-100 bg-emerald-50 p-6">
           <h2 className="text-2xl font-semibold text-slate-950">Use the Converter Responsibly</h2>
@@ -186,6 +187,22 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </section>
       </article>
     </main>
+  );
+}
+
+function BlogImage({ src = "", alt = "" }: React.ComponentPropsWithoutRef<"img">) {
+  const imageSrc = typeof src === "string" ? src : "";
+  const isGalleryImage = imageSrc.startsWith("/gallery/");
+
+  return (
+    <Image
+      src={imageSrc}
+      alt={alt}
+      width={isGalleryImage ? 1384 : 1200}
+      height={isGalleryImage ? 900 : 760}
+      sizes="(max-width: 896px) calc(100vw - 48px), 768px"
+      className="h-auto w-full rounded-2xl"
+    />
   );
 }
 
