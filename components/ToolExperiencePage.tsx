@@ -7,12 +7,32 @@ import { toolPageConfigs, type FunctionalToolProfile } from "@/lib/tool-pages";
 
 const siteUrl = "https://www.handwritingtool.com";
 
+const pdfExportOptions = [
+  ["Current-page PDF", "Download only the page currently visible in the preview."],
+  ["All-pages PDF", "Combine every generated handwriting page into one document."],
+  ["Low quality", "Smaller output for memory-limited phones or quick drafts."],
+  ["Medium quality", "Balanced file size and clarity for everyday printing."],
+  ["High quality", "Larger canvas output for devices with enough memory."],
+  ["A4 or Letter", "Match the digital page size to the paper you intend to print."],
+];
+
 export function createToolMetadata(profile: FunctionalToolProfile): Metadata {
   const tool = toolPageConfigs[profile];
   return {
     title: tool.title,
     description: tool.description,
     alternates: { canonical: tool.path },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
     openGraph: {
       title: tool.title,
       description: tool.description,
@@ -35,19 +55,38 @@ export function ToolExperiencePage({ profile }: { profile: FunctionalToolProfile
     {
       "@context": "https://schema.org",
       "@type": ["WebApplication", "SoftwareApplication"],
+      "@id": `${siteUrl}${tool.path}#application`,
       name: tool.name,
       url: `${siteUrl}${tool.path}`,
       description: tool.description,
       applicationCategory: "ProductivityApplication",
       operatingSystem: "Web",
       browserRequirements: "Requires a modern browser with HTML canvas support",
+      inLanguage: "en",
+      isAccessibleForFree: true,
+      featureList: tool.benefits,
       offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "@id": `${siteUrl}${tool.path}#webpage`,
+      url: `${siteUrl}${tool.path}`,
+      name: tool.title,
+      description: tool.description,
+      inLanguage: "en",
+      isPartOf: { "@id": `${siteUrl}/#website` },
+      mainEntity: { "@id": `${siteUrl}${tool.path}#application` },
+      dateModified: "2026-08-01",
     },
     {
       "@context": "https://schema.org",
       "@type": "HowTo",
       name: `How to use ${tool.name}`,
+      url: `${siteUrl}${tool.path}#how-to-use`,
       description: tool.intro,
+      tool: ["Modern web browser"],
+      supply: ["Typed or pasted text"],
       step: tool.howTo.map((text, index) => ({
         "@type": "HowToStep",
         position: index + 1,
@@ -116,7 +155,7 @@ export function ToolExperiencePage({ profile }: { profile: FunctionalToolProfile
 
       <section className="mx-auto grid max-w-6xl gap-6 px-4 pb-16 sm:px-6 lg:grid-cols-2 lg:px-8">
         <div className="rounded-[32px] border border-slate-200 bg-white p-7 shadow-card">
-          <h2 className="text-3xl font-semibold tracking-tight text-slate-950">How to use this tool</h2>
+          <h2 id="how-to-use" className="text-3xl font-semibold tracking-tight text-slate-950">How to use this tool</h2>
           <ol className="mt-5 list-decimal space-y-3 pl-6 text-base leading-7 text-slate-600">
             {tool.howTo.map((step) => <li key={step}>{step}</li>)}
           </ol>
@@ -152,6 +191,8 @@ export function ToolExperiencePage({ profile }: { profile: FunctionalToolProfile
         </div>
       </section>
 
+      {profile === "pdf" && <PdfPageDetails />}
+
       <section className="mx-auto max-w-6xl px-4 pb-20 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-semibold tracking-tight text-slate-950">Frequently asked questions</h2>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
@@ -164,5 +205,53 @@ export function ToolExperiencePage({ profile }: { profile: FunctionalToolProfile
         </div>
       </section>
     </main>
+  );
+}
+
+function PdfPageDetails() {
+  return (
+    <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8" aria-labelledby="pdf-export-options">
+      <div className="rounded-[32px] border border-slate-200 bg-white p-7 shadow-card lg:p-10">
+        <div className="max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-brand-blue">PDF Export Options</p>
+          <h2 id="pdf-export-options" className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">
+            Choose exactly what goes into your handwritten PDF
+          </h2>
+          <p className="mt-4 text-lg leading-8 text-slate-600">
+            This page is designed for text-to-PDF output: it creates new handwritten-style pages from plain text. It
+            does not upload, read, or preserve the layout of an existing PDF file.
+          </p>
+        </div>
+        <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {pdfExportOptions.map(([title, text]) => (
+            <div key={title} className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+              <h3 className="font-semibold text-slate-950">{title}</h3>
+              <p className="mt-2 leading-7 text-slate-600">{text}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-8 grid gap-6 rounded-3xl border border-emerald-100 bg-emerald-50 p-6 lg:grid-cols-2">
+          <div>
+            <h2 className="text-2xl font-semibold text-slate-950">Before downloading all pages</h2>
+            <ul className="mt-4 list-disc space-y-2 pl-5 leading-7 text-slate-700">
+              <li>Confirm the word count and generated page count.</li>
+              <li>Check page breaks, names, symbols, and the final line on each page.</li>
+              <li>Match A4 or Letter to the printer paper you plan to use.</li>
+              <li>Use medium quality first, especially on phones.</li>
+            </ul>
+          </div>
+          <div>
+            <h2 className="text-2xl font-semibold text-slate-950">Text-to-PDF, not PDF upload</h2>
+            <p className="mt-4 leading-7 text-slate-700">
+              If your source text is already inside a PDF, extract or copy the text first, remove unwanted headers and
+              broken line endings, then paste the cleaned text into this generator. The original PDF layout is not imported.
+            </p>
+            <Link href="/blog/text-to-handwriting-pdf-generator" className="mt-5 inline-flex font-semibold text-brand-blue hover:underline">
+              Read the PDF preparation and printing guide -&gt;
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }

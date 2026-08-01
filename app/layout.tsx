@@ -68,6 +68,7 @@ const siteSchema = [
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": "https://www.handwritingtool.com/#website",
     name: "HandwritingTool",
     url: "https://www.handwritingtool.com",
   },
