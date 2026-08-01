@@ -449,7 +449,7 @@ export default function HomePage() {
                   Best Text to Handwriting Tools 2026
                 </Link>
                 <Link
-                  href="/blog/how-to-make-handwriting-look-realistic-online"
+                  href="/blog/best-text-to-handwriting-settings-realistic-output"
                   className="rounded-full border border-white/15 px-4 py-2 text-white transition hover:border-white/40"
                 >
                   Make Pages Look Natural

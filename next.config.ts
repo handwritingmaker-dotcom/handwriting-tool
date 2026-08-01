@@ -77,7 +77,12 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/blog/best-handwriting-fonts-for-assignments",
-        destination: "/blog/how-to-make-handwriting-look-realistic-online",
+        destination: "/blog/best-text-to-handwriting-settings-realistic-output",
+        statusCode: 301,
+      },
+      {
+        source: "/blog/how-to-make-handwriting-look-realistic-online",
+        destination: "/blog/best-text-to-handwriting-settings-realistic-output",
         statusCode: 301,
       },
     ];

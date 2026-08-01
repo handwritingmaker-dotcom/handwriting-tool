@@ -30,7 +30,7 @@ export interface RenderSettings {
   rightMargin: number;
   topMargin: number;
   bottomMargin: number;
-  assignmentMode: boolean;
+  paragraphIndentMode: boolean;
   pageSize: PageSize;
   pdfQuality: PdfQuality;
   paperBrightness: number;
@@ -60,7 +60,7 @@ const qualityScale: Record<PdfQuality, number> = {
 export const handwritingStyles: HandwritingStyle[] = [
   {
     id: "classic-student",
-    label: "Classic Student",
+    label: "Clear Print",
     primary: '"Kalam", "Comic Sans MS", cursive',
     alternates: ['"Caveat", cursive', '"Patrick Hand", cursive'],
     slant: -0.01,
@@ -98,7 +98,7 @@ export const handwritingStyles: HandwritingStyle[] = [
     pressure: 0.86,
   },
   {
-    id: "exam-sheet",
+    id: "practice-sheet",
     label: "Practice Sheet",
     primary: '"Architects Daughter", "Comic Sans MS", cursive',
     alternates: ['"Patrick Hand", cursive', '"Indie Flower", cursive'],
@@ -202,7 +202,7 @@ export const defaultSettings: RenderSettings = {
   rightMargin: 110,
   topMargin: 120,
   bottomMargin: 120,
-  assignmentMode: true,
+  paragraphIndentMode: true,
   pageSize: "a4",
   pdfQuality: "medium",
   paperBrightness: 98,
@@ -480,7 +480,7 @@ export async function renderHandwriting(text: string, settings: RenderSettings):
 
   lines.forEach((line, index) => {
     const isBlank = line === "";
-    const indent = settings.assignmentMode && !isBlank && (index === 0 || lines[index - 1] === "") ? 48 : 0;
+    const indent = settings.paragraphIndentMode && !isBlank && (index === 0 || lines[index - 1] === "") ? 48 : 0;
     const baseline = y + (isBlank ? lineHeight * 0.35 : 0);
 
     if (baseline > pageHeight - settings.bottomMargin) {

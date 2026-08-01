@@ -35,6 +35,8 @@ const avoidUses = [
   "Misrepresenting generated pages or authorship",
   "Bypassing school, college, workplace, or platform rules",
   "Creating false records, forged signatures, misleading submissions, or deceptive materials",
+  "Creating or distributing completed term papers, answers, credentials, or documents intended to deceive",
+  "Imitating another person's handwriting, signature, identity, or authorization",
   "Using generated output in a way that violates someone else's instructions, rights, or trust",
 ];
 
@@ -79,6 +81,18 @@ export default function ResponsibleUsePage() {
           </p>
           <p>
             Review the final page for readability, completeness, and accuracy before printing or sharing it.
+          </p>
+        </section>
+
+        <section className="mt-12 space-y-4 text-lg leading-8 text-slate-600">
+          <h2 className="text-2xl font-semibold text-slate-950">What the Tool Does Not Do</h2>
+          <p>
+            HandwritingTool formats text supplied by the user. It does not write essays, solve questions, generate
+            answers, copy a person&apos;s handwriting, reproduce signatures, create credentials, or verify authorship.
+          </p>
+          <p>
+            A handwritten-style appearance does not establish that a page was physically written by hand. When the
+            origin of a document matters, describe generated output accurately and follow the rules that apply to it.
           </p>
         </section>
 

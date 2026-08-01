@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import {
   ExportFormat,
   HandwritingStyle,
@@ -53,7 +54,7 @@ const settingPresets: Array<{
       randomness: 0.38,
       leftMargin: 165,
       topMargin: 120,
-      assignmentMode: true,
+      paragraphIndentMode: true,
     },
   },
   {
@@ -70,7 +71,7 @@ const settingPresets: Array<{
       randomness: 0.32,
       leftMargin: 150,
       topMargin: 105,
-      assignmentMode: false,
+      paragraphIndentMode: false,
     },
   },
   {
@@ -87,7 +88,7 @@ const settingPresets: Array<{
       randomness: 0.28,
       leftMargin: 155,
       topMargin: 110,
-      assignmentMode: true,
+      paragraphIndentMode: true,
     },
   },
   {
@@ -95,7 +96,7 @@ const settingPresets: Array<{
     icon: "check",
     className: "bg-indigo-600 text-white shadow-paper hover:bg-indigo-700",
     settings: {
-      styleId: "exam-sheet",
+      styleId: "practice-sheet",
       pageType: "blank",
       inkColor: "black",
       fontSize: 31,
@@ -104,7 +105,7 @@ const settingPresets: Array<{
       randomness: 0.26,
       leftMargin: 140,
       topMargin: 95,
-      assignmentMode: true,
+      paragraphIndentMode: true,
     },
   },
   {
@@ -121,7 +122,7 @@ const settingPresets: Array<{
       randomness: 0.22,
       leftMargin: 170,
       topMargin: 115,
-      assignmentMode: false,
+      paragraphIndentMode: false,
     },
   },
   {
@@ -140,7 +141,7 @@ const settingPresets: Array<{
       leftMargin: 170,
       topMargin: 115,
       showMarginLine: true,
-      assignmentMode: false,
+      paragraphIndentMode: false,
     },
   },
   {
@@ -159,7 +160,7 @@ const settingPresets: Array<{
       leftMargin: 145,
       topMargin: 110,
       showMarginLine: false,
-      assignmentMode: false,
+      paragraphIndentMode: false,
     },
   },
 ];
@@ -678,11 +679,11 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
           <label className="inline-flex items-center gap-3 text-sm font-medium text-slate-700">
             <input
               type="checkbox"
-              checked={settings.assignmentMode}
-              onChange={(event) => updateSetting("assignmentMode", event.target.checked)}
+              checked={settings.paragraphIndentMode}
+              onChange={(event) => updateSetting("paragraphIndentMode", event.target.checked)}
               className="h-4 w-4 rounded border-slate-300 text-brand-blue focus:ring-brand-blue"
             />
-            Page Layout Mode
+            Paragraph Indent
           </label>
           <label className="inline-flex items-center gap-3 border-l border-slate-200 pl-4 text-sm font-medium text-slate-700">
             <input
@@ -784,6 +785,15 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
               </button>
             </div>
           </details>
+
+          <p className="mt-4 text-xs leading-5 text-slate-500">
+            Export only content you created or have permission to use. Do not use generated pages to misrepresent
+            authorship, identity, records, or assessed work. See our{" "}
+            <Link href="/responsible-use" className="font-semibold text-brand-blue hover:underline">
+              responsible-use guidance
+            </Link>
+            .
+          </p>
 
           {exportState.message && (
             <div
