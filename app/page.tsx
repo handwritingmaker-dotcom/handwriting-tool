@@ -39,72 +39,25 @@ const features = [
 
 const useCases = [
   {
-    title: "Free Printable Templates",
-    text: "Download lined paper, graph paper, practice sheets, and settings guides.",
-    href: "/templates",
+    title: "Handwriting PDF",
+    text: "Turn longer text into A4 or Letter pages and keep every page together in one PDF.",
+    href: "/tools/text-to-handwriting-pdf",
   },
   {
-    title: "How to Convert Text to Handwriting",
-    text: "Start with the complete text-to-handwriting workflow.",
-    href: "/blog/how-to-convert-text-to-handwriting",
+    title: "Lined Paper",
+    text: "Create readable notebook-style output with ruled baselines and a visible margin.",
+    href: "/tools/lined-paper-handwriting",
   },
   {
-    title: "A4 Handwriting Pages",
-    text: "Choose A4 margins, spacing, paper, and print settings.",
-    href: "/blog/text-to-handwriting-a4-size",
+    title: "Graph Paper",
+    text: "Use a structured grid for lab observations, labels, and plain-text calculations.",
+    href: "/tools/graph-paper-handwriting",
   },
   {
-    title: "Lined Paper Handwriting",
-    text: "Create readable notebook-style pages on ruled paper.",
-    href: "/blog/text-to-handwriting-on-lined-paper",
+    title: "Handwritten Notes",
+    text: "Format class notes and revision points with optional title, subject, and date details.",
+    href: "/tools/handwritten-notes",
   },
-  {
-    title: "Graph Paper Handwriting",
-    text: "Use a structured grid for lab records and text-based math notes.",
-    href: "/blog/graph-paper-handwriting-generator",
-  },
-  {
-    title: "Teacher Worksheets",
-    text: "Prepare printable worksheet examples, class notes, and teaching resources.",
-    href: "/templates",
-  },
-  {
-    title: "PDF Export Guide",
-    text: "Prepare multi-page output for printing, sharing, and archiving.",
-    href: "/blog/text-to-handwriting-pdf-generator",
-  },
-  {
-    title: "Design Mockups",
-    text: "Preview labels, stationery concepts, and note-style visuals before publishing.",
-    href: "/blog/how-to-make-handwriting-look-realistic-online",
-  },
-];
-
-const popularGuides = [
-  {
-    title: "How to Convert Text to Handwriting",
-    href: "/blog/how-to-convert-text-to-handwriting",
-  },
-  {
-    title: "Best Text to Handwriting Tools 2026",
-    href: "/blog/best-text-to-handwriting-tools-2026-comparison",
-  },
-  {
-    title: "Text to Handwriting PDF Generator",
-    href: "/blog/text-to-handwriting-pdf-generator",
-  },
-  {
-    title: "Handwritten Notes Generator",
-    href: "/blog/handwritten-notes-generator",
-  },
-];
-
-const comparisonRows = [
-  ["Handwriting", "10 readable handwriting styles", "Choose a style and preview changes instantly"],
-  ["Paper", "Lined, blank, and graph layouts", "Set up notebook, worksheet, or grid pages"],
-  ["Page controls", "Margins, spacing, ink, and variation", "Fine-tune the complete page, not only the font"],
-  ["Export", "Multi-page PDF, PNG, and JPG", "Review the layout before downloading"],
-  ["Privacy", "Browser-based text rendering", "No account or text upload required"],
 ];
 
 const outputGallery = [
@@ -268,46 +221,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="output-preview" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="overflow-hidden rounded-[36px] border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-emerald-50 shadow-paper">
-          <div className="px-6 pb-8 pt-9 text-center sm:px-10 lg:px-14 lg:pt-12">
-            <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700 shadow-sm">
-              <span className="h-2 w-2 rounded-full bg-emerald-500" /> Captured from the live converter
-            </div>
-            <h2 className="mx-auto mt-5 max-w-3xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
-              Your editor and handwritten page stay side by side
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-slate-600">
-              This is the real HandwritingTool workspace—not a reconstructed mockup. Type on the left, review the
-              generated page on the right, then adjust every detail before export.
-            </p>
-          </div>
-          <div className="relative mx-3 overflow-hidden rounded-t-[28px] border border-slate-200 bg-white shadow-2xl sm:mx-6 lg:mx-10">
-            <div className="flex items-center gap-2 border-b border-slate-200 bg-slate-50 px-4 py-3">
-              <span className="h-2.5 w-2.5 rounded-full bg-rose-400" />
-              <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
-              <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
-              <span className="ml-3 text-xs font-semibold text-slate-500">handwritingtool.com — live workspace</span>
-            </div>
-            <Image
-              src="/gallery/worksheet-output.png"
-              alt="Actual HandwritingTool converter with editable worksheet text and real-time handwritten page preview"
-              width={1384}
-              height={900}
-              sizes="(min-width: 1280px) 1100px, 95vw"
-              className="h-auto w-full"
-              priority={false}
-            />
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-3 px-6 py-7 text-sm font-semibold text-slate-700">
-            <span className="rounded-full bg-white px-4 py-2 shadow-sm">Editable source text</span>
-            <span className="rounded-full bg-white px-4 py-2 shadow-sm">Real-time rendered page</span>
-            <span className="rounded-full bg-white px-4 py-2 shadow-sm">PDF, PNG & JPG export</span>
-            <Link href="/#tool" className="rounded-full bg-slate-950 px-5 py-2 text-white transition hover:bg-slate-800">Open the converter</Link>
-          </div>
-        </div>
-      </section>
-
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8" aria-labelledby="output-gallery-heading">
         <div className="mb-10 max-w-3xl">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">Real Output Examples</p>
@@ -395,10 +308,14 @@ export default function HomePage() {
 
       <section id="features" className="mx-auto max-w-7xl scroll-mt-36 px-4 py-16 sm:px-6 md:scroll-mt-28 lg:px-8">
         <div className="mb-10 max-w-2xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-green">Handwriting Quality</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-green">Quality & Page Controls</p>
           <h2 className="mt-3 text-4xl font-semibold text-slate-950">
-            Clean handwriting output with controls that keep every page readable
+            Everything needed to create a readable handwritten page
           </h2>
+          <p className="mt-4 text-lg leading-8 text-slate-600">
+            Select the writing style and paper, then fine-tune spacing, margins, ink, variation, and export without
+            leaving the live preview.
+          </p>
         </div>
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {features.map((feature) => (
@@ -415,13 +332,12 @@ export default function HomePage() {
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="mb-10 max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-green">Use Cases</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-green">Focused Tools</p>
           <h2 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">
-            Practical pages for teachers, writers, and creators
+            Start with the page format you already need
           </h2>
           <p className="mt-4 text-lg leading-8 text-slate-600">
-            Choose a page type, adjust the layout, preview the result, and export a clean file for your own notes,
-            teaching materials, creative projects, or design previews.
+            Each focused workspace opens the same converter with suitable starter text and page settings already selected.
           </p>
         </div>
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
@@ -435,62 +351,8 @@ export default function HomePage() {
                 {item.title}
               </h3>
               <p className="mt-3 text-base leading-7 text-slate-600">{item.text}</p>
-              <p className="mt-5 text-sm font-semibold text-brand-blue">Read guide -&gt;</p>
+              <p className="mt-5 text-sm font-semibold text-brand-blue">Open tool -&gt;</p>
             </Link>
-          ))}
-        </div>
-      </section>
-
-      <section id="popular-guides" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mb-10 max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">Popular Guides</p>
-          <h2 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">Popular Guides</h2>
-          <p className="mt-4 text-lg leading-8 text-slate-600">
-            Start with the most useful handwriting guides
-          </p>
-        </div>
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {popularGuides.map((guide) => (
-            <Link
-              key={guide.title}
-              href={guide.href}
-              className="group rounded-3xl border border-slate-200 bg-white p-6 shadow-card transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-paper"
-            >
-              <h3 className="text-xl font-semibold tracking-tight text-slate-950 transition group-hover:text-brand-blue">
-                {guide.title}
-              </h3>
-              <p className="mt-5 text-sm font-semibold text-brand-blue">Read guide -&gt;</p>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mb-10 max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">What You Can Control</p>
-          <h2 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">
-            More than a handwriting font: control the complete page
-          </h2>
-          <p className="mt-4 text-lg leading-8 text-slate-600">
-            Create handwriting that fits the page you need. Every option below is available in the converter and can
-            be checked in the live preview before export.
-          </p>
-        </div>
-        <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-card">
-          <div className="grid bg-slate-950 px-5 py-4 text-sm font-semibold text-white md:grid-cols-[0.8fr,1fr,1fr]">
-            <div>Setting</div>
-            <div>Available options</div>
-            <div>What it helps you do</div>
-          </div>
-          {comparisonRows.map(([feature, ours, basic]) => (
-            <div
-              key={feature}
-              className="grid gap-3 border-t border-slate-200 px-5 py-4 text-sm leading-6 text-slate-600 md:grid-cols-[0.8fr,1fr,1fr]"
-            >
-              <div className="font-semibold text-slate-950">{feature}</div>
-              <div>{ours}</div>
-              <div>{basic}</div>
-            </div>
           ))}
         </div>
       </section>
@@ -498,94 +360,46 @@ export default function HomePage() {
       <section id="seo-guide" className="mx-auto max-w-7xl scroll-mt-36 px-4 pb-20 sm:px-6 md:scroll-mt-28 lg:px-8">
         <div className="rounded-[32px] border border-slate-200 bg-white p-8 shadow-card lg:p-12">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">Text to Handwriting Guide</p>
-          <article className="mt-6 space-y-5 text-slate-600">
-            <h2 className="text-3xl font-semibold text-slate-950">How to Convert Text to Handwriting Online</h2>
-            <p className="text-lg leading-8">
-              This free text to handwriting converter turns typed words into readable handwritten-style pages for
-              notes, printables, classroom examples, journal layouts, and design previews.
-            </p>
-            <p className="text-lg leading-8">
-              The editor keeps the workflow simple: paste your own text, choose a handwriting and paper style, adjust
-              spacing and ink, preview each page, then export a multi-page PDF, PNG, or JPG.
-            </p>
-            <p className="text-lg leading-8">
-              Start with our{" "}
-              <Link href="/blog/how-to-convert-text-to-handwriting" className="font-semibold text-brand-blue">
-                step-by-step guide on how to convert text to handwriting
-              </Link>{" "}
-              to learn the complete workflow.
-            </p>
-            <p className="rounded-2xl border border-blue-100 bg-blue-50 px-5 py-4 text-base font-semibold text-brand-blue">
-              No signup. No upload. Preview the page in your browser before downloading.
-            </p>
-
-            <h2 className="pt-3 text-2xl font-semibold text-slate-950">What Can You Make?</h2>
-            <p className="text-lg leading-8">
-              It is a browser tool for creating handwritten-style notes from typed text. The output is useful for
-              printable drafts, teaching examples, journal layouts, and visual concepts without opening a design app.
-            </p>
-            <p className="text-lg leading-8">
-              All preview work happens on your device. You can test paper, margins, line height, color, and export
-              format before saving the final file.
-            </p>
-            <ul className="list-disc space-y-2 pl-6 text-lg leading-8">
-              <li>Teachers preparing printable worksheet examples and classroom notes</li>
-              <li>Writers drafting journal pages, planning notes, and creative layouts</li>
-              <li>Creators previewing stationery, labels, quote pages, and mockups</li>
-            </ul>
-
-            <h2 className="pt-3 text-2xl font-semibold text-slate-950">Create a Page in a Few Steps</h2>
-            <p className="text-lg leading-8">
-              Copy text from Word, Google Docs, Notepad, or any editor and paste it into the tool. Pick a style, check
-              the live preview, and download only when the page is clear and readable.
-            </p>
-            <ul className="list-disc space-y-2 pl-6 text-lg leading-8">
-              <li>Enter or paste your text</li>
-              <li>Select lined, blank, or graph paper</li>
-              <li>Adjust margins, spacing, ink, and style</li>
-              <li>Export a PDF or image after reviewing the page</li>
-            </ul>
-
-            <h2 className="pt-3 text-2xl font-semibold text-slate-950">Choose the Right Page Format</h2>
-            <p className="text-lg leading-8">
-              Use the dedicated tools when you already know the output you need: create a{" "}
-              <Link href="/tools/text-to-handwriting-pdf" className="font-semibold text-brand-blue">
-                text to handwriting PDF
-              </Link>
-              , write on{" "}
-              <Link href="/tools/lined-paper-handwriting" className="font-semibold text-brand-blue">
-                lined paper
-              </Link>
-              , prepare a{" "}
-              <Link href="/tools/graph-paper-handwriting" className="font-semibold text-brand-blue">
-                graph paper page
-              </Link>
-              , or format clean{" "}
-              <Link href="/tools/handwritten-notes" className="font-semibold text-brand-blue">
-                handwritten notes
-              </Link>
-              .
-            </p>
-
-            <h2 className="pt-3 text-2xl font-semibold text-slate-950">Responsible Use Cases</h2>
-            <ul className="list-disc space-y-2 pl-6 text-lg leading-8">
-              <li>Teachers creating printable worksheets and example notes</li>
-              <li>Writers drafting handwritten-style journal and planning pages</li>
-              <li>Creators making recipe cards, quote layouts, stationery previews, and mockups</li>
-              <li>Anyone preparing personal notes, drafts, or printable resources</li>
-            </ul>
-            <p className="text-lg leading-8">
-              It should not be used to misrepresent authorship, submit work dishonestly, or bypass rules set by a
-              school, employer, or platform.
-            </p>
-
-            <h2 className="pt-3 text-2xl font-semibold text-slate-950">Why Choose HandwritingTool?</h2>
-            <ul className="list-disc space-y-2 pl-6 text-lg leading-8">
-              <li>Fast performance</li>
-              <li>Readable page output</li>
-              <li>Easy-to-use interface</li>
-              <li>Browser-only preview with no upload requirement</li>
-            </ul>
+          <article className="mt-6 grid gap-8 lg:grid-cols-[0.9fr,1.1fr]">
+            <div>
+              <h2 className="text-3xl font-semibold text-slate-950">Convert text in three steps</h2>
+              <p className="mt-4 text-lg leading-8 text-slate-600">
+                Paste your text, choose the handwriting and page settings, then check every generated page before
+                downloading a PDF, PNG, or JPG.
+              </p>
+              <ol className="mt-6 space-y-4 text-slate-700">
+                {[
+                  ["1", "Add your text", "Type directly or paste clean text from another editor."],
+                  ["2", "Shape the page", "Choose a style, paper, ink, spacing, and margins."],
+                  ["3", "Preview and export", "Review the complete layout, then download the format you need."],
+                ].map(([number, title, text]) => (
+                  <li key={number} className="flex gap-4">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-blue-50 font-semibold text-brand-blue">{number}</span>
+                    <div>
+                      <h3 className="font-semibold text-slate-950">{title}</h3>
+                      <p className="mt-1 leading-7 text-slate-600">{text}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+            <div className="rounded-3xl border border-blue-100 bg-blue-50 p-6 sm:p-8">
+              <h2 className="text-2xl font-semibold text-slate-950">Helpful details before you start</h2>
+              <ul className="mt-5 space-y-3 leading-7 text-slate-700">
+                <li>Choose A4 or Letter to match your intended print size.</li>
+                <li>Use PDF for multi-page documents and PNG for a sharp single page.</li>
+                <li>Your handwriting text is rendered in the browser without an account.</li>
+                <li>Review names, symbols, and page breaks before printing or sharing.</li>
+              </ul>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link href="/blog/how-to-convert-text-to-handwriting" className="rounded-full bg-brand-blue px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700">
+                  Read full guide
+                </Link>
+                <Link href="/responsible-use" className="rounded-full border border-blue-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-blue-100">
+                  Responsible use
+                </Link>
+              </div>
+            </div>
           </article>
         </div>
       </section>
