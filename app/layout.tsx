@@ -55,6 +55,7 @@ const siteSchema = [
   {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": "https://www.handwritingtool.com/#organization",
     name: "HandwritingTool",
     url: "https://www.handwritingtool.com",
     logo: "https://www.handwritingtool.com/handwriting-tool-logo.png",
@@ -71,18 +72,8 @@ const siteSchema = [
     "@id": "https://www.handwritingtool.com/#website",
     name: "HandwritingTool",
     url: "https://www.handwritingtool.com",
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    name: "HandwritingTool",
-    url: "https://www.handwritingtool.com",
-    applicationCategory: "ProductivityApplication",
-    operatingSystem: "Web",
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "USD",
+    publisher: {
+      "@id": "https://www.handwritingtool.com/#organization",
     },
   },
 ];

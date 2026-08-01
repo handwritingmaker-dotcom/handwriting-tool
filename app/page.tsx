@@ -152,15 +152,31 @@ const faqSchema = {
 const softwareSchema = {
   "@context": "https://schema.org",
   "@type": ["WebApplication", "SoftwareApplication"],
+  "@id": `${siteUrl}/#webapplication`,
   name: "HandwritingTool",
-  applicationCategory: "ProductivityApplication",
+  applicationCategory: "UtilitiesApplication",
   operatingSystem: "Web",
   url: siteUrl,
+  image: `${siteUrl}/blog/current-tool-home-preview.png`,
+  isPartOf: {
+    "@id": `${siteUrl}/#website`,
+  },
+  publisher: {
+    "@id": `${siteUrl}/#organization`,
+  },
   offers: {
     "@type": "Offer",
     price: "0",
     priceCurrency: "USD",
   },
+  featureList: [
+    "10 handwriting styles",
+    "Lined, blank, and graph paper",
+    "A4 and Letter page sizes",
+    "Multi-page PDF export",
+    "PNG and JPG export",
+    "Browser-based text rendering",
+  ],
   description:
     "Free text to handwriting converter for creating realistic handwritten-style pages online and exporting them as multi-page PDF, PNG, or JPG.",
 };
