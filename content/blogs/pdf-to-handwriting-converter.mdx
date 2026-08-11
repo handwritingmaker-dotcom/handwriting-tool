@@ -10,7 +10,7 @@ description: "Learn how to extract and clean text from a text-based or scanned P
 
 This workflow starts with an existing PDF and recovers usable plain text from it. It is different from creating a PDF from text.
 
-HandwritingTool does **not** accept PDF uploads, run optical character recognition (OCR), or preserve a source PDF's design. You must first copy or extract text you created or have permission to reuse, correct it, and then paste that plain text into the converter.
+HandwritingTool accepts text-based PDF uploads in its [PDF to handwriting converter](/tools/text-to-handwriting-pdf). The file is processed in the browser and its selectable text is placed in an editable text field. The importer does not run optical character recognition (OCR) or preserve the source PDF's design.
 
 If you already have clean typed text and only need to create a new PDF, skip this article and use the [handwritten PDF export guide](/blog/text-to-handwriting-pdf-generator).
 
@@ -27,7 +27,7 @@ PDFs that look similar on screen can store content differently.
 | Mixed document | Some text selects, some does not | Copy selectable text and use OCR only where needed |
 | Complex layout | Text selects in an incorrect order | Rebuild the reading order manually |
 
-This distinction should be made before opening the handwriting converter. The converter expects plain text and cannot repair a PDF's reading order.
+This distinction matters before import. The converter extracts plain text in the PDF's stored reading order, but complex columns or unusual layouts may still need manual correction.
 
 ## Extract Text from a Text-Based PDF
 
@@ -103,13 +103,13 @@ These two guides now have separate purposes:
 - **This article:** extracting and cleaning text from an existing PDF.
 - **[PDF export guide](/blog/text-to-handwriting-pdf-generator):** taking verified plain text, tuning the page, and exporting a new multi-page PDF.
 
-Keeping the tasks separate avoids implying that HandwritingTool provides PDF upload, OCR, or layout conversion functionality that it does not have.
+HandwritingTool now provides browser-side upload and selectable-text extraction. OCR and original-layout conversion remain separate capabilities that it does not provide.
 
 ## Frequently Asked Questions
 
 ### Can I upload a PDF directly to HandwritingTool?
 
-No. Copy selectable text or use a separate OCR tool for a scan, then proofread and paste the resulting plain text.
+Yes, if it is a text-based PDF with selectable text. Scanned PDFs still require a separate OCR tool before the resulting text can be proofread and converted.
 
 ### Will the original PDF layout be preserved?
 

@@ -1,4 +1,4 @@
-export type PageType = "lined" | "blank" | "graph";
+export type PageType = "lined" | "blank" | "graph" | "custom";
 export type InkColor = "blue" | "black" | "darkGray";
 export type ExportFormat = "png" | "jpg" | "pdf";
 export type PageSize = "a4" | "letter";
@@ -42,6 +42,10 @@ export interface RenderResult {
   pages: HTMLCanvasElement[];
   pageWidth: number;
   pageHeight: number;
+}
+
+export interface RenderAssets {
+  customPaperImage?: HTMLImageElement;
 }
 
 const fontReadyTimeoutMs = 2000;
@@ -263,16 +267,27 @@ function setupContext(ctx: CanvasRenderingContext2D, settings: RenderSettings) {
   ctx.imageSmoothingQuality = "high";
 }
 
-function drawPaper(ctx: CanvasRenderingContext2D, settings: RenderSettings, rng: () => number) {
+function drawPaper(ctx: CanvasRenderingContext2D, settings: RenderSettings, rng: () => number, assets?: RenderAssets) {
   const { width, height } = getPageDimensions(settings);
   const brightness = Math.max(90, Math.min(settings.paperBrightness, 104));
-  const startLightness = Math.min(100, brightness);
-  const endLightness = Math.max(88, brightness - 2);
-  const gradient = ctx.createLinearGradient(0, 0, width, height);
-  gradient.addColorStop(0, `hsl(42 55% ${startLightness}%)`);
-  gradient.addColorStop(1, `hsl(44 45% ${endLightness}%)`);
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, width, height);
+  if (settings.pageType === "custom" && assets?.customPaperImage) {
+    drawCoverImage(ctx, assets.customPaperImage, width, height);
+    const brightnessOverlay = Math.abs(brightness - 100) / 100;
+    if (brightnessOverlay > 0) {
+      ctx.fillStyle = brightness >= 100
+        ? `rgba(255, 255, 255, ${brightnessOverlay})`
+        : `rgba(0, 0, 0, ${brightnessOverlay})`;
+      ctx.fillRect(0, 0, width, height);
+    }
+  } else {
+    const startLightness = Math.min(100, brightness);
+    const endLightness = Math.max(88, brightness - 2);
+    const gradient = ctx.createLinearGradient(0, 0, width, height);
+    gradient.addColorStop(0, `hsl(42 55% ${startLightness}%)`);
+    gradient.addColorStop(1, `hsl(44 45% ${endLightness}%)`);
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, width, height);
+  }
 
   if (settings.pageType === "lined" || settings.pageType === "graph") {
     ctx.strokeStyle = "rgba(37, 99, 235, 0.22)";
@@ -314,6 +329,16 @@ function drawPaper(ctx: CanvasRenderingContext2D, settings: RenderSettings, rng:
 
   ctx.fillStyle = "rgba(15, 23, 42, 0.05)";
   ctx.fillRect(width - 22, 0, 22, height);
+}
+
+function drawCoverImage(ctx: CanvasRenderingContext2D, image: HTMLImageElement, width: number, height: number) {
+  const sourceWidth = image.naturalWidth;
+  const sourceHeight = image.naturalHeight;
+  if (!sourceWidth || !sourceHeight) return;
+  const scale = Math.max(width / sourceWidth, height / sourceHeight);
+  const drawWidth = sourceWidth * scale;
+  const drawHeight = sourceHeight * scale;
+  ctx.drawImage(image, (width - drawWidth) / 2, (height - drawHeight) / 2, drawWidth, drawHeight);
 }
 
 function fontForChar(style: HandwritingStyle, ctx: CanvasRenderingContext2D, size: number, charSeed: number) {
@@ -426,7 +451,7 @@ function drawLine(
   ctx.globalAlpha = 1;
 }
 
-export async function renderHandwriting(text: string, settings: RenderSettings): Promise<RenderResult> {
+export async function renderHandwriting(text: string, settings: RenderSettings, assets?: RenderAssets): Promise<RenderResult> {
   if ("fonts" in document) {
     await Promise.race([
       document.fonts.ready,
@@ -461,7 +486,7 @@ export async function renderHandwriting(text: string, settings: RenderSettings):
   }
 
   setupContext(ctx, settings);
-  drawPaper(ctx, settings, rng);
+  drawPaper(ctx, settings, rng, assets);
   let y = settings.topMargin + settings.fontSize;
 
   const pushPage = () => {
@@ -474,7 +499,7 @@ export async function renderHandwriting(text: string, settings: RenderSettings):
     }
     ctx = nextCtx;
     setupContext(ctx, settings);
-    drawPaper(ctx, settings, rng);
+    drawPaper(ctx, settings, rng, assets);
     y = settings.topMargin + settings.fontSize;
   };
 

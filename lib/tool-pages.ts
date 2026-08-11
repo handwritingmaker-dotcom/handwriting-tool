@@ -25,6 +25,7 @@ export type ToolPageConfig = {
   privacy: string;
   guideHref: string;
   guideLabel: string;
+  homeLinkLabel: string;
   faqs: ToolFaq[];
 };
 
@@ -59,6 +60,7 @@ export const toolPageConfigs: Record<FunctionalToolProfile, ToolPageConfig> = {
     privacy: "Handwriting text is rendered in your browser and is not sent to a HandwritingTool application server for conversion or storage. Website analytics, hosting, and security services may still process technical usage data.",
     guideHref: "/blog/text-to-handwriting-on-lined-paper",
     guideLabel: "Read the lined-paper layout guide",
+    homeLinkLabel: "Free text to handwriting tool",
     faqs: [
       { question: "Can I create handwriting on lined paper for free?", answer: "Yes. Enter text, adjust the lined-paper settings, preview the pages, and export without creating an account." },
       { question: "Can I use A4 and Letter paper?", answer: "Yes. Select A4 or Letter in the page-size control before rendering and printing." },
@@ -95,6 +97,7 @@ export const toolPageConfigs: Record<FunctionalToolProfile, ToolPageConfig> = {
     privacy: "The text-to-page rendering happens in your browser. HandwritingTool does not receive the note text for conversion, although normal analytics, hosting, and security telemetry may still apply to the website.",
     guideHref: "/blog/graph-paper-handwriting-generator",
     guideLabel: "Read the graph-paper workflow guide",
+    homeLinkLabel: "Convert text to handwriting",
     faqs: [
       { question: "Can I make printable graph-paper handwriting pages?", answer: "Yes. Select the matching paper size, preview the grid and text, then export a PDF for printing." },
       { question: "Does the tool solve math or render LaTeX?", answer: "No. It renders plain text on a grid and does not provide mathematical intelligence or LaTeX typesetting." },
@@ -127,31 +130,33 @@ export const toolPageConfigs: Record<FunctionalToolProfile, ToolPageConfig> = {
     ],
     practicalHeading: "Readable study-note workflow",
     practicalText: "Use short headings, key points, one example, and a recap question. PDF is the practical export for multi-page revision sets; print one test page before producing a large set.",
-    limitations: "The tool does not summarize, generate, fact-check, or automatically structure notes. It does not upload PDF or DOCX files. You provide and verify the plain text before conversion.",
+    limitations: "The notes workspace does not summarize, generate, fact-check, or automatically structure notes, and it does not upload DOCX files. Text-based PDFs can be imported through the separate PDF to handwriting converter.",
     privacy: "The note text is rendered locally in your browser and is not stored by a HandwritingTool application server. Third-party website services may still process technical and usage information as described in the privacy policy.",
     guideHref: "/blog/handwritten-notes-generator",
     guideLabel: "Read the study-notes formatting guide",
+    homeLinkLabel: "Text to handwriting converter",
     faqs: [
       { question: "Does this tool summarize notes with AI?", answer: "No. It converts the notes you write or paste; it does not summarize or generate study content." },
       { question: "Can I add a title, subject, and date?", answer: "Yes. The optional note-detail fields insert a simple plain-text header while leaving the main editor available." },
-      { question: "Can I upload a Word file or PDF?", answer: "No. Copy and clean the relevant text first, then paste it into the editor." },
+      { question: "Can I upload a Word file or PDF?", answer: "This notes workspace does not accept document uploads. Copy text from Word, or use the separate PDF to handwriting converter for a text-based PDF." },
     ],
   },
   pdf: {
     profile: "pdf",
     path: "/tools/text-to-handwriting-pdf",
-    name: "Text to Handwriting PDF Generator",
-    title: "Free Text to Handwriting PDF Generator Online | HandwritingTool",
-    description: "Convert typed text to a handwritten PDF online. Preview A4 or Letter pages, choose PDF quality, and download the current page or all pages free.",
-    eyebrow: "Text to Handwriting PDF Generator",
-    h1: "Free text to handwriting PDF generator online",
-    intro: "Turn typed or pasted text into handwritten-style A4 or Letter pages, preview every generated page, choose PDF quality, and download either the current page or the complete multi-page document.",
+    name: "PDF to Handwriting Converter",
+    title: "PDF to Handwriting Converter Online Free | HandwritingTool",
+    description: "Upload a text-based PDF, extract its text, convert it into realistic handwriting, customize the page and ink, and download the result as a handwritten PDF.",
+    eyebrow: "PDF to Handwriting Converter",
+    h1: "PDF to Handwriting Converter",
+    intro: "Upload a text-based PDF or paste text manually, turn the extracted content into handwritten-style pages, customize the paper and ink, then download PDF, PNG, or JPG output.",
     sampleImage: "/gallery/multi-page-pdf-output.png",
     sampleAlt: "Live text to handwriting PDF generator showing 684 words and seven generated pages",
     sampleCaption: "A real long-document test in the current tool: 684 detected words produced seven preview pages before the PDF was downloaded.",
-    benefits: ["Free multi-page PDF download", "Current-page or all-pages export", "A4 and Letter print layouts"],
+    benefits: ["Browser-based PDF text extraction", "Free multi-page handwritten PDF download", "A4 and Letter print layouts"],
     howTo: [
-      "Paste clean plain text into the PDF-focused editor.",
+      "Upload a text-based PDF, or type and paste text directly into the editor.",
+      "Review and edit the extracted text before conversion.",
       "Choose A4 or Letter, paper style, handwriting, ink, spacing, and margins.",
       "Select low, medium, or high PDF quality and set a safe filename.",
       "Review every page and download either the current page or all pages as one PDF.",
@@ -161,19 +166,21 @@ export const toolPageConfigs: Record<FunctionalToolProfile, ToolPageConfig> = {
       { label: "Print test", value: "Current page, matching paper size, medium quality" },
       { label: "Memory-limited phone", value: "Low quality or shorter text sections" },
     ],
-    practicalHeading: "PDF versus PDF-to-handwriting",
-    practicalText: "This page creates a new handwritten-style PDF from text. It is not a PDF-upload converter. If the source already exists in a PDF, copy or extract its text first and clean the line breaks before pasting.",
-    limitations: "There is no PDF or DOCX upload, OCR, original-layout preservation, page-number generator, header/footer system, or landscape orientation. Large high-quality canvas exports can exceed browser memory; split long documents when necessary.",
-    privacy: "The typed content is rendered into pages in your browser. It is not uploaded to a HandwritingTool application server for PDF generation or storage, while normal website analytics remain separate.",
+    practicalHeading: "From PDF text to handwritten pages",
+    practicalText: "The importer reads selectable text from each PDF page in order, then places the combined plain text in the editor. You can correct line breaks or formatting before creating handwritten pages.",
+    limitations: "This batch supports text-based PDFs only. It does not include OCR for scanned pages, password entry, original-layout preservation, DOCX upload, page-number generation, headers and footers, or landscape output.",
+    privacy: "The source PDF and extracted text are processed in your browser and are not uploaded to a HandwritingTool application server. The source file is not saved in browser storage; normal website analytics remain separate.",
     guideHref: "/blog/text-to-handwriting-pdf-generator",
     guideLabel: "Read the PDF export and printing guide",
+    homeLinkLabel: "Main text to handwriting tool",
     faqs: [
       { question: "Can I convert text to a handwritten PDF?", answer: "Yes. Enter text, preview the rendered pages, choose current or all pages, and select Download PDF." },
-      { question: "Can I upload an existing PDF?", answer: "No. This route creates a PDF from typed or pasted text; it does not ingest an existing PDF." },
+      { question: "Can I upload an existing PDF?", answer: "Yes. Upload a text-based PDF to extract its selectable text, edit it, and convert it into handwritten-style pages." },
+      { question: "Can it read a scanned PDF?", answer: "Not yet. Scanned or image-only PDFs require OCR, which is not included in this batch." },
       { question: "Which PDF quality should I use?", answer: "Medium is a sensible default. Use low on memory-limited devices and high only when the browser can handle larger canvases." },
       { question: "Can I download all handwritten pages in one PDF?", answer: "Yes. Choose All pages in the export controls to combine every generated handwriting page into one PDF file." },
       { question: "Does the PDF generator support A4 and Letter paper?", answer: "Yes. Select A4 or Letter before export so the generated page matches your intended print size." },
-      { question: "Is the text to handwriting PDF generator free?", answer: "Yes. The PDF workflow is free to use and does not require an account or sign-up." },
+      { question: "Is the PDF to handwriting converter online free?", answer: "Yes. PDF text extraction, handwriting conversion, preview, and export are free to use without an account." },
     ],
   },
 };

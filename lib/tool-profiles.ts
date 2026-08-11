@@ -111,12 +111,12 @@ Where does the light-dependent stage occur?`,
   },
   pdf: {
     eyebrow: "PDF Handwriting Tool",
-    editorTitle: "Create a handwritten-style PDF",
-    inputLabel: "Type or paste the text to include in your PDF",
-    placeholder: "Paste the plain text you want to turn into PDF pages...",
-    starterText: `Handwritten PDF Draft
+    editorTitle: "Convert PDF text into handwritten pages",
+    inputLabel: "Edit the imported text, or type and paste text manually",
+    placeholder: "Upload a text-based PDF above, or paste the text you want to turn into handwritten pages...",
+    starterText: `PDF to Handwriting Draft
 
-This route turns typed text into handwritten-style pages and downloads the rendered result as a PDF.
+Upload a text-based PDF to extract its selectable text, or replace this example with text you type or paste manually.
 
 Choose A4 or Letter, review every page, set the filename and PDF quality, then export the current page or the complete document.`,
     fileName: "text-to-handwriting",

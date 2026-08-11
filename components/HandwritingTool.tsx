@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import {
   ExportFormat,
@@ -10,11 +10,14 @@ import {
   RenderSettings,
 } from "@/lib/handwriting";
 import { toolProfiles, type ToolProfile } from "@/lib/tool-profiles";
+import { type HandwritingDraft, useHandwritingDraft } from "@/hooks/useHandwritingDraft";
+import { PdfTextImporter } from "@/components/PdfTextImporter";
 
 const pageTypes = [
   { value: "lined", label: "Lined Paper" },
   { value: "blank", label: "Blank Paper" },
   { value: "graph", label: "Graph Paper" },
+  { value: "custom", label: "Custom Paper" },
 ] as const;
 
 const inkColors = [
@@ -191,10 +194,35 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
   const [renderError, setRenderError] = useState("");
   const [renderAttempt, setRenderAttempt] = useState(0);
   const [exportState, setExportState] = useState<ExportState>({ active: false, message: "" });
+  const [customPaperImage, setCustomPaperImage] = useState<HTMLImageElement | null>(null);
+  const [customPaperName, setCustomPaperName] = useState("");
+  const [customPaperError, setCustomPaperError] = useState("");
   const renderRequestId = useRef(0);
   const exportLock = useRef(false);
   const stylePreviewCache = useRef(new Map<string, HTMLCanvasElement>());
+  const customPaperUrl = useRef<string | null>(null);
   const hasUserText = text.trim().length > 0;
+
+  const draft = useMemo<HandwritingDraft>(() => ({
+    text,
+    settings,
+    fileName,
+    noteTitle,
+    noteSubject,
+    noteDate,
+  }), [fileName, noteDate, noteSubject, noteTitle, settings, text]);
+  const { clearDraft, isSaved } = useHandwritingDraft(profile, draft, (restored) => {
+    setText(restored.text);
+    setSettings({ ...profileConfig.settings, ...restored.settings });
+    setFileName(restored.fileName);
+    setNoteTitle(restored.noteTitle);
+    setNoteSubject(restored.noteSubject);
+    setNoteDate(restored.noteDate);
+  });
+
+  useEffect(() => () => {
+    if (customPaperUrl.current) URL.revokeObjectURL(customPaperUrl.current);
+  }, []);
 
   useEffect(() => {
     if (!hasUserText) {
@@ -212,7 +240,7 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
     const timeoutId = window.setTimeout(() => {
       setIsRendering(true);
       setRenderError("");
-      void renderHandwriting(text, settings)
+      void renderHandwriting(text, settings, customPaperImage ? { customPaperImage } : undefined)
         .then((result) => {
           if (renderRequestId.current !== requestId) {
             return;
@@ -243,7 +271,7 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
     }, hasUserText ? 120 : 0);
 
     return () => window.clearTimeout(timeoutId);
-  }, [hasUserText, renderAttempt, settings, text]);
+  }, [customPaperImage, hasUserText, renderAttempt, settings, text]);
 
   const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
   const shownPageCount = hasUserText ? Math.max(pages.length, 1) : 0;
@@ -342,12 +370,42 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
   };
 
   const clearText = () => {
+    clearDraft();
     setText("");
   };
 
   const resetText = () => {
+    clearDraft();
     setText(profileConfig.starterText);
     setRenderError("");
+  };
+
+  const handleCustomPaper = (file: File | undefined) => {
+    setCustomPaperError("");
+    if (!file) return;
+    if (!(["image/png", "image/jpeg", "image/webp"] as string[]).includes(file.type)) {
+      setCustomPaperError("Choose a PNG, JPG, JPEG, or WebP image.");
+      return;
+    }
+    if (file.size > 8 * 1024 * 1024) {
+      setCustomPaperError("Custom paper images must be 8 MB or smaller.");
+      return;
+    }
+
+    const nextUrl = URL.createObjectURL(file);
+    const image = new Image();
+    image.onload = () => {
+      const previousUrl = customPaperUrl.current;
+      customPaperUrl.current = nextUrl;
+      setCustomPaperImage(image);
+      setCustomPaperName(file.name);
+      if (previousUrl) URL.revokeObjectURL(previousUrl);
+    };
+    image.onerror = () => {
+      URL.revokeObjectURL(nextUrl);
+      setCustomPaperError("This image could not be decoded. Try another PNG, JPG, or WebP file.");
+    };
+    image.src = nextUrl;
   };
 
   const applyNoteHeader = () => {
@@ -377,6 +435,7 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
           </div>
         </div>
 
+        {profile === "pdf" && <PdfTextImporter onTextExtracted={setText} />}
         <label className="input-label" htmlFor="handwriting-text">
           {profileConfig.inputLabel}
         </label>
@@ -468,6 +527,7 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
             )}
           </div>
         </div>
+        {isSaved && <p className="mt-2 text-xs font-medium text-slate-500">Saved in this browser</p>}
 
         <div id="input-guidance" className="mt-4 rounded-2xl border border-blue-100 bg-blue-50 px-4 py-3 text-sm leading-6 text-slate-700">
           <p>
@@ -490,7 +550,7 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
               <button type="button" onClick={() => setRenderAttempt((attempt) => attempt + 1)} className="inline-flex min-h-11 items-center rounded-full bg-rose-700 px-4 py-2 font-semibold text-white transition hover:bg-rose-800">
                 Retry Preview
               </button>
-              <button type="button" onClick={() => setSettings(profileConfig.settings)} className="inline-flex min-h-11 items-center rounded-full border border-rose-200 bg-white px-4 py-2 font-semibold text-rose-800 transition hover:bg-rose-100">
+              <button type="button" onClick={() => { clearDraft(); setSettings(profileConfig.settings); }} className="inline-flex min-h-11 items-center rounded-full border border-rose-200 bg-white px-4 py-2 font-semibold text-rose-800 transition hover:bg-rose-100">
                 Reset Settings
               </button>
             </div>
@@ -531,6 +591,29 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
                 </option>
               ))}
             </select>
+            {settings.pageType === "custom" && (
+              <div className="mt-3 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-3">
+                <label className="block cursor-pointer text-sm font-semibold text-slate-700" htmlFor="customPaper">
+                  Upload custom paper
+                </label>
+                <input
+                  id="customPaper"
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp"
+                  className="mt-2 block w-full text-xs text-slate-600 file:mr-3 file:rounded-full file:border-0 file:bg-blue-50 file:px-3 file:py-2 file:font-semibold file:text-brand-blue"
+                  onChange={(event) => handleCustomPaper(event.target.files?.[0])}
+                />
+                <p className="mt-2 text-xs leading-5 text-slate-500">
+                  PNG, JPG, or WebP up to 8 MB. The image stays in this browser and is center-cropped to cover the page.
+                </p>
+                {customPaperName ? (
+                  <p className="mt-2 text-xs font-semibold text-emerald-700">Using {customPaperName}</p>
+                ) : (
+                  <p className="mt-2 text-xs font-semibold text-amber-700">Upload the custom paper again after refreshing.</p>
+                )}
+                {customPaperError && <p className="mt-2 text-xs font-semibold text-rose-700" role="alert">{customPaperError}</p>}
+              </div>
+            )}
           </div>
 
           <div>

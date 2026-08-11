@@ -185,7 +185,7 @@ export function ToolExperiencePage({ profile }: { profile: FunctionalToolProfile
           <div className="mt-5 flex flex-wrap gap-3">
             <Link href={tool.guideHref} className="rounded-full bg-brand-blue px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700">{tool.guideLabel}</Link>
             <Link href="/tools" className="rounded-full border border-emerald-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-emerald-100">Browse all tools</Link>
-            <Link href="/" className="rounded-full border border-emerald-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-emerald-100">Main text to handwriting converter</Link>
+            <Link href="/" className="rounded-full border border-emerald-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-emerald-100">{tool.homeLinkLabel}</Link>
             <Link href="/privacy-policy" className="rounded-full border border-emerald-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-emerald-100">Privacy policy</Link>
           </div>
         </div>
@@ -218,8 +218,8 @@ function PdfPageDetails() {
             Choose exactly what goes into your handwritten PDF
           </h2>
           <p className="mt-4 text-lg leading-8 text-slate-600">
-            This page is designed for text-to-PDF output: it creates new handwritten-style pages from plain text. It
-            does not upload, read, or preserve the layout of an existing PDF file.
+            Upload a text-based PDF or enter text manually, then use the existing controls to create new handwritten-style
+            pages. The importer preserves page order as plain text rather than recreating the original visual layout.
           </p>
         </div>
         <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -241,10 +241,10 @@ function PdfPageDetails() {
             </ul>
           </div>
           <div>
-            <h2 className="text-2xl font-semibold text-slate-950">Text-to-PDF, not PDF upload</h2>
+            <h2 className="text-2xl font-semibold text-slate-950">PDF import and editing</h2>
             <p className="mt-4 leading-7 text-slate-700">
-              If your source text is already inside a PDF, extract or copy the text first, remove unwanted headers and
-              broken line endings, then paste the cleaned text into this generator. The original PDF layout is not imported.
+              Selectable text is extracted locally in your browser and placed in the normal editor. Review line breaks,
+              names, and symbols before exporting. Scanned PDFs need OCR and are not supported yet.
             </p>
             <Link href="/blog/text-to-handwriting-pdf-generator" className="mt-5 inline-flex font-semibold text-brand-blue hover:underline">
               Read the PDF preparation and printing guide -&gt;

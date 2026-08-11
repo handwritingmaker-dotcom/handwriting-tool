@@ -6,58 +6,67 @@ const siteUrl = "https://www.handwritingtool.com";
 
 const features = [
   {
-    title: "Human Letter Flow",
-    text: "Every character gets tiny movement, size, and angle changes so the writing avoids a robotic pattern.",
+    title: "10 Handwriting Styles",
+    text: "Choose from 10 readable styles, with natural variation in character size, position, and angle.",
     icon: "pen",
   },
   {
-    title: "Style Packs",
-    text: "Pick from notes, worksheet, lab, and clean notebook styles built for readable handwritten-style pages.",
+    title: "Live Preview and Autosave",
+    text: "Preview each page as you edit, while your text and settings are saved locally for this browser and tool profile.",
     icon: "spark",
   },
   {
-    title: "Real Paper Feel",
-    text: "Lined, blank, and graph paper layouts include margins, soft texture, and classroom-ready spacing.",
+    title: "Flexible Paper",
+    text: "Use lined, blank, or graph paper, or upload a custom paper image that stays in your browser.",
     icon: "paper",
   },
   {
-    title: "Fast Export",
-    text: "Download handwritten pages as PNG, JPG, or PDF in one click without sending your text anywhere.",
-    icon: "download",
+    title: "Ink and Page Controls",
+    text: "Adjust ink color, font size, line and word spacing, margins, brightness, and natural variation.",
+    icon: "check",
   },
   {
-    title: "Mobile Ready",
-    text: "Generate and preview pages from phone, tablet, or desktop with a layout made for quick use.",
+    title: "A4, Letter, and Multiple Pages",
+    text: "Choose A4 or Letter sizing and let longer text flow across multiple preview and export pages.",
     icon: "phone",
   },
   {
-    title: "Page Layout Mode",
-    text: "Turn paragraphs into neat notebook-style pages with automatic indentation and balanced margins.",
-    icon: "check",
+    title: "PDF, PNG, and JPG Export",
+    text: "Download the current page or complete document as a handwritten PDF, PNG, or JPG output.",
+    icon: "download",
   },
 ];
 
-const useCases = [
+const relatedTools = [
   {
-    title: "Handwriting PDF",
-    text: "Turn longer text into A4 or Letter pages and keep every page together in one PDF.",
+    title: "PDF to Handwriting Converter",
+    text: "Import selectable text from a text-based PDF, edit it, and create handwritten pages.",
     href: "/tools/text-to-handwriting-pdf",
   },
   {
-    title: "Lined Paper",
+    title: "Lined Paper Handwriting Tool",
     text: "Create readable notebook-style output with ruled baselines and a visible margin.",
     href: "/tools/lined-paper-handwriting",
   },
   {
-    title: "Graph Paper",
+    title: "Graph Paper Handwriting Tool",
     text: "Use a structured grid for lab observations, labels, and plain-text calculations.",
     href: "/tools/graph-paper-handwriting",
   },
   {
-    title: "Handwritten Notes",
+    title: "Handwritten Notes Tool",
     text: "Format class notes and revision points with optional title, subject, and date details.",
     href: "/tools/handwritten-notes",
   },
+];
+
+const handwritingUses = [
+  ["Handwritten notes", "Turn your own typed notes into readable pages for review or printing."],
+  ["Printable study pages", "Arrange summaries and revision prompts on lined, blank, or graph paper."],
+  ["Classroom examples", "Prepare teacher-created examples, prompts, and demonstration pages."],
+  ["Journal pages", "Format personal reflections and creative drafts with adjustable paper and ink."],
+  ["Letters", "Create a handwritten-style layout for personal correspondence you are permitted to use."],
+  ["Design previews", "Test handwritten-style copy in mockups without claiming it was written by hand."],
 ];
 
 const outputGallery = [
@@ -107,32 +116,34 @@ const outputGallery = [
 
 const faqs = [
   {
-    question: "Is this text to handwriting converter free?",
-    answer: "Yes, the tool is completely free to use.",
+    question: "What is a text to handwriting converter?",
+    answer: "It turns typed or pasted text into handwriting-style pages with controls for writing style, paper, ink, spacing, margins, and downloadable output.",
   },
   {
-    question: "Can I download handwritten pages as PDF?",
-    answer: "Yes, you can download your handwritten output as PDF, PNG, or JPG.",
+    question: "Is the text to handwriting converter free?",
+    answer: "Yes. The converter is free to use without creating an account.",
   },
   {
-    question: "Does the tool store my data?",
-    answer:
-      "The handwriting text is rendered in your browser and is not sent to a HandwritingTool application server. Website analytics, hosting, and security services may still collect technical and usage data.",
+    question: "Can I convert typed text to handwriting online?",
+    answer: "Yes. Type directly or copy text from Word or Google Docs, paste it into the editor, and customize the handwritten page. DOCX upload is not supported yet.",
   },
   {
-    question: "What can I create with this handwriting tool?",
-    answer:
-      "You can create personal notes, teacher worksheets, creative drafts, journal pages, printables, and design mockups.",
+    question: "Can I download handwriting as a PDF?",
+    answer: "Yes. You can download the current page or all generated pages as a PDF, and PNG or JPG image export is also available.",
   },
   {
-    question: "Can I use this as a word to handwriting converter online free?",
-    answer:
-      "Yes. You can copy text from Word or another document, paste it into HandwritingTool, and download handwritten pages.",
+    question: "Can I use custom paper?",
+    answer: "Yes. Select Custom Paper and upload a PNG, JPG, or WebP image up to 8 MB. The image is processed locally and must be selected again after a refresh.",
   },
   {
-    question: "What makes the page output readable?",
-    answer:
-      "Readable handwriting styles, natural spacing, paper backgrounds, margins, ink color, and small variation settings help the output look more natural.",
+    question: "Does HandwritingTool save my text?",
+    answer: "The converter autosaves your text and editable settings in this browser using profile-specific local storage. Preview images, uploaded paper files, and source PDFs are not saved there.",
+  },
+  {
+    question: "Can I convert a PDF to handwriting?",
+    answer: "Yes. The dedicated tool can import selectable text from a text-based PDF and place it in the handwriting editor. Scanned PDFs still require OCR, which is not supported yet.",
+    href: "/tools/text-to-handwriting-pdf",
+    linkLabel: "Open the PDF to handwriting converter",
   },
 ];
 
@@ -144,7 +155,7 @@ const faqSchema = {
     name: faq.question,
     acceptedAnswer: {
       "@type": "Answer",
-      text: faq.answer,
+      text: [faq.answer, faq.linkLabel].filter(Boolean).join(" "),
     },
   })),
 };
@@ -171,11 +182,12 @@ const softwareSchema = {
   },
   featureList: [
     "10 handwriting styles",
-    "Lined, blank, and graph paper",
+    "Lined, blank, graph, and custom paper",
     "A4 and Letter page sizes",
     "Multi-page PDF export",
     "PNG and JPG export",
     "Browser-based text rendering",
+    "Browser-local autosave",
   ],
   description:
     "Free text to handwriting converter for creating realistic handwritten-style pages online and exporting them as multi-page PDF, PNG, or JPG.",
@@ -198,13 +210,13 @@ export default function HomePage() {
             Free <span className="hero-ink">Text to Handwriting Converter</span> Online
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
-            Convert typed text into realistic handwritten-style pages. Choose from 10 handwriting styles, adjust
-            paper and spacing, preview every page, and export a multi-page PDF, PNG, or JPG.
+            Type or paste text to convert text to handwriting-style pages with 10 writing styles, lined, blank, graph,
+            or custom paper, adjustable ink and spacing, instant preview, and PDF, PNG, or JPG export.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-medium text-slate-600">
             {[
               ["10 handwriting styles", "spark"],
-              ["Lined, blank & graph paper", "paper"],
+              ["Lined, blank, graph & custom paper", "paper"],
               ["Multi-page PDF & image export", "check"],
             ].map(([label, icon]) => (
               <span key={label} className="inline-flex items-center gap-2">
@@ -326,7 +338,7 @@ export default function HomePage() {
         <div className="mb-10 max-w-2xl">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-green">Quality & Page Controls</p>
           <h2 className="mt-3 text-4xl font-semibold text-slate-950">
-            Everything needed to create a readable handwritten page
+            Text to Handwriting Features
           </h2>
           <p className="mt-4 text-lg leading-8 text-slate-600">
             Select the writing style and paper, then fine-tune spacing, margins, ink, variation, and export without
@@ -346,18 +358,55 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8" aria-labelledby="what-is-converter">
+        <div className="rounded-[32px] border border-slate-200 bg-white p-7 shadow-card lg:p-10">
+          <h2 id="what-is-converter" className="text-3xl font-semibold tracking-tight text-slate-950">
+            What Is a Text to Handwriting Converter?
+          </h2>
+          <div className="mt-4 max-w-4xl space-y-4 text-base leading-7 text-slate-600">
+            <p>
+              A text to handwriting converter turns typed words into complete handwriting-style pages. It does more than
+              swap a regular font: HandwritingTool lays out the text on lined, blank, graph, or custom paper and lets you
+              control ink, spacing, margins, page size, and natural character variation.
+            </p>
+            <p>
+              Longer text is paginated automatically for A4 or Letter output, while the live preview shows each generated
+              page before you download it as PDF, PNG, or JPG. You can type directly or copy text from Word or Google Docs;
+              the main converter does not require a DOCX upload.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8" aria-labelledby="handwriting-use-cases">
+        <div className="mb-8 max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">Practical Uses</p>
+          <h2 id="handwriting-use-cases" className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">
+            Ways to Use the Handwriting Converter
+          </h2>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {handwritingUses.map(([title, text]) => (
+            <div key={title} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <h3 className="font-semibold text-slate-950">{title}</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">{text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="mb-10 max-w-3xl">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-green">Focused Tools</p>
           <h2 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">
-            Start with the page format you already need
+            Related Handwriting Tools
           </h2>
           <p className="mt-4 text-lg leading-8 text-slate-600">
             Each focused workspace opens the same converter with suitable starter text and page settings already selected.
           </p>
         </div>
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {useCases.map((item) => (
+          {relatedTools.map((item) => (
             <Link
               key={item.title}
               href={item.href}
@@ -378,16 +427,16 @@ export default function HomePage() {
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">Text to Handwriting Guide</p>
           <article className="mt-6 grid gap-8 lg:grid-cols-[0.9fr,1.1fr]">
             <div>
-              <h2 className="text-3xl font-semibold text-slate-950">Convert text in three steps</h2>
+              <h2 className="text-3xl font-semibold text-slate-950">How to Convert Text to Handwriting Online</h2>
               <p className="mt-4 text-lg leading-8 text-slate-600">
                 Paste your text, choose the handwriting and page settings, then check every generated page before
                 downloading a PDF, PNG, or JPG.
               </p>
               <ol className="mt-6 space-y-4 text-slate-700">
                 {[
-                  ["1", "Add your text", "Type directly or paste clean text from another editor."],
-                  ["2", "Shape the page", "Choose a style, paper, ink, spacing, and margins."],
-                  ["3", "Preview and export", "Review the complete layout, then download the format you need."],
+                  ["1", "Type or paste text", "Write directly or paste text copied from Word, Google Docs, or another editor."],
+                  ["2", "Customize handwriting and paper", "Choose a handwriting style, paper, ink, spacing, margins, and page size."],
+                  ["3", "Preview and download", "Review every page, then download PDF, PNG, or JPG output."],
                 ].map(([number, title, text]) => (
                   <li key={number} className="flex gap-4">
                     <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-blue-50 font-semibold text-brand-blue">{number}</span>
@@ -429,7 +478,9 @@ export default function HomePage() {
           {faqs.map((faq) => (
             <div key={faq.question} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
               <h3 className="text-lg font-semibold text-slate-950">{faq.question}</h3>
-              <p className="mt-3 text-base leading-7 text-slate-600">{faq.answer}</p>
+              <p className="mt-3 text-base leading-7 text-slate-600">
+                {faq.answer}{faq.href && faq.linkLabel ? <> <Link href={faq.href} className="font-semibold text-brand-blue hover:underline">{faq.linkLabel}</Link></> : null}
+              </p>
             </div>
           ))}
         </div>
