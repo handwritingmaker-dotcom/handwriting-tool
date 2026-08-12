@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AdsterraRectangle, ResponsiveAdsterraBanner } from "@/components/ads/AdsterraAds";
 import { editorSocialImage } from "@/lib/seo";
 import { toolPageConfigs } from "@/lib/tool-pages";
 
@@ -26,6 +27,7 @@ export default function ToolsPage() {
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">Choose a handwriting tool for your task</h1>
         <p className="mt-5 text-lg leading-8 text-slate-600">Each workspace uses the same private browser-based renderer with defaults tailored to paper, notes, or PDF output.</p>
       </section>
+      <ResponsiveAdsterraBanner />
       <section aria-labelledby="tool-list-heading" className="mt-12">
         <h2 id="tool-list-heading" className="sr-only">Available handwriting tools</h2>
         <div className="grid gap-6 md:grid-cols-2">
@@ -43,6 +45,7 @@ export default function ToolsPage() {
           ))}
         </div>
       </section>
+      <AdsterraRectangle />
     </main>
   );
 }

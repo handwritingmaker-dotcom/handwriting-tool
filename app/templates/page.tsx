@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { AdsterraNative, AdsterraRectangle, ResponsiveAdsterraBanner } from "@/components/ads/AdsterraAds";
 
 const siteUrl = "https://www.handwritingtool.com";
 
@@ -164,6 +165,8 @@ export default function TemplatesPage() {
         </div>
       </section>
 
+      <ResponsiveAdsterraBanner />
+
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[0.95fr,1.05fr] lg:items-center">
           <div>
@@ -202,6 +205,8 @@ export default function TemplatesPage() {
           </div>
         </div>
       </section>
+
+      <AdsterraRectangle />
 
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="mb-8 max-w-2xl">
@@ -251,6 +256,8 @@ export default function TemplatesPage() {
           </div>
         </div>
       </section>
+
+      <AdsterraNative />
     </main>
   );
 }

@@ -1,4 +1,5 @@
 import { defaultSocialImage } from "@/lib/seo";
+import { AdsterraRectangle, ResponsiveAdsterraBanner } from "@/components/ads/AdsterraAds";
 
 export const metadata = {
   title: "Responsible Use | HandwritingTool",
@@ -73,6 +74,8 @@ export default function ResponsibleUsePage() {
           </div>
         </section>
 
+        <ResponsiveAdsterraBanner />
+
         <section className="mt-12 space-y-4 text-lg leading-8 text-slate-600">
           <h2 className="text-2xl font-semibold text-slate-950">For Notes, Documents, and Learning Resources</h2>
           <p>
@@ -95,6 +98,8 @@ export default function ResponsibleUsePage() {
             origin of a document matters, describe generated output accurately and follow the rules that apply to it.
           </p>
         </section>
+
+        <AdsterraRectangle />
 
         <section className="mt-12 rounded-3xl border border-blue-100 bg-blue-50 p-6">
           <h2 className="text-2xl font-semibold text-slate-950">Simple Rule</h2>

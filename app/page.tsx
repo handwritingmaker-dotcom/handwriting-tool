@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { HandwritingToolLoader } from "@/components/HandwritingToolLoader";
+import { AdsterraNative, AdsterraRectangle, ResponsiveAdsterraBanner } from "@/components/ads/AdsterraAds";
 
 const siteUrl = "https://www.handwritingtool.com";
 
@@ -291,6 +292,8 @@ export default function HomePage() {
         </div>
       </section>
 
+      <ResponsiveAdsterraBanner />
+
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-8 rounded-[32px] border border-slate-200 bg-white p-6 shadow-card lg:grid-cols-[0.95fr,1.05fr] lg:p-10">
           <div>
@@ -357,6 +360,8 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+
+      <AdsterraRectangle />
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8" aria-labelledby="what-is-converter">
         <div className="rounded-[32px] border border-slate-200 bg-white p-7 shadow-card lg:p-10">
@@ -532,6 +537,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      <AdsterraNative />
     </main>
   );
 }

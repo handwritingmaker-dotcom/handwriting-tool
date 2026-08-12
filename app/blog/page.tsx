@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AdsterraNative, ResponsiveAdsterraBanner } from "@/components/ads/AdsterraAds";
 import { getAllPosts } from "@/lib/blog";
 import { editorSocialImage } from "@/lib/seo";
 
@@ -84,6 +85,8 @@ export default function BlogPage() {
         </article>
       )}
 
+      <ResponsiveAdsterraBanner />
+
       <section aria-labelledby="all-articles-heading">
         <div className="mb-7 flex items-end justify-between border-b border-slate-200 pb-4">
           <div>
@@ -122,6 +125,8 @@ export default function BlogPage() {
           ))}
         </div>
       </section>
+
+      <AdsterraNative />
     </main>
   );
 }

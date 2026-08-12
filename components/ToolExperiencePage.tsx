@@ -4,6 +4,7 @@ import Link from "next/link";
 import { HandwritingToolLoader } from "@/components/HandwritingToolLoader";
 import { editorSocialImage } from "@/lib/seo";
 import { toolPageConfigs, type FunctionalToolProfile } from "@/lib/tool-pages";
+import { AdsterraNative, AdsterraRectangle, ResponsiveAdsterraBanner } from "@/components/ads/AdsterraAds";
 
 const siteUrl = "https://www.handwritingtool.com";
 
@@ -127,6 +128,8 @@ export function ToolExperiencePage({ profile }: { profile: FunctionalToolProfile
         <HandwritingToolLoader profile={profile} />
       </section>
 
+      <ResponsiveAdsterraBanner />
+
       <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8">
         <div className="grid items-center gap-7 rounded-[32px] border border-slate-200 bg-white p-6 shadow-card lg:grid-cols-[0.9fr,1.1fr] lg:p-9">
           <div>
@@ -191,6 +194,8 @@ export function ToolExperiencePage({ profile }: { profile: FunctionalToolProfile
         </div>
       </section>
 
+      <AdsterraRectangle />
+
       {profile === "pdf" && <PdfPageDetails />}
 
       <section className="mx-auto max-w-6xl px-4 pb-20 sm:px-6 lg:px-8">
@@ -204,6 +209,7 @@ export function ToolExperiencePage({ profile }: { profile: FunctionalToolProfile
           ))}
         </div>
       </section>
+      <AdsterraNative />
     </main>
   );
 }

@@ -5,6 +5,7 @@ import Script from "next/script";
 import { DM_Sans, Kalam } from "next/font/google";
 import { defaultSocialImage } from "@/lib/seo";
 import { siteAuthor } from "@/lib/author";
+import { AdsterraSocialBar } from "@/components/ads/AdsterraAds";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -117,6 +118,7 @@ export default function RootLayout({
             gtag('config', '${googleAnalyticsId}');
           `}
         </Script>
+        <AdsterraSocialBar />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteSchema) }} />
         <div className="min-h-screen">
           <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/90 backdrop-blur">
