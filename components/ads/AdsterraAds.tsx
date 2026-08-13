@@ -5,10 +5,14 @@ import { usePathname } from "next/navigation";
 import { useSyncExternalStore } from "react";
 
 const socialBarSrc = "https://pl29851314.effectivecpmnetwork.com/1c/f6/35/1cf63512494f9503dbf2caea40d24105.js";
+const popunderSrc = "https://pl29851312.effectivecpmnetwork.com/88/5f/32/885f32961efb6c5e389aa24d723f02fe.js";
+const smartlinkHref = "https://www.effectivecpmnetwork.com/hxj6p8q4ty?key=242376f2e3f5b143cfc8918247b76d08";
 const nativeSrc = "https://pl29851315.effectivecpmnetwork.com/79562d6f738d22f8658980ea69e56c0a/invoke.js";
 const nativeContainerId = "container-79562d6f738d22f8658980ea69e56c0a";
 const bannerBaseUrl = "https://www.highperformanceformat.com";
 const wideScreenQuery = "(min-width: 768px)";
+const mediumAdQuery = "(min-width: 520px)";
+const largeAdQuery = "(min-width: 1024px)";
 const monetizedStandaloneRoutes = new Set(["/", "/about", "/author/anwar-fakhri", "/blog", "/responsible-use", "/templates", "/tools"]);
 
 type BannerProps = {
@@ -72,6 +76,18 @@ export function Adsterra300x250() {
   return <AdsterraBanner adKey="74be660e4d736f54458010412a71524f" width={300} height={250} label="Sponsored 300 by 250 banner" />;
 }
 
+export function Adsterra468x60() {
+  return <AdsterraBanner adKey="4aa1a22cefabffa54c032a19828a7d99" width={468} height={60} label="Sponsored 468 by 60 banner" />;
+}
+
+export function Adsterra160x300() {
+  return <AdsterraBanner adKey="a7f0aa695d51946431da4b1f6608f101" width={160} height={300} label="Sponsored 160 by 300 banner" />;
+}
+
+export function Adsterra160x600() {
+  return <AdsterraBanner adKey="2ce6c0266bd431c8832187ca0fec45a4" width={160} height={600} label="Sponsored 160 by 600 banner" />;
+}
+
 function subscribeToWideScreen(callback: () => void) {
   const mediaQuery = window.matchMedia(wideScreenQuery);
   mediaQuery.addEventListener("change", callback);
@@ -84,6 +100,22 @@ function getWideScreenSnapshot() {
 
 function getServerWideScreenSnapshot() {
   return null;
+}
+
+function useMediaQuery(query: string) {
+  return useSyncExternalStore<boolean | null>(
+    (callback) => {
+      const mediaQuery = window.matchMedia(query);
+      mediaQuery.addEventListener("change", callback);
+      return () => mediaQuery.removeEventListener("change", callback);
+    },
+    () => window.matchMedia(query).matches,
+    getServerWideScreenSnapshot,
+  );
+}
+
+function isMonetizedPath(pathname: string) {
+  return monetizedStandaloneRoutes.has(pathname) || pathname.startsWith("/blog/") || pathname.startsWith("/tools/");
 }
 
 export function ResponsiveAdsterraBanner() {
@@ -125,6 +157,42 @@ export function AdsterraNative() {
   );
 }
 
+export function AdsterraSupplementalAds() {
+  const pathname = usePathname();
+  const showMediumBanner = useMediaQuery(mediumAdQuery);
+  const showVerticalBanners = useMediaQuery(largeAdQuery);
+
+  if (!isMonetizedPath(pathname)) return null;
+
+  return (
+    <section className="mx-auto w-full max-w-6xl px-4 pb-4 sm:px-6 lg:px-8" aria-label="Additional sponsored content">
+      {showMediumBanner ? (
+        <AdsterraAdBreak className="min-h-[60px]">
+          <Adsterra468x60 />
+        </AdsterraAdBreak>
+      ) : null}
+
+      {showVerticalBanners ? (
+        <AdsterraAdBreak className="min-h-[600px] items-start gap-8">
+          <Adsterra160x300 />
+          <Adsterra160x600 />
+        </AdsterraAdBreak>
+      ) : null}
+
+      <div className="my-10 text-center sm:my-12">
+        <a
+          href={smartlinkHref}
+          target="_blank"
+          rel="nofollow sponsored noopener noreferrer"
+          className="inline-flex rounded-full border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-blue-300 hover:text-brand-blue"
+        >
+          Visit sponsored link
+        </a>
+      </div>
+    </section>
+  );
+}
+
 export function AdsterraAdBreak({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
     <aside
@@ -138,10 +206,14 @@ export function AdsterraAdBreak({ children, className = "" }: { children: React.
 
 export function AdsterraSocialBar() {
   const pathname = usePathname();
-  const isMonetizedRoute =
-    monetizedStandaloneRoutes.has(pathname) || pathname.startsWith("/blog/") || pathname.startsWith("/tools/");
-
-  if (!isMonetizedRoute) return null;
+  if (!isMonetizedPath(pathname)) return null;
 
   return <Script id="adsterra-social-bar" src={socialBarSrc} strategy="afterInteractive" />;
+}
+
+export function AdsterraPopunder() {
+  const pathname = usePathname();
+  if (!isMonetizedPath(pathname)) return null;
+
+  return <Script id="adsterra-popunder" src={popunderSrc} strategy="afterInteractive" />;
 }
