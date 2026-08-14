@@ -5,7 +5,6 @@ import Script from "next/script";
 import { DM_Sans, Kalam } from "next/font/google";
 import { defaultSocialImage } from "@/lib/seo";
 import { siteAuthor } from "@/lib/author";
-import { AdsterraPopunder, AdsterraSocialBar, AdsterraSupplementalAds } from "@/components/ads/AdsterraAds";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -118,8 +117,6 @@ export default function RootLayout({
             gtag('config', '${googleAnalyticsId}');
           `}
         </Script>
-        <AdsterraSocialBar />
-        <AdsterraPopunder />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteSchema) }} />
         <div className="min-h-screen">
           <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/90 backdrop-blur">
@@ -157,7 +154,6 @@ export default function RootLayout({
             </div>
           </header>
           {children}
-          <AdsterraSupplementalAds />
           <footer className="border-t border-slate-200 bg-white">
             <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-10 text-sm text-slate-600 sm:px-6 lg:px-8 md:flex-row md:items-center md:justify-between">
               <p>HandwritingTool helps users create readable handwritten-style notes, drafts, and printable pages.</p>

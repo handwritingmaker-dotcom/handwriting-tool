@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { AdsterraNative, ResponsiveAdsterraBanner } from "@/components/ads/AdsterraAds";
 import { siteAuthor } from "@/lib/author";
 import { getAllPosts } from "@/lib/blog";
 import { defaultSocialImage } from "@/lib/seo";
@@ -71,7 +70,6 @@ export default function AnwarFakhriProfilePage() {
           </div>
         </div>
 
-        <ResponsiveAdsterraBanner />
 
         <section className="mt-12 border-t border-slate-200 pt-10">
           <h2 className="text-2xl font-semibold text-slate-950">Work at HandwritingTool</h2>
@@ -94,7 +92,6 @@ export default function AnwarFakhriProfilePage() {
           </div>
         </section>
 
-        <AdsterraNative />
       </article>
     </main>
   );

@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { AdsterraNative, ResponsiveAdsterraBanner } from "@/components/ads/AdsterraAds";
 import { siteAuthor } from "@/lib/author";
 import { defaultSocialImage } from "@/lib/seo";
 
@@ -77,7 +76,6 @@ export default function AboutPage() {
             </div>
           </section>
 
-          <ResponsiveAdsterraBanner />
 
           <section className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-card sm:p-8">
             <h2 className="text-2xl font-semibold text-slate-950">Who&apos;s Behind This</h2>
@@ -163,7 +161,6 @@ export default function AboutPage() {
             </div>
           </section>
 
-          <AdsterraNative />
         </div>
       </section>
     </main>

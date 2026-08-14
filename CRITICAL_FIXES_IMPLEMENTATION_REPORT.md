@@ -65,10 +65,8 @@ This implementation is limited to the approved critical fixes. It does not add t
 
 ### Third-party scripts
 
-- Ezoic initialization uses `beforeInteractive` only for the required queue bootstrap; its external loader uses `afterInteractive`; Ezoic analytics uses `lazyOnload`.
 - Google Analytics remains `afterInteractive` so pageview integration is retained without a raw render-blocking tag.
-- AdSense remains enabled and uses `lazyOnload`.
-- No required advertising or analytics integration was removed.
+- Advertising integrations are currently disabled; Google Analytics remains enabled.
 
 ### Contact form
 
@@ -80,8 +78,8 @@ This implementation is limited to the approved critical fixes. It does not add t
 ### Privacy accuracy
 
 - Replaced absolute privacy claims with behavior-specific language.
-- Clarified that handwriting text rendering is local while analytics, advertising, hosting/security telemetry, cookies, and contact-form data may be processed by third parties.
-- Explicitly documented Google Analytics, AdSense, Ezoic, and FormSubmit behavior.
+- Clarified that handwriting text rendering is local while analytics, hosting/security telemetry, cookies, and contact-form data may be processed by third parties.
+- Explicitly documented Google Analytics and FormSubmit behavior.
 
 ## Files changed
 
@@ -113,5 +111,5 @@ This implementation is limited to the approved critical fixes. It does not add t
 ## Remaining unresolved items
 
 - Live contact delivery cannot be fully verified without intentionally sending personal/test data to the configured third-party provider and support inbox. Perform one owner-authorized production submission after deployment.
-- Advertising/analytics network responses and consent behavior can vary by geography, blockers, provider account state, and production domain. Recheck them on the deployed domain using provider dashboards and a clean browser profile.
+- Analytics network responses and consent behavior can vary by geography, blockers, provider account state, and production domain. Recheck them on the deployed domain using provider dashboards and a clean browser profile.
 - Pre-existing modified blog screenshots were outside this implementation scope and were not included in this publication.

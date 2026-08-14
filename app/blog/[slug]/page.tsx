@@ -6,7 +6,6 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
 import { siteAuthor } from "@/lib/author";
 import { outputSocialImage } from "@/lib/seo";
-import { AdsterraNative, AdsterraRectangle, ResponsiveAdsterraBanner } from "@/components/ads/AdsterraAds";
 
 const siteUrl = "https://www.handwritingtool.com";
 
@@ -76,7 +75,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   const relatedTool = relatedToolBySlug[post.slug] ?? { href: "/#tool", label: "Try the main converter" };
-  const [articleIntroduction, articleRemainder] = splitArticleForAds(post.content);
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -158,15 +156,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </p>
         </div>
         <div className="prose prose-slate mt-6 max-w-none prose-headings:tracking-tight prose-headings:text-slate-950 prose-a:text-brand-blue prose-strong:text-slate-950 prose-li:marker:text-brand-blue">
-          <MDXRemote source={articleIntroduction} components={{ img: BlogImage }} />
+          <MDXRemote source={post.content} components={{ img: BlogImage }} />
         </div>
-        <ResponsiveAdsterraBanner />
-        {articleRemainder ? (
-          <div className="prose prose-slate mt-6 max-w-none prose-headings:tracking-tight prose-headings:text-slate-950 prose-a:text-brand-blue prose-strong:text-slate-950 prose-li:marker:text-brand-blue">
-            <MDXRemote source={articleRemainder} components={{ img: BlogImage }} />
-          </div>
-        ) : null}
-        <AdsterraRectangle />
         <section className="mt-10 rounded-3xl border border-emerald-100 bg-emerald-50 p-6">
           <h2 className="text-2xl font-semibold text-slate-950">Use the Converter Responsibly</h2>
           <p className="mt-3 text-base leading-7 text-slate-700">
@@ -194,17 +185,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </Link>
           </div>
         </section>
-        <AdsterraNative />
       </article>
     </main>
   );
-}
-
-function splitArticleForAds(content: string): [string, string] {
-  const headingMatches = [...content.matchAll(/^##\s/mg)];
-  const splitAt = headingMatches[1]?.index;
-  if (splitAt === undefined) return [content, ""];
-  return [content.slice(0, splitAt).trim(), content.slice(splitAt).trim()];
 }
 
 function BlogImage({ src = "", alt = "" }: React.ComponentPropsWithoutRef<"img">) {
