@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { extractTextFromPdf, PdfExtractionError } from "@/lib/pdf-extraction";
+import { trackEvent } from "@/lib/analytics";
 
 const maxPdfSize = 15 * 1024 * 1024;
 
@@ -32,20 +33,25 @@ export function PdfTextImporter({ onTextExtracted }: { onTextExtracted: (text: s
     setFile({ name: selectedFile.name, size: selectedFile.size });
     setIsExtracting(true);
     setStatus("Reading PDF…");
+    trackEvent("pdf_import_started", { tool_profile: "pdf" });
     try {
       const text = await extractTextFromPdf(selectedFile, ({ currentPage, totalPages }) => {
         setStatus(`Extracting page ${currentPage} of ${totalPages}…`);
       });
       onTextExtracted(text);
       setStatus("Text extracted. You can edit it below.");
+      trackEvent("pdf_import_completed", { tool_profile: "pdf" });
     } catch (caughtError) {
       setStatus("");
       if (caughtError instanceof PdfExtractionError && caughtError.code === "password") {
         setError("This PDF is password-protected and cannot be read yet.");
+        trackEvent("pdf_import_error", { tool_profile: "pdf", error_category: "password_protected" });
       } else if (caughtError instanceof PdfExtractionError && caughtError.code === "empty") {
         setError("No selectable text was found in this PDF. It may be a scanned document. OCR support will be added separately.");
+        trackEvent("pdf_import_error", { tool_profile: "pdf", error_category: "no_selectable_text" });
       } else {
         setError("We couldn't read this PDF. Try another text-based PDF.");
+        trackEvent("pdf_import_error", { tool_profile: "pdf", error_category: "read_failed" });
       }
     } finally {
       setIsExtracting(false);

@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "node scripts/verify-phase1.mjs && node --no-warnings scripts/analytics-behavior.mjs && node --no-warnings scripts/tracked-interaction-behavior.mjs",
+    "test:browser": "node scripts/visual-phase1.mjs"
   },
   "dependencies": {
     "@next/mdx": "^16.2.4",

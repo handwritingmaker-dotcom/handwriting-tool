@@ -4,6 +4,7 @@ import Link from "next/link";
 import { HandwritingToolLoader } from "@/components/HandwritingToolLoader";
 import { editorSocialImage } from "@/lib/seo";
 import { toolPageConfigs, type FunctionalToolProfile } from "@/lib/tool-pages";
+import { TrackedLink } from "@/components/TrackedLink";
 
 const siteUrl = "https://www.handwritingtool.com";
 
@@ -184,8 +185,8 @@ export function ToolExperiencePage({ profile }: { profile: FunctionalToolProfile
           <h2 className="text-2xl font-semibold text-slate-950">Privacy and next steps</h2>
           <p className="mt-3 leading-7 text-slate-700">{tool.privacy}</p>
           <div className="mt-5 flex flex-wrap gap-3">
-            <Link href={tool.guideHref} className="rounded-full bg-brand-blue px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700">{tool.guideLabel}</Link>
-            <Link href="/tools" className="rounded-full border border-emerald-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-emerald-100">Browse all tools</Link>
+            <TrackedLink href={tool.guideHref} eventName="guide_clicked" eventTarget={({ lined: "lined-guide", graph: "graph-guide", notes: "notes-guide", pdf: "pdf-guide" } as const)[profile]} className="rounded-full bg-brand-blue px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700">{tool.guideLabel}</TrackedLink>
+            <TrackedLink href="/tools" eventName="related_tool_clicked" eventTarget="tools-hub" className="rounded-full border border-emerald-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-emerald-100">Browse all tools</TrackedLink>
             <Link href="/" className="rounded-full border border-emerald-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-emerald-100">{tool.homeLinkLabel}</Link>
             <Link href="/privacy-policy" className="rounded-full border border-emerald-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-emerald-100">Privacy policy</Link>
           </div>
@@ -248,9 +249,9 @@ function PdfPageDetails() {
               Selectable text is extracted locally in your browser and placed in the normal editor. Review line breaks,
               names, and symbols before exporting. Scanned PDFs need OCR and are not supported yet.
             </p>
-            <Link href="/blog/text-to-handwriting-pdf-generator" className="mt-5 inline-flex font-semibold text-brand-blue hover:underline">
+            <TrackedLink href="/blog/text-to-handwriting-pdf-generator" eventName="guide_clicked" eventTarget="pdf-export-guide" className="mt-5 inline-flex font-semibold text-brand-blue hover:underline">
               Read the PDF preparation and printing guide -&gt;
-            </Link>
+            </TrackedLink>
           </div>
         </div>
       </div>

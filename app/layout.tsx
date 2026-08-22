@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
 import { DM_Sans, Kalam } from "next/font/google";
 import { defaultSocialImage } from "@/lib/seo";
 import { siteAuthor } from "@/lib/author";
+import { SiteHeader } from "@/components/SiteHeader";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -78,14 +78,6 @@ const siteSchema = [
   },
 ];
 
-const headerLinks = [
-  { href: "/tools", label: "Tools" },
-  { href: "/templates", label: "Templates" },
-  { href: "/blog", label: "Blog" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-];
-
 const footerLinks = [
   { href: "/tools", label: "Tools" },
   { href: "/templates", label: "Templates" },
@@ -119,40 +111,7 @@ export default function RootLayout({
         </Script>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteSchema) }} />
         <div className="min-h-screen">
-          <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/90 backdrop-blur">
-            <div className="mx-auto flex max-w-7xl min-w-0 flex-col gap-3 px-4 py-3 sm:px-6 md:flex-row md:items-center md:justify-between md:py-4 lg:px-8">
-              <Link href="/" className="flex w-fit items-center" aria-label="HandwritingTool home">
-                <Image
-                  src="/handwriting-tool-logo.png"
-                  alt="HandwritingTool"
-                  width={180}
-                  height={70}
-                  priority
-                  className="h-14 w-auto md:h-16"
-                />
-              </Link>
-              <nav aria-label="Primary navigation" className="flex w-full min-w-0 max-w-full flex-wrap items-center justify-center gap-1 text-sm font-semibold text-slate-600 md:w-auto md:flex-nowrap md:justify-start md:gap-6 md:font-medium">
-                <Link href="/#tool" className="inline-flex min-h-11 items-center whitespace-nowrap rounded-full px-3 py-2 transition hover:bg-blue-50 hover:text-brand-blue md:min-h-0 md:px-0 md:py-0 md:hover:bg-transparent">
-                  Converter
-                </Link>
-                <Link href="/#features" className="inline-flex min-h-11 items-center whitespace-nowrap rounded-full px-3 py-2 transition hover:bg-blue-50 hover:text-brand-blue md:min-h-0 md:px-0 md:py-0 md:hover:bg-transparent">
-                  Features
-                </Link>
-                <Link href="/#seo-guide" className="inline-flex min-h-11 items-center whitespace-nowrap rounded-full px-3 py-2 transition hover:bg-blue-50 hover:text-brand-blue md:min-h-0 md:px-0 md:py-0 md:hover:bg-transparent">
-                  Guide
-                </Link>
-                {headerLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="inline-flex min-h-11 items-center whitespace-nowrap rounded-full px-3 py-2 transition hover:bg-blue-50 hover:text-brand-blue md:min-h-0 md:px-0 md:py-0 md:hover:bg-transparent"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </nav>
-            </div>
-          </header>
+          <SiteHeader />
           {children}
           <footer className="border-t border-slate-200 bg-white">
             <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-10 text-sm text-slate-600 sm:px-6 lg:px-8 md:flex-row md:items-center md:justify-between">

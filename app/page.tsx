@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { HandwritingToolLoader } from "@/components/HandwritingToolLoader";
+import { StartConvertingButton } from "@/components/StartConvertingButton";
+import { TrackedLink } from "@/components/TrackedLink";
 
 const siteUrl = "https://www.handwritingtool.com";
 
@@ -75,6 +77,7 @@ const outputGallery = [
     text: "The live lined-paper workspace with notebook spacing, a visible margin, and the generated A4 page beside the editor.",
     image: "/gallery/lined-paper-output.png",
     href: "/tools/lined-paper-handwriting",
+    analyticsTarget: "gallery-lined" as const,
     tag: "LINED A4",
   },
   {
@@ -82,6 +85,7 @@ const outputGallery = [
     text: "A real blank-paper conversion created from a short personal-letter sample inside the running converter.",
     image: "/gallery/blank-paper-output.png",
     href: "/#tool",
+    analyticsTarget: "gallery-blank" as const,
     tag: "BLANK PAPER",
   },
   {
@@ -89,6 +93,7 @@ const outputGallery = [
     text: "The graph-paper preset rendering a pendulum observation with structured spacing and black handwritten text.",
     image: "/gallery/graph-paper-output.png",
     href: "/tools/graph-paper-handwriting",
+    analyticsTarget: "gallery-graph" as const,
     tag: "GRAPH GRID",
   },
   {
@@ -96,6 +101,7 @@ const outputGallery = [
     text: "The notes workspace with optional note details, revision text, and its generated notebook page shown together.",
     image: "/gallery/notes-output.png",
     href: "/tools/handwritten-notes",
+    analyticsTarget: "gallery-notes" as const,
     tag: "STUDY NOTES",
   },
   {
@@ -103,6 +109,7 @@ const outputGallery = [
     text: "The actual main converter with worksheet presets, editable source text, and a complete live page preview.",
     image: "/gallery/worksheet-output.png",
     href: "/#tool",
+    analyticsTarget: "gallery-worksheet" as const,
     tag: "WORKSHEET",
   },
   {
@@ -110,6 +117,7 @@ const outputGallery = [
     text: "A genuine long-document test showing 684 detected words, seven generated pages, and the first PDF page preview.",
     image: "/gallery/multi-page-pdf-output.png",
     href: "/tools/text-to-handwriting-pdf",
+    analyticsTarget: "gallery-pdf" as const,
     tag: "7 PAGE PDF",
   },
 ];
@@ -201,19 +209,23 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify([softwareSchema, faqSchema]) }}
       />
       <section className="hero-surface border-b border-slate-200/80">
-        <div className="mx-auto max-w-7xl px-4 pb-8 pt-10 text-center sm:px-6 sm:pb-10 sm:pt-14 lg:px-8">
-          <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/90 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-brand-blue shadow-sm">
+        <div className="mx-auto max-w-7xl px-4 pb-5 pt-6 text-center sm:px-6 sm:pb-7 sm:pt-8 lg:px-8 lg:pb-8 lg:pt-10">
+          <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/90 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-brand-blue shadow-sm">
             <FeatureIcon name="spark" className="h-4 w-4" />
             Free &bull; Private &bull; No sign up
           </div>
-          <h1 className="mx-auto mt-5 max-w-4xl text-4xl font-bold tracking-[-0.045em] text-slate-950 sm:text-5xl lg:text-6xl">
+          <h1 className="mx-auto mt-3 max-w-4xl text-3xl font-bold tracking-[-0.045em] text-slate-950 sm:text-5xl lg:text-6xl">
             Free <span className="hero-ink">Text to Handwriting Converter</span> Online
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
+          <p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
             Type or paste text to convert text to handwriting-style pages with 10 writing styles, lined, blank, graph,
             or custom paper, adjustable ink and spacing, instant preview, and PDF, PNG, or JPG export.
           </p>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-medium text-slate-600">
+          <div className="mt-4 flex flex-col items-center gap-2">
+            <StartConvertingButton />
+            <p className="text-sm text-slate-600">Free, no sign-up, browser-local processing, with PDF and image export.</p>
+          </div>
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-1.5 text-sm font-medium text-slate-600">
             {[
               ["10 handwriting styles", "spark"],
               ["Lined, blank, graph & custom paper", "paper"],
@@ -228,7 +240,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="relative z-10 mx-auto max-w-[1500px] px-3 py-6 sm:px-5 lg:px-7 lg:py-8">
+      <section className="relative z-10 mx-auto max-w-[1500px] px-2 py-3 sm:px-5 sm:py-5 lg:px-7 lg:py-6">
         <HandwritingToolLoader />
       </section>
 
@@ -262,9 +274,11 @@ export default function HomePage() {
         </div>
         <div className="grid gap-7 lg:grid-cols-2">
           {outputGallery.map((sample) => (
-            <Link
+            <TrackedLink
               key={sample.title}
               href={sample.href}
+              eventName="related_tool_clicked"
+              eventTarget={sample.analyticsTarget}
               className="group overflow-hidden rounded-[30px] border border-slate-200 bg-white shadow-card transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-paper"
             >
               <Image
@@ -286,7 +300,7 @@ export default function HomePage() {
                 <p className="mt-3 leading-7 text-slate-600">{sample.text}</p>
                 <p className="mt-5 text-sm font-semibold text-brand-blue">Open this live workspace -&gt;</p>
               </div>
-            </Link>
+            </TrackedLink>
           ))}
         </div>
       </section>
@@ -338,7 +352,7 @@ export default function HomePage() {
       <section id="features" className="mx-auto max-w-7xl scroll-mt-36 px-4 py-16 sm:px-6 md:scroll-mt-28 lg:px-8">
         <div className="mb-10 max-w-2xl">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-green">Quality & Page Controls</p>
-          <h2 className="mt-3 text-4xl font-semibold text-slate-950">
+          <h2 id="features-heading" tabIndex={-1} className="mt-3 text-4xl font-semibold text-slate-950">
             Text to Handwriting Features
           </h2>
           <p className="mt-4 text-lg leading-8 text-slate-600">
@@ -429,7 +443,7 @@ export default function HomePage() {
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">Text to Handwriting Guide</p>
           <article className="mt-6 grid gap-8 lg:grid-cols-[0.9fr,1.1fr]">
             <div>
-              <h2 className="text-3xl font-semibold text-slate-950">How to Convert Text to Handwriting Online</h2>
+              <h2 id="seo-guide-heading" tabIndex={-1} className="text-3xl font-semibold text-slate-950">Convert Your Text in Three Steps</h2>
               <p className="mt-4 text-lg leading-8 text-slate-600">
                 Paste your text, choose the handwriting and page settings, then check every generated page before
                 downloading a PDF, PNG, or JPG.
@@ -459,9 +473,9 @@ export default function HomePage() {
                 <li>Review names, symbols, and page breaks before printing or sharing.</li>
               </ul>
               <div className="mt-6 flex flex-wrap gap-3">
-                <Link href="/blog/how-to-convert-text-to-handwriting" className="rounded-full bg-brand-blue px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700">
+                <TrackedLink href="/blog/how-to-convert-text-to-handwriting" eventName="guide_clicked" eventTarget="beginner-guide" className="rounded-full bg-brand-blue px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700">
                   Read full guide
-                </Link>
+                </TrackedLink>
                 <Link href="/responsible-use" className="rounded-full border border-blue-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-blue-100">
                   Responsible use
                 </Link>

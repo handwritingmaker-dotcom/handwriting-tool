@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { TrackedDownload } from "@/components/TrackedDownload";
 
 const siteUrl = "https://www.handwritingtool.com";
 
@@ -34,24 +35,28 @@ const downloads = [
     description: "A clean A4 notebook-style lined paper template with a margin line for notes, drafts, and practice.",
     href: "/templates/printable-lined-paper-a4.pdf",
     type: "PDF",
+    analyticsType: "pdf" as const,
   },
   {
     title: "Printable Graph Paper PDF",
     description: "A simple A4 graph paper template for math notes, lab records, formulas, and structured pages.",
     href: "/templates/printable-graph-paper-a4.pdf",
     type: "PDF",
+    analyticsType: "pdf" as const,
   },
   {
     title: "Handwriting Practice Sheet",
     description: "A printable practice sheet with guide lines for handwriting exercises, examples, and drafts.",
     href: "/templates/handwriting-practice-sheet-a4.pdf",
     type: "PDF",
+    analyticsType: "pdf" as const,
   },
   {
     title: "Best Settings Visual Guide",
     description: "A quick visual guide for choosing paper, ink, font size, spacing, and export format.",
     href: "/templates/best-handwriting-settings-guide.svg",
     type: "SVG",
+    analyticsType: "svg" as const,
   },
 ];
 
@@ -125,13 +130,14 @@ export default function TemplatesPage() {
               >
                 Open Converter
               </Link>
-              <a
+              <TrackedDownload
                 href="/templates/printable-lined-paper-a4.pdf"
                 download
+                templateType="lined-paper-pdf"
                 className="rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
               >
                 Download Lined Paper
-              </a>
+              </TrackedDownload>
             </div>
           </div>
         </div>
@@ -152,13 +158,14 @@ export default function TemplatesPage() {
               </div>
               <h3 className="text-xl font-semibold tracking-tight text-slate-950">{item.title}</h3>
               <p className="mt-3 text-base leading-7 text-slate-600">{item.description}</p>
-              <a
+              <TrackedDownload
                 href={item.href}
                 download
+                templateType={item.analyticsType}
                 className="mt-6 inline-flex rounded-full bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
               >
                 Download
-              </a>
+              </TrackedDownload>
             </article>
           ))}
         </div>

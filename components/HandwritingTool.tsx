@@ -12,6 +12,7 @@ import {
 import { toolProfiles, type ToolProfile } from "@/lib/tool-profiles";
 import { type HandwritingDraft, useHandwritingDraft } from "@/hooks/useHandwritingDraft";
 import { PdfTextImporter } from "@/components/PdfTextImporter";
+import { getPageCountBand, trackEvent, trackPreviewError, trackPreviewRendered, trackToolView } from "@/lib/analytics";
 
 const pageTypes = [
   { value: "lined", label: "Lined Paper" },
@@ -199,6 +200,7 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
   const [customPaperError, setCustomPaperError] = useState("");
   const renderRequestId = useRef(0);
   const exportLock = useRef(false);
+  const editorFocusTracked = useRef(false);
   const stylePreviewCache = useRef(new Map<string, HTMLCanvasElement>());
   const customPaperUrl = useRef<string | null>(null);
   const hasUserText = text.trim().length > 0;
@@ -225,6 +227,10 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
   }, []);
 
   useEffect(() => {
+    trackToolView(profile);
+  }, [profile]);
+
+  useEffect(() => {
     if (!hasUserText) {
       renderRequestId.current += 1;
       const timeoutId = window.setTimeout(() => {
@@ -246,13 +252,13 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
             return;
           }
 
-          setPages(
-            result.pages.map((page) => ({
+          const nextPages = result.pages.map((page) => ({
               pngUrl: page.toDataURL("image/png"),
               width: result.pageWidth,
               height: result.pageHeight,
-            })),
-          );
+            }));
+          setPages(nextPages);
+          trackPreviewRendered(profile, getPageCountBand(nextPages.length));
         })
         .catch((error) => {
           console.error("Failed to render handwriting preview", error);
@@ -261,6 +267,7 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
             setRenderError(
               "We could not create the preview. Your browser may be low on memory, or the document may be too large. Try again, reduce PDF quality, or split the text into smaller sections.",
             );
+            trackPreviewError(profile, "render_failed");
           }
         })
         .finally(() => {
@@ -271,7 +278,7 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
     }, hasUserText ? 120 : 0);
 
     return () => window.clearTimeout(timeoutId);
-  }, [customPaperImage, hasUserText, renderAttempt, settings, text]);
+  }, [customPaperImage, hasUserText, profile, renderAttempt, settings, text]);
 
   const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
   const shownPageCount = hasUserText ? Math.max(pages.length, 1) : 0;
@@ -296,6 +303,8 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
   const downloadImages = async (format: Extract<ExportFormat, "png" | "jpg">) => {
     if (!canDownload || exportLock.current) return;
     exportLock.current = true;
+    const pageCountBand = getPageCountBand(pages.length);
+    trackEvent("export_started", { tool_profile: profile, export_format: format, page_count_band: pageCountBand });
 
     setExportState({ active: true, message: `Preparing ${pages.length} ${format.toUpperCase()} files…` });
     try {
@@ -304,8 +313,10 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
         await downloadImage(pages[index], index, format);
       }
       setExportState({ active: false, message: `${format.toUpperCase()} download complete.` });
+      trackEvent("export_completed", { tool_profile: profile, export_format: format, page_count_band: pageCountBand });
     } catch {
       setExportState({ active: false, message: "The image download failed. Try the current page, use PNG, or reduce PDF quality." });
+      trackEvent("export_error", { tool_profile: profile, export_format: format, error_category: "image_download_failed" });
     } finally {
       exportLock.current = false;
     }
@@ -314,6 +325,7 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
   const downloadCurrentImage = async (format: Extract<ExportFormat, "png" | "jpg">) => {
     if (!canDownload || exportLock.current) return;
     exportLock.current = true;
+    trackEvent("export_started", { tool_profile: profile, export_format: format, page_count_band: "1" });
 
     const page = pages[selectedPageIndex];
     if (!page) {
@@ -325,8 +337,10 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
     try {
       await downloadImage(page, selectedPageIndex, format);
       setExportState({ active: false, message: `${format.toUpperCase()} download complete.` });
+      trackEvent("export_completed", { tool_profile: profile, export_format: format, page_count_band: "1" });
     } catch {
       setExportState({ active: false, message: "The image download failed. Try PNG or reduce PDF quality." });
+      trackEvent("export_error", { tool_profile: profile, export_format: format, error_category: "image_download_failed" });
     } finally {
       exportLock.current = false;
     }
@@ -337,6 +351,8 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
     exportLock.current = true;
 
     const targetPages = scope === "all" ? pages : pages.slice(selectedPageIndex, selectedPageIndex + 1);
+    const pageCountBand = getPageCountBand(targetPages.length);
+    trackEvent("export_started", { tool_profile: profile, export_format: "pdf", page_count_band: pageCountBand });
     const firstPage = targetPages[0];
 
     if (!firstPage) {
@@ -362,8 +378,10 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
 
       pdf.save(`${safeBaseName}${scope === "current" ? `-page-${selectedPageIndex + 1}` : ""}.pdf`);
       setExportState({ active: false, message: "PDF download complete." });
+      trackEvent("export_completed", { tool_profile: profile, export_format: "pdf", page_count_band: pageCountBand });
     } catch {
       setExportState({ active: false, message: "The PDF could not be created. Try a lower quality setting, export one page, or split the document." });
+      trackEvent("export_error", { tool_profile: profile, export_format: "pdf", error_category: "pdf_creation_failed" });
     } finally {
       exportLock.current = false;
     }
@@ -436,9 +454,6 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
         </div>
 
         {profile === "pdf" && <PdfTextImporter onTextExtracted={setText} />}
-        <label className="input-label" htmlFor="handwriting-text">
-          {profileConfig.inputLabel}
-        </label>
         {profile === "notes" && (
           <fieldset className="mb-4 rounded-2xl border border-blue-100 bg-blue-50 p-4">
             <legend className="px-2 text-sm font-semibold text-slate-950">Optional note details</legend>
@@ -461,7 +476,22 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
             </button>
           </fieldset>
         )}
-        <div className="mb-4">
+        <label className="input-label" htmlFor="handwriting-text">
+          {profileConfig.inputLabel}
+        </label>
+        <textarea
+          id="handwriting-text"
+          value={text}
+          onChange={(event) => setText(event.target.value)}
+          onFocus={() => {
+            if (editorFocusTracked.current) return;
+            editorFocusTracked.current = true;
+            trackEvent("editor_focus", { tool_profile: profile });
+          }}
+          className="input-field min-h-[210px] resize-y rounded-xl leading-6"
+          placeholder={profileConfig.placeholder}
+        />
+        <div className="mt-4">
           <p className="input-label">Quick presets</p>
           <div className="flex flex-wrap gap-2">
             {settingPresets.map((preset) => (
@@ -482,13 +512,6 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
             ))}
           </div>
         </div>
-        <textarea
-          id="handwriting-text"
-          value={text}
-          onChange={(event) => setText(event.target.value)}
-          className="input-field min-h-[210px] resize-y rounded-xl leading-6"
-          placeholder={profileConfig.placeholder}
-        />
         {text.length === 0 && (
           <div className="mt-3 rounded-2xl border border-dashed border-slate-200 bg-slate-50 px-4 py-4">
             <div className="flex flex-wrap items-center gap-3">

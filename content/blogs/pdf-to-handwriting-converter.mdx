@@ -3,12 +3,12 @@ title: "How to Extract PDF Text for a Handwritten-Style Page"
 seoTitle: "Extract PDF Text for Handwritten Pages"
 date: "2026-05-04"
 updated: "2026-08-01"
-description: "Learn how to extract and clean text from a text-based or scanned PDF before creating a new handwritten-style page, with clear OCR and layout limitations."
+description: "Import selectable text from a text-based PDF before creating handwritten-style pages. Scanned PDFs require OCR first, and original layouts are not preserved."
 ---
 
 # How to Extract PDF Text for a Handwritten-Style Page
 
-This workflow starts with an existing PDF and recovers usable plain text from it. It is different from creating a PDF from text.
+This workflow starts with an existing source PDF: upload a text-based file, extract its selectable text, edit the recovered wording, and generate new handwritten-style pages. It is different from creating a new handwritten PDF from text you already have.
 
 HandwritingTool accepts text-based PDF uploads in its [PDF to handwriting converter](/tools/text-to-handwriting-pdf). The file is processed in the browser and its selectable text is placed in an editable text field. The importer does not run optical character recognition (OCR) or preserve the source PDF's design.
 
@@ -22,7 +22,7 @@ PDFs that look similar on screen can store content differently.
 
 | PDF type | Quick test | Required preparation |
 |---|---|---|
-| Text-based | You can select individual words | Copy the required passage and clean its formatting |
+| Text-based | You can select individual words | Upload it to the PDF tool, then clean the extracted text |
 | Scanned image | Dragging selects a page image, not words | Run OCR in a separate application, then proofread |
 | Mixed document | Some text selects, some does not | Copy selectable text and use OCR only where needed |
 | Complex layout | Text selects in an incorrect order | Rebuild the reading order manually |
