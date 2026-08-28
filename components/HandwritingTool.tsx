@@ -13,6 +13,12 @@ import { toolProfiles, type ToolProfile } from "@/lib/tool-profiles";
 import { type HandwritingDraft, useHandwritingDraft } from "@/hooks/useHandwritingDraft";
 import { PdfTextImporter } from "@/components/PdfTextImporter";
 import { getPageCountBand, trackEvent, trackPreviewError, trackPreviewRendered, trackToolView } from "@/lib/analytics";
+import {
+  getPhysicalPageDimensions,
+  getSourceImageDimensions,
+  selectExportPages,
+  type ExportablePage,
+} from "@/lib/handwriting-export";
 
 const pageTypes = [
   { value: "lined", label: "Lined Paper" },
@@ -169,11 +175,7 @@ const settingPresets: Array<{
   },
 ];
 
-type RenderedPage = {
-  pngUrl: string;
-  width: number;
-  height: number;
-};
+type RenderedPage = ExportablePage;
 
 type ExportState = {
   active: boolean;
@@ -198,6 +200,7 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
   const [customPaperImage, setCustomPaperImage] = useState<HTMLImageElement | null>(null);
   const [customPaperName, setCustomPaperName] = useState("");
   const [customPaperError, setCustomPaperError] = useState("");
+  const [transparentPng, setTransparentPng] = useState(false);
   const renderRequestId = useRef(0);
   const exportLock = useRef(false);
   const editorFocusTracked = useRef(false);
@@ -300,6 +303,15 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
     link.click();
   };
 
+  const getTransparentPages = async () => {
+    const result = await renderHandwriting(text, settings, { transparentBackground: true });
+    return result.pages.map((page) => ({
+      pngUrl: page.toDataURL("image/png"),
+      width: result.pageWidth,
+      height: result.pageHeight,
+    }));
+  };
+
   const downloadImages = async (format: Extract<ExportFormat, "png" | "jpg">) => {
     if (!canDownload || exportLock.current) return;
     exportLock.current = true;
@@ -308,9 +320,10 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
 
     setExportState({ active: true, message: `Preparing ${pages.length} ${format.toUpperCase()} files…` });
     try {
-      for (let index = 0; index < pages.length; index += 1) {
-        setExportState({ active: true, message: `Downloading page ${index + 1} of ${pages.length}…` });
-        await downloadImage(pages[index], index, format);
+      const exportPages = format === "png" && transparentPng ? await getTransparentPages() : pages;
+      for (let index = 0; index < exportPages.length; index += 1) {
+        setExportState({ active: true, message: `Downloading page ${index + 1} of ${exportPages.length}…` });
+        await downloadImage(exportPages[index], index, format);
       }
       setExportState({ active: false, message: `${format.toUpperCase()} download complete.` });
       trackEvent("export_completed", { tool_profile: profile, export_format: format, page_count_band: pageCountBand });
@@ -335,7 +348,11 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
 
     setExportState({ active: true, message: `Preparing page ${selectedPageIndex + 1}…` });
     try {
-      await downloadImage(page, selectedPageIndex, format);
+      const exportPage = format === "png" && transparentPng
+        ? (await getTransparentPages())[selectedPageIndex]
+        : page;
+      if (!exportPage) throw new Error("The selected page is unavailable.");
+      await downloadImage(exportPage, selectedPageIndex, format);
       setExportState({ active: false, message: `${format.toUpperCase()} download complete.` });
       trackEvent("export_completed", { tool_profile: profile, export_format: format, page_count_band: "1" });
     } catch {
@@ -350,7 +367,7 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
     if (!canDownload || exportLock.current) return;
     exportLock.current = true;
 
-    const targetPages = scope === "all" ? pages : pages.slice(selectedPageIndex, selectedPageIndex + 1);
+    const targetPages = selectExportPages(pages, selectedPageIndex, scope);
     const pageCountBand = getPageCountBand(targetPages.length);
     trackEvent("export_started", { tool_profile: profile, export_format: "pdf", page_count_band: pageCountBand });
     const firstPage = targetPages[0];
@@ -363,17 +380,18 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
     setExportState({ active: true, message: `Preparing ${targetPages.length}-page PDF…` });
     try {
       const { jsPDF } = await import("jspdf");
+      const physicalSize = getPhysicalPageDimensions(settings.pageSize);
       const pdf = new jsPDF({
         orientation: "portrait",
-        unit: "px",
-        format: [firstPage.width, firstPage.height],
+        unit: "mm",
+        format: [physicalSize.width, physicalSize.height],
         compress: true,
       });
 
       targetPages.forEach((page, index) => {
         setExportState({ active: true, message: `Adding page ${index + 1} of ${targetPages.length}…` });
-        if (index > 0) pdf.addPage([page.width, page.height], "portrait");
-        pdf.addImage(page.pngUrl, "PNG", 0, 0, page.width, page.height, undefined, settings.pdfQuality === "high" ? "NONE" : "FAST");
+        if (index > 0) pdf.addPage([physicalSize.width, physicalSize.height], "portrait");
+        pdf.addImage(page.pngUrl, "PNG", 0, 0, physicalSize.width, physicalSize.height, undefined, settings.pdfQuality === "high" ? "NONE" : "FAST");
       });
 
       pdf.save(`${safeBaseName}${scope === "current" ? `-page-${selectedPageIndex + 1}` : ""}.pdf`);
@@ -868,6 +886,18 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
 
           <details className="mt-4 border-t border-slate-200 pt-4">
             <summary className="cursor-pointer list-none text-sm font-semibold text-slate-950">More formats</summary>
+            <label className="mt-3 flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700">
+              <input
+                type="checkbox"
+                checked={transparentPng}
+                onChange={(event) => setTransparentPng(event.target.checked)}
+                className="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-blue focus:ring-brand-blue"
+              />
+              <span>
+                <span className="block font-semibold text-slate-950">Transparent PNG background</span>
+                <span className="mt-1 block text-xs leading-5 text-slate-500">PNG only. Paper remains visible in the preview, PDF, and JPG exports.</span>
+              </span>
+            </label>
             <div className="mt-3 flex flex-wrap items-center gap-3">
               <button
                 type="button"
@@ -1185,8 +1215,9 @@ function convertPngToJpg(page: RenderedPage) {
       const canvas = document.createElement("canvas");
       const ctx = canvas.getContext("2d");
 
-      canvas.width = page.width;
-      canvas.height = page.height;
+      const sourceSize = getSourceImageDimensions(image);
+      canvas.width = sourceSize.width;
+      canvas.height = sourceSize.height;
 
       if (!ctx) {
         reject(new Error("Canvas context could not be created."));

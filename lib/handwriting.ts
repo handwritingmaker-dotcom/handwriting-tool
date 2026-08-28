@@ -46,6 +46,7 @@ export interface RenderResult {
 
 export interface RenderAssets {
   customPaperImage?: HTMLImageElement;
+  transparentBackground?: boolean;
 }
 
 const fontReadyTimeoutMs = 2000;
@@ -269,6 +270,9 @@ function setupContext(ctx: CanvasRenderingContext2D, settings: RenderSettings) {
 
 function drawPaper(ctx: CanvasRenderingContext2D, settings: RenderSettings, rng: () => number, assets?: RenderAssets) {
   const { width, height } = getPageDimensions(settings);
+  if (assets?.transparentBackground) {
+    return;
+  }
   const brightness = Math.max(90, Math.min(settings.paperBrightness, 104));
   if (settings.pageType === "custom" && assets?.customPaperImage) {
     drawCoverImage(ctx, assets.customPaperImage, width, height);
@@ -490,7 +494,7 @@ export async function renderHandwriting(text: string, settings: RenderSettings, 
   let y = settings.topMargin + settings.fontSize;
 
   const pushPage = () => {
-    applyPageTilt(page, settings, rng);
+    applyPageTilt(page, settings, rng, assets?.transparentBackground ?? false);
     pages.push(page);
     page = makeCanvas(settings);
     const nextCtx = page.getContext("2d");
@@ -519,7 +523,7 @@ export async function renderHandwriting(text: string, settings: RenderSettings, 
     y += isBlank ? lineHeight * 0.78 : lineHeight;
   });
 
-  applyPageTilt(page, settings, rng);
+  applyPageTilt(page, settings, rng, assets?.transparentBackground ?? false);
   pages.push(page);
 
   return {
@@ -529,7 +533,12 @@ export async function renderHandwriting(text: string, settings: RenderSettings, 
   };
 }
 
-function applyPageTilt(page: HTMLCanvasElement, settings: RenderSettings, rng: () => number) {
+function applyPageTilt(
+  page: HTMLCanvasElement,
+  settings: RenderSettings,
+  rng: () => number,
+  transparentBackground: boolean,
+) {
   if (settings.pageTilt <= 0) {
     return;
   }
@@ -549,8 +558,10 @@ function applyPageTilt(page: HTMLCanvasElement, settings: RenderSettings, rng: (
   copyCtx.drawImage(page, 0, 0);
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.clearRect(0, 0, page.width, page.height);
-  ctx.fillStyle = "#f8fafc";
-  ctx.fillRect(0, 0, page.width, page.height);
+  if (!transparentBackground) {
+    ctx.fillStyle = "#f8fafc";
+    ctx.fillRect(0, 0, page.width, page.height);
+  }
   ctx.translate(page.width / 2, page.height / 2);
   ctx.rotate(angle);
   ctx.drawImage(copy, -page.width / 2, -page.height / 2);
