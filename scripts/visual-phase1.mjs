@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
-import { existsSync, mkdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { createServer } from "node:net";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawn } from "node:child_process";
@@ -18,13 +20,31 @@ const chromeCandidates = [
 const chrome = chromeCandidates.find((candidate) => existsSync(candidate));
 assert.ok(chrome, "Chrome was not found. Set CHROME_PATH to run browser checks.");
 
-const port = 9333;
+const port = await new Promise((resolve, reject) => {
+  const server = createServer();
+  server.once("error", reject);
+  server.listen(0, "127.0.0.1", () => {
+    const address = server.address();
+    if (!address || typeof address === "string") {
+      server.close(() => reject(new Error("Could not allocate a Chrome debugging port")));
+      return;
+    }
+    server.close(() => resolve(address.port));
+  });
+});
+const browserProfile = mkdtempSync(path.join(tmpdir(), "handwriting-visual-"));
 mkdirSync(outputDir, { recursive: true });
-const browser = spawn(chrome, ["--headless=new", "--disable-gpu", `--remote-debugging-port=${port}`, "--no-first-run", "about:blank"], { stdio: "ignore" });
+const browser = spawn(chrome, ["--headless=new", "--disable-gpu", `--remote-debugging-port=${port}`, `--user-data-dir=${browserProfile}`, "--no-first-run", "about:blank"], { stdio: "ignore" });
 const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const cleanup = () => {
+  if (browser.exitCode === null) browser.kill();
+  rmSync(browserProfile, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
+};
+process.once("exit", cleanup);
 
 let version;
-for (let attempt = 0; attempt < 40; attempt += 1) {
+for (let attempt = 0; attempt < 150; attempt += 1) {
+  if (browser.exitCode !== null) throw new Error(`Chrome exited before its debugging endpoint started (exit ${browser.exitCode})`);
   try {
     version = await fetch(`http://127.0.0.1:${port}/json/version`).then((response) => response.json());
     break;
@@ -32,7 +52,7 @@ for (let attempt = 0; attempt < 40; attempt += 1) {
     await pause(100);
   }
 }
-assert.ok(version?.webSocketDebuggerUrl, "Chrome debugging endpoint did not start");
+assert.ok(version?.webSocketDebuggerUrl, `Chrome debugging endpoint did not start on port ${port} within 15 seconds`);
 
 const target = await fetch(`http://127.0.0.1:${port}/json/new?${encodeURIComponent(`${baseUrl}/`)}`, { method: "PUT" }).then((response) => response.json());
 const socket = new WebSocket(target.webSocketDebuggerUrl);
@@ -60,12 +80,36 @@ const send = (method, params = {}) => new Promise((resolve, reject) => {
   socket.send(JSON.stringify({ id, method, params }));
 });
 const evaluate = async (expression) => {
-  const response = await send("Runtime.evaluate", { returnByValue: true, expression });
+  const response = await send("Runtime.evaluate", { returnByValue: true, awaitPromise: true, expression });
+  if (response.exceptionDetails) {
+    throw new Error(`Browser evaluation failed: ${response.exceptionDetails.exception?.description || response.exceptionDetails.text}`);
+  }
+  if (!response.result || !("value" in response.result)) {
+    throw new Error(`Browser evaluation returned no value for ${target.url}`);
+  }
   return response.result.value;
 };
-const navigate = async () => {
-  await send("Page.navigate", { url: `${baseUrl}/` });
-  await pause(900);
+const getPageState = () => evaluate(`(() => {
+  const cta = [...document.querySelectorAll('a')].find((node) => node.textContent?.trim() === 'Start Converting');
+  const required = { header: !!document.querySelector('header'), tool: !!document.querySelector('#tool'), editor: !!document.querySelector('#handwriting-text'), cta: !!cta };
+  return { url: location.href, readyState: document.readyState, fontStatus: document.fonts?.status || 'unsupported', required,
+    bodyLength: document.body?.innerText?.length || 0,
+    errorOverlay: !!document.querySelector('[data-nextjs-dialog], .vite-error-overlay, #webpack-dev-server-client-overlay') };
+})()`);
+const navigate = async (width, height) => {
+  const navigation = await send("Page.navigate", { url: `${baseUrl}/` });
+  if (navigation.errorText) throw new Error(`Navigation failed at ${width}x${height}: ${navigation.errorText}`);
+  let state;
+  for (let attempt = 0; attempt < 120; attempt += 1) {
+    state = await getPageState();
+    const selectorsReady = Object.values(state.required).every(Boolean);
+    if (state.url.startsWith(baseUrl) && state.readyState === "complete" && state.fontStatus !== "loading" && selectorsReady && !state.errorOverlay) {
+      await evaluate(`new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve(true))))`);
+      return;
+    }
+    await pause(100);
+  }
+  throw new Error(`Page readiness timed out at ${width}x${height}: ${JSON.stringify(state)}`);
 };
 
 await send("Page.enable");
@@ -75,7 +119,7 @@ const sizes = [[320, 844], [360, 844], [390, 844], [430, 900], [768, 1024], [900
 const measurements = [];
 for (const [width, height] of sizes) {
   await send("Emulation.setDeviceMetricsOverride", { width, height, deviceScaleFactor: 1, mobile: width < 768 });
-  await navigate();
+  await navigate(width, height);
   const measurement = await evaluate(`(() => {
     const rect = (selector) => document.querySelector(selector)?.getBoundingClientRect();
     const menuButton = document.querySelector('button[aria-controls]');
@@ -88,6 +132,10 @@ for (const [width, height] of sizes) {
       menuVisible: !!menuButton?.getBoundingClientRect().height,
       immediateLabel: label?.nextElementSibling === editor };
   })()`);
+  assert.ok(measurement && typeof measurement === "object", `Measurement missing at ${width}x${height}: ${JSON.stringify(await getPageState())}`);
+  for (const field of ["overflow", "ctaHref", "menuVisible", "immediateLabel"]) {
+    assert.ok(Object.hasOwn(measurement, field), `Measurement field ${field} missing at ${width}x${height}: ${JSON.stringify(measurement)}`);
+  }
   measurements.push(measurement);
   assert.equal(measurement.overflow, 0, `Horizontal overflow at ${width}px`);
   assert.equal(measurement.ctaHref, "#tool", `CTA fallback missing at ${width}px`);
@@ -100,28 +148,28 @@ for (const [width, height] of sizes) {
 }
 
 await send("Emulation.setDeviceMetricsOverride", { width: 390, height: 844, deviceScaleFactor: 1, mobile: true });
-await navigate();
-await evaluate(`(() => { const button = document.querySelector('button[aria-controls]'); button.focus(); button.click(); })()`);
+await navigate(390, 844);
+await evaluate(`(() => { const button = document.querySelector('button[aria-controls]'); button.focus(); button.click(); return true; })()`);
 await send("Input.dispatchKeyEvent", { type: "keyDown", key: "Escape", code: "Escape", windowsVirtualKeyCode: 27 });
 await send("Input.dispatchKeyEvent", { type: "keyUp", key: "Escape", code: "Escape", windowsVirtualKeyCode: 27 });
 await pause(100);
 const escapeResult = await evaluate(`(() => { const button = document.querySelector('button[aria-controls]'); const menu = document.querySelector('nav[id][aria-label="Mobile navigation"]'); return { expanded: button.getAttribute('aria-expanded'), hidden: menu.hidden, focusRestored: document.activeElement === button }; })()`);
 assert.deepEqual(escapeResult, { expanded: "false", hidden: true, focusRestored: true });
 
-await evaluate(`document.querySelector('button[aria-controls]').click()`);
-await evaluate(`document.querySelector('nav[aria-label="Mobile navigation"] a[href="/#features"]').click()`);
+await evaluate(`(() => { document.querySelector('button[aria-controls]').click(); return true; })()`);
+await evaluate(`(() => { document.querySelector('nav[aria-label="Mobile navigation"] a[href="/#features"]').click(); return true; })()`);
 await pause(150);
 const samePageResult = await evaluate(`(() => { const menu = document.querySelector('nav[id][aria-label="Mobile navigation"]'); return { hidden: menu.hidden, active: document.activeElement?.id, focusInsideHiddenMenu: menu.contains(document.activeElement) }; })()`);
 assert.deepEqual(samePageResult, { hidden: true, active: "features-heading", focusInsideHiddenMenu: false });
 
-await navigate();
+await navigate(390, 844);
 await send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "reduce" }] });
-await evaluate(`(() => { window.__editorFocusCount = 0; document.querySelector('#handwriting-text').addEventListener('focus', () => { window.__editorFocusCount += 1; }); [...document.querySelectorAll('a')].find((node) => node.textContent?.trim() === 'Start Converting').click(); })()`);
+await evaluate(`(() => { window.__editorFocusCount = 0; document.querySelector('#handwriting-text').addEventListener('focus', () => { window.__editorFocusCount += 1; }); [...document.querySelectorAll('a')].find((node) => node.textContent?.trim() === 'Start Converting').click(); return true; })()`);
 await pause(150);
 const ctaResult = await evaluate(`({ active: document.activeElement?.id, hash: location.hash, focusCount: window.__editorFocusCount })`);
 assert.deepEqual(ctaResult, { active: "handwriting-text", hash: "", focusCount: 1 });
 
-await navigate();
+await navigate(390, 844);
 const modifierResult = await evaluate(`(() => { const link = [...document.querySelectorAll('a')].find((node) => node.textContent?.trim() === 'Start Converting'); const event = new MouseEvent('click', { bubbles: true, cancelable: true, ctrlKey: true, button: 0 }); const allowed = link.dispatchEvent(event); return { allowed, hash: location.hash }; })()`);
 assert.deepEqual(modifierResult, { allowed: true, hash: "" });
 
@@ -132,3 +180,6 @@ assert.deepEqual(runtimeExceptions, [], `Browser runtime exceptions: ${runtimeEx
 console.log(JSON.stringify({ measurements, escapeResult, samePageResult, ctaResult, modifierResult, pageHealth }, null, 2));
 socket.close();
 browser.kill();
+if (browser.exitCode === null) await new Promise((resolve) => browser.once("exit", resolve));
+process.removeListener("exit", cleanup);
+cleanup();
