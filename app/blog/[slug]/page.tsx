@@ -16,6 +16,7 @@ const relatedToolBySlug: Record<string, { href: string; label: string }> = {
   "text-to-handwriting-on-lined-paper": { href: "/tools/lined-paper-handwriting", label: "Open lined-paper tool" },
   "graph-paper-handwriting-generator": { href: "/tools/graph-paper-handwriting", label: "Open graph-paper tool" },
   "handwritten-notes-generator": { href: "/tools/handwritten-notes", label: "Open notes generator" },
+  "how-to-make-handwriting-practice-sheets": { href: "/templates", label: "Create a practice sheet" },
 };
 
 type BlogPostPageProps = {

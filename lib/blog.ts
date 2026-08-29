@@ -38,6 +38,7 @@ const categoryBySlug: Record<string, BlogCategory> = {
   "best-text-to-handwriting-tools-2026-comparison": "Research & Comparisons",
   "best-text-to-handwriting-settings-realistic-output": "Guides",
   "why-handwriting-still-matters-digital-age": "Research & Comparisons",
+  "how-to-make-handwriting-practice-sheets": "Guides",
 };
 
 type Frontmatter = {

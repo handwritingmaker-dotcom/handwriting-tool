@@ -18,6 +18,7 @@ const protectedPages = [
   ["/blog/graph-paper-handwriting-generator", "Graph Paper Handwriting Guide | HandwritingTool"],
   ["/tools/lined-paper-handwriting", "Lined Paper Handwriting Generator | HandwritingTool"],
   ["/tools/graph-paper-handwriting", "Graph Paper Handwriting Generator | HandwritingTool"],
+  ["/blog/how-to-make-handwriting-practice-sheets", "How to Make Handwriting Practice Sheets Free | HandwritingTool"],
 ];
 
 for (const [path, expectedTitle] of protectedPages) {
@@ -40,6 +41,14 @@ const blog = await fetch(`${baseUrl}/blog/text-to-handwriting-a4-size`).then((re
 for (const schemaType of ["BlogPosting", "BreadcrumbList"]) {
   assert.ok(blog.includes(schemaType), `Blog ${schemaType} schema`);
 }
+const practiceGuide = await fetch(`${baseUrl}/blog/how-to-make-handwriting-practice-sheets`).then((response) => response.text());
+for (const schemaType of ["BlogPosting", "BreadcrumbList"]) {
+  assert.ok(practiceGuide.includes(schemaType), `Practice guide ${schemaType} schema`);
+}
+assert.equal((practiceGuide.match(/<h1\b/g) ?? []).length, 1, "Practice guide must render one H1");
+assert.doesNotMatch(practiceGuide, /<meta[^>]+name="robots"[^>]+noindex/i, "Practice guide must remain indexable");
+const blogIndex = await fetch(`${baseUrl}/blog`).then((response) => response.text());
+assert.ok(blogIndex.includes('href="/blog/how-to-make-handwriting-practice-sheets"'), "Blog index must link to practice guide");
 const tool = await fetch(`${baseUrl}/tools/text-to-handwriting-pdf`).then((response) => response.text());
 for (const schemaType of ["WebApplication", "HowTo", "FAQPage", "BreadcrumbList"]) {
   assert.ok(tool.includes(schemaType), `Tool ${schemaType} schema`);

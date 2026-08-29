@@ -8,6 +8,7 @@ const robots = read("app/robots.ts");
 const blogPage = read("app/blog/[slug]/page.tsx");
 const toolPages = read("lib/tool-pages.ts");
 const templates = read("app/templates/page.tsx");
+const practiceGuide = read("content/blogs/how-to-make-handwriting-practice-sheets.mdx");
 const redirects = read("next.config.ts");
 
 const protectedPaths = [
@@ -25,6 +26,7 @@ const protectedPaths = [
   "/blog/graph-paper-handwriting-generator",
   "/tools/lined-paper-handwriting",
   "/tools/graph-paper-handwriting",
+  "/blog/how-to-make-handwriting-practice-sheets",
 ];
 
 assert.match(layout, /metadataBase: new URL\("https:\/\/www\.handwritingtool\.com"\)/);
@@ -41,6 +43,10 @@ assert.match(templates, /<PrintableTemplateStudio \/>/);
 assert.match(templates, /href="\/tools\/lined-paper-handwriting"/);
 assert.match(templates, /href="\/tools\/graph-paper-handwriting"/);
 assert.match(templates, /href="\/blog\/text-to-handwriting-a4-size"/);
+assert.match(templates, /href="\/blog\/how-to-make-handwriting-practice-sheets"/);
+assert.match(practiceGuide, /seoTitle: "How to Make Handwriting Practice Sheets Free"/);
+assert.match(practiceGuide, /description: "Learn how to make free handwriting practice sheets with custom text, trace and copy modes, guided lines, A4 or Letter paper, and printable PDF output\."/);
+assert.equal((practiceGuide.match(/^# /gm) ?? []).length, 1, "Practice-sheet guide must contain exactly one H1");
 assert.match(robots, /sitemap: `\$\{siteUrl\}\/sitemap\.xml`/);
 assert.match(sitemap, /const siteUrl = "https:\/\/www\.handwritingtool\.com"/);
 

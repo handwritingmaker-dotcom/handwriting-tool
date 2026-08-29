@@ -163,6 +163,9 @@ export default function TemplatesPage() {
             the <Link className="font-semibold text-brand-blue hover:underline" href="/tools/lined-paper-handwriting">lined paper handwriting tool</Link>,
             or the <Link className="font-semibold text-brand-blue hover:underline" href="/tools/graph-paper-handwriting">graph paper handwriting tool</Link>.
           </p>
+          <p className="mt-3 leading-7 text-slate-600">
+            New to practice worksheets? Learn <Link className="font-semibold text-brand-blue hover:underline" href="/blog/how-to-make-handwriting-practice-sheets">how to use handwriting practice sheets effectively</Link> before creating your first page.
+          </p>
         </div>
         <div className="mt-7 grid gap-4 md:grid-cols-3">
           <Link href="/blog/text-to-handwriting-on-lined-paper" className="rounded-2xl border border-slate-200 bg-white p-5 font-semibold text-slate-800 shadow-sm hover:border-blue-200">Lined paper settings guide →</Link>
