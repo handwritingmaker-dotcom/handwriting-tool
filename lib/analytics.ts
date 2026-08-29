@@ -3,6 +3,7 @@ import type { ToolProfile } from "@/lib/tool-profiles";
 export const analyticsEventNames = [
   "tool_view", "editor_focus", "preview_rendered", "preview_error",
   "pdf_import_started", "pdf_import_completed", "pdf_import_error",
+  "docx_upload_started", "docx_extraction_success", "docx_extraction_failed",
   "export_started", "export_completed", "export_error",
   "related_tool_clicked", "guide_clicked", "template_downloaded",
 ] as const;
@@ -12,7 +13,9 @@ export type PageCountBand = "1" | "2-5" | "6-10" | "11+";
 export type ExportFormat = "pdf" | "png" | "jpg";
 export type ErrorCategory =
   | "render_failed" | "password_protected" | "no_selectable_text" | "read_failed"
-  | "image_download_failed" | "pdf_creation_failed";
+  | "image_download_failed" | "pdf_creation_failed" | "legacy_doc" | "invalid_type"
+  | "too_large" | "too_complex" | "empty" | "text_limit" | "corrupt" | "cancelled"
+  | "invalid_range" | "page_limit";
 export type LinkTarget =
   | "gallery-lined" | "gallery-blank" | "gallery-graph" | "gallery-notes"
   | "gallery-worksheet" | "gallery-pdf" | "beginner-guide" | "lined-guide"
@@ -27,6 +30,9 @@ type EventParameters = {
   pdf_import_started: { tool_profile: "pdf" };
   pdf_import_completed: { tool_profile: "pdf" };
   pdf_import_error: { tool_profile: "pdf"; error_category: ErrorCategory };
+  docx_upload_started: { tool_profile: "word" };
+  docx_extraction_success: { tool_profile: "word" };
+  docx_extraction_failed: { tool_profile: "word"; error_category: ErrorCategory };
   export_started: { tool_profile: ToolProfile; export_format: ExportFormat; page_count_band: PageCountBand };
   export_completed: { tool_profile: ToolProfile; export_format: ExportFormat; page_count_band: PageCountBand };
   export_error: { tool_profile: ToolProfile; export_format: ExportFormat; error_category: ErrorCategory };

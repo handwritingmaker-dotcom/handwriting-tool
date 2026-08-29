@@ -133,7 +133,7 @@ const faqs = [
   },
   {
     question: "Can I convert typed text to handwriting online?",
-    answer: "Yes. Type directly or copy text from Word or Google Docs, paste it into the editor, and customize the handwritten page. DOCX upload is not supported yet.",
+    answer: "Yes. Type directly or paste text into the main editor, or use the Word converter guide to upload a modern DOCX file and customize the handwritten page.",
   },
   {
     question: "Can I download handwriting as a PDF?",

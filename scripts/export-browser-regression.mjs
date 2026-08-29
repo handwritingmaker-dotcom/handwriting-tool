@@ -6,6 +6,7 @@ import { spawn } from "node:child_process";
 import sharp from "sharp";
 import { jsPDF } from "jspdf";
 import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
+import { createDocxFixture } from "./document-fixtures.mjs";
 
 const baseUrl = process.env.HANDWRITING_TEST_BASE_URL || "http://127.0.0.1:3105";
 const chromeCandidates = [
@@ -24,6 +25,7 @@ const browser = spawn(chrome, [
   "--headless=new",
   "--disable-gpu",
   `--remote-debugging-port=${port}`,
+  `--user-data-dir=${path.join(downloadDir, "chrome-profile")}`,
   "--no-first-run",
   "--disable-popup-blocking",
   "about:blank",
@@ -56,8 +58,10 @@ const socket = new WebSocket(target.webSocketDebuggerUrl);
 await new Promise((resolve, reject) => { socket.addEventListener("open", resolve, { once: true }); socket.addEventListener("error", reject, { once: true }); });
 let id = 0;
 const pending = new Map();
+const documentRequests = [];
 socket.addEventListener("message", (event) => {
   const message = JSON.parse(event.data);
+  if (message.method === "Network.requestWillBeSent") documentRequests.push(message.params.request);
   if (!message.id) return;
   const request = pending.get(message.id);
   if (!request) return;
@@ -85,6 +89,7 @@ const waitFor = async (expression, label) => {
 try {
   await send("Page.enable");
   await send("Runtime.enable");
+  await send("Network.enable");
   await send("Browser.setDownloadBehavior", { behavior: "allow", downloadPath: downloadDir, eventsEnabled: true });
   await send("Emulation.setDeviceMetricsOverride", { width: 390, height: 844, deviceScaleFactor: 1, mobile: true });
   await send("Page.navigate", { url: `${baseUrl}/` });
@@ -134,20 +139,62 @@ try {
   assert.equal(await evaluate('document.querySelector("[data-nextjs-dialog]") ? "overlay" : "ok"'), "ok");
   const sourcePdfPath = path.join(downloadDir, "selectable-import-source.pdf");
   const sourcePdf = new jsPDF();
+  sourcePdf.text("PDF PAGE ONE OMITTED", 20, 20);
+  sourcePdf.addPage();
   sourcePdf.text("Run one selectable PDF import verification", 20, 20);
+  sourcePdf.addPage();
+  sourcePdf.text("PDF PAGE THREE INCLUDED", 20, 20);
   writeFileSync(sourcePdfPath, Buffer.from(sourcePdf.output("arraybuffer")));
   const { root } = await send("DOM.getDocument", { depth: -1 });
   const { nodeId } = await send("DOM.querySelector", { nodeId: root.nodeId, selector: "#pdfImport" });
   await send("DOM.setFileInputFiles", { nodeId, files: [sourcePdfPath] });
+  await waitFor('document.body.innerText.includes("PDF ready: 3 pages")', "PDF page count");
+  await evaluate(`(() => { const input = document.querySelector('#pdfPageSelection'); const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set; setter.call(input, '2-3'); input.dispatchEvent(new Event('input', { bubbles: true })); input.dispatchEvent(new Event('change', { bubbles: true })); })()`);
+  await waitFor('document.querySelector("#pdfPageSelection")?.value === "2-3"', "PDF range input");
+  await evaluate(`([...document.querySelectorAll('button')].find((node) => node.textContent.trim() === 'Extract pages')).click()`);
   await waitFor('document.querySelector("#handwriting-text")?.value.includes("Run one selectable PDF import verification")', "PDF text extraction");
+  assert.equal(await evaluate('document.querySelector("#handwriting-text").value.includes("PDF PAGE ONE OMITTED")'), false);
+  assert.equal(await evaluate('document.querySelector("#handwriting-text").value.includes("PDF PAGE THREE INCLUDED")'), true);
   assert.ok(await evaluate('document.body.innerText.includes("Text extracted. You can edit it below.")'));
+
+  await send("Page.navigate", { url: `${baseUrl}/blog/word-to-handwriting-converter-online-free` });
+  await waitFor('document.readyState === "complete" && !!document.querySelector("#docxImport")', "Word DOCX experience");
+  const docxPath = path.join(downloadDir, "word-import-fixture.docx");
+  writeFileSync(docxPath, Buffer.from(await createDocxFixture({ long: true })));
+  const documentRoot = (await send("DOM.getDocument", { depth: -1 })).root;
+  const docxInput = await send("DOM.querySelector", { nodeId: documentRoot.nodeId, selector: "#docxImport" });
+  const requestsBeforeDocx = documentRequests.length;
+  await send("DOM.setFileInputFiles", { nodeId: docxInput.nodeId, files: [docxPath] });
+  await waitFor('document.querySelector("#handwriting-text")?.value.includes("Project Heading")', "DOCX text extraction");
+  await waitFor('document.querySelectorAll(".paper-frame img").length > 1', "DOCX multipage handwriting preview");
+  assert.ok(await evaluate('document.querySelector("#handwriting-text").value.includes("First list item")'));
+  assert.ok(await evaluate('document.querySelector("#handwriting-text").value.includes("Alpha")'));
+  assert.ok(await evaluate('document.body.innerText.includes("Text extracted. Review and edit it below.")'));
+  await evaluate(`(() => { const editor = document.querySelector('#handwriting-text'); const setter = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value').set; setter.call(editor, editor.value + '\\n\\nBrowser edited DOCX text'); editor.dispatchEvent(new Event('input', { bubbles: true })); })()`);
+  await waitFor('document.querySelector("#handwriting-text")?.value.includes("Browser edited DOCX text")', "editable DOCX text");
+  const importRequests = documentRequests.slice(requestsBeforeDocx);
+  const sameOriginWrites = importRequests.filter((request) => request.url.startsWith(baseUrl) && ["POST", "PUT", "PATCH"].includes(request.method));
+  assert.equal(sameOriginWrites.length, 0, "DOCX extraction must not upload data to the application");
+  const requestPayloads = importRequests.map((request) => request.postData || "").join("\n");
+  assert.doesNotMatch(requestPayloads, /Project Heading|First list item|word-import-fixture\.docx/, "Document text and filename must not enter network payloads");
+
+  for (const [label, extension] of [["Download PDF", ".pdf"], ["Download PNG", ".png"], ["Download JPG", ".jpg"]]) {
+    const previousCount = readdirSync(downloadDir).filter((name) => name.endsWith(extension)).length;
+    await evaluate(`([...document.querySelectorAll('button')].find((node) => node.textContent.trim() === '${label}')).click()`);
+    await waitForFile(extension, previousCount);
+  }
+  for (const [width, height] of [[390, 844], [768, 1024], [1440, 1000]]) {
+    await send("Emulation.setDeviceMetricsOverride", { width, height, deviceScaleFactor: 1, mobile: width < 768 });
+    assert.equal(await evaluate('document.body.scrollWidth <= window.innerWidth'), true, `Word article overflow at ${width}px`);
+  }
   await send("Page.navigate", { url: `${baseUrl}/tools/handwritten-notes` });
   await waitFor('document.readyState === "complete" && !!document.querySelector("#noteTitle")', "notes route");
   assert.equal(await evaluate('document.querySelector("[data-nextjs-dialog]") ? "overlay" : "ok"'), "ok");
 
-  console.log("Browser export regression checks passed for mobile/tablet/desktop, transparent PNG alpha, high-resolution JPG, A4 PDF, Letter rendering, PDF importer, and notes tool.");
+  console.log("Browser export regression checks passed for DOCX import/multipage/exports/privacy, PDF range import, mobile/tablet/desktop, transparent PNG alpha, high-resolution JPG, A4 PDF, Letter rendering, and notes tool.");
 } finally {
   socket.close();
   browser.kill();
-  rmSync(downloadDir, { recursive: true, force: true });
+  if (browser.exitCode === null) await new Promise((resolve) => browser.once("exit", resolve));
+  rmSync(downloadDir, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 });
 }

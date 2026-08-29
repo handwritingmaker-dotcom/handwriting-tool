@@ -1,6 +1,6 @@
 import { defaultSettings, type RenderSettings } from "@/lib/handwriting";
 
-export type ToolProfile = "default" | "lined" | "graph" | "notes" | "pdf";
+export type ToolProfile = "default" | "lined" | "graph" | "notes" | "pdf" | "word";
 
 type ToolProfileConfig = {
   eyebrow: string;
@@ -120,6 +120,25 @@ Upload a text-based PDF to extract its selectable text, or replace this example 
 
 Choose A4 or Letter, review every page, set the filename and PDF quality, then export the current page or the complete document.`,
     fileName: "text-to-handwriting",
+    settings: {
+      ...defaultSettings,
+      pageSize: "a4",
+      pageType: "lined",
+      pdfQuality: "medium",
+      paragraphIndentMode: false,
+    },
+  },
+  word: {
+    eyebrow: "Word Handwriting Tool",
+    editorTitle: "Convert DOCX text into handwritten pages",
+    inputLabel: "Edit the imported document text, or type and paste text manually",
+    placeholder: "Upload a DOCX above, or paste the document text you want to turn into handwritten pages...",
+    starterText: `Word to Handwriting Draft
+
+Upload a .docx file to extract its text in your browser, or replace this example with text you type or paste manually.
+
+Review the editable text, choose A4 or Letter, preview every page, then export the result as PDF, PNG, or JPG.`,
+    fileName: "word-to-handwriting",
     settings: {
       ...defaultSettings,
       pageSize: "a4",

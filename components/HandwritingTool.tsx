@@ -12,6 +12,7 @@ import {
 import { toolProfiles, type ToolProfile } from "@/lib/tool-profiles";
 import { type HandwritingDraft, useHandwritingDraft } from "@/hooks/useHandwritingDraft";
 import { PdfTextImporter } from "@/components/PdfTextImporter";
+import { DocxTextImporter } from "@/components/DocxTextImporter";
 import { getPageCountBand, trackEvent, trackPreviewError, trackPreviewRendered, trackToolView } from "@/lib/analytics";
 import {
   getPhysicalPageDimensions,
@@ -472,6 +473,7 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
         </div>
 
         {profile === "pdf" && <PdfTextImporter onTextExtracted={setText} />}
+        {profile === "word" && <DocxTextImporter onTextExtracted={setText} />}
         {profile === "notes" && (
           <fieldset className="mb-4 rounded-2xl border border-blue-100 bg-blue-50 p-4">
             <legend className="px-2 text-sm font-semibold text-slate-950">Optional note details</legend>

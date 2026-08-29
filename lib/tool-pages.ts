@@ -1,6 +1,6 @@
 import type { ToolProfile } from "@/lib/tool-profiles";
 
-export type FunctionalToolProfile = Exclude<ToolProfile, "default">;
+export type FunctionalToolProfile = Exclude<ToolProfile, "default" | "word">;
 
 type ToolFaq = { question: string; answer: string };
 

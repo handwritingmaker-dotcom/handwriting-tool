@@ -6,6 +6,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
 import { siteAuthor } from "@/lib/author";
 import { outputSocialImage } from "@/lib/seo";
+import { HandwritingToolLoader } from "@/components/HandwritingToolLoader";
 
 const siteUrl = "https://www.handwritingtool.com";
 
@@ -156,7 +157,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </p>
         </div>
         <div className="prose prose-slate mt-6 max-w-none prose-headings:tracking-tight prose-headings:text-slate-950 prose-a:text-brand-blue prose-strong:text-slate-950 prose-li:marker:text-brand-blue">
-          <MDXRemote source={post.content} components={{ img: BlogImage }} />
+          <MDXRemote source={post.content} components={{ img: BlogImage, DocxHandwritingExperience }} />
         </div>
         <section className="mt-10 rounded-3xl border border-emerald-100 bg-emerald-50 p-6">
           <h2 className="text-2xl font-semibold text-slate-950">Use the Converter Responsibly</h2>
@@ -187,6 +188,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </section>
       </article>
     </main>
+  );
+}
+
+function DocxHandwritingExperience() {
+  return (
+    <div className="not-prose my-10 overflow-hidden rounded-3xl border border-slate-200 shadow-card">
+      <HandwritingToolLoader profile="word" />
+    </div>
   );
 }
 
