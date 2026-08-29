@@ -188,6 +188,11 @@ export function ToolExperiencePage({ profile }: { profile: FunctionalToolProfile
             <TrackedLink href={tool.guideHref} eventName="guide_clicked" eventTarget={({ lined: "lined-guide", graph: "graph-guide", notes: "notes-guide", pdf: "pdf-guide" } as const)[profile]} className="rounded-full bg-brand-blue px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700">{tool.guideLabel}</TrackedLink>
             <TrackedLink href="/tools" eventName="related_tool_clicked" eventTarget="tools-hub" className="rounded-full border border-emerald-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-emerald-100">Browse all tools</TrackedLink>
             <Link href="/" className="rounded-full border border-emerald-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-emerald-100">{tool.homeLinkLabel}</Link>
+            {(profile === "lined" || profile === "graph") && (
+              <Link href="/templates" className="rounded-full border border-emerald-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-emerald-100">
+                Print blank paper templates
+              </Link>
+            )}
             <Link href="/privacy-policy" className="rounded-full border border-emerald-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-emerald-100">Privacy policy</Link>
           </div>
         </div>

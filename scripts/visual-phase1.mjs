@@ -36,11 +36,10 @@ const browserProfile = mkdtempSync(path.join(tmpdir(), "handwriting-visual-"));
 mkdirSync(outputDir, { recursive: true });
 const browser = spawn(chrome, ["--headless=new", "--disable-gpu", `--remote-debugging-port=${port}`, `--user-data-dir=${browserProfile}`, "--no-first-run", "about:blank"], { stdio: "ignore" });
 const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-const cleanup = () => {
+const stopBrowser = () => {
   if (browser.exitCode === null) browser.kill();
-  rmSync(browserProfile, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
 };
-process.once("exit", cleanup);
+process.once("exit", stopBrowser);
 
 let version;
 for (let attempt = 0; attempt < 150; attempt += 1) {
@@ -73,6 +72,10 @@ socket.addEventListener("message", ({ data }) => {
   pending.delete(message.id);
   if (message.error) waiter.reject(new Error(message.error.message));
   else waiter.resolve(message.result);
+});
+socket.addEventListener("close", () => {
+  for (const waiter of pending.values()) waiter.reject(new Error("Chrome debugging connection closed unexpectedly"));
+  pending.clear();
 });
 const send = (method, params = {}) => new Promise((resolve, reject) => {
   const id = ++sequence;
@@ -181,5 +184,6 @@ console.log(JSON.stringify({ measurements, escapeResult, samePageResult, ctaResu
 socket.close();
 browser.kill();
 if (browser.exitCode === null) await new Promise((resolve) => browser.once("exit", resolve));
-process.removeListener("exit", cleanup);
-cleanup();
+process.removeListener("exit", stopBrowser);
+await pause(500);
+rmSync(browserProfile, { recursive: true, force: true, maxRetries: 20, retryDelay: 250 });

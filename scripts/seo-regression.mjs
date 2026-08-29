@@ -37,6 +37,10 @@ assert.match(toolPages, /path: "\/tools\/text-to-handwriting-pdf"/);
 assert.match(toolPages, /path: "\/tools\/handwritten-notes"/);
 assert.match(templates, /canonical: "\/templates"/);
 assert.match(templates, /"@type": "CollectionPage"/);
+assert.match(templates, /<PrintableTemplateStudio \/>/);
+assert.match(templates, /href="\/tools\/lined-paper-handwriting"/);
+assert.match(templates, /href="\/tools\/graph-paper-handwriting"/);
+assert.match(templates, /href="\/blog\/text-to-handwriting-a4-size"/);
 assert.match(robots, /sitemap: `\$\{siteUrl\}\/sitemap\.xml`/);
 assert.match(sitemap, /const siteUrl = "https:\/\/www\.handwritingtool\.com"/);
 

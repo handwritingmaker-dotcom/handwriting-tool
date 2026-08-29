@@ -3,6 +3,7 @@ import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSy
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { spawn } from "node:child_process";
+import { createServer } from "node:net";
 import sharp from "sharp";
 import { jsPDF } from "jspdf";
 import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
@@ -20,7 +21,15 @@ const chrome = chromeCandidates.find(existsSync);
 assert.ok(chrome, "Chrome is required for browser export regression checks");
 
 const downloadDir = mkdtempSync(path.join(tmpdir(), "handwriting-run1-"));
-const port = 9444;
+const port = await new Promise((resolve, reject) => {
+  const server = createServer();
+  server.unref();
+  server.once("error", reject);
+  server.listen(0, "127.0.0.1", () => {
+    const address = server.address();
+    server.close(() => resolve(address.port));
+  });
+});
 const browser = spawn(chrome, [
   "--headless=new",
   "--disable-gpu",
@@ -35,6 +44,7 @@ const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 async function openBrowserTarget() {
   const url = `http://127.0.0.1:${port}/json/new?${encodeURIComponent(`${baseUrl}/`)}`;
   for (let attempt = 0; attempt < 80; attempt += 1) {
+    if (browser.exitCode !== null) throw new Error(`Chrome exited before its debugging endpoint was ready (${browser.exitCode})`);
     try {
       return await fetch(url, { method: "PUT" }).then((response) => response.json());
     } catch {
@@ -59,6 +69,7 @@ await new Promise((resolve, reject) => { socket.addEventListener("open", resolve
 let id = 0;
 const pending = new Map();
 const documentRequests = [];
+let stage = "browser setup";
 socket.addEventListener("message", (event) => {
   const message = JSON.parse(event.data);
   if (message.method === "Network.requestWillBeSent") documentRequests.push(message.params.request);
@@ -66,7 +77,11 @@ socket.addEventListener("message", (event) => {
   const request = pending.get(message.id);
   if (!request) return;
   pending.delete(message.id);
-  if (message.error) request.reject(new Error(message.error.message)); else request.resolve(message.result);
+  if (message.error) request.reject(new Error(`${message.error.message} during ${stage}`)); else request.resolve(message.result);
+});
+socket.addEventListener("close", () => {
+  for (const request of pending.values()) request.reject(new Error(`Chrome debugging connection closed unexpectedly during ${stage}`));
+  pending.clear();
 });
 const send = (method, params = {}) => new Promise((resolve, reject) => {
   const requestId = ++id;
@@ -79,14 +94,16 @@ const evaluate = async (expression) => {
   return result.result.value;
 };
 const waitFor = async (expression, label) => {
-  for (let attempt = 0; attempt < 120; attempt += 1) {
+  for (let attempt = 0; attempt < 240; attempt += 1) {
     if (await evaluate(expression)) return;
     await pause(100);
   }
-  throw new Error(`Timed out waiting for ${label}`);
+  const state = await evaluate(`({ url: location.href, readyState: document.readyState, bodyLength: document.body?.innerText?.length || 0, bodyText: document.body?.innerText?.slice(0, 300) || '', hasStudio: !!document.querySelector('#template-studio'), hasOverlay: !!document.querySelector('[data-nextjs-dialog]') })`);
+  throw new Error(`Timed out waiting for ${label}: ${JSON.stringify(state)}`);
 };
 
 try {
+  stage = "homepage exports";
   await send("Page.enable");
   await send("Runtime.enable");
   await send("Network.enable");
@@ -135,6 +152,7 @@ try {
   }
 
   await send("Page.navigate", { url: `${baseUrl}/tools/text-to-handwriting-pdf` });
+  stage = "PDF importer";
   await waitFor('document.readyState === "complete" && !!document.querySelector("#pdfImport")', "PDF importer route");
   assert.equal(await evaluate('document.querySelector("[data-nextjs-dialog]") ? "overlay" : "ok"'), "ok");
   const sourcePdfPath = path.join(downloadDir, "selectable-import-source.pdf");
@@ -158,6 +176,7 @@ try {
   assert.ok(await evaluate('document.body.innerText.includes("Text extracted. You can edit it below.")'));
 
   await send("Page.navigate", { url: `${baseUrl}/blog/word-to-handwriting-converter-online-free` });
+  stage = "DOCX importer";
   await waitFor('document.readyState === "complete" && !!document.querySelector("#docxImport")', "Word DOCX experience");
   const docxPath = path.join(downloadDir, "word-import-fixture.docx");
   writeFileSync(docxPath, Buffer.from(await createDocxFixture({ long: true })));
@@ -188,13 +207,15 @@ try {
     assert.equal(await evaluate('document.body.scrollWidth <= window.innerWidth'), true, `Word article overflow at ${width}px`);
   }
   await send("Page.navigate", { url: `${baseUrl}/tools/handwritten-notes` });
+  stage = "notes tool";
   await waitFor('document.readyState === "complete" && !!document.querySelector("#noteTitle")', "notes route");
   assert.equal(await evaluate('document.querySelector("[data-nextjs-dialog]") ? "overlay" : "ok"'), "ok");
 
-  console.log("Browser export regression checks passed for DOCX import/multipage/exports/privacy, PDF range import, mobile/tablet/desktop, transparent PNG alpha, high-resolution JPG, A4 PDF, Letter rendering, and notes tool.");
+  console.log("Browser export regression checks passed for DOCX/PDF imports, handwriting exports, notes, and responsive behavior.");
 } finally {
   socket.close();
   browser.kill();
   if (browser.exitCode === null) await new Promise((resolve) => browser.once("exit", resolve));
-  rmSync(downloadDir, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 });
+  await pause(500);
+  rmSync(downloadDir, { recursive: true, force: true, maxRetries: 20, retryDelay: 250 });
 }

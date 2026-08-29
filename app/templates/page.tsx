@@ -2,20 +2,21 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { TrackedDownload } from "@/components/TrackedDownload";
+import { PrintableTemplateStudio } from "@/components/PrintableTemplateStudio";
 
 const siteUrl = "https://www.handwritingtool.com";
 
 export const metadata: Metadata = {
   title: "Free Handwriting Templates and Printable Paper | HandwritingTool",
   description:
-    "Download free printable lined paper, graph paper, handwriting practice sheets, and a best settings guide for creating cleaner handwritten-style pages.",
+    "Customize printable lined, graph, dot grid, blank, and handwriting practice paper for A4 or Letter, then download exact-size PDF or PNG files.",
   alternates: {
     canonical: "/templates",
   },
   openGraph: {
     title: "Free Handwriting Templates and Printable Paper | HandwritingTool",
     description:
-      "Download free printable lined paper, graph paper, handwriting practice sheets, and a best settings guide for handwritten-style pages.",
+      "Customize printable paper and handwriting practice sheets for A4 or Letter, then download exact-size PDF or PNG files.",
     url: "/templates",
     type: "website",
     images: [
@@ -36,8 +37,8 @@ const downloads = [
     href: "/templates/printable-lined-paper-a4.pdf",
     type: "PDF",
     analyticsType: "pdf" as const,
-    customizeHref: "/tools/lined-paper-handwriting",
-    customizeLabel: "Create lined handwriting",
+    customizeHref: "#template-studio",
+    customizeLabel: "Customize this paper",
   },
   {
     title: "Printable Graph Paper PDF",
@@ -45,8 +46,8 @@ const downloads = [
     href: "/templates/printable-graph-paper-a4.pdf",
     type: "PDF",
     analyticsType: "pdf" as const,
-    customizeHref: "/tools/graph-paper-handwriting",
-    customizeLabel: "Create graph-paper handwriting",
+    customizeHref: "#template-studio",
+    customizeLabel: "Customize this paper",
   },
   {
     title: "Handwriting Practice Sheet",
@@ -54,8 +55,8 @@ const downloads = [
     href: "/templates/handwriting-practice-sheet-a4.pdf",
     type: "PDF",
     analyticsType: "pdf" as const,
-    customizeHref: "/#tool",
-    customizeLabel: "Open the handwriting editor",
+    customizeHref: "#template-studio",
+    customizeLabel: "Customize a practice sheet",
   },
   {
     title: "Best Settings Visual Guide",
@@ -103,7 +104,7 @@ const collectionSchema = {
   name: "Free Handwriting Templates and Printable Paper",
   url: `${siteUrl}/templates`,
   description:
-    "Free printable lined paper, graph paper, handwriting practice sheets, and settings resources for handwritten-style pages.",
+    "Customizable printable lined, graph, dot grid, blank, and handwriting practice paper for A4 and Letter pages.",
   hasPart: downloads.map((item) => ({
     "@type": "DigitalDocument",
     name: item.title,
@@ -129,14 +130,15 @@ export default function TemplatesPage() {
             </h1>
             <p className="mt-5 text-lg leading-8 text-slate-600">
               Download four real A4 resources: lined paper, graph paper, a handwriting practice sheet, and a visual
-              settings guide. Print a blank template or open the matching tool to add typed handwriting.
+              settings guide, or customize printable paper and practice worksheets for A4 or Letter. The studio works
+              locally in your browser and creates exact-size PDF or high-resolution PNG output.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
-                href="/#tool"
+                href="#template-studio"
                 className="rounded-full bg-brand-blue px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
               >
-                Open Converter
+                Customize a Template
               </Link>
               <TrackedDownload
                 href="/templates/printable-lined-paper-a4.pdf"
@@ -150,6 +152,26 @@ export default function TemplatesPage() {
           </div>
         </div>
       </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8" aria-labelledby="choose-workflow-heading">
+        <div className="max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">Choose the right workflow</p>
+          <h2 id="choose-workflow-heading" className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">Blank paper, practice, or typed handwriting?</h2>
+          <p className="mt-4 text-lg leading-8 text-slate-600">
+            Templates Studio makes blank printable paper and worksheets for handwriting practice. To place typed text
+            onto paper, use the <Link className="font-semibold text-brand-blue hover:underline" href="/">text to handwriting converter</Link>,
+            the <Link className="font-semibold text-brand-blue hover:underline" href="/tools/lined-paper-handwriting">lined paper handwriting tool</Link>,
+            or the <Link className="font-semibold text-brand-blue hover:underline" href="/tools/graph-paper-handwriting">graph paper handwriting tool</Link>.
+          </p>
+        </div>
+        <div className="mt-7 grid gap-4 md:grid-cols-3">
+          <Link href="/blog/text-to-handwriting-on-lined-paper" className="rounded-2xl border border-slate-200 bg-white p-5 font-semibold text-slate-800 shadow-sm hover:border-blue-200">Lined paper settings guide →</Link>
+          <Link href="/blog/graph-paper-handwriting-generator" className="rounded-2xl border border-slate-200 bg-white p-5 font-semibold text-slate-800 shadow-sm hover:border-blue-200">Graph paper settings guide →</Link>
+          <Link href="/blog/text-to-handwriting-a4-size" className="rounded-2xl border border-slate-200 bg-white p-5 font-semibold text-slate-800 shadow-sm hover:border-blue-200">A4 printing guide →</Link>
+        </div>
+      </section>
+
+      <PrintableTemplateStudio />
 
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="mb-8 max-w-2xl">

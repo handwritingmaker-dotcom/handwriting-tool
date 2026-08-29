@@ -8,9 +8,9 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "node --no-warnings scripts/handwriting-renderer-regression.mjs && node --no-warnings scripts/export-regression.mjs && node --no-warnings scripts/document-import-regression.mjs && node scripts/seo-regression.mjs && node scripts/internal-link-regression.mjs && node scripts/verify-phase1.mjs && node --no-warnings scripts/analytics-behavior.mjs && node --no-warnings scripts/tracked-interaction-behavior.mjs",
+    "test": "node --no-warnings scripts/handwriting-renderer-regression.mjs && node --no-warnings scripts/export-regression.mjs && node --no-warnings scripts/document-import-regression.mjs && node --no-warnings scripts/printable-template-regression.mjs && node scripts/seo-regression.mjs && node scripts/internal-link-regression.mjs && node scripts/verify-phase1.mjs && node --no-warnings scripts/analytics-behavior.mjs && node --no-warnings scripts/tracked-interaction-behavior.mjs",
     "test:browser": "node scripts/visual-phase1.mjs",
-    "test:production": "node scripts/http-regression.mjs && node scripts/export-browser-regression.mjs"
+    "test:production": "node scripts/http-regression.mjs && node scripts/export-browser-regression.mjs && node scripts/template-studio-browser-regression.mjs"
   },
   "dependencies": {
     "@next/mdx": "^16.2.4",

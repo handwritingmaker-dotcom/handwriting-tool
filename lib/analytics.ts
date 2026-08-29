@@ -6,6 +6,8 @@ export const analyticsEventNames = [
   "docx_upload_started", "docx_extraction_success", "docx_extraction_failed",
   "export_started", "export_completed", "export_error",
   "related_tool_clicked", "guide_clicked", "template_downloaded",
+  "template_preset_selected", "template_pdf_download", "template_png_download",
+  "practice_sheet_generated",
 ] as const;
 
 export type AnalyticsEventName = (typeof analyticsEventNames)[number];
@@ -39,10 +41,15 @@ type EventParameters = {
   related_tool_clicked: { link_target: LinkTarget };
   guide_clicked: { link_target: LinkTarget };
   template_downloaded: { template_type: TemplateType };
+  template_preset_selected: { preset_id: string };
+  template_pdf_download: { preset_id: string; page_size: string; orientation: string; page_count_band: PageCountBand };
+  template_png_download: { preset_id: string; page_size: string; orientation: string };
+  practice_sheet_generated: { practice_mode: string };
 };
 
 const allowedParameters = new Set([
   "tool_profile", "export_format", "page_count_band", "error_category", "link_target", "template_type",
+  "preset_id", "page_size", "orientation", "practice_mode",
 ]);
 const sessionEvents = new Set<string>();
 const previewErrorTimes = new Map<string, number>();
