@@ -12,6 +12,12 @@ const protectedPages = [
   ["/tools/text-to-handwriting-pdf", "PDF to Handwriting Converter Online Free | HandwritingTool"],
   ["/tools/handwritten-notes", "Handwritten Notes Generator for Study | HandwritingTool"],
   ["/templates", "Free Handwriting Templates and Printable Paper | HandwritingTool"],
+  ["/blog/best-text-to-handwriting-tools-2026-comparison", "7 Best Text to Handwriting Tools (2026) | HandwritingTool"],
+  ["/blog/how-to-convert-text-to-handwriting", "How to Convert Text to Handwriting | HandwritingTool"],
+  ["/blog/text-to-handwriting-on-lined-paper", "Text to Handwriting on Lined Paper | HandwritingTool"],
+  ["/blog/graph-paper-handwriting-generator", "Graph Paper Handwriting Guide | HandwritingTool"],
+  ["/tools/lined-paper-handwriting", "Lined Paper Handwriting Generator | HandwritingTool"],
+  ["/tools/graph-paper-handwriting", "Graph Paper Handwriting Generator | HandwritingTool"],
 ];
 
 for (const [path, expectedTitle] of protectedPages) {

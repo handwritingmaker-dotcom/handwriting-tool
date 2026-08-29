@@ -23,7 +23,7 @@ const googleAnalyticsId = "G-024MVPR0W4";
 export const metadata: Metadata = {
   title: "Text to Handwriting Converter Free Online | HandwritingTool",
   description:
-    "Convert text to realistic handwriting online for free. Choose handwriting styles, lined or blank paper, adjust spacing and ink, then download as PDF, PNG or JPG.",
+    "Convert typed text into handwriting online with 10 styles, A4 or Letter pages, live preview, multi-page PDF, PNG, JPG, and transparent PNG export.",
   metadataBase: new URL("https://www.handwritingtool.com"),
   icons: {
     icon: "/favicon.png",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Text to Handwriting Converter Free Online | HandwritingTool",
     description:
-      "Convert text to realistic handwriting online for free. Choose handwriting styles, lined or blank paper, adjust spacing and ink, then download as PDF, PNG or JPG.",
+      "Convert typed text into handwriting online with 10 styles, A4 or Letter pages, live preview, multi-page PDF, PNG, JPG, and transparent PNG export.",
     url: "/",
     siteName: "Handwriting Tool",
     type: "website",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Text to Handwriting Converter Free Online | HandwritingTool",
     description:
-      "Convert text to realistic handwriting online for free. Choose handwriting styles, lined or blank paper, adjust spacing and ink, then download as PDF, PNG or JPG.",
+      "Convert typed text into handwriting online with 10 styles, A4 or Letter pages, live preview, multi-page PDF, PNG, JPG, and transparent PNG export.",
     images: [defaultSocialImage.url],
   },
 };

@@ -47,6 +47,6 @@ assert.match(beginner, /PDF upload tool/);
 assert.match(pdfImport, /existing source PDF/);
 assert.match(pdfImport, /does not run optical character recognition \(OCR\) or preserve/);
 assert.match(pdfExport, /output workflow is different from importing an existing source PDF/);
-assert.match(pdfImport, /Scanned PDFs require OCR first/);
+assert.match(pdfImport, /Scanned PDFs (?:require OCR first|still require OCR)/);
 
 console.log("Phase 1 source checks passed.");

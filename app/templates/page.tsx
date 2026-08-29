@@ -36,6 +36,8 @@ const downloads = [
     href: "/templates/printable-lined-paper-a4.pdf",
     type: "PDF",
     analyticsType: "pdf" as const,
+    customizeHref: "/tools/lined-paper-handwriting",
+    customizeLabel: "Create lined handwriting",
   },
   {
     title: "Printable Graph Paper PDF",
@@ -43,6 +45,8 @@ const downloads = [
     href: "/templates/printable-graph-paper-a4.pdf",
     type: "PDF",
     analyticsType: "pdf" as const,
+    customizeHref: "/tools/graph-paper-handwriting",
+    customizeLabel: "Create graph-paper handwriting",
   },
   {
     title: "Handwriting Practice Sheet",
@@ -50,6 +54,8 @@ const downloads = [
     href: "/templates/handwriting-practice-sheet-a4.pdf",
     type: "PDF",
     analyticsType: "pdf" as const,
+    customizeHref: "/#tool",
+    customizeLabel: "Open the handwriting editor",
   },
   {
     title: "Best Settings Visual Guide",
@@ -57,6 +63,8 @@ const downloads = [
     href: "/templates/best-handwriting-settings-guide.svg",
     type: "SVG",
     analyticsType: "svg" as const,
+    customizeHref: "/blog/how-to-convert-text-to-handwriting",
+    customizeLabel: "Read the settings walkthrough",
   },
 ];
 
@@ -120,8 +128,8 @@ export default function TemplatesPage() {
               Handwriting templates, printable paper, and settings guides
             </h1>
             <p className="mt-5 text-lg leading-8 text-slate-600">
-              Download simple paper templates, choose better handwriting settings, and preview example outputs before
-              creating your own handwritten-style pages.
+              Download four real A4 resources: lined paper, graph paper, a handwriting practice sheet, and a visual
+              settings guide. Print a blank template or open the matching tool to add typed handwriting.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -158,14 +166,19 @@ export default function TemplatesPage() {
               </div>
               <h3 className="text-xl font-semibold tracking-tight text-slate-950">{item.title}</h3>
               <p className="mt-3 text-base leading-7 text-slate-600">{item.description}</p>
-              <TrackedDownload
-                href={item.href}
-                download
-                templateType={item.analyticsType}
-                className="mt-6 inline-flex rounded-full bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
-              >
-                Download
-              </TrackedDownload>
+              <div className="mt-6 flex flex-col items-start gap-3">
+                <TrackedDownload
+                  href={item.href}
+                  download
+                  templateType={item.analyticsType}
+                  className="inline-flex rounded-full bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
+                >
+                  Download {item.title}
+                </TrackedDownload>
+                <Link href={item.customizeHref} className="text-sm font-semibold text-brand-blue hover:underline">
+                  {item.customizeLabel} →
+                </Link>
+              </div>
             </article>
           ))}
         </div>

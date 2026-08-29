@@ -34,12 +34,17 @@ const features = [
   },
   {
     title: "PDF, PNG, and JPG Export",
-    text: "Download the current page or complete document as a handwritten PDF, PNG, or JPG output.",
+    text: "Download print-sized PDF pages, sharp PNG or JPG images, or a true transparent PNG handwriting layer.",
     icon: "download",
   },
 ];
 
 const relatedTools = [
+  {
+    title: "Word DOCX to Handwriting",
+    text: "Upload a modern DOCX locally, review the extracted text, and use the same handwriting editor and exports.",
+    href: "/blog/word-to-handwriting-converter-online-free",
+  },
   {
     title: "PDF to Handwriting Converter",
     text: "Import selectable text from a text-based PDF, edit it, and create handwritten pages.",
@@ -59,6 +64,11 @@ const relatedTools = [
     title: "Handwritten Notes Tool",
     text: "Format class notes and revision points with optional title, subject, and date details.",
     href: "/tools/handwritten-notes",
+  },
+  {
+    title: "A4 Handwriting Guide",
+    text: "Set up print-ready 210 × 297 mm pages with practical margins, spacing, paper, and export guidance.",
+    href: "/blog/text-to-handwriting-a4-size",
   },
 ];
 
@@ -137,7 +147,11 @@ const faqs = [
   },
   {
     question: "Can I download handwriting as a PDF?",
-    answer: "Yes. You can download the current page or all generated pages as a PDF, and PNG or JPG image export is also available.",
+    answer: "Yes. Download the current page or all generated pages as a physically sized A4 or Letter PDF. PNG and JPG image export are also available.",
+  },
+  {
+    question: "Can I export handwriting with a transparent background?",
+    answer: "Yes. Enable Transparent PNG background before downloading PNG. Transparency is not offered for JPG, and normal paper remains in PDF output.",
   },
   {
     question: "Can I use custom paper?",
@@ -192,8 +206,9 @@ const softwareSchema = {
     "10 handwriting styles",
     "Lined, blank, graph, and custom paper",
     "A4 and Letter page sizes",
-    "Multi-page PDF export",
-    "PNG and JPG export",
+    "Physically sized multi-page PDF export",
+    "PNG, transparent PNG, and JPG export",
+    "Browser-local DOCX and selectable-text PDF import workflows",
     "Browser-based text rendering",
     "Browser-local autosave",
   ],
@@ -387,8 +402,9 @@ export default function HomePage() {
             </p>
             <p>
               Longer text is paginated automatically for A4 or Letter output, while the live preview shows each generated
-              page before you download it as PDF, PNG, or JPG. You can type directly or copy text from Word or Google Docs;
-              the main converter does not require a DOCX upload.
+              page before you download it as PDF, PNG, or JPG. The A4 PDF uses 210 × 297 mm pages and Letter uses
+              8.5 × 11 inches. For source documents, use the focused Word DOCX or selectable-text PDF workflow; both place
+              editable text into this same handwriting engine without uploading document content to the application server.
             </p>
           </div>
         </div>

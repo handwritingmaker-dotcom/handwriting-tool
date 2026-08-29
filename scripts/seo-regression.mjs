@@ -19,6 +19,12 @@ const protectedPaths = [
   "/tools/text-to-handwriting-pdf",
   "/tools/handwritten-notes",
   "/templates",
+  "/blog/best-text-to-handwriting-tools-2026-comparison",
+  "/blog/how-to-convert-text-to-handwriting",
+  "/blog/text-to-handwriting-on-lined-paper",
+  "/blog/graph-paper-handwriting-generator",
+  "/tools/lined-paper-handwriting",
+  "/tools/graph-paper-handwriting",
 ];
 
 assert.match(layout, /metadataBase: new URL\("https:\/\/www\.handwritingtool\.com"\)/);
