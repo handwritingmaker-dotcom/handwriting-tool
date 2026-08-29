@@ -25,6 +25,8 @@ for (const forbidden of ["text", "file_name", "filename", "pdf_contents", "docum
 
 const eventCalls = [...`${tool}\n${importer}\n${docxImporter}`.matchAll(/trackEvent\([\s\S]{0,220}?\);/g)].map((match) => match[0]).join("\n");
 assert.doesNotMatch(eventCalls, /\b(text|fileName|selectedFile\.name|customPaperName|caughtError|error\.message)\b/, "Sensitive or raw values appear in an analytics call");
+assert.match(tool, /<h3 id="more-formats-heading"[^>]*>More formats<\/h3>/, "Image export options need a static section heading");
+assert.doesNotMatch(tool, /<summary[^>]*>More formats<\/summary>/, "Image export options must not be collapsed in a disclosure");
 
 assert.match(header, /aria-expanded=\{isOpen\}/);
 assert.match(header, /aria-controls=\{menuId\}/);

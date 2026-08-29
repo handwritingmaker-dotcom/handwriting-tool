@@ -886,8 +886,8 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
             </button>
           </div>
 
-          <details className="mt-4 border-t border-slate-200 pt-4">
-            <summary className="cursor-pointer list-none text-sm font-semibold text-slate-950">More formats</summary>
+          <section className="mt-4 border-t border-slate-200 pt-4" aria-labelledby="more-formats-heading">
+            <h3 id="more-formats-heading" className="text-sm font-semibold text-slate-950">More formats</h3>
             <label className="mt-3 flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700">
               <input
                 type="checkbox"
@@ -922,7 +922,7 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
                 Download JPG
               </button>
             </div>
-          </details>
+          </section>
 
           <p className="mt-4 text-xs leading-5 text-slate-500">
             Export only content you created or have permission to use. Do not use generated pages to misrepresent
