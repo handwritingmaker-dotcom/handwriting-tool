@@ -96,6 +96,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5728520509982804"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className={`${dmSans.variable} ${kalam.variable} overflow-x-hidden bg-brand-paper text-brand-ink antialiased`}>
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
