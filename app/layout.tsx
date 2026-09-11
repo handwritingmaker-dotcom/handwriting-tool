@@ -82,6 +82,7 @@ const footerLinks = [
   { href: "/tools", label: "Tools" },
   { href: "/templates", label: "Templates" },
   { href: "/blog", label: "Blog" },
+  { href: "/write-for-us", label: "Write for Us" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
   { href: "/responsible-use", label: "Responsible Use" },

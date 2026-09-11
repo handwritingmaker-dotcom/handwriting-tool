@@ -16,6 +16,7 @@ const staticRoutes = [
   { path: "/blog", changeFrequency: "weekly", priority: 0.8, lastModified: "2026-07-18" },
   { path: "/templates", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-05-27" },
   { path: "/contact", changeFrequency: "monthly", priority: 0.6, lastModified: "2026-07-31" },
+  { path: "/write-for-us", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-09-11" },
   { path: "/responsible-use", changeFrequency: "yearly", priority: 0.5, lastModified: "2026-07-31" },
   { path: "/privacy-policy", changeFrequency: "yearly", priority: 0.4, lastModified: "2026-07-31" },
   { path: "/terms", changeFrequency: "yearly", priority: 0.4, lastModified: "2026-07-31" },
@@ -28,7 +29,7 @@ const staticRoutes = [
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = staticRoutes.map((route) => ({
-    url: `${siteUrl}${route.path}`,
+    url: route.path === "/write-for-us" ? "https://handwritingtool.com/write-for-us" : `${siteUrl}${route.path}`,
     lastModified: new Date(route.lastModified),
     changeFrequency: route.changeFrequency,
     priority: route.priority,
