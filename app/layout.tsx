@@ -99,6 +99,12 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <script
+          src="https://quge5.com/88/tag.min.js"
+          data-zone="254056"
+          async
+          data-cfasync="false"
+        />
+        <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5728520509982804"
           crossOrigin="anonymous"
