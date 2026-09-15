@@ -11,6 +11,9 @@ export type BlogPost = {
   date: string;
   updated: string;
   description: string;
+  authorName?: string;
+  authorBio?: string;
+  authorUrl?: string;
   content: string;
   category: BlogCategory;
 };
@@ -38,6 +41,7 @@ const categoryBySlug: Record<string, BlogCategory> = {
   "best-text-to-handwriting-tools-2026-comparison": "Research & Comparisons",
   "best-text-to-handwriting-settings-realistic-output": "Guides",
   "why-handwriting-still-matters-digital-age": "Research & Comparisons",
+  "why-handwritten-retrieval-still-matters-digital-study-workflow": "Notes & Study",
   "how-to-make-handwriting-practice-sheets": "Guides",
 };
 
@@ -47,6 +51,9 @@ type Frontmatter = {
   date?: string;
   updated?: string;
   description?: string;
+  authorName?: string;
+  authorBio?: string;
+  authorUrl?: string;
 };
 
 function getPostSlugs() {
@@ -64,6 +71,9 @@ function normalizeFrontmatter(data: Frontmatter, slug: string) {
     date: data.date ?? "",
     updated: data.updated ?? data.date ?? "",
     description: data.description ?? "",
+    authorName: data.authorName,
+    authorBio: data.authorBio,
+    authorUrl: data.authorUrl,
   };
 }
 

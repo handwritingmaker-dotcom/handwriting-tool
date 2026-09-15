@@ -77,6 +77,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   const relatedTool = relatedToolBySlug[post.slug] ?? { href: "/#tool", label: "Try the main converter" };
+  const authorName = post.authorName ?? siteAuthor.name;
+  const authorBio = post.authorBio ?? siteAuthor.shortBio;
+  const authorUrl = post.authorUrl ?? siteAuthor.profilePath;
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -90,12 +93,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     mainEntityOfPage: `${siteUrl}/blog/${post.slug}`,
     author: {
       "@type": "Person",
-      "@id": `${siteUrl}${siteAuthor.profilePath}#person`,
-      name: siteAuthor.name,
-      url: `${siteUrl}${siteAuthor.profilePath}`,
-      image: `${siteUrl}${siteAuthor.imagePath}`,
-      jobTitle: siteAuthor.role,
-      sameAs: [siteAuthor.pinterestUrl],
+      name: authorName,
+      url: authorUrl.startsWith("http") ? authorUrl : `${siteUrl}${authorUrl}`,
+      ...(post.authorName
+        ? { sameAs: post.authorUrl ? [post.authorUrl] : undefined }
+        : {
+            "@id": `${siteUrl}${siteAuthor.profilePath}#person`,
+            image: `${siteUrl}${siteAuthor.imagePath}`,
+            jobTitle: siteAuthor.role,
+            sameAs: [siteAuthor.pinterestUrl],
+          }),
     },
     publisher: {
       "@type": "Organization",
@@ -144,13 +151,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </p>
         <div className="mt-5 rounded-3xl border border-blue-100 bg-blue-50 px-5 py-4">
           <p className="text-sm font-semibold text-slate-950">
-            Written and edited by{" "}
-            <Link href={siteAuthor.profilePath} rel="author" className="text-brand-blue hover:underline">
-              {siteAuthor.name}
+            Written by{" "}
+            <Link href={authorUrl} rel="author" className="text-brand-blue hover:underline">
+              {authorName}
             </Link>
           </p>
           <p className="mt-2 text-sm leading-6 text-slate-600">
-            {siteAuthor.shortBio}
+            {authorBio}
           </p>
           <p className="mt-2 text-sm leading-6 text-slate-600">
             Updated {formatDate(post.updated || post.date)}. Each guide is reviewed for clarity, practical usefulness,
