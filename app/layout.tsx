@@ -82,6 +82,7 @@ const siteSchema = [
 
 const footerLinks = [
   { href: "/tools", label: "Tools" },
+  { href: "/tools/handwriting-worksheet-generator", label: "Worksheet Generator" },
   { href: "/templates", label: "Templates" },
   { href: "/blog", label: "Blog" },
   { href: "/write-for-us", label: "Write for Us" },
