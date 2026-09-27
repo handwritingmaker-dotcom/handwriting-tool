@@ -4,11 +4,11 @@ import { editorSocialImage } from "@/lib/seo";
 import { toolPageConfigs } from "@/lib/tool-pages";
 
 export const metadata: Metadata = {
-  title: "Free Handwriting Tools for Notes, Paper and PDF",
-  description: "Use free browser-based handwriting tools for lined paper, graph paper, notes, and handwritten-style PDF exports.",
+  title: "Free Text to Handwriting Tools Online | HandwritingTool",
+  description: "Free online handwriting tools — convert text to handwriting, create lined paper notes, and make handwritten-style PDFs right in your browser.",
   alternates: { canonical: "/tools" },
-  openGraph: { title: "Free Handwriting Tools for Notes, Paper and PDF", description: "Choose a focused handwriting workspace for lined paper, graph paper, study notes, or PDF creation.", url: "/tools", type: "website", images: [editorSocialImage] },
-  twitter: { card: "summary_large_image", title: "Free Handwriting Tools for Notes, Paper and PDF", description: "Choose a focused handwriting workspace for lined paper, graph paper, study notes, or PDF creation.", images: [editorSocialImage.url] },
+  openGraph: { title: "Free Text to Handwriting Tools Online | HandwritingTool", description: "Convert text to handwriting, create lined paper notes, and make handwritten-style PDFs — free in your browser.", url: "/tools", type: "website", images: [editorSocialImage] },
+  twitter: { card: "summary_large_image", title: "Free Text to Handwriting Tools Online | HandwritingTool", description: "Convert text to handwriting, create lined paper notes, and make handwritten-style PDFs — free in your browser.", images: [editorSocialImage.url] },
 };
 
 const tools = Object.values(toolPageConfigs);
