@@ -5,7 +5,7 @@ export const siteAuthor = {
   profilePath: "/author/anwar-fakhri",
   imagePath: "/anwar-fakhri.jpg",
   pinterestUrl: "https://www.pinterest.com/handwritingmaker/",
-  email: "contact@handwritingtool.com",
+  email: "handwritingmaker@gmail.com",
   shortBio:
     "Anwar Fakhri founded and maintains HandwritingTool, and writes and edits its practical guides about handwriting conversion, page layout, printable documents, and responsible writing workflows.",
 } as const;
