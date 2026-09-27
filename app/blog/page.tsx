@@ -29,9 +29,32 @@ export const metadata = {
 export default function BlogPage() {
   const posts = getAllPosts();
   const [latestPost, ...olderPosts] = posts;
+  const siteUrl = "https://www.handwritingtool.com";
+
+  const collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "HandwritingTool Blog | Text to Handwriting Guides",
+    description:
+      "Read the latest HandwritingTool guides about text-to-handwriting conversion, realistic settings, paper layouts, notes, and PDF export.",
+    url: `${siteUrl}/blog`,
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: posts.map((post, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: `${siteUrl}/blog/${post.slug}`,
+        name: post.title,
+      })),
+    },
+  };
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
       <header className="mb-10 max-w-3xl sm:mb-12">
         <p className="text-sm font-semibold uppercase tracking-[0.22em] text-brand-blue">HandwritingTool Blog</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">Text to handwriting blog and practical guides</h1>

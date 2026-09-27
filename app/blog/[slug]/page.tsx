@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { getAllPosts, getPostBySlug } from "@/lib/blog";
+import { getAllPosts, getPostBySlug, extractFaqs } from "@/lib/blog";
 import { siteAuthor } from "@/lib/author";
 import { outputSocialImage } from "@/lib/seo";
 import { HandwritingToolLoader } from "@/components/HandwritingToolLoader";
@@ -16,6 +16,10 @@ const relatedToolBySlug: Record<string, { href: string; label: string }> = {
   "graph-paper-handwriting-generator": { href: "/tools/graph-paper-handwriting", label: "Open graph-paper tool" },
   "handwritten-notes-generator": { href: "/tools/handwritten-notes", label: "Open notes generator" },
   "how-to-make-handwriting-practice-sheets": { href: "/templates", label: "Create a practice sheet" },
+  "how-to-teach-cursive-writing-to-kids": { href: "/tools/handwriting-worksheet-generator", label: "Make tracing worksheets" },
+  "kids-handwriting-practice-schedule": { href: "/tools/handwriting-worksheet-generator", label: "Build a practice worksheet" },
+  "tracing-vs-freehand-handwriting-practice": { href: "/tools/handwriting-worksheet-generator", label: "Try the worksheet generator" },
+  "daily-handwriting-drills-exercises": { href: "/tools/handwriting-worksheet-generator", label: "Create drill worksheets" },
 };
 
 type BlogPostPageProps = {
@@ -138,11 +142,25 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     ],
   };
 
+  const faqs = extractFaqs(post.content);
+  const faqSchema =
+    faqs.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqs.map((faq) => ({
+            "@type": "Question",
+            name: faq.question,
+            acceptedAnswer: { "@type": "Answer", text: faq.answer },
+          })),
+        }
+      : null;
+
   return (
     <main className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([articleSchema, breadcrumbSchema]) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([articleSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : [])]) }}
       />
       <article className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-card sm:p-8 lg:p-12">
         <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">
