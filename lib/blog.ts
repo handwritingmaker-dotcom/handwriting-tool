@@ -34,7 +34,6 @@ const categoryBySlug: Record<string, BlogCategory> = {
   "text-to-handwriting-a4-size": "Paper & Layout",
   "text-to-handwriting-on-lined-paper": "Paper & Layout",
   "text-to-handwriting-pdf-generator": "PDF & Export",
-  "pdf-to-handwriting-converter": "PDF & Export",
   "handwritten-notes-generator": "Notes & Study",
   "word-to-handwriting-converter-online-free": "Guides",
   "best-handwriting-fonts-for-students": "Guides",

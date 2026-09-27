@@ -27,6 +27,10 @@ export type ToolPageConfig = {
   guideLabel: string;
   homeLinkLabel: string;
   faqs: ToolFaq[];
+  deepDive?: {
+    heading: string;
+    paragraphs: string[];
+  };
 };
 
 export const toolPageConfigs: Record<FunctionalToolProfile, ToolPageConfig> = {
@@ -103,6 +107,19 @@ export const toolPageConfigs: Record<FunctionalToolProfile, ToolPageConfig> = {
       { question: "Does the tool solve math or render LaTeX?", answer: "No. It renders plain text on a grid and does not provide mathematical intelligence or LaTeX typesetting." },
       { question: "Can I download graph-paper pages as images?", answer: "Yes. PNG and JPG are available alongside PDF export." },
     ],
+    deepDive: {
+      heading: "Graph Paper Deep Dive: Structured Notes, Lab Records, and Organized Study Pages",
+      paragraphs: [
+        "Graph paper is the right choice when alignment matters more than prose. If your pages are mostly labels, measurements, short steps, or lists, the grid keeps every line visually anchored so the page stays scannable at a glance. It is less suited to long essays — for continuous writing, lined paper reads more naturally — but for structured material it beats a blank page every time.",
+        "Start with clean plain text: short lines, one idea per line, and blank lines between blocks. Open the graph-paper tool and keep the defaults — graph paper, A4, black ink — unless you have a reason to change them. Choose a readable handwriting style rather than a decorative one; on a grid, flamboyant letterforms fight the lines instead of flowing with them. Set a medium text size with low variation so characters sit evenly, and open the line spacing slightly so descenders do not collide with the row below. Preview the full page before exporting: the grid should sit quietly behind the text, not compete with it.",
+        "Lab records are the classic use case. Write the date, aim, materials, and method as short headed sections, then log observations line by line — the grid keeps columns of readings roughly aligned without any table formatting. Because the tool renders plain text, describe simple results in words, for example noting that a temperature rose two degrees per minute, rather than expecting drawn charts. Export the finished set as a PDF so the page order and grid scale stay fixed for printing or filing.",
+        "Math and science revision works the same way: one concept per block, formulas on their own lines, and worked steps numbered down the page. Keep symbols simple and verify every character in the preview — the tool does not understand mathematical meaning, so a misread minus sign is yours to catch. For anything beyond text, such as actual plots, geometric diagrams, or chemical structures, draw them separately and combine the pages afterwards.",
+        "The grid also makes an excellent lightweight planner. Daily checklists, habit trackers, project task lists, and vocabulary sets all benefit from the implicit columns: write the item on the left and the status, date, or translation on the right. Short entries plus consistent spacing produce a printable page that looks deliberately organized rather than improvised.",
+        "Before printing, match the digital page size to your printer paper — A4 or Letter — and use medium PDF quality, which balances sharpness and file size for grid pages. Print one test page first: grids reveal margin problems faster than lined paper does, and a page that looks fine on screen can feel cramped on paper. If it does, widen the margins or split the content across two pages rather than shrinking the text.",
+        "If text crowds the grid, resist the urge to shrink the font. Increase line spacing first, then widen the margins, and only then consider splitting the content. Small text on a dense grid is the most common reason a graph-paper page looks messy — the fix is almost always more whitespace, not smaller letters. Black ink gives the sharpest print result, while blue works if the tone is dark enough.",
+        "Two final choices shape the result more than any other. First, grid density: the default grid suits most notes, but if your handwriting runs large, open the spacing rather than fighting small squares — letters that straddle grid lines look accidental. Second, variation: a little variation keeps pages feeling human, but on graph paper high variation makes aligned lists look ragged, so keep it low for anything structured. Save these preferences mentally as your personal preset: graph paper, A4, black ink, medium size, low variation, slightly open spacing. Return to it every time, and every graph-paper page you produce will look like it came from the same careful notebook.",
+      ],
+    },
   },
   notes: {
     profile: "notes",
@@ -140,6 +157,20 @@ export const toolPageConfigs: Record<FunctionalToolProfile, ToolPageConfig> = {
       { question: "Can I add a title, subject, and date?", answer: "Yes. The optional note-detail fields insert a simple plain-text header while leaving the main editor available." },
       { question: "Can I upload a Word file or PDF?", answer: "Document upload is handled by the separate Word DOCX workflow and PDF to handwriting converter. After extraction, review the text before formatting it as notes." },
     ],
+    deepDive: {
+      heading: "Handwritten Notes Deep Dive: From Rough Class Notes to Polished Revision Pages",
+      paragraphs: [
+        "The handwritten-notes workspace is built for one job: turning study material you already have into clean, readable handwritten-style pages. It does not summarize, generate, or fact-check — you bring the content, and the tool handles the presentation. Optional title, subject, and date fields add a simple plain-text header, which makes multi-page sets feel like a real notebook instead of loose exports.",
+        "Start by cleaning your text: fix typos, break up long paragraphs, and decide the order of topics. Add the title, subject, and date if you want the header, then apply them to the editor. Choose the preset that matches the job — Class Notes for same-day rewrites, Revision Notes for condensed exam material, Simple Notes for minimal pages — or adjust the controls manually. Keep paragraph breaks intact so topics stay visually separated, then review every page in the preview before exporting.",
+        "The highest-value habit is rewriting class notes the same day. Paste the day's rough notes, trim the filler, and render them with the Class Notes preset: lined A4, blue ink, a readable style, open spacing. Reading and restructuring the material as you clean it is genuine revision, and the finished pages are far easier to revisit than the original scrawl or a wall of typed text.",
+        "For exam season, build revision sets topic by topic. Condense each topic to its essentials — short headings, key points, one worked example, and a recap question — and export each topic as its own PDF with a clear filename. Multi-page PDF export keeps a whole topic in one file, and consistent settings across topics make the full set feel coherent when you print it.",
+        "The same workflow suits meeting notes, reading notes, and project logs. Capture now, clean later: dump raw points into the editor during the meeting, then tidy and render afterwards. Archived as dated PDFs, these become a personal record that is genuinely pleasant to re-read — which is the whole point of keeping notes at all.",
+        "A few readability rules pay off everywhere. Keep headings short and frequent; a page of unbroken paragraphs is hard to scan no matter how nice the handwriting. Put one idea per bullet or line, leave breathing room between sections, and end dense topics with a recap question you can answer from memory later. Always print one test page before producing a large set — spacing that looks generous on screen can feel tight on paper.",
+        "Recommended settings are starting points, not rules. Class Notes works well as lined A4 with blue ink and open spacing; Revision Notes benefits from black ink, concise sections, and low variation so dense pages stay legible; Simple Notes suits blank A4 with natural spacing and no margin line. Change one control at a time and re-preview — when every adjustment is deliberate, the final pages look it.",
+        "Know what the workspace will not do, and you will never be disappointed by it. It will not fix your arguments, check your facts, or turn a vague paragraph into a clear one — editing remains your job, and that is exactly why the finished output is worth keeping. It will not reproduce anyone else's handwriting, forge signatures, or make a document look officially handwritten where that would mislead a reader; school and workplace rules about generated pages still apply. Used honestly — your words, your notes, your revision — it is simply the fastest way to make study material you will actually re-read.",
+        "For export, match the format to the job. PDF is the default for anything multi-page: revision sets, meeting archives, and printed notebooks stay in order and print predictably. PNG suits single pages you want to drop into slides, documents, or design mockups at full sharpness. JPG is the lightweight option for quick sharing where file size matters more than crisp edges. Whatever you choose, export once from the preview — repeated re-exports soften the letterforms, especially in JPG.",
+      ],
+    },
   },
   pdf: {
     profile: "pdf",
@@ -171,7 +202,7 @@ export const toolPageConfigs: Record<FunctionalToolProfile, ToolPageConfig> = {
     practicalText: "The importer detects the PDF page count, validates page selections, reads selectable text in source-page order, and places it in the editor. You can cancel extraction or correct line breaks before rendering handwritten pages.",
     limitations: "The importer supports selectable-text PDFs only. It does not include OCR for scanned or image-only pages, password entry, original-layout preservation, page-number generation, headers and footers, or landscape output.",
     privacy: "The source PDF and extracted text are processed in your browser and are not uploaded to a HandwritingTool application server. The source file is not saved in browser storage; normal website analytics remain separate.",
-    guideHref: "/blog/pdf-to-handwriting-converter",
+    guideHref: "/blog/text-to-handwriting-pdf-generator",
     guideLabel: "Read the PDF extraction and cleanup guide",
     homeLinkLabel: "Main text to handwriting tool",
     faqs: [

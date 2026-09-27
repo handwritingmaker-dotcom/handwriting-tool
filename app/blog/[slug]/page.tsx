@@ -12,7 +12,6 @@ const siteUrl = "https://www.handwritingtool.com";
 
 const relatedToolBySlug: Record<string, { href: string; label: string }> = {
   "text-to-handwriting-pdf-generator": { href: "/tools/text-to-handwriting-pdf", label: "Open PDF generator" },
-  "pdf-to-handwriting-converter": { href: "/tools/text-to-handwriting-pdf", label: "Create a handwriting PDF" },
   "text-to-handwriting-on-lined-paper": { href: "/tools/lined-paper-handwriting", label: "Open lined-paper tool" },
   "graph-paper-handwriting-generator": { href: "/tools/graph-paper-handwriting", label: "Open graph-paper tool" },
   "handwritten-notes-generator": { href: "/tools/handwritten-notes", label: "Open notes generator" },

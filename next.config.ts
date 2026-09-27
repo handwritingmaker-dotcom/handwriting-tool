@@ -88,6 +88,11 @@ const nextConfig: NextConfig = {
         destination: "/blog/best-text-to-handwriting-settings-realistic-output",
         statusCode: 301,
       },
+      {
+        source: "/blog/pdf-to-handwriting-converter",
+        destination: "/blog/text-to-handwriting-pdf-generator",
+        permanent: true,
+      },
     ];
   },
 };
