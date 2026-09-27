@@ -1,7 +1,7 @@
 ---
 title: "How to Export Handwritten Pages as a PDF"
 date: "2026-05-03"
-updated: "2026-08-01"
+updated: "2026-09-28"
 description: "Learn how to prepare typed text, choose A4 or Letter settings, preview page breaks, select PDF quality, and export handwritten pages for printing."
 ---
 
@@ -11,13 +11,49 @@ A text to handwriting PDF generator starts with text you type or paste, creates 
 
 PDF is different from a single image export. It keeps pages together, preserves layout, and usually prints more predictably. Margins, page size, line spacing, paper style, and handwriting scale stay consistent across devices. That makes PDF the best format when the handwritten-style output should behave like a document rather than a loose image.
 
-This guide covers the output stage only: page size, preview, quality, multi-page export, printing, and the choice between PDF, PNG, and JPG.
+This guide covers both directions: extracting text from an existing PDF, and the output stage — page size, preview, quality, multi-page export, printing, and the choice between PDF, PNG, and JPG.
 
-If your content is currently inside a PDF, use the [PDF upload tool](/tools/text-to-handwriting-pdf) to extract selectable text, edit it, and generate new pages. Import does not preserve the source PDF layout or run OCR, so scanned files still need separate OCR and proofreading. The [PDF import guide](/blog/pdf-to-handwriting-converter) covers that source-document workflow; this article covers handwritten PDF output.
+If your content is currently inside a PDF, use the [PDF upload tool](/tools/text-to-handwriting-pdf) to extract selectable text, edit it, and generate new pages. Import does not preserve the source PDF layout or run OCR, so scanned files still need separate OCR and proofreading. The extraction workflow is covered in its own section below; the rest of this article covers handwritten PDF output.
 
 If you are new to the basic process, start with [how to convert text to handwriting](/blog/how-to-convert-text-to-handwriting). Before printing, confirm the [A4 page setup](/blog/text-to-handwriting-a4-size); for notebook pages, align the writing with the [lined-paper workflow](/blog/text-to-handwriting-on-lined-paper). If your content starts in Word, use the [Word DOCX-to-handwriting workflow](/blog/word-to-handwriting-converter-online-free).
 
 ![HandwritingTool handwriting PDF export preview](/blog/blog-pdf-generator-export.png)
+
+## Starting From an Existing PDF? Extract the Text First
+
+If your source material is already inside a PDF — a handout, an old assignment, a scanned chapter — extract and clean the text before rendering new handwritten pages. This input workflow has its own pitfalls, so work through it before jumping to the export steps.
+
+### First, identify the kind of PDF
+
+PDFs that look similar on screen can store content very differently:
+
+| PDF type | Quick test | What to do |
+|---|---|---|
+| Text-based | You can select individual words | Upload it to the [PDF to handwriting converter](/tools/text-to-handwriting-pdf), then clean the extracted text |
+| Scanned image | Dragging selects a page image, not words | Run OCR in a separate application first, then proofread |
+| Mixed document | Some text selects, some does not | Copy the selectable text and use OCR only where needed |
+| Complex layout | Text selects in the wrong order | Rebuild the reading order manually |
+
+### Extract and select the pages you need
+
+1. Open the [PDF to handwriting converter](/tools/text-to-handwriting-pdf) and upload a text-based PDF up to 15 MB.
+2. Check the detected page count, then enter `all`, a single page, a range such as `1-3`, or a list such as `2,4,6`.
+3. Review the editable text that appears. The file is processed locally in your browser, and extraction can be cancelled if the file is too large.
+
+### OCR is only for scanned PDFs
+
+A scanned PDF contains images, not text. Run it through OCR software first — [Adobe Acrobat](https://helpx.adobe.com/acrobat/desktop/create-documents/scan-documents-to-pdfs/recognize-text.html), [Google Drive](https://support.google.com/drive/answer/176692), and [Microsoft OneNote](https://support.microsoft.com/en-us/office/copy-text-from-pictures-and-file-printouts-using-ocr-in-onenote-93a70a2f-ebcd-42dc-9f0b-19b09fd775b4) all document text-recognition workflows — then proofread the result carefully. OCR is an estimate: check names, dates, numbers, and lookalike characters such as `0/O`, `1/l`, and `5/S` before converting.
+
+### Clean the text before rendering
+
+PDF extraction introduces errors that become more visible once the text is rendered as handwriting:
+
+- **Repair the reading order.** Multi-column layouts may copy columns in the wrong sequence, and tables can scramble headings and cells. Reconstruct the intended order manually.
+- **Remove document furniture.** Delete page numbers, repeated headers, footers, watermarks, and navigation labels unless they belong in the new page.
+- **Fix line breaks.** Rejoin lines that were wrapped only by the original page width, and reconnect words split with end-of-line hyphens — but keep genuine hyphenated terms unchanged.
+- **Simplify unsupported structure.** The converter renders plain text only: rewrite simple tables as labelled lines, and handle diagrams, equations, and footnotes separately.
+
+Once the text is verified, continue with the export workflow in this guide — choose paper and page size, preview every page, and download one finished PDF.
 
 ## What Is a Text to Handwriting PDF Generator?
 
