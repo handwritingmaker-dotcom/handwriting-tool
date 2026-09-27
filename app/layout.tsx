@@ -5,6 +5,8 @@ import { DM_Sans, Kalam } from "next/font/google";
 import { defaultSocialImage } from "@/lib/seo";
 import { siteAuthor } from "@/lib/author";
 import { SiteHeader } from "@/components/SiteHeader";
+import { CookieConsent } from "@/components/CookieConsent";
+import { CookieSettingsButton } from "@/components/CookieSettingsButton";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -23,7 +25,7 @@ const googleAnalyticsId = "G-024MVPR0W4";
 export const metadata: Metadata = {
   title: "Text to Handwriting Converter Free Online | HandwritingTool",
   description:
-    "Convert typed text into handwriting online with 10 styles, A4 or Letter pages, live preview, multi-page PDF, PNG, JPG, and transparent PNG export.",
+    "Turn text into handwriting online free — realistic handwriting styles, A4 or Letter pages, live preview, and multi-page PDF, PNG, or JPG export.",
   metadataBase: new URL("https://www.handwritingtool.com"),
   icons: {
     icon: "/favicon.png",
@@ -36,7 +38,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Text to Handwriting Converter Free Online | HandwritingTool",
     description:
-      "Convert typed text into handwriting online with 10 styles, A4 or Letter pages, live preview, multi-page PDF, PNG, JPG, and transparent PNG export.",
+      "Turn text into handwriting online free — realistic handwriting styles, A4 or Letter pages, live preview, and multi-page PDF, PNG, or JPG export.",
     url: "/",
     siteName: "Handwriting Tool",
     type: "website",
@@ -46,7 +48,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Text to Handwriting Converter Free Online | HandwritingTool",
     description:
-      "Convert typed text into handwriting online with 10 styles, A4 or Letter pages, live preview, multi-page PDF, PNG, JPG, and transparent PNG export.",
+      "Turn text into handwriting online free — realistic handwriting styles, A4 or Letter pages, live preview, and multi-page PDF, PNG, or JPG export.",
     images: [defaultSocialImage.url],
   },
 };
@@ -98,6 +100,28 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <Script id="consent-default" strategy="beforeInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('consent', 'default', {
+              'ad_storage': 'denied',
+              'analytics_storage': 'denied',
+              'ad_user_data': 'denied',
+              'ad_personalization': 'denied'
+            });
+            try {
+              if (window.localStorage.getItem('hw-cookie-consent') === 'accepted') {
+                gtag('consent', 'update', {
+                  'ad_storage': 'granted',
+                  'analytics_storage': 'granted',
+                  'ad_user_data': 'granted',
+                  'ad_personalization': 'granted'
+                });
+              }
+            } catch (e) {}
+          `}
+        </Script>
       </head>
       <body className={`${dmSans.variable} ${kalam.variable} overflow-x-hidden bg-brand-paper text-brand-ink antialiased`}>
         <Script
@@ -125,9 +149,11 @@ export default function RootLayout({
                     {link.label}
                   </Link>
                 ))}
+                <CookieSettingsButton />
               </div>
             </div>
           </footer>
+          <CookieConsent />
         </div>
       </body>
     </html>

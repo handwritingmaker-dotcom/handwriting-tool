@@ -7,16 +7,16 @@ import { PrintableTemplateStudio } from "@/components/PrintableTemplateStudio";
 const siteUrl = "https://www.handwritingtool.com";
 
 export const metadata: Metadata = {
-  title: "Free Handwriting Templates and Printable Paper | HandwritingTool",
+  title: "Free Printable Handwriting Paper Templates (PDF & PNG)",
   description:
-    "Customize printable lined, graph, dot grid, blank, and handwriting practice paper for A4 or Letter, then download exact-size PDF or PNG files.",
+    "Download free printable handwriting paper — lined, graph, dot grid, and practice sheets in exact A4 or Letter PDF and PNG.",
   alternates: {
     canonical: "/templates",
   },
   openGraph: {
-    title: "Free Handwriting Templates and Printable Paper | HandwritingTool",
+    title: "Free Printable Handwriting Paper Templates (PDF & PNG)",
     description:
-      "Customize printable paper and handwriting practice sheets for A4 or Letter, then download exact-size PDF or PNG files.",
+      "Free printable handwriting paper templates — lined, graph, dot grid, and practice sheets in exact A4 or Letter PDF and PNG.",
     url: "/templates",
     type: "website",
     images: [
