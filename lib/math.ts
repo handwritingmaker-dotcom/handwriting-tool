@@ -57,9 +57,3 @@ export function splitMathSegments(paragraph: string): MathSegment[] {
 
   return segments;
 }
-
-/** True when the text contains at least one complete `$$...$$` math pair. */
-export function containsMathLine(text: string): boolean {
-  MATH_DELIMITER_PATTERN.lastIndex = 0;
-  return MATH_DELIMITER_PATTERN.test(text);
-}
