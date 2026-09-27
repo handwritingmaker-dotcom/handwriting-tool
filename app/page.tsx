@@ -37,6 +37,16 @@ const features = [
     text: "Download print-sized PDF pages, sharp PNG or JPG images, or a true transparent PNG handwriting layer.",
     icon: "download",
   },
+  {
+    title: "Custom Font Upload",
+    text: "Upload your own .ttf or .otf font (up to 5 MB) and it appears as a Custom handwriting style, included in exports.",
+    icon: "pen",
+  },
+  {
+    title: "Math Mode",
+    text: "Wrap formulas in $$...$$ to render them as centered handwriting-style math lines on any paper type.",
+    icon: "spark",
+  },
 ];
 
 const relatedTools = [
@@ -156,6 +166,14 @@ const faqs = [
   {
     question: "Can I use custom paper?",
     answer: "Yes. Select Custom Paper and upload a PNG, JPG, or WebP image up to 8 MB. The image is processed locally and must be selected again after a refresh.",
+  },
+  {
+    question: "Can I use my own handwriting font?",
+    answer: "Yes. Upload a .ttf or .otf font file (up to 5 MB) and it appears as a Custom style on the style cards. Your uploaded font is used in the live preview and is included when you export PDF, PNG, or JPG.",
+  },
+  {
+    question: "Can I write math formulas in handwriting style?",
+    answer: "Yes. Wrap a formula in double dollar signs, like $$E = mc^2$$, and it renders as a centered handwriting-style math line. Math lines work on every paper type and are included in exports. This is plain-text formula rendering, not LaTeX typesetting.",
   },
   {
     question: "Does HandwritingTool save my text?",
