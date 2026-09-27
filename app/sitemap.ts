@@ -11,6 +11,7 @@ const staticRoutes = [
   { path: "/tools/graph-paper-handwriting", changeFrequency: "monthly", priority: 0.9, lastModified: "2026-08-01" },
   { path: "/tools/handwritten-notes", changeFrequency: "monthly", priority: 0.9, lastModified: "2026-08-01" },
   { path: "/tools/text-to-handwriting-pdf", changeFrequency: "monthly", priority: 0.9, lastModified: "2026-08-01" },
+  { path: "/tools/handwriting-worksheet-generator", changeFrequency: "monthly", priority: 0.9, lastModified: "2026-09-28" },
   { path: "/about", changeFrequency: "monthly", priority: 0.6, lastModified: "2026-07-31" },
   { path: "/author/anwar-fakhri", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-07-31" },
   { path: "/blog", changeFrequency: "weekly", priority: 0.8, lastModified: "2026-07-18" },

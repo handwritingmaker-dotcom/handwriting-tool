@@ -2,10 +2,17 @@ import type { ToolProfile } from "@/lib/tool-profiles";
 
 export type FunctionalToolProfile = Exclude<ToolProfile, "default" | "word">;
 
+/**
+ * Worksheet tool: a custom interactive page (not the standard text converter),
+ * so it extends the tool-page config map without joining the ToolProfile union
+ * that drives the shared editor components.
+ */
+export type WorksheetToolProfile = "worksheet";
+
 type ToolFaq = { question: string; answer: string };
 
 export type ToolPageConfig = {
-  profile: FunctionalToolProfile;
+  profile: FunctionalToolProfile | WorksheetToolProfile;
   path: string;
   name: string;
   title: string;
@@ -33,7 +40,7 @@ export type ToolPageConfig = {
   };
 };
 
-export const toolPageConfigs: Record<FunctionalToolProfile, ToolPageConfig> = {
+export const toolPageConfigs: Record<FunctionalToolProfile | WorksheetToolProfile, ToolPageConfig> = {
   lined: {
     profile: "lined",
     path: "/tools/lined-paper-handwriting",
@@ -213,6 +220,47 @@ export const toolPageConfigs: Record<FunctionalToolProfile, ToolPageConfig> = {
       { question: "Can I download all handwritten pages in one PDF?", answer: "Yes. Choose All pages in the export controls to combine every generated handwriting page into one PDF file." },
       { question: "Does the PDF generator support A4 and Letter paper?", answer: "Yes. Select A4 or Letter before export so the generated page matches your intended print size." },
       { question: "Is the PDF to handwriting converter online free?", answer: "Yes. PDF text extraction, handwriting conversion, preview, and export are free to use without an account." },
+    ],
+  },
+  worksheet: {
+    profile: "worksheet",
+    path: "/tools/handwriting-worksheet-generator",
+    name: "Handwriting Worksheet Generator",
+    title: "Handwriting Worksheet Generator | Printable Tracing & Cursive Practice Sheets | HandwritingTool",
+    description: "Free handwriting worksheet generator: printable name tracing sheets, A–Z alphabet practice in print and cursive, and custom word tracing pages with kid-friendly guide lines. Export PDF or PNG.",
+    eyebrow: "Free Printable Tracing Sheets",
+    h1: "Handwriting worksheet generator",
+    intro: "Create printable handwriting practice sheets in seconds: traceable name pages, A–Z alphabet practice in print or cursive, and custom word lists — all on kid-friendly sky, grass, and ground guide lines, with PDF and PNG export.",
+    sampleImage: "/worksheet-generator-sample.svg",
+    sampleAlt: "Sample handwriting worksheet with name tracing rows on sky, grass, and ground guide lines",
+    sampleCaption: "A name-tracing sheet from the generator: solid model row, dotted tracing row, and blank practice row on three-line guides.",
+    benefits: ["Name, alphabet, and custom word tracing modes", "Print and cursive letter styles", "Sky/grass/ground guide lines with adjustable sizing", "Multi-page PDF and PNG export"],
+    howTo: [
+      "Pick a worksheet type: name tracing, A–Z alphabet, or your own word list.",
+      "Type the name, choose the letter case, or paste words one per line.",
+      "Select print or cursive style, line size, tracing and practice row counts.",
+      "Preview every page, then download the full PDF or the current page as PNG.",
+    ],
+    settings: [
+      { label: "Beginner name tracing", value: "Name mode, print style, large lines, 3 tracing rows, 2 practice rows" },
+      { label: "Alphabet practice pack", value: "Alphabet mode, both cases, medium lines, A4 or Letter to match the printer" },
+      { label: "Weekly spelling words", value: "Word list mode, print or cursive, medium lines, export multi-page PDF" },
+    ],
+    practicalHeading: "Printing and classroom use",
+    practicalText: "Match the A4 or Letter setting to your printer paper and print at 100% (actual size) so the guide lines come out at their true size. For reusable sheets, print once and slip the page into a dry-erase pocket or laminate it, then trace with a dry-erase marker.",
+    limitations: "The generator renders tracing and practice rows from the text you provide; it does not teach letter formation order, check a child's tracing, or reproduce any specific school handwriting program's letterforms. Review the letter shapes in the preview before printing a class set.",
+    privacy: "Worksheets are rendered entirely in your browser. Names, words, and generated pages are never uploaded to a HandwritingTool application server. Standard website analytics, hosting, and security services may still process technical usage data.",
+    guideHref: "/blog/how-to-make-handwriting-practice-sheets",
+    guideLabel: "Read the practice-sheet guide",
+    homeLinkLabel: "Free text to handwriting tool",
+    faqs: [
+      { question: "Is this handwriting worksheet generator free?", answer: "Yes. Create unlimited tracing sheets — names, alphabets, and word lists — and download them as PDF or PNG without an account." },
+      { question: "What is the difference between print and cursive mode?", answer: "Print mode uses clear block letters for beginners. Cursive mode switches to a joined, slanted script so older kids can practice flowing letterforms." },
+      { question: "How do the sky, grass, and ground guide lines work?", answer: "The top sky line marks tall-letter height, the dashed grass midline marks small-letter height, and the solid ground baseline is where every letter sits." },
+      { question: "Can I make tracing sheets with my own spelling words?", answer: "Yes. Paste up to 60 words, one per line, and each word gets a model row, dotted tracing rows, and blank practice rows." },
+      { question: "Which paper size should I choose, A4 or Letter?", answer: "Match the paper in your printer — A4 in most of the world, Letter in the US — and print at 100% or actual size." },
+      { question: "How do I reuse a worksheet without reprinting it?", answer: "Print the sheet, slide it into a dry-erase pocket or laminate it, and trace with a dry-erase marker. Wipe clean and reuse." },
+      { question: "Can I use these worksheets in my classroom?", answer: "Yes. Generate and print as many copies as you need for classroom or home use, with a name-and-date header on every page." },
     ],
   },
 };
