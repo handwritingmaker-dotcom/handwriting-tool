@@ -158,6 +158,21 @@ export default function AboutPage() {
                 </Link>
                 . Real feedback has shaped most of what is on the site so far, and that will continue.
               </p>
+              <p>
+                New here? Start with the free{" "}
+                <Link href="/#tool" className="font-semibold text-brand-blue">
+                  text-to-handwriting converter
+                </Link>
+                , browse the{" "}
+                <Link href="/tools" className="font-semibold text-brand-blue">
+                  full tool collection
+                </Link>
+                , or explore{" "}
+                <Link href="/blog" className="font-semibold text-brand-blue">
+                  practical handwriting guides
+                </Link>
+                .
+              </p>
             </div>
           </section>
 
