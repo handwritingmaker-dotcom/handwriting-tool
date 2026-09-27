@@ -17,6 +17,16 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const expectedPresets = [
   "college-ruled", "wide-ruled", "narrow-ruled", "standard-lined",
   "graph-paper", "dot-grid", "blank-writing", "primary-handwriting",
+  "seyes-ruled", "legal-ruled", "extra-wide-ruled", "journal-lined",
+  "exam-answer-paper", "cornell-notes-paper", "letter-writing-paper", "meeting-notes-paper",
+  "squared-paper", "fine-graph-paper", "large-graph-paper", "wide-dot-grid",
+  "fine-dot-grid", "math-grid-paper",
+  "cursive-uppercase-practice", "cursive-lowercase-practice", "cursive-sentence-practice",
+  "name-tracing-practice", "dotted-midline-wide", "dotted-midline-narrow",
+  "story-paper-primary", "spelling-word-practice", "number-tracing-practice",
+  "sentence-practice-primary", "sentence-practice-standard", "quote-copy-practice",
+  "print-alphabet-practice", "print-lowercase-practice", "handwriting-warmup",
+  "paragraph-practice", "vocabulary-practice", "first-tracing-practice",
 ];
 assert.deepEqual(printableTemplatePresets.map(({ id }) => id), expectedPresets);
 
