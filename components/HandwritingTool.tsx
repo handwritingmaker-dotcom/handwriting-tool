@@ -6,9 +6,13 @@ import {
   ExportFormat,
   HandwritingStyle,
   handwritingStyles,
+  getCustomHandwritingStyles,
+  isCustomHandwritingStyle,
   renderHandwriting,
   RenderSettings,
 } from "@/lib/handwriting";
+import { removeCustomFont } from "@/lib/custom-fonts";
+import { FontUploadControl } from "@/components/FontUpload";
 import { toolProfiles, type ToolProfile } from "@/lib/tool-profiles";
 import { type HandwritingDraft, useHandwritingDraft } from "@/hooks/useHandwritingDraft";
 import { PdfTextImporter } from "@/components/PdfTextImporter";
@@ -202,6 +206,7 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
   const [customPaperName, setCustomPaperName] = useState("");
   const [customPaperError, setCustomPaperError] = useState("");
   const [transparentPng, setTransparentPng] = useState(false);
+  const [customFonts, setCustomFonts] = useState<HandwritingStyle[]>(() => getCustomHandwritingStyles());
   const renderRequestId = useRef(0);
   const exportLock = useRef(false);
   const editorFocusTracked = useRef(false);
@@ -445,6 +450,23 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
     image.src = nextUrl;
   };
 
+  const handleFontUploaded = (style: HandwritingStyle) => {
+    setCustomFonts(getCustomHandwritingStyles());
+    updateSetting("styleId", style.id);
+  };
+
+  const handleRemoveCustomFont = (styleId: string) => {
+    removeCustomFont(styleId);
+    setCustomFonts(getCustomHandwritingStyles());
+    if (settings.styleId === styleId) {
+      updateSetting("styleId", handwritingStyles[0].id);
+    }
+  };
+
+  const uploadedFontMissing =
+    !handwritingStyles.some((style) => style.id === settings.styleId) &&
+    !isCustomHandwritingStyle(settings.styleId);
+
   const applyNoteHeader = () => {
     const body = text.replace(/^(?:Title|Subject|Date):.*\n(?:Subject:.*\n)?(?:Date:.*\n)?\n/, "");
     const header = [
@@ -586,6 +608,32 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
           )}
         </div>
 
+        <details className="mt-4 rounded-2xl border border-violet-100 bg-violet-50 px-4 py-3">
+          <summary className="cursor-pointer text-sm font-semibold text-slate-950">
+            Math lines with <code className="rounded bg-violet-100 px-1">$$</code>
+            <span className="ml-2 text-sm font-normal text-slate-500">
+              Centered display lines for formulas.
+            </span>
+          </summary>
+          <div className="mt-2 space-y-2 text-sm leading-6 text-slate-700">
+            <p>
+              Wrap any formula in double dollar signs, like{" "}
+              <code className="rounded bg-violet-100 px-1">$$x^2 + 2x + 1 = 0$$</code>, and it becomes
+              a centered display line with roomy spacing — handy for worksheets and revision notes. You
+              can mix math with normal text: the <code className="rounded bg-violet-100 px-1">$$...$$</code>{" "}
+              part gets its own line wherever it appears in a paragraph.
+            </p>
+            <p>
+              Math lines are drawn in your handwriting font; this is not typeset LaTeX, so fractions,
+              square roots, and stacked symbols will not render as textbook notation — write them in
+              plain text (for example <code className="rounded bg-violet-100 px-1">(a+b)/2</code> or{" "}
+              <code className="rounded bg-violet-100 px-1">sqrt(x)</code>). Very long formulas shrink to
+              fit the page width. Math lines work with every paper type and are included in PNG, JPG,
+              and PDF exports.
+            </p>
+          </div>
+        </details>
+
         {renderError && (
           <div className="mt-4 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-4 text-sm leading-6 text-rose-800" role="alert">
             <p>{renderError}</p>
@@ -606,6 +654,17 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
               Handwriting Style
             </p>
             <div className="flex flex-wrap gap-2" aria-labelledby="styleId">
+              {customFonts.map((style) => (
+                <StylePreviewCard
+                  key={style.id}
+                  style={style}
+                  selected={settings.styleId === style.id}
+                  previewCache={stylePreviewCache}
+                  onClick={() => updateSetting("styleId", style.id)}
+                  badge="Custom"
+                  onRemove={() => handleRemoveCustomFont(style.id)}
+                />
+              ))}
               {handwritingStyles.map((style) => (
                 <StylePreviewCard
                   key={style.id}
@@ -616,6 +675,13 @@ export function HandwritingTool({ profile = "default" }: { profile?: ToolProfile
                 />
               ))}
             </div>
+            {uploadedFontMissing && (
+              <p className="mt-2 text-xs font-semibold text-amber-700" role="status">
+                Your previously uploaded font is no longer available — uploaded fonts are kept for the
+                current session only. Upload it again to keep using it.
+              </p>
+            )}
+            <FontUploadControl onUploaded={handleFontUploaded} />
           </div>
 
           <div>
@@ -990,32 +1056,56 @@ function StylePreviewCard({
   selected,
   previewCache,
   onClick,
+  badge,
+  onRemove,
 }: {
   style: HandwritingStyle;
   selected: boolean;
   previewCache: { current: Map<string, HTMLCanvasElement> };
   onClick: () => void;
+  badge?: string;
+  onRemove?: () => void;
 }) {
   void previewCache;
 
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`min-h-[66px] flex-1 basis-[120px] rounded-lg p-1.5 text-left transition ${
-        selected
-          ? "border-2 border-brand-blue bg-blue-50"
-          : "border border-slate-200 bg-white hover:bg-slate-50"
-      }`}
-    >
-      <span className="block truncate text-xs font-semibold text-slate-950">{style.label}</span>
-      <span
-        className="mt-1 block h-8 w-full truncate bg-white/70 px-1 py-1 text-lg leading-6 text-brand-blue"
-        style={{ fontFamily: style.primary }}
+    <div className="relative min-h-[66px] flex-1 basis-[120px]">
+      <button
+        type="button"
+        onClick={onClick}
+        className={`h-full w-full rounded-lg p-1.5 text-left transition ${
+          selected
+            ? "border-2 border-brand-blue bg-blue-50"
+            : "border border-slate-200 bg-white hover:bg-slate-50"
+        }`}
       >
-        Hello sample
-      </span>
-    </button>
+        <span className="block truncate text-xs font-semibold text-slate-950">
+          {style.label}
+          {badge && (
+            <span className="ml-1.5 rounded-full bg-violet-100 px-1.5 py-0.5 align-middle text-[10px] font-bold uppercase tracking-wide text-violet-700">
+              {badge}
+            </span>
+          )}
+        </span>
+        <span
+          className="mt-1 block h-8 w-full truncate bg-white/70 px-1 py-1 text-lg leading-6 text-brand-blue"
+          style={{ fontFamily: style.primary }}
+        >
+          Hello sample
+        </span>
+      </button>
+      {onRemove && (
+        <button
+          type="button"
+          onClick={onRemove}
+          aria-label={`Remove the uploaded font ${style.label}`}
+          title="Remove this uploaded font"
+          className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-slate-700 text-sm font-bold leading-none text-white shadow transition hover:bg-rose-700"
+        >
+          ×
+        </button>
+      )}
+    </div>
   );
 }
 

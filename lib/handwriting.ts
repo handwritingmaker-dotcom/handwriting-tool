@@ -1,3 +1,5 @@
+import { splitMathSegments } from "./math.ts";
+
 export type PageType = "lined" | "blank" | "graph" | "custom";
 export type InkColor = "blue" | "black" | "darkGray";
 export type ExportFormat = "png" | "jpg" | "pdf";
@@ -195,6 +197,31 @@ export const handwritingStyles: HandwritingStyle[] = [
   },
 ];
 
+/**
+ * Session-only registry for user-uploaded fonts (see lib/custom-fonts.ts).
+ * Entries live here so `renderHandwriting` can resolve them exactly like
+ * built-in styles; they vanish on page refresh by design.
+ */
+const customStyleRegistry = new Map<string, HandwritingStyle>();
+
+export function registerCustomHandwritingStyle(style: HandwritingStyle): void {
+  if (!customStyleRegistry.has(style.id)) {
+    customStyleRegistry.set(style.id, style);
+  }
+}
+
+export function unregisterCustomHandwritingStyle(styleId: string): void {
+  customStyleRegistry.delete(styleId);
+}
+
+export function getCustomHandwritingStyles(): HandwritingStyle[] {
+  return [...customStyleRegistry.values()];
+}
+
+export function isCustomHandwritingStyle(styleId: string): boolean {
+  return customStyleRegistry.has(styleId);
+}
+
 export const defaultSettings: RenderSettings = {
   styleId: handwritingStyles[0].id,
   pageType: "lined",
@@ -240,7 +267,11 @@ function mulberry32(seed: number) {
 }
 
 function chooseStyle(styleId: string) {
-  return handwritingStyles.find((style) => style.id === styleId) ?? handwritingStyles[0];
+  return (
+    handwritingStyles.find((style) => style.id === styleId) ??
+    customStyleRegistry.get(styleId) ??
+    handwritingStyles[0]
+  );
 }
 
 function getPageDimensions(settings: RenderSettings) {
@@ -351,23 +382,41 @@ function fontForChar(style: HandwritingStyle, ctx: CanvasRenderingContext2D, siz
   ctx.font = `${style.weight} ${size}px ${family}`;
 }
 
+interface RenderLine {
+  text: string;
+  /** True for `$$...$$` display math lines: centered, roomier, never wrapped. */
+  math: boolean;
+}
+
+function measureTextWithSize(
+  ctx: CanvasRenderingContext2D,
+  text: string,
+  style: HandwritingStyle,
+  size: number,
+  settings: RenderSettings,
+  charSpacing = 0,
+) {
+  let width = 0;
+  for (let index = 0; index < text.length; index += 1) {
+    const char = text[index];
+    fontForChar(style, ctx, size, index);
+    if (char === " ") {
+      width += size * 0.38 * settings.wordSpacing;
+    } else {
+      width += ctx.measureText(char).width;
+    }
+    width += charSpacing;
+  }
+  return width;
+}
+
 function measureText(
   ctx: CanvasRenderingContext2D,
   text: string,
   style: HandwritingStyle,
   settings: RenderSettings,
 ) {
-  let width = 0;
-  for (let index = 0; index < text.length; index += 1) {
-    const char = text[index];
-    fontForChar(style, ctx, settings.fontSize, index);
-    if (char === " ") {
-      width += settings.fontSize * 0.38 * settings.wordSpacing;
-    } else {
-      width += ctx.measureText(char).width;
-    }
-  }
-  return width;
+  return measureTextWithSize(ctx, text, style, settings.fontSize, settings);
 }
 
 function splitIntoLines(
@@ -376,37 +425,49 @@ function splitIntoLines(
   style: HandwritingStyle,
   settings: RenderSettings,
   maxWidth: number,
-) {
+): RenderLine[] {
   const paragraphs = text.replace(/\r\n/g, "\n").split("\n");
-  const blocks: string[] = [];
+  const blocks: RenderLine[] = [];
 
   paragraphs.forEach((paragraph) => {
     if (!paragraph.trim()) {
-      blocks.push("");
+      blocks.push({ text: "", math: false });
       return;
     }
 
-    const words = paragraph.trim().split(/\s+/);
-    let currentLine = "";
+    splitMathSegments(paragraph).forEach((segment) => {
+      if (segment.math) {
+        blocks.push({ text: segment.text, math: true });
+        return;
+      }
 
-    words.forEach((word) => {
-      const nextLine = currentLine ? `${currentLine} ${word}` : word;
-      const nextWidth = measureText(ctx, nextLine, style, settings);
-      if (nextWidth > maxWidth && currentLine) {
-        blocks.push(currentLine);
-        currentLine = word;
-      } else {
-        currentLine = nextLine;
+      if (!segment.text.trim()) {
+        return;
+      }
+
+      const words = segment.text.trim().split(/\s+/);
+      let currentLine = "";
+
+      words.forEach((word) => {
+        const nextLine = currentLine ? `${currentLine} ${word}` : word;
+        const nextWidth = measureText(ctx, nextLine, style, settings);
+        if (nextWidth > maxWidth && currentLine) {
+          blocks.push({ text: currentLine, math: false });
+          currentLine = word;
+        } else {
+          currentLine = nextLine;
+        }
+      });
+
+      if (currentLine) {
+        blocks.push({ text: currentLine, math: false });
       }
     });
-
-    if (currentLine) {
-      blocks.push(currentLine);
-    }
-    blocks.push("");
+    blocks.push({ text: "", math: false });
   });
 
-  if (blocks.at(-1) === "") {
+  const last = blocks.at(-1);
+  if (last && last.text === "" && !last.math) {
     blocks.pop();
   }
 
@@ -450,6 +511,65 @@ function drawLine(
     ctx.restore();
 
     x += ctx.measureText(char).width + rng() * settings.randomness * 0.7;
+  }
+
+  ctx.globalAlpha = 1;
+}
+
+/**
+ * Draw a `$$...$$` display math line: centered, slightly larger, with airy
+ * character spacing and gentler jitter so formulas stay legible. Long
+ * formulas shrink to fit the usable page width. Rendered in the user's
+ * handwriting font — this is careful spacing of plain text, not typeset math.
+ */
+function drawMathLine(
+  ctx: CanvasRenderingContext2D,
+  line: string,
+  originX: number,
+  maxWidth: number,
+  baselineY: number,
+  style: HandwritingStyle,
+  settings: RenderSettings,
+  rng: () => number,
+) {
+  const ink = colorMap[settings.inkColor];
+  const intensity = style.pressure - settings.randomness * 0.06;
+  const targetSize = settings.fontSize * 1.15;
+  const spacing = targetSize * 0.07;
+
+  let size = targetSize;
+  let width = measureTextWithSize(ctx, line, style, size, settings, spacing);
+  if (width > maxWidth && width > 0) {
+    size = Math.max(12, (targetSize * maxWidth) / width);
+    width = measureTextWithSize(ctx, line, style, size, settings, spacing);
+  }
+
+  let x = originX + Math.max(0, (maxWidth - width) / 2);
+
+  for (let index = 0; index < line.length; index += 1) {
+    const char = line[index];
+    if (char === " ") {
+      x += size * 0.38 * settings.wordSpacing + spacing + rng() * settings.randomness * 1.8;
+      continue;
+    }
+
+    const charSize =
+      size + (rng() - 0.5) * style.sizeJitter * settings.randomness * size * 0.05;
+    ctx.font = `${style.weight} ${charSize}px ${style.primary}`;
+    ctx.fillStyle = ink;
+    ctx.globalAlpha = intensity + rng() * 0.05;
+
+    const jitterX = (rng() - 0.5) * style.xJitter * settings.randomness * 1.1;
+    const jitterY = (rng() - 0.5) * style.yJitter * settings.randomness * 0.8;
+    const angle = style.slant * 0.5 + (rng() - 0.5) * style.rotateJitter * settings.randomness * 1.1;
+
+    ctx.save();
+    ctx.translate(x + jitterX, baselineY + jitterY);
+    ctx.rotate(angle);
+    ctx.fillText(char, 0, 0);
+    ctx.restore();
+
+    x += ctx.measureText(char).width + spacing + rng() * settings.randomness * 0.7;
   }
 
   ctx.globalAlpha = 1;
@@ -508,8 +628,11 @@ export async function renderHandwriting(text: string, settings: RenderSettings, 
   };
 
   lines.forEach((line, index) => {
-    const isBlank = line === "";
-    const indent = settings.paragraphIndentMode && !isBlank && (index === 0 || lines[index - 1] === "") ? 48 : 0;
+    const isBlank = line.text === "" && !line.math;
+    const indent =
+      settings.paragraphIndentMode && !isBlank && !line.math && (index === 0 || lines[index - 1].text === "")
+        ? 48
+        : 0;
     const baseline = y + (isBlank ? lineHeight * 0.35 : 0);
 
     if (baseline > pageHeight - settings.bottomMargin) {
@@ -517,10 +640,14 @@ export async function renderHandwriting(text: string, settings: RenderSettings, 
     }
 
     if (!isBlank) {
-      drawLine(ctx!, line, settings.leftMargin + indent, y, style, settings, rng);
+      if (line.math) {
+        drawMathLine(ctx!, line.text, settings.leftMargin, usableWidth, y, style, settings, rng);
+      } else {
+        drawLine(ctx!, line.text, settings.leftMargin + indent, y, style, settings, rng);
+      }
     }
 
-    y += isBlank ? lineHeight * 0.78 : lineHeight;
+    y += isBlank ? lineHeight * 0.78 : line.math ? lineHeight * 1.25 : lineHeight;
   });
 
   applyPageTilt(page, settings, rng, assets?.transparentBackground ?? false);
