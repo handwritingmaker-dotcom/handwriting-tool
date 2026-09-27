@@ -42,6 +42,12 @@ const categoryBySlug: Record<string, BlogCategory> = {
   "why-handwriting-still-matters-digital-age": "Research & Comparisons",
   "why-handwritten-retrieval-still-matters-digital-study-workflow": "Notes & Study",
   "how-to-make-handwriting-practice-sheets": "Guides",
+  "how-to-improve-handwriting-step-by-step": "Guides",
+  "best-pens-and-paper-for-handwriting": "Guides",
+  "daily-handwriting-drills-exercises": "Guides",
+  "how-to-teach-cursive-writing-to-kids": "Guides",
+  "kids-handwriting-practice-schedule": "Guides",
+  "tracing-vs-freehand-handwriting-practice": "Guides",
 };
 
 type Frontmatter = {

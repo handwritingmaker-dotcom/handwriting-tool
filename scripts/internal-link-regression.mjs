@@ -57,6 +57,7 @@ for (const strategicPath of [
   "/tools/graph-paper-handwriting",
   "/templates",
   "/blog/how-to-convert-text-to-handwriting",
+  "/tools/handwriting-worksheet-generator",
 ]) assert.ok(checked.has(strategicPath), `Strategic URL has no discovered internal link: ${strategicPath}`);
 
 console.log(`Internal-link regression checks passed for ${checked.size} route destinations.`);

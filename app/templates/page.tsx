@@ -9,7 +9,7 @@ const siteUrl = "https://www.handwritingtool.com";
 export const metadata: Metadata = {
   title: "Free Printable Handwriting Paper Templates (PDF & PNG)",
   description:
-    "Download free printable handwriting paper — lined, graph, dot grid, and practice sheets in exact A4 or Letter PDF and PNG.",
+    "Download free printable handwriting paper — 40+ lined, graph, dot grid, and practice sheet presets in exact A4 or Letter PDF and PNG.",
   alternates: {
     canonical: "/templates",
   },
@@ -104,7 +104,7 @@ const collectionSchema = {
   name: "Free Handwriting Templates and Printable Paper",
   url: `${siteUrl}/templates`,
   description:
-    "Customizable printable lined, graph, dot grid, blank, and handwriting practice paper for A4 and Letter pages.",
+    "40+ customizable printable lined, graph, dot grid, blank, and handwriting practice paper presets for A4 and Letter pages.",
   hasPart: downloads.map((item) => ({
     "@type": "DigitalDocument",
     name: item.title,
@@ -129,9 +129,10 @@ export default function TemplatesPage() {
               Handwriting templates, printable paper, and settings guides
             </h1>
             <p className="mt-5 text-lg leading-8 text-slate-600">
-              Download four real A4 resources: lined paper, graph paper, a handwriting practice sheet, and a visual
-              settings guide, or customize printable paper and practice worksheets for A4 or Letter. The studio works
-              locally in your browser and creates exact-size PDF or high-resolution PNG output.
+              Choose from 40+ printable presets — lined paper, graph and dot grid, and handwriting practice sheets
+              with guided, dotted-midline rows — or download four real A4 resources: lined paper, graph paper, a
+              handwriting practice sheet, and a visual settings guide. Customize any preset for A4 or Letter in the
+              studio. Everything works locally in your browser and creates exact-size PDF or high-resolution PNG output.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -165,9 +166,13 @@ export default function TemplatesPage() {
           </p>
           <p className="mt-3 leading-7 text-slate-600">
             New to practice worksheets? Learn <Link className="font-semibold text-brand-blue hover:underline" href="/blog/how-to-make-handwriting-practice-sheets">how to use handwriting practice sheets effectively</Link> before creating your first page.
+            For ready-made kid-friendly worksheets with names, letters, and tracing pages, use the <Link className="font-semibold text-brand-blue hover:underline" href="/tools/handwriting-worksheet-generator">handwriting worksheet generator</Link>.
           </p>
         </div>
         <div className="mt-7 grid gap-4 md:grid-cols-3">
+          <Link href="/tools/handwriting-worksheet-generator" className="rounded-2xl border border-slate-200 bg-white p-5 font-semibold text-slate-800 shadow-sm hover:border-blue-200">Handwriting worksheet generator →</Link>
+          <Link href="/blog/how-to-improve-handwriting-step-by-step" className="rounded-2xl border border-slate-200 bg-white p-5 font-semibold text-slate-800 shadow-sm hover:border-blue-200">How to improve your handwriting →</Link>
+          <Link href="/blog/how-to-teach-cursive-writing-to-kids" className="rounded-2xl border border-slate-200 bg-white p-5 font-semibold text-slate-800 shadow-sm hover:border-blue-200">Teach cursive writing to kids →</Link>
           <Link href="/blog/text-to-handwriting-on-lined-paper" className="rounded-2xl border border-slate-200 bg-white p-5 font-semibold text-slate-800 shadow-sm hover:border-blue-200">Lined paper settings guide →</Link>
           <Link href="/blog/graph-paper-handwriting-generator" className="rounded-2xl border border-slate-200 bg-white p-5 font-semibold text-slate-800 shadow-sm hover:border-blue-200">Graph paper settings guide →</Link>
           <Link href="/blog/text-to-handwriting-a4-size" className="rounded-2xl border border-slate-200 bg-white p-5 font-semibold text-slate-800 shadow-sm hover:border-blue-200">A4 printing guide →</Link>
