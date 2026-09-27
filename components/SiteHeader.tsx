@@ -6,11 +6,20 @@ import Link from "next/link";
 
 type NavigationLink = { href: string; label: string; focusTarget?: string };
 
+const toolsMenuLinks: NavigationLink[] = [
+  { href: "/tools/handwriting-worksheet-generator", label: "Worksheet Generator" },
+  { href: "/tools/text-to-handwriting-pdf", label: "Text to Handwriting PDF" },
+  { href: "/tools/lined-paper-handwriting", label: "Lined Paper Handwriting" },
+  { href: "/tools/graph-paper-handwriting", label: "Graph Paper Handwriting" },
+  { href: "/tools/handwritten-notes", label: "Handwritten Notes" },
+];
+
 const navigationLinks: NavigationLink[] = [
   { href: "/#tool", label: "Converter", focusTarget: "#handwriting-text" },
   { href: "/#features", label: "Features", focusTarget: "#features-heading" },
   { href: "/#seo-guide", label: "Guide", focusTarget: "#seo-guide-heading" },
   { href: "/tools", label: "Tools" },
+  { href: "/tools/handwriting-worksheet-generator", label: "Worksheets" },
   { href: "/templates", label: "Templates" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
@@ -23,8 +32,19 @@ function isUnmodifiedPrimaryClick(event: MouseEvent<HTMLAnchorElement>) {
 
 export function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false);
+  const [toolsOpen, setToolsOpen] = useState(false);
   const menuId = useId();
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const toolsCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const openTools = () => {
+    if (toolsCloseTimer.current) clearTimeout(toolsCloseTimer.current);
+    setToolsOpen(true);
+  };
+  const scheduleToolsClose = () => {
+    if (toolsCloseTimer.current) clearTimeout(toolsCloseTimer.current);
+    toolsCloseTimer.current = setTimeout(() => setToolsOpen(false), 150);
+  };
 
   useEffect(() => {
     if (!isOpen) return;
@@ -75,7 +95,58 @@ export function SiteHeader() {
             <span aria-hidden="true" className="text-2xl leading-none">{isOpen ? "×" : "☰"}</span>
           </button>
           <nav aria-label="Primary navigation" className="hidden items-center gap-5 text-sm font-medium text-slate-600 lg:flex xl:gap-7">
-            {navigationLinks.map((link) => <Link key={link.href} href={link.href} className="whitespace-nowrap transition hover:text-brand-blue">{link.label}</Link>)}
+            {navigationLinks.map((link) => {
+              if (link.href === "/tools") {
+                return (
+                  <div
+                    key={link.href}
+                    className="relative"
+                    onMouseEnter={openTools}
+                    onMouseLeave={scheduleToolsClose}
+                  >
+                    <button
+                      type="button"
+                      aria-expanded={toolsOpen}
+                      aria-haspopup="true"
+                      onClick={() => setToolsOpen((open) => !open)}
+                      onFocus={openTools}
+                      onBlur={scheduleToolsClose}
+                      onKeyDown={(event) => {
+                        if (event.key === "Escape") setToolsOpen(false);
+                      }}
+                      className="inline-flex items-center gap-1 whitespace-nowrap transition hover:text-brand-blue"
+                    >
+                      {link.label}
+                      <span aria-hidden="true" className={`text-[10px] transition-transform ${toolsOpen ? "rotate-180" : ""}`}>▼</span>
+                    </button>
+                    {toolsOpen && (
+                      <div className="absolute left-1/2 top-full z-40 w-64 -translate-x-1/2 pt-2">
+                        <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg">
+                          {toolsMenuLinks.map((tool) => (
+                            <Link
+                              key={tool.href}
+                              href={tool.href}
+                              onClick={() => setToolsOpen(false)}
+                              className="block px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-blue-50 hover:text-brand-blue"
+                            >
+                              {tool.label}
+                            </Link>
+                          ))}
+                          <Link
+                            href="/tools"
+                            onClick={() => setToolsOpen(false)}
+                            className="block border-t border-slate-100 px-4 py-2.5 text-sm font-semibold text-brand-blue transition hover:bg-blue-50"
+                          >
+                            View all tools →
+                          </Link>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+              return <Link key={link.href} href={link.href} className="whitespace-nowrap transition hover:text-brand-blue">{link.label}</Link>;
+            })}
           </nav>
         </div>
         <nav id={menuId} aria-label="Mobile navigation" hidden={!isOpen} className="border-t border-slate-200 py-3 lg:hidden">
