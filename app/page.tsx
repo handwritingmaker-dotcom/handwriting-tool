@@ -518,6 +518,29 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8" aria-labelledby="worksheets-for-kids-heading">
+        <div className="rounded-[32px] border border-emerald-100 bg-emerald-50 p-8 lg:p-10">
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-green">For Parents &amp; Teachers</p>
+          <div className="mt-4 grid gap-6 lg:grid-cols-[1fr,auto] lg:items-end">
+            <div>
+              <h2 id="worksheets-for-kids-heading" className="text-3xl font-semibold tracking-tight text-slate-950">
+                Practice worksheets for kids
+              </h2>
+              <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-700">
+                Build printable tracing and practice worksheets with custom names, letters, and spelling words —
+                free, no account needed. Pairs well with our <Link className="font-semibold text-brand-blue hover:underline" href="/blog/how-to-teach-cursive-writing-to-kids">cursive teaching guide</Link> and the <Link className="font-semibold text-brand-blue hover:underline" href="/blog/kids-handwriting-practice-schedule">weekly practice schedule for kids</Link>.
+              </p>
+            </div>
+            <Link
+              href="/tools/handwriting-worksheet-generator"
+              className="w-fit rounded-full bg-brand-blue px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
+            >
+              Create Worksheets
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
         <div className="rounded-[32px] border border-slate-200 bg-slate-950 p-8 text-white shadow-card lg:p-12">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-emerald-300">Learning Center</p>
