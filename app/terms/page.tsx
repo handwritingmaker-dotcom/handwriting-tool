@@ -99,7 +99,7 @@ export default function TermsPage() {
         </p>
         <p className="mt-4 text-lg leading-8 text-slate-600">
           HandwritingTool is independently operated by{" "}
-          <Link href={siteAuthor.profilePath} rel="author" className="font-semibold text-brand-blue">{siteAuthor.name}</Link>.
+          <Link href={siteAuthor.profilePath} rel="author" className="font-semibold text-brand-blue">Anwar Fakhri</Link>.
         </p>
         <p className="mt-4 text-lg leading-8 text-slate-600">
           Last updated: July 31, 2026.
