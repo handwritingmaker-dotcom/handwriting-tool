@@ -123,8 +123,10 @@ export default function RootLayout({
             } catch (e) {}
           `}
         </Script>
+        
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5045380130139381"
      crossorigin="anonymous"></script>
+        
       </head>
       <body className={`${dmSans.variable} ${kalam.variable} overflow-x-hidden bg-brand-paper text-brand-ink antialiased`}>
         <Script
