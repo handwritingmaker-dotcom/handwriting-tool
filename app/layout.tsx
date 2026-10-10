@@ -101,6 +101,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <meta
+          name="netpub_00ab8011455464d0aebec3a2e31e9dbe"
+          content="00ab8011455464d0aebec3a2e31e9dbe_126bfd536078816a8856ef3f9cd1563c"
+        />
         <Script id="consent-default" strategy="beforeInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
