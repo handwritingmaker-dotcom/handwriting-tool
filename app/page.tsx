@@ -1,8 +1,29 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { HandwritingToolLoader } from "@/components/HandwritingToolLoader";
 import { StartConvertingButton } from "@/components/StartConvertingButton";
 
 const siteUrl = "https://www.handwritingtool.com";
+const homepageTitle = "Text to Handwriting Converter & Free Worksheets";
+const homepageDescription = "Convert text to handwriting and create free printable worksheets, word puzzles, and practice sheets for teachers, parents, and homeschoolers.";
+
+export const metadata: Metadata = {
+  title: homepageTitle,
+  description: homepageDescription,
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: homepageTitle,
+    description: homepageDescription,
+    url: "/",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: homepageTitle,
+    description: homepageDescription,
+  },
+};
+
 const faqs = [
   ["Is the converter free?", "Yes. The converter and browser-based tools are free to use without creating an account."],
   ["Can I use these worksheets in my classroom?", "Yes. Teachers, parents, and homeschoolers can create and print worksheets using content they are permitted to use."],

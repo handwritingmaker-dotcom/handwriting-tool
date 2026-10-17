@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 const baseUrl = process.env.HANDWRITING_TEST_BASE_URL || "http://127.0.0.1:3105";
 
 const protectedPages = [
-  ["/", "Text to Handwriting Converter Free Online | HandwritingTool"],
+  ["/", "Text to Handwriting Converter &amp; Free Worksheets"],
   ["/blog/text-to-handwriting-a4-size", "Text to Handwriting A4 Size | HandwritingTool"],
   ["/blog/word-to-handwriting-converter-online-free", "Word to Handwriting Converter Online Free | HandwritingTool"],
   ["/blog/handwritten-notes-generator", "Handwritten Notes Generator Guide | HandwritingTool"],
