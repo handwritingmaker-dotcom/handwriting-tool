@@ -15,6 +15,18 @@ const protectedPages = [
   ["Write for Us", "/write-for-us", "Contributor information"],
 ] as const;
 
+const toolPages = [
+  ["Main Text to Handwriting Converter", "", "/"],
+  ["Worksheet Generator", "tools/handwriting-worksheet-generator", "/tools/handwriting-worksheet-generator"],
+  ["Cursive Text Generator", "cursive-text-generator", "/cursive-text-generator"],
+  ["Sentence Scramble Generator", "sentence-scramble-generator", "/sentence-scramble-generator"],
+  ["Word Search Maker", "word-search-maker", "/word-search-maker"],
+  ["Signature Generator", "signature-generator", "/signature-generator"],
+  ["Word Scramble Generator", "word-scramble-generator", "/word-scramble-generator"],
+  ["Assignment Maker", "assignment-maker", "/assignment-maker"],
+  ["Invitation Maker", "invitation-maker", "/invitation-maker"],
+] as const;
+
 export default async function Pages({
   searchParams,
 }: {
@@ -66,6 +78,25 @@ export default async function Pages({
               ))}
             </tbody>
           </table>
+        </div>
+      </section>
+
+      <section className="mt-8 overflow-hidden rounded-2xl bg-white shadow-sm">
+        <div className="border-b px-5 py-4">
+          <h2 className="text-lg font-bold">Tool pages</h2>
+          <p className="mt-1 text-sm text-slate-600">Edit safe titles, descriptions, instructions, features, FAQs, and search metadata without changing the tool controls or export logic.</p>
+        </div>
+        <div className="grid gap-3 p-4 sm:grid-cols-2 xl:grid-cols-3">
+          {toolPages.map(([title, slug, href]) => (
+            <article key={title} className="min-w-0 rounded-xl border p-4">
+              <h3 className="truncate font-semibold">{title}</h3>
+              <p className="mt-1 truncate text-xs text-slate-500">{href}</p>
+              <div className="mt-4 flex flex-wrap gap-3 text-sm font-semibold">
+                {slug ? <Link href={`/admin/tools?slug=${encodeURIComponent(slug)}`} className="text-blue-600">Edit content & SEO</Link> : <span className="text-slate-400" title="The homepage editor is code-protected">Protected homepage</span>}
+                <Link href={href} target="_blank" className="text-slate-600">View live</Link>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 

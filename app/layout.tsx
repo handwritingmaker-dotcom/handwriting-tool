@@ -151,9 +151,9 @@ export default function RootLayout({
         </Script>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteSchema) }} />
         <div className="min-h-screen">
-          <SiteHeader />
+          <div className="public-site-header"><SiteHeader /></div>
           {children}
-          <footer className="border-t border-slate-200 bg-white">
+          <footer className="public-site-footer border-t border-slate-200 bg-white">
             <div className="mx-auto max-w-7xl px-4 py-10 text-sm text-slate-600 sm:px-6 lg:px-8">
               <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4"><div><p className="font-semibold text-slate-900">HandwritingTool</p><p className="mt-3 leading-6">Create readable handwritten-style notes, worksheets, classroom activities, and printable designs.</p></div>{footerGroups.map(group=><div key={group.heading}><h2 className="font-semibold text-slate-900">{group.heading}</h2><ul className="mt-3 space-y-2">{group.links.map(link=><li key={link.href}><Link href={link.href} className="hover:text-brand-blue focus:text-brand-blue">{link.label}</Link></li>)}</ul></div>)}</div>
               <div className="mt-8 flex flex-wrap items-center gap-4 border-t border-slate-100 pt-6">
@@ -166,7 +166,7 @@ export default function RootLayout({
               </div>
             </div>
           </footer>
-          <CookieConsent />
+          <div className="public-site-consent"><CookieConsent /></div>
         </div>
       </body>
     </html>

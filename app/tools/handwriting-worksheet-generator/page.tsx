@@ -5,6 +5,7 @@ import { WorksheetGenerator } from "@/components/worksheet/WorksheetGenerator";
 import { CustomWorksheetBuilder } from "@/components/worksheet/CustomWorksheetBuilder";
 import { editorSocialImage } from "@/lib/seo";
 import { toolPageConfigs } from "@/lib/tool-pages";
+import { publicToolContent } from "@/lib/cms/public";
 
 const worksheetPrintFont = Patrick_Hand({ subsets: ["latin"], weight: "400", variable: "--font-ws-print" });
 const worksheetCursiveFont = Caveat({ subsets: ["latin"], weight: ["600"], variable: "--font-ws-cursive" });
@@ -12,7 +13,7 @@ const worksheetCursiveFont = Caveat({ subsets: ["latin"], weight: ["600"], varia
 const tool = toolPageConfigs.worksheet;
 const siteUrl = "https://www.handwritingtool.com";
 
-export const metadata: Metadata = {
+const defaultMetadata: Metadata = {
   title: tool.title,
   description: tool.description,
   alternates: { canonical: tool.path },
@@ -35,6 +36,8 @@ export const metadata: Metadata = {
     images: [editorSocialImage.url],
   },
 };
+
+export async function generateMetadata():Promise<Metadata>{const cms=await publicToolContent("tools/handwriting-worksheet-generator");if(!cms)return defaultMetadata;const title=cms.seo_title||cms.display_name||tool.title,description=cms.meta_description||cms.description||tool.description;return{title,description,alternates:{canonical:tool.path},robots:{index:!cms.noindex,follow:true},openGraph:{title,description,url:tool.path,type:"website",images:[editorSocialImage]},twitter:{card:"summary_large_image",title,description,images:[editorSocialImage.url]}}}
 
 const faqs = [
   {
@@ -134,15 +137,16 @@ const schemas = [
 
 const cardClass = "rounded-[32px] border border-slate-200 bg-white p-7 shadow-card";
 
-export default function HandwritingWorksheetGeneratorPage() {
+export default async function HandwritingWorksheetGeneratorPage() {
+  const cms=await publicToolContent("tools/handwriting-worksheet-generator");
   return (
     <main className={`${worksheetPrintFont.variable} ${worksheetCursiveFont.variable}`}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas) }} />
 
       <section className="mx-auto max-w-5xl px-4 pb-8 pt-12 text-center sm:px-6 lg:px-8">
         <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">{tool.eyebrow}</p>
-        <h1 className="mx-auto mt-3 max-w-4xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">{tool.h1}</h1>
-        <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">{tool.intro}</p>
+        <h1 className="mx-auto mt-3 max-w-4xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">{cms?.display_name||tool.h1}</h1>
+        <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">{cms?.intro||cms?.description||tool.intro}</p>
       </section>
 
       <section className="relative z-10 mx-auto max-w-[1500px] px-3 pb-12 sm:px-5 lg:px-7" aria-label="Worksheet generator">

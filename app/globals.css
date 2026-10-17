@@ -140,3 +140,8 @@ body {
   .home-reference .studio-shell .studio-preview-scroll { max-height: 600px; }
 }
 @media (max-width: 1023px) { .home-reference .studio-shell .preview-panel { min-height: 520px; position: relative; top: auto; } }
+body:has(.admin-shell) .public-site-header,
+body:has(.admin-shell) .public-site-footer,
+body:has(.admin-shell) .public-site-consent {
+  display: none;
+}

@@ -5,8 +5,10 @@ let pool: Pool | undefined;
 export function cmsConfigured() { return Boolean(process.env.DATABASE_URL); }
 export function getPool() {
   if (!process.env.DATABASE_URL) throw new Error("CMS database is not configured. Set DATABASE_URL.");
-  pool ??= new Pool({ connectionString: process.env.DATABASE_URL, max: Number(process.env.CMS_DB_POOL_SIZE || 10), idleTimeoutMillis: 30_000, connectionTimeoutMillis: 5_000, ssl: process.env.CMS_DB_SSL === "true" ? { rejectUnauthorized: true } : undefined });
-  pool.on("error", error => console.error("CMS database pool error", error.message));
+  if (!pool) {
+    pool = new Pool({ connectionString: process.env.DATABASE_URL, max: Number(process.env.CMS_DB_POOL_SIZE || 10), idleTimeoutMillis: 30_000, connectionTimeoutMillis: 5_000, ssl: process.env.CMS_DB_SSL === "true" ? { rejectUnauthorized: true } : undefined });
+    pool.on("error", error => console.error("CMS database pool error", error.message));
+  }
   return pool;
 }
 export async function query<T extends QueryResultRow>(text: string, values: unknown[] = []) { return (await getPool().query<T>(text, values)).rows; }
