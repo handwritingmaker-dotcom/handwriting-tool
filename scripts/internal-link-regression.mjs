@@ -26,7 +26,8 @@ for (const file of sourceFiles) {
   }
   if (file.startsWith(appRoot) && path.basename(file) === "page.tsx" && !file.includes("[")) {
     const relative = path.relative(appRoot, path.dirname(file)).replaceAll("\\", "/");
-    routes.add(relative ? `/${relative}` : "/");
+    const publicSegments = relative.split("/").filter((segment) => segment && !/^\(.+\)$/.test(segment));
+    routes.add(publicSegments.length ? `/${publicSegments.join("/")}` : "/");
   }
 }
 

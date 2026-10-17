@@ -80,9 +80,13 @@ const siteSchema = [
   },
 ];
 
+const footerGroups = [
+ { heading: "Handwriting Tools", links: [{href:"/#tool",label:"Text to Handwriting"},{href:"/cursive-text-generator",label:"Cursive Text Generator"},{href:"/signature-generator",label:"Signature Generator"}]},
+ { heading: "Educational Tools", links: [{href:"/tools/handwriting-worksheet-generator",label:"Worksheet Generator"},{href:"/sentence-scramble-generator",label:"Sentence Scramble"},{href:"/word-search-maker",label:"Word Search Maker"},{href:"/word-scramble-generator",label:"Word Scramble"},{href:"/assignment-maker",label:"Assignment Maker"}]},
+ { heading: "Creative Tools", links: [{href:"/invitation-maker",label:"Invitation Maker"}]},
+];
 const footerLinks = [
-  { href: "/tools", label: "Tools" },
-  { href: "/tools/handwriting-worksheet-generator", label: "Worksheet Generator" },
+  { href: "/tools", label: "All Tools" },
   { href: "/templates", label: "Templates" },
   { href: "/blog", label: "Blog" },
   { href: "/write-for-us", label: "Write for Us" },
@@ -150,9 +154,9 @@ export default function RootLayout({
           <SiteHeader />
           {children}
           <footer className="border-t border-slate-200 bg-white">
-            <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-10 text-sm text-slate-600 sm:px-6 lg:px-8 md:flex-row md:items-center md:justify-between">
-              <p>HandwritingTool helps users create readable handwritten-style notes, drafts, and printable pages.</p>
-              <div className="flex flex-wrap items-center gap-4">
+            <div className="mx-auto max-w-7xl px-4 py-10 text-sm text-slate-600 sm:px-6 lg:px-8">
+              <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4"><div><p className="font-semibold text-slate-900">HandwritingTool</p><p className="mt-3 leading-6">Create readable handwritten-style notes, worksheets, classroom activities, and printable designs.</p></div>{footerGroups.map(group=><div key={group.heading}><h2 className="font-semibold text-slate-900">{group.heading}</h2><ul className="mt-3 space-y-2">{group.links.map(link=><li key={link.href}><Link href={link.href} className="hover:text-brand-blue focus:text-brand-blue">{link.label}</Link></li>)}</ul></div>)}</div>
+              <div className="mt-8 flex flex-wrap items-center gap-4 border-t border-slate-100 pt-6">
                 {footerLinks.map((link) => (
                   <Link key={link.href} href={link.href} className="transition hover:text-brand-blue">
                     {link.label}

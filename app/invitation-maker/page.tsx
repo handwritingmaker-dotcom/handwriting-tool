@@ -1,0 +1,1 @@
+import { InvitationTool } from "@/components/tools/GeneratorTools"; import { ToolPage } from "@/components/tools/ToolPage"; import { toolMetadata } from "@/components/tools/toolMetadata"; export const metadata=toolMetadata("invitation-maker"); export default function Page(){return <ToolPage slug="invitation-maker"><InvitationTool/></ToolPage>}

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getAllPosts } from "@/lib/blog";
 import { editorSocialImage } from "@/lib/seo";
+import { publicContentList } from "@/lib/cms/public";
 
 export const metadata = {
   title: "HandwritingTool Blog | Text to Handwriting Guides",
@@ -26,8 +27,13 @@ export const metadata = {
   },
 };
 
-export default function BlogPage() {
-  const posts = getAllPosts();
+export default async function BlogPage() {
+  const cmsPosts = await publicContentList("POST");
+  const cmsSlugs = new Set(cmsPosts.map((post) => post.slug));
+  const posts = [
+    ...cmsPosts.map((post) => ({ slug:post.slug,title:post.title,description:post.excerpt,date:(post.published_at??post.updated_at).toISOString().slice(0,10),updated:post.updated_at.toISOString(),category:post.category_name||"Guides" })),
+    ...getAllPosts().filter((post) => !cmsSlugs.has(post.slug)),
+  ];
   const [latestPost, ...olderPosts] = posts;
   const siteUrl = "https://www.handwritingtool.com";
 

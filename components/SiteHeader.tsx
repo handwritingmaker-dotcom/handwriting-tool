@@ -3,27 +3,27 @@
 import { useEffect, useId, useRef, useState, type MouseEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 type NavigationLink = { href: string; label: string; focusTarget?: string };
 
-const toolsMenuLinks: NavigationLink[] = [
-  { href: "/tools/handwriting-worksheet-generator", label: "Worksheet Generator" },
-  { href: "/tools/text-to-handwriting-pdf", label: "Text to Handwriting PDF" },
-  { href: "/tools/lined-paper-handwriting", label: "Lined Paper Handwriting" },
-  { href: "/tools/graph-paper-handwriting", label: "Graph Paper Handwriting" },
-  { href: "/tools/handwritten-notes", label: "Handwritten Notes" },
+const toolGroups = [
+  { label: "Handwriting Tools", links: [
+    { href: "/#tool", label: "Text to Handwriting" }, { href: "/cursive-text-generator", label: "Cursive Text Generator" },
+    { href: "/signature-generator", label: "Signature Generator" },
+  ]},
+  { label: "Educational Tools", links: [
+    { href: "/tools/handwriting-worksheet-generator", label: "Worksheet Generator" }, { href: "/sentence-scramble-generator", label: "Sentence Scramble" },
+    { href: "/word-search-maker", label: "Word Search Maker" }, { href: "/word-scramble-generator", label: "Word Scramble" }, { href: "/assignment-maker", label: "Assignment Maker" },
+  ]},
+  { label: "Creative Tools", links: [{ href: "/invitation-maker", label: "Invitation Maker" }] },
 ];
 
 const navigationLinks: NavigationLink[] = [
   { href: "/#tool", label: "Converter", focusTarget: "#handwriting-text" },
-  { href: "/#features", label: "Features", focusTarget: "#features-heading" },
-  { href: "/#seo-guide", label: "Guide", focusTarget: "#seo-guide-heading" },
-  { href: "/tools", label: "Tools" },
-  { href: "/tools/handwriting-worksheet-generator", label: "Worksheets" },
+  { href: "/tools", label: "Classroom Tools" },
   { href: "/templates", label: "Templates" },
-  { href: "/blog", label: "Blog" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: "/blog", label: "Guides" },
 ];
 
 function isUnmodifiedPrimaryClick(event: MouseEvent<HTMLAnchorElement>) {
@@ -31,6 +31,7 @@ function isUnmodifiedPrimaryClick(event: MouseEvent<HTMLAnchorElement>) {
 }
 
 export function SiteHeader() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [toolsOpen, setToolsOpen] = useState(false);
   const menuId = useId();
@@ -77,11 +78,11 @@ export function SiteHeader() {
   };
 
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/95 backdrop-blur">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between gap-4 lg:h-20">
+    <header className="sticky top-0 z-30 border-b border-slate-100 bg-white/95 backdrop-blur">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between gap-4 lg:h-[74px]">
           <Link href="/" className="flex shrink-0 items-center" aria-label="HandwritingTool home" onClick={() => setIsOpen(false)}>
-            <Image src="/handwriting-tool-logo.png" alt="HandwritingTool" width={180} height={70} priority className="h-12 w-auto lg:h-16" />
+            <Image src="/handwriting-tool-logo.png" alt="HandwritingTool" width={180} height={70} priority className="h-12 w-auto lg:h-[58px]" />
           </Link>
           <button
             ref={menuButtonRef}
@@ -94,7 +95,7 @@ export function SiteHeader() {
           >
             <span aria-hidden="true" className="text-2xl leading-none">{isOpen ? "×" : "☰"}</span>
           </button>
-          <nav aria-label="Primary navigation" className="hidden items-center gap-5 text-sm font-medium text-slate-600 lg:flex xl:gap-7">
+          <nav aria-label="Primary navigation" className="hidden items-center gap-8 text-sm font-semibold text-[#07184d] lg:flex">
             {navigationLinks.map((link) => {
               if (link.href === "/tools") {
                 return (
@@ -120,22 +121,23 @@ export function SiteHeader() {
                       <span aria-hidden="true" className={`text-[10px] transition-transform ${toolsOpen ? "rotate-180" : ""}`}>▼</span>
                     </button>
                     {toolsOpen && (
-                      <div className="absolute left-1/2 top-full z-40 w-64 -translate-x-1/2 pt-2">
-                        <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg">
-                          {toolsMenuLinks.map((tool) => (
+                      <div className="absolute left-1/2 top-full z-40 w-[680px] max-w-[90vw] -translate-x-1/2 pt-2">
+                        <div className="grid overflow-hidden rounded-2xl border border-slate-200 bg-white p-3 shadow-lg md:grid-cols-3">
+                          {toolGroups.map((group) => <div key={group.label} className="p-2"><p className="px-2 pb-2 text-xs font-bold uppercase tracking-wider text-slate-400">{group.label}</p>{group.links.map((tool) => (
                             <Link
                               key={tool.href}
                               href={tool.href}
                               onClick={() => setToolsOpen(false)}
-                              className="block px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-blue-50 hover:text-brand-blue"
+                              aria-current={pathname === tool.href ? "page" : undefined}
+                              className={`block rounded-lg px-2 py-2 text-sm font-medium transition hover:bg-blue-50 hover:text-brand-blue ${pathname === tool.href ? "bg-blue-50 text-brand-blue" : "text-slate-700"}`}
                             >
                               {tool.label}
                             </Link>
-                          ))}
+                          ))}</div>)}
                           <Link
                             href="/tools"
                             onClick={() => setToolsOpen(false)}
-                            className="block border-t border-slate-100 px-4 py-2.5 text-sm font-semibold text-brand-blue transition hover:bg-blue-50"
+                            className="col-span-full block border-t border-slate-100 px-4 py-2.5 text-sm font-semibold text-brand-blue transition hover:bg-blue-50"
                           >
                             View all tools →
                           </Link>
@@ -148,6 +150,7 @@ export function SiteHeader() {
               return <Link key={link.href} href={link.href} className="whitespace-nowrap transition hover:text-brand-blue">{link.label}</Link>;
             })}
           </nav>
+          <Link href="/#tool" className="hidden rounded-lg bg-blue-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-blue-200 transition hover:bg-blue-700 lg:inline-flex">Open converter ↗</Link>
         </div>
         <nav id={menuId} aria-label="Mobile navigation" hidden={!isOpen} className="border-t border-slate-200 py-3 lg:hidden">
           <div className="grid grid-cols-2 gap-1 sm:grid-cols-4">
@@ -162,6 +165,10 @@ export function SiteHeader() {
               </Link>
             ))}
           </div>
+          <details className="mt-2 rounded-xl border border-slate-200 bg-slate-50 p-2">
+            <summary className="min-h-11 cursor-pointer px-2 py-2 text-sm font-bold text-slate-800">All tools</summary>
+            <div className="grid gap-3 px-2 pb-2 sm:grid-cols-3">{toolGroups.map(group=><div key={group.label}><p className="mb-1 text-xs font-bold uppercase tracking-wider text-slate-400">{group.label}</p>{group.links.map(tool=><Link key={tool.href} href={tool.href} onClick={()=>setIsOpen(false)} className="block rounded-lg px-2 py-2 text-sm text-slate-700 hover:bg-blue-100">{tool.label}</Link>)}</div>)}</div>
+          </details>
         </nav>
       </div>
     </header>

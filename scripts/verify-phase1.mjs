@@ -12,7 +12,6 @@ const importer = read("components/PdfTextImporter.tsx");
 const docxImporter = read("components/DocxTextImporter.tsx");
 const tool = read("components/HandwritingTool.tsx");
 const beginner = read("content/blogs/how-to-convert-text-to-handwriting.mdx");
-const pdfImport = read("content/blogs/pdf-to-handwriting-converter.mdx");
 const pdfExport = read("content/blogs/text-to-handwriting-pdf-generator.mdx");
 
 for (const event of ["tool_view", "editor_focus", "preview_rendered", "preview_error", "pdf_import_started", "pdf_import_completed", "pdf_import_error", "docx_upload_started", "docx_extraction_success", "docx_extraction_failed", "export_started", "export_completed", "export_error", "related_tool_clicked", "guide_clicked", "template_downloaded"]) {
@@ -32,7 +31,8 @@ assert.match(header, /aria-expanded=\{isOpen\}/);
 assert.match(header, /aria-controls=\{menuId\}/);
 assert.match(header, /event\.key !== "Escape"/);
 assert.match(header, /menuButtonRef\.current\?\.focus/);
-assert.doesNotMatch(header, /usePathname/);
+assert.match(header, /usePathname/);
+assert.match(header, /aria-current=\{pathname === tool\.href \? "page" : undefined\}/);
 assert.match(cta, /prefers-reduced-motion: reduce/);
 assert.match(cta, /handwriting-text/);
 assert.match(cta, /href="#tool"/);
@@ -46,9 +46,9 @@ assert.match(importer, /selectable text/);
 assert.match(importer, /OCR is not currently available/);
 assert.match(docxImporter, /not uploaded to our server/);
 assert.match(beginner, /PDF upload tool/);
-assert.match(pdfImport, /existing source PDF/);
-assert.match(pdfImport, /does not run optical character recognition \(OCR\) or preserve/);
+assert.match(pdfExport, /existing source PDF/);
+assert.match(pdfExport, /does not preserve the source PDF layout or run OCR/);
 assert.match(pdfExport, /output workflow is different from importing an existing source PDF/);
-assert.match(pdfImport, /Scanned PDFs (?:require OCR first|still require OCR)/);
+assert.match(pdfExport, /scanned files still need separate OCR/);
 
 console.log("Phase 1 source checks passed.");

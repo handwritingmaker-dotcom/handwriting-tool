@@ -1,0 +1,12 @@
+import assert from "node:assert/strict";
+import { readFileSync, existsSync } from "node:fs";
+import path from "node:path";
+const root=process.cwd(),read=(file)=>readFileSync(path.join(root,file),"utf8");
+for(const route of ["app/admin/login/page.tsx","app/admin/(panel)/page.tsx","app/admin/(panel)/posts/page.tsx","app/admin/(panel)/posts/new/page.tsx","app/admin/(panel)/pages/page.tsx","app/admin/(panel)/pages/new/page.tsx","app/admin/(panel)/preview/[id]/page.tsx","app/[slug]/page.tsx"])assert.ok(existsSync(path.join(root,route)),`Missing CMS route ${route}`);
+const shell=read("components/admin/AdminShell.tsx");for(const label of ["Blog Posts","Pages","Account Security"])assert.match(shell,new RegExp(label));for(const removed of ["Media\",\"/admin/media","Homepage\",\"/admin/homepage","Tools\",\"/admin/tools","Navigation\",\"/admin/navigation","Footer\",\"/admin/footer"])assert.doesNotMatch(shell,new RegExp(removed));
+const actions=read("app/admin/actions.ts");for(const feature of ["saveContentAction","deleteContentAction","CONTENT_UNPUBLISHED","CONTENT_DELETED","verifyCsrf","persistImage","revalidatePath(\"/sitemap.xml\")"])assert.ok(actions.includes(feature),`Missing action feature ${feature}`);
+const editor=read("components/admin/ContentEditor.tsx");for(const control of ["Save draft","Publish","Unpublish","Preview","featuredImage","publicationDate","category","seoTitle","metaDescription","canonicalUrl","noindex"])assert.ok(editor.includes(control),`Missing editor control ${control}`);
+const security=read("lib/cms/security.ts");for(const slug of ["admin","api","tools","blog","assignment-maker","signature-generator","word-search-maker"])assert.ok(security.includes(`\"${slug}\"`),`Missing protected slug ${slug}`);
+const publicData=read("lib/cms/public.ts");assert.ok(publicData.includes("c.status='PUBLISHED'"));assert.ok(publicData.includes("c.trashed_at IS NULL"));
+const importer=read("scripts/cms-import-mdx.mjs");for(const marker of ["checksum","cms_imports","ON CONFLICT(kind,slug)","cms_content_categories"])assert.ok(importer.includes(marker),`Missing migration safeguard ${marker}`);
+console.log("Simplified CMS source regression checks passed.");

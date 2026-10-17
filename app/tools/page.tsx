@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { editorSocialImage } from "@/lib/seo";
 import { toolPageConfigs } from "@/lib/tool-pages";
+import { newTools } from "@/lib/new-tools";
 
 export const metadata: Metadata = {
   title: "Free Text to Handwriting Tools Online | HandwritingTool",
@@ -12,10 +13,11 @@ export const metadata: Metadata = {
 };
 
 const tools = Object.values(toolPageConfigs);
+const allSchemaTools = [...tools.map(tool => ({ name: tool.name, path: tool.path })), ...newTools.map(tool => ({ name: tool.name, path: `/${tool.slug}` }))];
 const siteUrl = "https://www.handwritingtool.com";
 
 export default function ToolsPage() {
-  const itemListSchema = { "@context": "https://schema.org", "@type": "ItemList", name: "HandwritingTool tools", itemListElement: tools.map((tool, index) => ({ "@type": "ListItem", position: index + 1, name: tool.name, url: `${siteUrl}${tool.path}` })) };
+  const itemListSchema = { "@context": "https://schema.org", "@type": "ItemList", name: "HandwritingTool tools", itemListElement: allSchemaTools.map((tool, index) => ({ "@type": "ListItem", position: index + 1, name: tool.name, url: `${siteUrl}${tool.path}` })) };
   const cardClass = "rounded-[32px] border border-slate-200 bg-white p-7 shadow-card transition hover:-translate-y-1 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-blue";
 
   return (
@@ -37,6 +39,13 @@ export default function ToolsPage() {
           {tools.map((tool) => (
             <Link key={tool.path} href={tool.path} className={cardClass}>
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-blue">Focused workspace</p>
+              <h2 className="mt-3 text-2xl font-semibold text-slate-950">{tool.name}</h2>
+              <p className="mt-3 leading-7 text-slate-600">{tool.description}</p>
+            </Link>
+          ))}
+          {newTools.map((tool) => (
+            <Link key={tool.slug} href={`/${tool.slug}`} className={cardClass}>
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-blue">{tool.category}</p>
               <h2 className="mt-3 text-2xl font-semibold text-slate-950">{tool.name}</h2>
               <p className="mt-3 leading-7 text-slate-600">{tool.description}</p>
             </Link>

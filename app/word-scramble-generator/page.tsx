@@ -1,0 +1,1 @@
+import { WordScrambleTool } from "@/components/tools/GeneratorTools"; import { ToolPage } from "@/components/tools/ToolPage"; import { toolMetadata } from "@/components/tools/toolMetadata"; export const metadata=toolMetadata("word-scramble-generator"); export default function Page(){return <ToolPage slug="word-scramble-generator"><WordScrambleTool/></ToolPage>}

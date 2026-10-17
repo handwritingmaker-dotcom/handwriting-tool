@@ -159,8 +159,8 @@ export function WorksheetGenerator() {
 
   useEffect(() => {
     const token = ++renderToken.current;
-    setRendering(true);
     const timer = setTimeout(async () => {
+      setRendering(true);
       try {
         if (!spec) {
           if (renderToken.current === token) {
@@ -243,6 +243,16 @@ export function WorksheetGenerator() {
       setExporting(false);
     }
   };
+
+  const printWorksheet = () => {
+    if (!pages.length) return;
+    const popup = window.open("", "_blank", "noopener,noreferrer");
+    if (!popup) { setStatus("Allow pop-ups to print the worksheet."); return; }
+    popup.document.write(`<html><head><title>${baseName}</title><style>@page{margin:0}body{margin:0}.page{display:block;width:100%;page-break-after:always}</style></head><body>${pages.map((page) => `<img class="page" src="${page.toDataURL("image/png")}" alt="Worksheet page">`).join("")}</body></html>`);
+    popup.document.close(); popup.focus(); window.setTimeout(() => popup.print(), 250);
+  };
+
+  const resetWorksheet = () => { setMode("name"); setName("Emma"); setWordsText("cat\ndog\nsun\nfish\ntree"); setAlphabetCase("both"); setStyle("print"); setLineSize("medium"); setTraceRows(2); setPracticeRows(2); setShowGuides(true); setShowHeader(true); setModelInk("blue"); setPageSize("a4"); setStatus("Worksheet reset."); };
 
   const emptyInput = spec === null;
 
@@ -429,6 +439,11 @@ export function WorksheetGenerator() {
             >
               Download PNG (this page)
             </button>
+          </div>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <button type="button" onClick={printWorksheet} disabled={!pages.length} className="rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 hover:border-slate-300 disabled:opacity-50">Print worksheet</button>
+            <button type="button" onClick={resetWorksheet} className="rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 hover:border-slate-300">Reset worksheet</button>
+            <button type="button" onClick={() => { setName(""); setWordsText(""); setMode("name"); setStatus("Ready for another worksheet."); }} className="rounded-full border border-blue-100 bg-blue-50 px-5 py-2.5 text-sm font-semibold text-brand-blue hover:bg-blue-100">Generate another</button>
           </div>
           {status && (
             <p className="mt-3 text-sm font-medium text-slate-600" role="status">

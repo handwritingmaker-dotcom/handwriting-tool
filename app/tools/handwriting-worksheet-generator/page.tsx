@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Caveat, Patrick_Hand } from "next/font/google";
 import { WorksheetGenerator } from "@/components/worksheet/WorksheetGenerator";
+import { CustomWorksheetBuilder } from "@/components/worksheet/CustomWorksheetBuilder";
 import { editorSocialImage } from "@/lib/seo";
 import { toolPageConfigs } from "@/lib/tool-pages";
 
@@ -146,6 +147,7 @@ export default function HandwritingWorksheetGeneratorPage() {
 
       <section className="relative z-10 mx-auto max-w-[1500px] px-3 pb-12 sm:px-5 lg:px-7" aria-label="Worksheet generator">
         <WorksheetGenerator />
+        <CustomWorksheetBuilder />
       </section>
 
       <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8">
@@ -260,7 +262,7 @@ export default function HandwritingWorksheetGeneratorPage() {
               <h3 className="text-lg font-semibold text-slate-950">Homeschoolers</h3>
               <p className="mt-2 leading-7">
                 Build handwriting into any curriculum by generating sheets from the words you are already studying —
-                science vocabulary, history terms, or this week's reading words. The cursive mode gives you a real
+              science vocabulary, history terms, or this week&apos;s reading words. The cursive mode gives you a real
                 path from print to joined writing without buying a separate cursive program.
               </p>
             </div>

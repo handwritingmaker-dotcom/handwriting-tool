@@ -7,6 +7,7 @@ import { getAllPosts, getPostBySlug, extractFaqs } from "@/lib/blog";
 import { siteAuthor } from "@/lib/author";
 import { outputSocialImage } from "@/lib/seo";
 import { HandwritingToolLoader } from "@/components/HandwritingToolLoader";
+import { publicContent } from "@/lib/cms/public";
 
 const siteUrl = "https://www.handwritingtool.com";
 
@@ -36,6 +37,11 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
+  const cmsPost = await publicContent("POST", slug);
+  if (cmsPost) {
+    const title = `${cmsPost.seo_title || cmsPost.title} | HandwritingTool`;
+    return {title,description:cmsPost.meta_description||cmsPost.excerpt,alternates:{canonical:cmsPost.canonical_url||`/blog/${slug}`},robots:cmsPost.robots_noindex?{index:false,follow:false}:undefined,openGraph:{title,description:cmsPost.meta_description||cmsPost.excerpt,url:`/blog/${slug}`,type:"article",publishedTime:(cmsPost.published_at??cmsPost.updated_at).toISOString(),modifiedTime:cmsPost.updated_at.toISOString(),images:[outputSocialImage]},twitter:{card:"summary_large_image",title,description:cmsPost.meta_description||cmsPost.excerpt,images:[outputSocialImage.url]}};
+  }
   const post = getPostBySlug(slug);
 
   if (!post) {
@@ -73,6 +79,8 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
+  const cmsPost = await publicContent("POST",slug);
+  if(cmsPost){const published=cmsPost.published_at??cmsPost.updated_at;const schema={"@context":"https://schema.org","@type":"BlogPosting",headline:cmsPost.title,description:cmsPost.excerpt,datePublished:published.toISOString(),dateModified:cmsPost.updated_at.toISOString(),mainEntityOfPage:`${siteUrl}/blog/${cmsPost.slug}`,image:cmsPost.featured_image_url?`${siteUrl}${cmsPost.featured_image_url}`:undefined,author:{"@type":"Person",name:cmsPost.author_name},publisher:{"@type":"Organization",name:"HandwritingTool"}};return <main className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8"><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(schema)}}/><article className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-card sm:p-8 lg:p-12">{cmsPost.featured_image_url&&<Image src={cmsPost.featured_image_url} alt={cmsPost.featured_image_alt||cmsPost.title} width={1200} height={630} className="mb-8 h-auto w-full rounded-2xl"/>}<p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-blue">{cmsPost.category_name||"Guides"} &bull; {formatDate(published.toISOString())}</p><h1 className="mt-5 text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">{cmsPost.title}</h1><p className="mt-4 text-lg leading-8 text-slate-600">{cmsPost.excerpt}</p><p className="mt-4 text-sm text-slate-500">Written by {cmsPost.author_name} · Updated {formatDate(cmsPost.updated_at.toISOString())}</p><div className="prose prose-slate mt-8 max-w-none" dangerouslySetInnerHTML={{__html:cmsPost.content_html}}/></article></main>}
   const post = getPostBySlug(slug);
 
   if (!post) {

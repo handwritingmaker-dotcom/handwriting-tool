@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
 
 const STORAGE_KEY = "hw-cookie-consent";
 
@@ -32,10 +33,10 @@ export function CookieConsent() {
     } catch {
       stored = null;
     }
-    if (!stored) setVisible(true);
+    const revealTimer = !stored ? window.setTimeout(() => setVisible(true), 0) : null;
     const show = () => setVisible(true);
     window.addEventListener("hw:show-cookie-banner", show);
-    return () => window.removeEventListener("hw:show-cookie-banner", show);
+    return () => { if (revealTimer !== null) window.clearTimeout(revealTimer); window.removeEventListener("hw:show-cookie-banner", show); };
   }, []);
 
   const choose = useCallback((granted: boolean) => {
@@ -63,9 +64,9 @@ export function CookieConsent() {
           We use cookies to measure site usage with Google Analytics. The handwriting converter works
           exactly the same whether you accept or decline. You can change your choice anytime from
           &ldquo;Cookie Settings&rdquo; in the footer. Read our{" "}
-          <a href="/privacy-policy" className="font-medium text-brand-blue underline">
+          <Link href="/privacy-policy" className="font-medium text-brand-blue underline">
             Privacy Policy
-          </a>
+          </Link>
           .
         </p>
         <div className="mt-4 flex flex-wrap gap-3">

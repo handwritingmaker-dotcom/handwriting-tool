@@ -1,0 +1,1 @@
+import { SentenceScrambleTool } from "@/components/tools/GeneratorTools"; import { ToolPage } from "@/components/tools/ToolPage"; import { toolMetadata } from "@/components/tools/toolMetadata"; export const metadata=toolMetadata("sentence-scramble-generator"); export default function Page(){return <ToolPage slug="sentence-scramble-generator"><SentenceScrambleTool/></ToolPage>}
