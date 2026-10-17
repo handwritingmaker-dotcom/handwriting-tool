@@ -202,7 +202,7 @@ export async function saveContentAction(
           [id, snap.rows[0].snapshot, user.id],
         );
         await client.query(
-          `UPDATE cms_content SET title=$2,slug=$3,excerpt=$4,content_html=$5,content_json=$6,status=$7,seo_title=$8,meta_description=$9,canonical_url=$10,robots_noindex=$11,include_in_sitemap=$12,featured_image_id=$13,published_at=CASE WHEN $7='PUBLISHED' THEN COALESCE($14::timestamptz,published_at,now()) ELSE published_at END,updated_at=now() WHERE id=$1`,
+          `UPDATE cms_content SET title=$2,slug=$3,excerpt=$4,content_html=$5,content_json=$6,status=$7::content_status,seo_title=$8,meta_description=$9,canonical_url=$10,robots_noindex=$11,include_in_sitemap=$12,featured_image_id=$13,published_at=CASE WHEN $7::content_status='PUBLISHED'::content_status THEN COALESCE($14::timestamptz,published_at,now()) ELSE published_at END,updated_at=now() WHERE id=$1`,
           [
             id,
             parsed.data.title,
@@ -223,7 +223,7 @@ export async function saveContentAction(
       } else {
         id = (
           await client.query<{ id: string }>(
-            `INSERT INTO cms_content(kind,title,slug,excerpt,content_html,content_json,status,author_id,seo_title,meta_description,canonical_url,robots_noindex,include_in_sitemap,featured_image_id,published_at) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,CASE WHEN $7='PUBLISHED' THEN COALESCE($15::timestamptz,now()) END) RETURNING id`,
+            `INSERT INTO cms_content(kind,title,slug,excerpt,content_html,content_json,status,author_id,seo_title,meta_description,canonical_url,robots_noindex,include_in_sitemap,featured_image_id,published_at) VALUES($1::content_kind,$2,$3,$4,$5,$6,$7::content_status,$8,$9,$10,$11,$12,$13,$14,CASE WHEN $7::content_status='PUBLISHED'::content_status THEN COALESCE($15::timestamptz,now()) END) RETURNING id`,
             [
               parsed.data.kind,
               parsed.data.title,
