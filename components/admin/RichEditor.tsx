@@ -14,7 +14,7 @@ export function RichEditor({name="contentHtml",initial=""}:{name?:string;initial
   useEffect(()=>()=>editor?.destroy(),[editor]);
   if(!editor)return <div className="h-64 animate-pulse rounded-xl bg-slate-100"/>;
   const addLink=()=>{const href=window.prompt("URL");if(href&&/^(https?:\/\/|\/|#)/i.test(href))editor.chain().focus().setLink({href}).run()};
-  const addImage=()=>{const src=window.prompt("Image URL from Media Library");if(src&&/^(https?:\/\/|\/media\/)/i.test(src))editor.chain().focus().setImage({src,alt:""}).run()};
+  const addImage=()=>{const src=window.prompt("Image URL from Media Library");if(src&&/^(https?:\/\/|\/media\/)/i.test(src)){const alt=window.prompt("Describe this image for accessibility (alt text)")||"";editor.chain().focus().setImage({src,alt:alt.trim()}).run()}};
   return <div><div className="flex flex-wrap gap-2 rounded-t-xl border border-b-0 bg-slate-50 p-2">
     <ToolbarButton label="Undo" onClick={()=>editor.chain().focus().undo().run()}/><ToolbarButton label="Redo" onClick={()=>editor.chain().focus().redo().run()}/>
     <ToolbarButton label="H2" active={editor.isActive("heading",{level:2})} onClick={()=>editor.chain().focus().toggleHeading({level:2}).run()}/><ToolbarButton label="H3" active={editor.isActive("heading",{level:3})} onClick={()=>editor.chain().focus().toggleHeading({level:3}).run()}/><ToolbarButton label="H4" active={editor.isActive("heading",{level:4})} onClick={()=>editor.chain().focus().toggleHeading({level:4}).run()}/>

@@ -154,7 +154,10 @@ export default async function HandwritingWorksheetGeneratorPage() {
         <CustomWorksheetBuilder />
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8">
+      {cms?.hero_image_url&&<figure className="mx-auto max-w-6xl px-4 pb-10 sm:px-6 lg:px-8"><img src={cms.hero_image_url} alt={cms.hero_image_alt||cms.display_name} className="mx-auto max-h-[520px] rounded-3xl border bg-white object-contain shadow-sm"/></figure>}
+      {cms?.content_html&&<section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8"><article className="prose prose-slate max-w-none rounded-[32px] border border-slate-200 bg-white p-6 shadow-card sm:p-8" dangerouslySetInnerHTML={{__html:cms.content_html}}/></section>}
+
+      {!cms?.content_html&&<><section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8">
         <div className="grid items-center gap-7 rounded-[32px] border border-slate-200 bg-white p-6 shadow-card lg:grid-cols-[0.9fr,1.1fr] lg:p-9">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand-blue">Current Output Example</p>
@@ -363,6 +366,7 @@ export default async function HandwritingWorksheetGeneratorPage() {
           ))}
         </div>
       </section>
+      </>}
     </main>
   );
 }
